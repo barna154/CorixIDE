@@ -42,7 +42,7 @@ public class Main {
         window.setUndecorated(true); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());
-        window.setBackground(Color.DARK_GRAY);
+        window.setBackground(new Color(60, 60, 60));
 
 
         

@@ -54,10 +54,11 @@ public class Main {
                 label.setFont(new Font("Arial", Font.BOLD, 20));
                 label.setForeground(Color.BLUE);
                 Menu.add(label);
+                window.add(Menu);
         }
     
     
-        window.add(Menu);
+     
         window.setVisible(true);
 
     }

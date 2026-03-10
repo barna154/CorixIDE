@@ -109,7 +109,7 @@ public class Main {
                     }
                 });
                 xpan.add(label3);
-                Manu.add(xpan)
+                Manu.add(xpan);
 
 
                 Menu.addMouseListener(new MouseAdapter() {

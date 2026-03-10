@@ -149,10 +149,7 @@ public class Main {
 
 
 
-        final int RESIZE_MARGIN = 20;
-
-        // Egérmozgás figyelése
-        window.addMouseMotionListener(new MouseMotionAdapter() {
+       window.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 int x = e.getX();
@@ -166,10 +163,18 @@ public class Main {
                     window.setCursor(Cursor.getDefaultCursor());
                 }
             }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (startPt[0] != null) {
+                    int newWidth = e.getXOnScreen() - window.getLocationOnScreen().x;
+                    int newHeight = e.getYOnScreen() - window.getLocationOnScreen().y;
+                    window.setSize(newWidth, newHeight);
+                }
+            }
         });
 
-        // Resize
-        final Point[] startPt = new Point[1];
+        // Resize kezdete
         window.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -177,17 +182,6 @@ public class Main {
                     startPt[0] = e.getPoint();
                 } else {
                     startPt[0] = null;
-                }
-            }
-        });
-
-        window.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                if (startPt[0] != null) {
-                    int newWidth = e.getXOnScreen() - window.getLocationOnScreen().x;
-                    int newHeight = e.getYOnScreen() - window.getLocationOnScreen().y;
-                    window.setSize(newWidth, newHeight);
                 }
             }
         });

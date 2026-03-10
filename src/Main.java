@@ -87,6 +87,22 @@ public class Main {
                 JLabel label3 = new JLabel("x"); 
                 label3.setFont(new Font("Arial", Font.BOLD, 20));
                 label3.setForeground(new Color(118, 118, 118));
+                label3.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        System.out.println("A labelre kattintottál!");
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        label.setForeground(Color.RED); // kurzor fölé érve piros lesz
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        label.setForeground(Color.BLACK); // kurzor elhagyja
+                    }
+                });
                 Menu.add(label3);
 
 

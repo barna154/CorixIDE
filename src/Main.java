@@ -146,6 +146,53 @@ public class Main {
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         window.add(back, BorderLayout.CENTER);
 
+
+
+// Edge margin, ahol elkezdjük a resize-t érzékelni
+        final int RESIZE_MARGIN = 5;
+
+        // Egérmozgás figyelése
+        window.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                int w = window.getWidth();
+                int h = window.getHeight();
+
+                if (x >= w - RESIZE_MARGIN && y >= h - RESIZE_MARGIN) {
+                    window.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+                } else {
+                    window.setCursor(Cursor.getDefaultCursor());
+                }
+            }
+        });
+
+        // Resize
+        final Point[] startPt = new Point[1];
+        window.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (window.getCursor().getType() == Cursor.SE_RESIZE_CURSOR) {
+                    startPt[0] = e.getPoint();
+                } else {
+                    startPt[0] = null;
+                }
+            }
+        });
+
+        window.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (startPt[0] != null) {
+                    int newWidth = e.getXOnScreen() - window.getLocationOnScreen().x;
+                    int newHeight = e.getYOnScreen() - window.getLocationOnScreen().y;
+                    window.setSize(newWidth, newHeight);
+                }
+            }
+        });
+
+
         window.setVisible(true);
     }
 }

@@ -39,10 +39,13 @@ public class Main {
         window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());
+        window.setBackground(Color.GRAY);
 
 
         {
                 JPanel Menu = new JPanel();
+                Menu.setBackground(Color.LIGHT_GRAY);
+
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
                 Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -54,6 +57,8 @@ public class Main {
                 label.setFont(new Font("Arial", Font.BOLD, 20));
                 label.setForeground(Color.BLUE);
                 Menu.add(label);
+
+
                 window.add(Menu);
         }
     

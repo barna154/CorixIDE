@@ -47,13 +47,11 @@ public class Main {
         Image scaledImg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
         JLabel logo = new JLabel(scaledIcon);
-        logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         Menu.add(logo);
 
-        JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
+        JLabel label = new JLabel("Helló világ!"); 
         label.setFont(new Font("Arial", Font.BOLD, 20));
         label.setForeground(Color.BLUE);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
         Menu.add(label);
 
         // Panel hozzáadása az ablakhoz

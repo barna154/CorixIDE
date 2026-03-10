@@ -43,9 +43,9 @@ public class Main {
         window.setBackground(Color.DARK_GRAY);
 
 
-        {
+        
 
-            final int[] mouseOffset = new int[2];
+                final int[] mouseOffset = new int[2];
                 JPanel Menu = new JPanel();
                 Menu.setBackground(Color.GRAY);
                 Menu.setPreferredSize(new Dimension(1080, 100)); // magasság 300px
@@ -75,7 +75,7 @@ public class Main {
                 }); 
 
                 window.add(Menu, BorderLayout.NORTH);
-        }
+        
     
     
      

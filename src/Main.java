@@ -49,7 +49,7 @@ public class Main {
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
         JLabel logo = new JLabel(scaledIcon);
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Menu.add(scaledImg);
+        Menu.add(logo);
 
         JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
         label.setFont(new Font("Arial", Font.BOLD, 20));

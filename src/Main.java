@@ -83,7 +83,8 @@ public class Main {
                 Menu.add(label2);
 
 
-                Menu.add(Box.createRigidArea(new Dimension(750, 0)));
+                JPanel xpan = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 7));
+                xpan.setOpaque(false);
                 JLabel label3 = new JLabel("  X  "); 
                 label3.setFont(new Font("Arial", Font.PLAIN, 20));
                 label3.setForeground(new Color(118, 118, 118));
@@ -107,7 +108,8 @@ public class Main {
                         label3.setBackground(new Color(43, 43, 43));
                     }
                 });
-                Menu.add(label3);
+                xpan.add(label3);
+                Manu.add(xpan)
 
 
                 Menu.addMouseListener(new MouseAdapter() {

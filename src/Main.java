@@ -51,7 +51,7 @@ public class Main {
                 JPanel Menu = new JPanel();
                 Menu.setBackground(new Color(43, 43, 43));
                 Menu.setPreferredSize(new Dimension(1080, 35)); // magasság 300px
-                Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 7));
+                Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 7));
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
@@ -60,6 +60,8 @@ public class Main {
                 JLabel logo = new JLabel(scaledIcon);
                 Menu.add(logo);
 
+
+                Menu.add(Box.createRigidArea(new Dimension(20, 0)));
                 JLabel label = new JLabel(mfile); 
                 label.setFont(new Font("Arial", Font.PLAIN, 18));
                 label.setForeground(new Color(118, 118, 118));

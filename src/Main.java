@@ -40,7 +40,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel Menu = new JPanel();
-        Menu.setLayout(new BoxLayout(Menu, BoxLayout.Y_AXIS)); // függőleges elrendezés
+        Menu.setLayout(new BoxLayout(Menu, BoxLayout.X_AXIS));
         Menu.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");

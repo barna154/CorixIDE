@@ -42,7 +42,7 @@ public class Main {
 
         JFrame window = new JFrame();
         window.setTitle(mtitle);
-        window.setSize(screenWidth, 720);
+        window.setSize(screenWidth, screenHeight);
         window.setUndecorated(true); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());

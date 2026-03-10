@@ -118,10 +118,6 @@ public class Main {
         Menu.add(rightPanel, BorderLayout.EAST);
 
 
-        // ===== MouseListener a mozgatáshoz =====
-
-        Rectangle normalBounds = window.getBounds();
-
         Menu.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseOffset[0] = e.getX();
@@ -133,21 +129,27 @@ public class Main {
                 window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
             }
         });
+       final Rectangle[] normalBounds = new Rectangle[1]; 
+        final Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+
+        normalBounds[0] = window.getBounds(); // kezdeti méret
+
         Menu.addMouseListener(new MouseAdapter() {
             @Override
-        public void mousePressed(MouseEvent e) {
-            mouseOffset[0] = e.getX();
-            mouseOffset[1] = e.getY();
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getClickCount() == 2) {
-                // Ha már teljes képernyős, visszaállítja az eredetire
-                window.setBounds(normalBounds);
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Rectangle current = window.getBounds();
+                    if (current.width == maxBounds.width && current.height == maxBounds.height) {
+                        // már nagy, vissza az előző normál méretre
+                        window.setBounds(normalBounds[0]);
+                    } else {
+                        // elmentjük az aktuális méretet, majd teljes képernyőre váltunk
+                        normalBounds[0] = current;
+                        window.setBounds(maxBounds);
+                    }
+                }
             }
-        }
-       });
+        });
 
  
         JPanel line1 = new JPanel();

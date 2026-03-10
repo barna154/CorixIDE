@@ -81,22 +81,25 @@ public class Main {
                 }); 
 
     
-        
-
-
-
                 JPanel line1 = new JPanel();
                 line1.setBackground(new Color(255, 0, 0));
                 line1.setPreferredSize(new Dimension(1080, 2));
                 line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-        
 
+
+                JPanel back = new JPanel();
+                back.setBackground(new Color(0, 255, 0));
+                back.setPreferredSize(new Dimension(1080, 700));
+                back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
+        
 
                 JPanel northPanel = new JPanel();
                 northPanel.setLayout(new BorderLayout());
-                northPanel.add(Menu, BorderLayout.CENTER);
-                northPanel.add(line1, BorderLayout.SOUTH);
+                northPanel.add(Menu, BorderLayout.NORTH);
+                northPanel.add(line1, BorderLayout.CENTER);
+                northPanel.add(back, BorderLayout.SOUTH);
                 window.add(northPanel, BorderLayout.NORTH);
+
      
         window.setVisible(true);
 

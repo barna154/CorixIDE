@@ -53,6 +53,8 @@ public class Main {
                 Menu.setPreferredSize(new Dimension(1080, 35)); // magasság 300px
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
+
+                Menu.add(Box.createRigidArea(new Dimension(5, 0)));
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
                 Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
@@ -61,9 +63,9 @@ public class Main {
                 Menu.add(logo);
 
 
-                Menu.add(Box.createRigidArea(new Dimension(25, 0)));
+                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
                 JLabel label = new JLabel(mfile); 
-                label.setFont(new Font("Arial", Font.PLAIN, 18));
+                label.setFont(new Font("Arial", Font.PLAIN, 15));
                 label.setForeground(new Color(118, 118, 118));
                 Menu.add(label);
                 Menu.addMouseListener(new MouseAdapter() {

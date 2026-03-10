@@ -44,10 +44,10 @@ public class Main {
         Menu.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");
-        JLabel logo = new JLabel(icon);
         Image img = icon.getImage(); 
-        Image scaledImg = img.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+        Image scaledImg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImg);
+        JLabel logo = new JLabel(scaledIcon);
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
         Menu.add(scaledImg);
 

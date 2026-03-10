@@ -35,9 +35,13 @@ public class Main {
         String medit = getValue("Edit");
         String moptions = getValue("Options");
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        int screenWidth = screenSize.width;
-        int screenHeight = screenSize.height;
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
+
+        int screenWidth = maxBounds.width;
+        int screenHeight = maxBounds.height;
+        int screenX = maxBounds.x;
+        int screenY = maxBounds.y;
 
 
         JFrame window = new JFrame();

@@ -148,45 +148,32 @@ public class Main {
         window.add(back, BorderLayout.CENTER);
 
         final int RESIZE_MARGIN = 5;
-        final Point[] startPt = new Point[1];
         final Rectangle[] startBounds = new Rectangle[1];
+        final Point[] startMouse = new Point[1];
 
-       window.addMouseMotionListener(new MouseMotionAdapter() {
+        window.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseMoved(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                int w = window.getWidth();
-                int h = window.getHeight();
-
-                if (x < RESIZE_MARGIN && y < RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
-                } else if (x > w - RESIZE_MARGIN && y < RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
-                } else if (x < RESIZE_MARGIN && y > h - RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
-                } else if (x > w - RESIZE_MARGIN && y > h - RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
-                } else if (x < RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
-                } else if (x > w - RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                } else if (y < RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
-                } else if (y > h - RESIZE_MARGIN) {
-                    window.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
+            public void mousePressed(MouseEvent e) {
+                int type = window.getCursor().getType();
+                if (type != Cursor.DEFAULT_CURSOR) {
+                    startBounds[0] = window.getBounds();
+                    startMouse[0] = e.getLocationOnScreen(); // FIX: képernyőkoordináták
                 } else {
-                    window.setCursor(Cursor.getDefaultCursor());
+                    startBounds[0] = null;
+                    startMouse[0] = null;
                 }
             }
+        });
 
+        window.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                if (startPt[0] != null && startBounds[0] != null) {
-                    int dx = e.getXOnScreen() - startPt[0].x;
-                    int dy = e.getYOnScreen() - startPt[0].y;
-                    int type = window.getCursor().getType();
+                if (startBounds[0] != null && startMouse[0] != null) {
+                    int dx = e.getXOnScreen() - startMouse[0].x;
+                    int dy = e.getYOnScreen() - startMouse[0].y;
                     Rectangle b = new Rectangle(startBounds[0]);
+
+                    int type = window.getCursor().getType();
 
                     switch (type) {
                         case Cursor.NW_RESIZE_CURSOR:
@@ -225,7 +212,6 @@ public class Main {
                             break;
                     }
 
-                    // minimális méret
                     if (b.width < 200) b.width = 200;
                     if (b.height < 150) b.height = 150;
 

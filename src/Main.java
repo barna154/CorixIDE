@@ -68,8 +68,16 @@ public class Main {
                 label.setFont(new Font("Arial", Font.PLAIN, 15));
                 label.setForeground(new Color(118, 118, 118));
                 Menu.add(label);
+
+                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
+                JLabel label1 = new JLabel(mfile); 
+                label1.setFont(new Font("Arial", Font.PLAIN, 15));
+                label1.setForeground(new Color(118, 118, 118));
+                Menu.add(label1);
+
+
                 Menu.addMouseListener(new MouseAdapter() {
-                    public void mousePressed(MouseEvent e) {
+                public void mousePressed(MouseEvent e) {
                         mouseOffset[0] = e.getX();
                         mouseOffset[1] = e.getY();
                     }

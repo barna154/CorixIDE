@@ -38,11 +38,19 @@ public class Main {
         window.setTitle(title);
         window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
-
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");
-        JLabel label = new JLabel(icon);
+        JLabel logo = new JLabel(icon);
+
+        JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
+        
+        
         window.add(label);
+        window.add(logo);
+
+
+
+        window.setVisible(true);
+
     }
 }

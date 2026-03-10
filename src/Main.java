@@ -32,7 +32,8 @@ public class Main {
         String mtitle = getValue("Title");
         String mfile = getValue("File");
         String medit = getValue("Edit");
-     
+        String moptions = getValue("Options");
+
 
 
 
@@ -70,10 +71,16 @@ public class Main {
                 Menu.add(label);
 
                 Menu.add(Box.createRigidArea(new Dimension(15, 0)));
-                JLabel label1 = new JLabel(mfile); 
+                JLabel label1 = new JLabel(medit); 
                 label1.setFont(new Font("Arial", Font.PLAIN, 15));
                 label1.setForeground(new Color(118, 118, 118));
                 Menu.add(label1);
+
+                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
+                JLabel label2 = new JLabel(moptions); 
+                label2.setFont(new Font("Arial", Font.PLAIN, 15));
+                label2.setForeground(new Color(118, 118, 118));
+                Menu.add(label2);
 
 
                 Menu.addMouseListener(new MouseAdapter() {

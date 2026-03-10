@@ -44,6 +44,8 @@ public class Main {
 
 
         {
+
+            final int[] mouseOffset = new int[2];
                 JPanel Menu = new JPanel();
                 Menu.setBackground(Color.GRAY);
                 Menu.setPreferredSize(new Dimension(1080, 100)); // magasság 300px
@@ -60,19 +62,17 @@ public class Main {
                 label.setFont(new Font("Arial", Font.BOLD, 20));
                 label.setForeground(Color.BLUE);
                 Menu.add(label);
-
                 Menu.addMouseListener(new MouseAdapter() {
-                int mouseX, mouseY;
                     public void mousePressed(MouseEvent e) {
-                        mouseX = e.getX();
-                        mouseY = e.getY();
+                        mouseOffset[0] = e.getX();
+                        mouseOffset[1] = e.getY();
                     }
                 });
                 Menu.addMouseMotionListener(new MouseMotionAdapter() {
                     public void mouseDragged(MouseEvent e) {
-                        window.setLocation(e.getXOnScreen() - mouseX, e.getYOnScreen() - mouseY);
+                        window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
                     }
-                });
+                }); 
 
                 window.add(Menu, BorderLayout.NORTH);
         }

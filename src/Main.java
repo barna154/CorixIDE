@@ -1,16 +1,27 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        // JSON fájl beolvasása sztringként
-        String content = new String(Files.readAllBytes(Paths.get("../lang/lang.json")));
-        // Egyszerű keresés a "Title" kulcshoz
-        String key = "\"Title\":";
-        int start = content.indexOf(key);
-        int end = content.indexOf("\"", start + key.length() + 1);
-        String title = content.substring(start + key.length() + 2, end); // 2 = idézőjel és szóköz
+ 
+
+        File file = new File("../lang/lang.json"); // igazítsd az útvonalat
+        Scanner sc = new Scanner(file);
+        String title = "";
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine().trim();
+            if (line.startsWith("\"Title\"")) {
+                // Kivágjuk a "Title": "..." részt
+                int firstQuote = line.indexOf("\"", 8); // az első idézőjel a kulcs után
+                int secondQuote = line.indexOf("\"", firstQuote + 1);
+                title = line.substring(firstQuote + 1, secondQuote);
+                break;
+            }
+        }
+        sc.close();
 
         // JFrame létrehozása
         JFrame window = new JFrame();

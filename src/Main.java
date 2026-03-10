@@ -48,7 +48,7 @@ public class Main {
 
                 final int[] mouseOffset = new int[2];
                 JPanel Menu = new JPanel();
-                Menu.setBackground(Color.GRAY);
+                Menu.setBackground(Color.BLACK);
                 Menu.setPreferredSize(new Dimension(1080, 30)); // magasság 300px
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT));
 

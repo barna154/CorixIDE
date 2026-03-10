@@ -1,5 +1,6 @@
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.File; 
 import java.util.Scanner;
 import javax.swing.JFrame;
 
@@ -7,15 +8,14 @@ public class Main {
     public static void main(String[] args) throws Exception {
  
 
-        File file = new File("../lang/lang.json"); // igazítsd az útvonalat
+        File file = new File("../lang/lang.json");
         Scanner sc = new Scanner(file);
         String title = "";
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine().trim();
             if (line.startsWith("\"Title\"")) {
-                // Kivágjuk a "Title": "..." részt
-                int firstQuote = line.indexOf("\"", 8); // az első idézőjel a kulcs után
+                int firstQuote = line.indexOf("\"", 8); 
                 int secondQuote = line.indexOf("\"", firstQuote + 1);
                 title = line.substring(firstQuote + 1, secondQuote);
                 break;

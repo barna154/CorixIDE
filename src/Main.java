@@ -54,7 +54,7 @@ public class Main {
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
 
-                Menu.add(Box.createRigidArea(new Dimension(5, 0)));
+                Menu.add(Box.createRigidArea(new Dimension(10, 0)));
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
                 Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);

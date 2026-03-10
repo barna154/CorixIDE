@@ -41,7 +41,6 @@ public class Main {
 
         JPanel Menu = new JPanel();
         Menu.setLayout(new BoxLayout(Menu, BoxLayout.X_AXIS));
-        Menu.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         Image img = icon.getImage(); 

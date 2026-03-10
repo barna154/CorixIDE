@@ -45,6 +45,7 @@ public class Main {
         {
                 JPanel Menu = new JPanel();
                 Menu.setBackground(Color.LIGHT_GRAY);
+                Manu.setSize(1080, 100);
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 

@@ -83,9 +83,9 @@ public class Main {
                 Menu.add(label2);
 
 
-                Menu.add(Box.createRigidArea(new Dimension(700, 0)));
+                Menu.add(Box.createRigidArea(new Dimension(900, 0)));
                 JLabel label3 = new JLabel("x"); 
-                label3.setFont(new Font("Arial", Font.PLAIN, 30));
+                label3.setFont(new Font("Arial", Font.PLAIN, 20));
                 label3.setForeground(new Color(118, 118, 118));
                 label3.addMouseListener(new MouseAdapter() {
                     @Override

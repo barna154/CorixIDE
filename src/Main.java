@@ -50,7 +50,7 @@ public class Main {
                 final int[] mouseOffset = new int[2];
                 JPanel Menu = new JPanel();
                 Menu.setBackground(new Color(43, 43, 43));
-                Menu.setPreferredSize(new Dimension(1080, 35)); // magasság 300px
+                Menu.setPreferredSize(new Dimension(1080, 35));
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
 
@@ -82,8 +82,15 @@ public class Main {
 
                 window.add(Menu, BorderLayout.NORTH);
         
-    
-    
+
+
+
+                JPanel line1 = new JPanel();
+                line1.setBackground(new Color(255, 0, 0));
+                line1.setPreferredSize(new Dimension(1080, 2));
+                line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
+                window.add(line1, BorderLayout.NORTH);
+
      
         window.setVisible(true);
 

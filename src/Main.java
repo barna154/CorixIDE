@@ -83,6 +83,13 @@ public class Main {
                 Menu.add(label2);
 
 
+                Menu.add(Box.createRigidArea(new Dimension(700, 0)));
+                JLabel label3 = new JLabel("X"); 
+                label3.setFont(new Font("Arial", Font.PLAIN, 15));
+                label3.setForeground(new Color(118, 118, 118));
+                Menu.add(label3);
+
+
                 Menu.addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                         mouseOffset[0] = e.getX();

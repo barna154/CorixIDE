@@ -28,15 +28,21 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+
         // STRINGLIST
         String mtitle = getValue("Title");
         String mfile = getValue("File");
         String medit = getValue("Edit");
         String moptions = getValue("Options");
 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+
         JFrame window = new JFrame();
         window.setTitle(mtitle);
-        window.setSize(1080, 720);
+        window.setSize(screenWidth, 720);
         window.setUndecorated(true); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());

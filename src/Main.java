@@ -41,12 +41,13 @@ public class Main {
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         JLabel logo = new JLabel(icon);
+        window.add(logo);
 
         JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
-        
-        
+        label.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
+        label.setForeground(java.awt.Color.BLUE);
         window.add(label);
-        window.add(logo);
+    
 
 
 

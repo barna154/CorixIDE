@@ -45,7 +45,7 @@ public class Main {
                 JPanel Menu = new JPanel();
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
-                Image scaledImg = img.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
                 ImageIcon scaledIcon = new ImageIcon(scaledImg);
                 JLabel logo = new JLabel(scaledIcon);
                 Menu.add(logo);

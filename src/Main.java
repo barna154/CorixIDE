@@ -90,17 +90,17 @@ public class Main {
                 label3.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        System.out.println("A labelre kattintottál!");
+                         System.exit(0)
                     }
 
                     @Override
                     public void mouseEntered(MouseEvent e) {
-                        label.setForeground(Color.RED); // kurzor fölé érve piros lesz
+                        label3.setForeground(Color.WHITE);
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        label.setForeground(Color.BLACK); // kurzor elhagyja
+                        label3.setForeground(new Color(118, 118, 118));
                     }
                 });
                 Menu.add(label3);

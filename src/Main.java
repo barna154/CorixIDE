@@ -88,8 +88,7 @@ public class Main {
                 JPanel line1 = new JPanel();
                 line1.setBackground(new Color(255, 0, 0));
                 line1.setPreferredSize(new Dimension(1080, 2));
-                line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-                window.add(line1, BorderLayout.NORTH);
+                window.add(line1);
 
      
         window.setVisible(true);

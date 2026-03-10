@@ -220,20 +220,6 @@ public class Main {
             }
         });
 
-        window.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int type = window.getCursor().getType();
-                if (type != Cursor.DEFAULT_CURSOR) {
-                    startPt[0] = e.getPoint();
-                    startBounds[0] = window.getBounds();
-                } else {
-                    startPt[0] = null;
-                    startBounds[0] = null;
-                }
-            }
-        });
-
         window.setVisible(true);
     }
 }

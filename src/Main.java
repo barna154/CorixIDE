@@ -5,8 +5,7 @@ import javax.swing.JFrame;
 public class Main {
     public static void main(String[] args) throws Exception {
         // JSON fájl beolvasása sztringként
-        String content = new String(Files.readAllBytes(Paths.get("lang/lang.json")));
-
+        String content = new String(Files.readAllBytes(Paths.get("../lang/lang.json")));
         // Egyszerű keresés a "Title" kulcshoz
         String key = "\"Title\":";
         int start = content.indexOf(key);

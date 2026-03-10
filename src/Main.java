@@ -1,21 +1,21 @@
-import java.awt.*;
-import javax.swing.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import org.json.JSONObject;
+import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
-        // JSON fájl beolvasása
+        // JSON fájl beolvasása sztringként
         String content = new String(Files.readAllBytes(Paths.get("lang/lang.json")));
-        JSONObject obj = new JSONObject(content);
 
-        String Title = obj.getString("Title");
+        // Egyszerű keresés a "Title" kulcshoz
+        String key = "\"Title\":";
+        int start = content.indexOf(key);
+        int end = content.indexOf("\"", start + key.length() + 1);
+        String title = content.substring(start + key.length() + 2, end); // 2 = idézőjel és szóköz
 
         // JFrame létrehozása
         JFrame window = new JFrame();
-        window.setTitle(Title);
+        window.setTitle(title);
         window.setSize(400, 300);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);

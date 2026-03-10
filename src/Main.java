@@ -39,13 +39,13 @@ public class Main {
         window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());
-        window.setBackground(Color.GRAY);
+        window.setBackground(Color.DARK_GRAY);
 
 
         {
                 JPanel Menu = new JPanel();
-                Menu.setBackground(Color.DARK_GRAY);
-                Menu.setSize(1080, 100);
+                Menu.setBackground(Color.GRAY);
+                Menu.setSize(1080, 300);
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 

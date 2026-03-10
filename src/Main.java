@@ -61,7 +61,7 @@ public class Main {
                 Menu.add(logo);
 
 
-                Menu.add(Box.createRigidArea(new Dimension(10, 0)));
+                Menu.add(Box.createRigidArea(new Dimension(5, 0)));
                 JLabel label = new JLabel(mfile); 
                 label.setFont(new Font("Arial", Font.PLAIN, 18));
                 label.setForeground(new Color(118, 118, 118));

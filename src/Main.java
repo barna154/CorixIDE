@@ -45,7 +45,7 @@ public class Main {
         {
                 JPanel Menu = new JPanel();
                 Menu.setBackground(Color.GRAY);
-                Menu.setSize(1080, 300);
+                Menu.setPreferredSize(new Dimension(1080, 300)); // magasság 300px
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
@@ -60,7 +60,7 @@ public class Main {
                 Menu.add(label);
 
 
-                window.add(Menu);
+                window.add(Menu, BorderLayout.NORTH);
         }
     
     

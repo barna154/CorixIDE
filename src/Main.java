@@ -37,6 +37,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setTitle(title);
         window.setSize(1080, 720);
+        window.setUndecorated(true); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());
         window.setBackground(Color.DARK_GRAY);

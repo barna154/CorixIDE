@@ -107,9 +107,9 @@ public class Main {
                         label3.setOpaque(true); 
                         label3.setBackground(new Color(43, 43, 43));
                     }
-                });
+                  });
                 xpan.add(label3);
-                Manu.add(xpan);
+                Menu.add(xpan);
 
 
                 Menu.addMouseListener(new MouseAdapter() {

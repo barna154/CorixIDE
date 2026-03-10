@@ -3,6 +3,8 @@ import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
 import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
 

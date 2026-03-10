@@ -147,7 +147,8 @@ public class Main {
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         window.add(back, BorderLayout.CENTER);
 
-
+        final int RESIZE_MARGIN = 5;
+        final Point[] startPt = new Point[1];
 
        window.addMouseMotionListener(new MouseMotionAdapter() {
             @Override

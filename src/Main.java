@@ -117,7 +117,11 @@ public class Main {
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
 
+
         // ===== MouseListener a mozgatáshoz =====
+
+        Rectangle normalBounds = window.getBounds();
+
         Menu.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseOffset[0] = e.getX();
@@ -129,6 +133,21 @@ public class Main {
                 window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
             }
         });
+        Menu.addMouseListener(new MouseAdapter() {
+            @Override
+        public void mousePressed(MouseEvent e) {
+            mouseOffset[0] = e.getX();
+            mouseOffset[1] = e.getY();
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() == 2) {
+                // Ha már teljes képernyős, visszaállítja az eredetire
+                window.setBounds(normalBounds);
+            }
+        }
+       });
 
  
         JPanel line1 = new JPanel();

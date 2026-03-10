@@ -96,12 +96,14 @@ public class Main {
                     @Override
                     public void mouseEntered(MouseEvent e) {
                         label3.setForeground(Color.WHITE);
+                        label3.setOpaque(true); 
                         label3.setBackground(Color.Red);
                     }
 
                     @Override
                     public void mouseExited(MouseEvent e) {
                         label3.setForeground(new Color(118, 118, 118));
+                        label3.setOpaque(true); 
                         label3.setBackground(new Color(43, 43, 43));
                     }
                 });

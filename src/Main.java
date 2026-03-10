@@ -49,7 +49,7 @@ public class Main {
                 final int[] mouseOffset = new int[2];
                 JPanel Menu = new JPanel();
                 Menu.setBackground(new Color(43, 43, 43));
-                Menu.setPreferredSize(new Dimension(1080, 30)); // magasság 300px
+                Menu.setPreferredSize(new Dimension(1080, 40)); // magasság 300px
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT));
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");

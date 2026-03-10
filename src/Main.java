@@ -61,7 +61,7 @@ public class Main {
                 Menu.add(logo);
 
                 JLabel label = new JLabel(mfile); 
-                label.setFont(new Font("Arial", Font.BOLD, 20));
+                label.setFont(new Font("Arial", 18));
                 label.setForeground(new Color(118, 118, 118));
                 Menu.add(label);
                 Menu.addMouseListener(new MouseAdapter() {

@@ -9,9 +9,9 @@ import java.awt.*;
 
 public class Main {
 
-    //LANGUAGE SCANNER
+    // LANGUAGE SCANNER
     public static String getValue(String key) throws Exception {
-        Scanner sc = new Scanner(new File("../lang/lang.json")); 
+        Scanner sc = new Scanner(new File("../lang/lang.json"));
         String value = "";
         while (sc.hasNextLine()) {
             String line = sc.nextLine().trim();
@@ -34,9 +34,6 @@ public class Main {
         String medit = getValue("Edit");
         String moptions = getValue("Options");
 
-
-
-
         JFrame window = new JFrame();
         window.setTitle(mtitle);
         window.setSize(1080, 720);
@@ -45,107 +42,100 @@ public class Main {
         window.setLayout(new BorderLayout());
         window.setBackground(new Color(60, 60, 60));
 
+        // ===== Custom Title Bar =====
+        final int[] mouseOffset = new int[2];
+        JPanel Menu = new JPanel(new BorderLayout());
+        Menu.setBackground(new Color(43, 43, 43));
+        Menu.setPreferredSize(new Dimension(1080, 35));
 
-        
+        // ----- Bal oldal: logo + menüpontok -----
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 7));
+        leftPanel.setOpaque(false);
 
-                final int[] mouseOffset = new int[2];
-                JPanel Menu = new JPanel();
-                Menu.setBackground(new Color(43, 43, 43));
-                Menu.setPreferredSize(new Dimension(1080, 35));
-                Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
+        // Logo
+        ImageIcon icon = new ImageIcon("../gui/logo.png");
+        Image img = icon.getImage();
+        Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
 
+        // Menüpontok
+        JLabel labelFile = new JLabel(mfile);
+        labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
+        labelFile.setForeground(new Color(118, 118, 118));
+        leftPanel.add(labelFile);
 
-                Menu.add(Box.createRigidArea(new Dimension(10, 0)));
-                ImageIcon icon = new ImageIcon("../gui/logo.png");
-                Image img = icon.getImage(); 
-                Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-                ImageIcon scaledIcon = new ImageIcon(scaledImg);
-                JLabel logo = new JLabel(scaledIcon);
-                Menu.add(logo);
+        JLabel labelEdit = new JLabel(medit);
+        labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
+        labelEdit.setForeground(new Color(118, 118, 118));
+        leftPanel.add(labelEdit);
 
+        JLabel labelOptions = new JLabel(moptions);
+        labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
+        labelOptions.setForeground(new Color(118, 118, 118));
+        leftPanel.add(labelOptions);
 
-                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
-                JLabel label = new JLabel(mfile); 
-                label.setFont(new Font("Arial", Font.PLAIN, 15));
-                label.setForeground(new Color(118, 118, 118));
-                Menu.add(label);
+        Menu.add(leftPanel, BorderLayout.WEST);
 
-                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
-                JLabel label1 = new JLabel(medit); 
-                label1.setFont(new Font("Arial", Font.PLAIN, 15));
-                label1.setForeground(new Color(118, 118, 118));
-                Menu.add(label1);
+        // ----- Jobb oldal: bezáró gomb -----
+        JLabel closeBtn = new JLabel("  X  ");
+        closeBtn.setFont(new Font("Arial", Font.PLAIN, 20));
+        closeBtn.setForeground(new Color(118, 118, 118));
+        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        closeBtn.setOpaque(true);
+        closeBtn.setBackground(new Color(43, 43, 43));
 
-                Menu.add(Box.createRigidArea(new Dimension(15, 0)));
-                JLabel label2 = new JLabel(moptions); 
-                label2.setFont(new Font("Arial", Font.PLAIN, 15));
-                label2.setForeground(new Color(118, 118, 118));
-                Menu.add(label2);
+        closeBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                closeBtn.setForeground(Color.WHITE);
+                closeBtn.setBackground(Color.RED);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closeBtn.setForeground(new Color(118, 118, 118));
+                closeBtn.setBackground(new Color(43, 43, 43));
+            }
+        });
 
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 7));
+        rightPanel.setOpaque(false);
+        rightPanel.add(closeBtn);
+        Menu.add(rightPanel, BorderLayout.EAST);
 
-                JPanel xpan = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 7));
-                xpan.setOpaque(false);
-                JLabel label3 = new JLabel("  X  "); 
-                label3.setFont(new Font("Arial", Font.PLAIN, 20));
-                label3.setForeground(new Color(118, 118, 118));
-                label3.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                         System.exit(0);
-                    }
+        // ===== MouseListener a mozgatáshoz =====
+        Menu.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                mouseOffset[0] = e.getX();
+                mouseOffset[1] = e.getY();
+            }
+        });
+        Menu.addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
+            }
+        });
 
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        label3.setForeground(Color.WHITE);
-                        label3.setOpaque(true); 
-                        label3.setBackground(Color.RED);
-                    }
+        // ===== Vonalsáv a címsáv alatt =====
+        JPanel line1 = new JPanel();
+        line1.setBackground(new Color(117, 117, 117));
+        line1.setPreferredSize(new Dimension(1080, 1));
 
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        label3.setForeground(new Color(118, 118, 118));
-                        label3.setOpaque(true); 
-                        label3.setBackground(new Color(43, 43, 43));
-                    }
-                  });
-                xpan.add(label3);
-                Menu.add(xpan, BorderLayout.EAST);
+        JPanel northPanel = new JPanel(new BorderLayout());
+        northPanel.add(Menu, BorderLayout.NORTH);
+        northPanel.add(line1, BorderLayout.SOUTH);
 
+        window.add(northPanel, BorderLayout.NORTH);
 
-                Menu.addMouseListener(new MouseAdapter() {
-                public void mousePressed(MouseEvent e) {
-                        mouseOffset[0] = e.getX();
-                        mouseOffset[1] = e.getY();
-                    }
-                });
-                Menu.addMouseMotionListener(new MouseMotionAdapter() {
-                    public void mouseDragged(MouseEvent e) {
-                        window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
-                    }
-                }); 
+        // ===== Háttér panel =====
+        JPanel back = new JPanel();
+        back.setBackground(new Color(90, 90, 90));
+        back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
+        window.add(back, BorderLayout.CENTER);
 
-    
-                JPanel line1 = new JPanel();
-                line1.setBackground(new Color(117, 117, 117));
-                line1.setPreferredSize(new Dimension(1080, 1));
-                line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-
-
-                JPanel back = new JPanel();
-                back.setBackground(new Color(90, 90, 90));
-                back.setPreferredSize(new Dimension(1080, 700));
-                back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-        
-
-                JPanel northPanel = new JPanel();
-                northPanel.setLayout(new BorderLayout());
-                northPanel.add(Menu, BorderLayout.NORTH);
-                northPanel.add(line1, BorderLayout.CENTER);
-                northPanel.add(back, BorderLayout.SOUTH);
-                window.add(northPanel, BorderLayout.NORTH);
-
-     
         window.setVisible(true);
-
     }
 }

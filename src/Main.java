@@ -29,14 +29,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         // STRINGLIST
-        String title = getValue("Title");
+        String mtitle = getValue("Title");
+        String mfile = getValue("File");
 
      
 
 
 
         JFrame window = new JFrame();
-        window.setTitle(title);
+        window.setTitle(mtitle);
         window.setSize(1080, 720);
         window.setUndecorated(true); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,9 +60,9 @@ public class Main {
                 JLabel logo = new JLabel(scaledIcon);
                 Menu.add(logo);
 
-                JLabel label = new JLabel("Helló világ!"); 
+                JLabel label = new JLabel(mfile); 
                 label.setFont(new Font("Arial", Font.BOLD, 20));
-                label.setForeground(Color.BLUE);
+                label.setForeground(new Color(118, 118, 118));
                 Menu.add(label);
                 Menu.addMouseListener(new MouseAdapter() {
                     public void mousePressed(MouseEvent e) {

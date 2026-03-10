@@ -46,7 +46,7 @@ public class Main {
         {
                 JPanel Menu = new JPanel();
                 Menu.setBackground(Color.GRAY);
-                Menu.setPreferredSize(new Dimension(1080, 300)); // magasság 300px
+                Menu.setPreferredSize(new Dimension(1080, 100)); // magasság 300px
                 Menu.setLayout(new FlowLayout(FlowLayout.LEFT));
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
@@ -61,6 +61,18 @@ public class Main {
                 label.setForeground(Color.BLUE);
                 Menu.add(label);
 
+                Menu.addMouseListener(new MouseAdapter() {
+                int mouseX, mouseY;
+                    public void mousePressed(MouseEvent e) {
+                        mouseX = e.getX();
+                        mouseY = e.getY();
+                    }
+                });
+                Menu.addMouseMotionListener(new MouseMotionAdapter() {
+                    public void mouseDragged(MouseEvent e) {
+                        window.setLocation(e.getXOnScreen() - mouseX, e.getYOnScreen() - mouseY);
+                    }
+                });
 
                 window.add(Menu, BorderLayout.NORTH);
         }

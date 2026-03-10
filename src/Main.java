@@ -130,7 +130,6 @@ public class Main {
             }
         });
        final Rectangle[] normalBounds = new Rectangle[1]; 
-        final Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 
         normalBounds[0] = window.getBounds(); // kezdeti méret
 

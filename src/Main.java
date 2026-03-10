@@ -148,7 +148,6 @@ public class Main {
 
 
 
-// Edge margin, ahol elkezdjük a resize-t érzékelni
         final int RESIZE_MARGIN = 5;
 
         // Egérmozgás figyelése

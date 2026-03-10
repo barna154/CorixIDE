@@ -7,23 +7,30 @@ import javax.swing.JFrame;
 public class Main {
     public static void main(String[] args) throws Exception {
  
-
-        File file = new File("../lang/lang.json");
-        Scanner sc = new Scanner(file);
-        String title = "";
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine().trim();
-            if (line.startsWith("\"Title\"")) {
-                int firstQuote = line.indexOf("\"", 8); 
-                int secondQuote = line.indexOf("\"", firstQuote + 1);
-                title = line.substring(firstQuote + 1, secondQuote);
-                break;
+        //SCANNER a stringekhez
+        public static String getValue(String key, Scanner sc) {
+              sc = new Scanner(new File("../lang/lang.json")); 
+                String value = "";
+              while (sc.hasNextLine()) {
+                    String line = sc.nextLine().trim();
+                         if (line.startsWith("\"" + key + "\"")) {
+                              int firstQuote = line.indexOf("\"", key.length() + 2);
+                              int secondQuote = line.indexOf("\"", firstQuote + 1);
+                               value = line.substring(firstQuote + 1, secondQuote);
+                        break;
+                         }
+                  }
+                    sc.close();
+                return value;
+            
             }
-        }
-        sc.close();
 
-        // JFrame létrehozása
+        //STRINGLIST
+            String title = getValue("Title", null);
+
+   
+
+
         JFrame window = new JFrame();
         window.setTitle(title);
         window.setSize(400, 300);

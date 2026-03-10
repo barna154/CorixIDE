@@ -39,18 +39,26 @@ public class Main {
         window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+          // Panel a komponensekhez
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // függőleges elrendezés
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        // Kép hozzáadása
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         JLabel logo = new JLabel(icon);
-        window.add(logo);
+        logo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(logo);
 
+        // Szöveg hozzáadása
         JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
-        label.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20));
-        label.setForeground(java.awt.Color.BLUE);
-        window.add(label);
-    
+        label.setFont(new Font("Arial", Font.BOLD, 20));
+        label.setForeground(Color.BLUE);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.add(label);
 
-
-
+        // Panel hozzáadása az ablakhoz
+        window.add(panel);
         window.setVisible(true);
 
     }

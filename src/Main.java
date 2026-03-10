@@ -31,7 +31,7 @@ public class Main {
         // STRINGLIST
         String mtitle = getValue("Title");
         String mfile = getValue("File");
-
+        String medit = getValue("Edit");
      
 
 

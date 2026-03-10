@@ -45,8 +45,11 @@ public class Main {
 
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         JLabel logo = new JLabel(icon);
+        Image img = icon.getImage(); 
+        Image scaledImg = img.getScaledInstance(200, 150, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImg);
         logo.setAlignmentX(Component.CENTER_ALIGNMENT);
-        Menu.add(logo);
+        Menu.add(scaledImg);
 
         JLabel label = new JLabel("Helló világ!", JLabel.CENTER); 
         label.setFont(new Font("Arial", Font.BOLD, 20));

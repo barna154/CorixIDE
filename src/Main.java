@@ -83,7 +83,7 @@ public class Main {
     
                 JPanel line1 = new JPanel();
                 line1.setBackground(new Color(117, 117, 117));
-                line1.setPreferredSize(new Dimension(1080, 2));
+                line1.setPreferredSize(new Dimension(1080, 1));
                 line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
 

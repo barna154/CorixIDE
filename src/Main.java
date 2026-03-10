@@ -38,23 +38,27 @@ public class Main {
         window.setTitle(title);
         window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setLayout(new BorderLayout());
 
-        JPanel Menu = new JPanel();
-        Menu.setLayout(new BoxLayout(Menu, BoxLayout.X_AXIS));
 
-        ImageIcon icon = new ImageIcon("../gui/logo.png");
-        Image img = icon.getImage(); 
-        Image scaledImg = img.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-        ImageIcon scaledIcon = new ImageIcon(scaledImg);
-        JLabel logo = new JLabel(scaledIcon);
-        Menu.add(logo);
+        {
+                JPanel Menu = new JPanel();
+                Menu.setLayout(new BorderLayout());
 
-        JLabel label = new JLabel("Helló világ!"); 
-        label.setFont(new Font("Arial", Font.BOLD, 20));
-        label.setForeground(Color.BLUE);
-        Menu.add(label);
+                ImageIcon icon = new ImageIcon("../gui/logo.png");
+                Image img = icon.getImage(); 
+                Image scaledImg = img.getScaledInstance(10, 10, Image.SCALE_SMOOTH);
+                ImageIcon scaledIcon = new ImageIcon(scaledImg);
+                JLabel logo = new JLabel(scaledIcon);
+                Menu.add(logo);
 
-        // Panel hozzáadása az ablakhoz
+                JLabel label = new JLabel("Helló világ!"); 
+                label.setFont(new Font("Arial", Font.BOLD, 20));
+                label.setForeground(Color.BLUE);
+                Menu.add(label);
+        }
+    
+    
         window.add(Menu);
         window.setVisible(true);
 

@@ -82,13 +82,13 @@ public class Main {
 
     
                 JPanel line1 = new JPanel();
-                line1.setBackground(new Color(255, 0, 0));
+                line1.setBackground(new Color(117, 117, 117));
                 line1.setPreferredSize(new Dimension(1080, 2));
                 line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
 
                 JPanel back = new JPanel();
-                back.setBackground(new Color(0, 255, 0));
+                back.setBackground(new Color(90, 90, 90));
                 back.setPreferredSize(new Dimension(1080, 700));
                 back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         

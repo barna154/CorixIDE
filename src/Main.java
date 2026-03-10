@@ -80,7 +80,7 @@ public class Main {
                     }
                 }); 
 
-                window.add(Menu, BorderLayout.NORTH);
+    
         
 
 
@@ -89,8 +89,14 @@ public class Main {
                 line1.setBackground(new Color(255, 0, 0));
                 line1.setPreferredSize(new Dimension(1080, 2));
                 line1.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-                window.add(line1, BorderLayout.SOUTH);
+        
 
+
+                JPanel northPanel = new JPanel();
+                northPanel.setLayout(new BorderLayout());
+                northPanel.add(Menu, BorderLayout.CENTER);
+                northPanel.add(line1, BorderLayout.SOUTH);
+                window.add(northPanel, BorderLayout.NORTH);
      
         window.setVisible(true);
 

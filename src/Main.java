@@ -51,7 +51,7 @@ public class Main {
                 JPanel Menu = new JPanel();
                 Menu.setBackground(new Color(43, 43, 43));
                 Menu.setPreferredSize(new Dimension(1080, 35)); // magasság 300px
-                Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 7));
+                Menu.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 

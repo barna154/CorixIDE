@@ -43,8 +43,6 @@ public class Main {
 
         {
                 JPanel Menu = new JPanel();
-                Menu.setLayout(new BorderLayout());
-
                 ImageIcon icon = new ImageIcon("../gui/logo.png");
                 Image img = icon.getImage(); 
                 Image scaledImg = img.getScaledInstance(10, 10, Image.SCALE_SMOOTH);

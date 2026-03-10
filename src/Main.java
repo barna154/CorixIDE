@@ -76,9 +76,9 @@ public class Main {
 
         Menu.add(leftPanel, BorderLayout.WEST);
 
-        // ----- Jobb oldal: bezáró gomb -----
+
         JLabel closeBtn = new JLabel("  X  ");
-        closeBtn.setFont(new Font("Arial", Font.PLAIN, 20));
+        closeBtn.setFont(new Font("Arial", Font.PLAIN, 30));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);
@@ -119,7 +119,7 @@ public class Main {
             }
         });
 
-        // ===== Vonalsáv a címsáv alatt =====
+ 
         JPanel line1 = new JPanel();
         line1.setBackground(new Color(117, 117, 117));
         line1.setPreferredSize(new Dimension(1080, 1));
@@ -130,7 +130,7 @@ public class Main {
 
         window.add(northPanel, BorderLayout.NORTH);
 
-        // ===== Háttér panel =====
+
         JPanel back = new JPanel();
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));

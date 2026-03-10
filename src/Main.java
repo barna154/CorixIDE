@@ -77,7 +77,7 @@ public class Main {
         Menu.add(leftPanel, BorderLayout.WEST);
 
 
-        JLabel closeBtn = new JLabel("  X  ");
+        JLabel closeBtn = new JLabel("  x  ");
         closeBtn.setFont(new Font("Arial", Font.PLAIN, 30));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));

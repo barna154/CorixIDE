@@ -109,7 +109,7 @@ public class Main {
                     }
                   });
                 xpan.add(label3);
-               
+                Menu.add(xpan, BorderLayout.EAST);
 
 
                 Menu.addMouseListener(new MouseAdapter() {
@@ -142,7 +142,6 @@ public class Main {
                 northPanel.add(Menu, BorderLayout.NORTH);
                 northPanel.add(line1, BorderLayout.CENTER);
                 northPanel.add(back, BorderLayout.SOUTH);
-                northPanel.add(xpan);
                 window.add(northPanel, BorderLayout.NORTH);
 
      

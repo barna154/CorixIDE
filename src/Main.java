@@ -84,8 +84,8 @@ public class Main {
 
 
                 Menu.add(Box.createRigidArea(new Dimension(700, 0)));
-                JLabel label3 = new JLabel("X"); 
-                label3.setFont(new Font("Arial", Font.PLAIN, 15));
+                JLabel label3 = new JLabel("x"); 
+                label3.setFont(new Font("Arial", Font.BOLD, 20));
                 label3.setForeground(new Color(118, 118, 118));
                 Menu.add(label3);
 

@@ -51,6 +51,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(new BorderLayout());
         window.setBackground(new Color(60, 60, 60));
+        window.setMinimumSize(new Dimension(400, 300));
 
         // ===== Custom Title Bar =====
         final int[] mouseOffset = new int[2];
@@ -148,7 +149,7 @@ public class Main {
 
 
 
-        final int RESIZE_MARGIN = 5;
+        final int RESIZE_MARGIN = 20;
 
         // Egérmozgás figyelése
         window.addMouseMotionListener(new MouseMotionAdapter() {

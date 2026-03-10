@@ -31,11 +31,16 @@ public class Main {
      
 
 
-     
+
         JFrame window = new JFrame();
         window.setTitle(title);
-        window.setSize(400, 300);
+        window.setSize(1080, 720);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
+
+
+        ImageIcon icon = new ImageIcon("../gui/logo.png");
+        JLabel label = new JLabel(icon);
+        window.add(label);
     }
 }

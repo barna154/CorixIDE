@@ -148,7 +148,7 @@ public class Main {
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);
                 maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 20));
-                maximize.setBackground(Color.GRAY);
+                maximize.setBackground(new Color(50, 50, 50));
             }
             @Override
             public void mouseExited(MouseEvent e) {
@@ -178,7 +178,7 @@ public class Main {
             public void mouseEntered(MouseEvent e) {
                 minimize.setForeground(Color.WHITE);
                 minimize.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
-                minimize.setBackground(Color.GRAY);
+                minimize.setBackground(new Color(50, 50, 50));
             }
             @Override
             public void mouseExited(MouseEvent e) {

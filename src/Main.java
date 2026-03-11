@@ -360,6 +360,12 @@ public class Main {
         console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         console.setPreferredSize(new Dimension(0, 250));
 
+                JLabel terminalp = new JLabel(sourcecont);
+                terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+                terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
+                terminalp.setForeground(new Color(118, 118, 118));
+                console.add(terminalp, BorderLayout.CENTER);
+
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
    

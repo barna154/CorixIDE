@@ -143,7 +143,7 @@ public class Main {
                         normalBounds[0] = current;
                         window.setBounds(maxBounds);
                     }
-            };
+            }
             @Override
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);

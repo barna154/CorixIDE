@@ -365,7 +365,7 @@ public class Main {
         line2.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         line2.setPreferredSize(new Dimension(1, 200));
 
-        back.add(explolerp);
+        back.add(explolerp, BorderLayout.WEST);
         back.add(line2);
         back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);

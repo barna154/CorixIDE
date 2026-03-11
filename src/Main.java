@@ -84,7 +84,7 @@ public class Main {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                labelFile.setForeground(Color.WHITE);
+                labelFile.setForeground(new Color(60, 60, 60));
                 labelFile.setFont(new Font("Arial", Font.BOLD, 15));
                 labelFile.setBackground(new Color(60, 60, 60));
             }

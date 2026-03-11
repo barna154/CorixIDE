@@ -172,14 +172,8 @@ public class Main {
           
             @Override
             public void mouseClicked(MouseEvent e) { 
-                Rectangle current = window.getBounds();
-                if (current.width == maxBounds.width && current.height == maxBounds.height) {
-                        window.setBounds(normalBounds[0]);
-                    } else {
-                        normalBounds[0] = current;
-                        window.setBounds(maxBounds);
-                    }
-                 }
+                window.setState(JFrame.ICONIFIED);
+            }
             @Override
             public void mouseEntered(MouseEvent e) {
                 minimize.setForeground(Color.WHITE);

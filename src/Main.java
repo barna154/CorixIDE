@@ -91,7 +91,7 @@ public class Main {
 
 
         JLabel closeBtn = new JLabel("  ✖  ");
-        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
+        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 30));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);

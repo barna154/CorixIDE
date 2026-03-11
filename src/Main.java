@@ -360,7 +360,12 @@ public class Main {
         console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         console.setPreferredSize(new Dimension(0, 250));
 
+        JPanel center = new JPanel();
+        center.setBackground(new Color(255, 255, 255));
+   
+
         back.add(explolerp, BorderLayout.WEST);
+        back.add(center, BorderLayout.CENTER);
         back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 

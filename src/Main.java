@@ -39,6 +39,8 @@ public class Main {
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
+        final Rectangle[] normalBounds = new Rectangle[1]; 
+        normalBounds[0] = window.getBounds();
 
         int screenWidth = maxBounds.width;
         int screenHeight = maxBounds.height;
@@ -130,8 +132,6 @@ public class Main {
         maximize.setCursor(new Cursor(Cursor.HAND_CURSOR));
         maximize.setOpaque(true);
         maximize.setBackground(new Color(43, 43, 43));
-             final Rectangle[] normalBounds = new Rectangle[1]; 
-            normalBounds[0] = window.getBounds();
          maximize.addMouseListener(new MouseAdapter() {
           
             @Override
@@ -179,9 +179,6 @@ public class Main {
             }
         });
 
-
-        final Rectangle[] normalBounds = new Rectangle[1]; 
-        normalBounds[0] = window.getBounds();
         Menu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

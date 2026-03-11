@@ -356,7 +356,7 @@ public class Main {
 
         JPanel console = new JPanel(new BorderLayout());
         console.setBackground(new Color(50, 50, 50));
-        console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
+       // console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         console.setPreferredSize(new Dimension(0, 250));
 
                 JLabel terminalp = new JLabel("source222222222222222222222222222222cont");

@@ -277,7 +277,10 @@ public class Main {
             }
         });
 
- 
+        
+        JPanel line1 = new JPanel();
+        line1.setBackground(new Color(100, 100, 100, 20));
+        line1.setPreferredSize(new Dimension(1080, 1));
     
 
         JPanel northPanel = new JPanel(new BorderLayout());
@@ -285,10 +288,7 @@ public class Main {
         northPanel.add(line1, BorderLayout.SOUTH);
         window.add(northPanel, BorderLayout.NORTH);
 
-           JPanel line1 = new JPanel();
-        line1.setBackground(new Color(100, 100, 100, 40));
-        line1.setPreferredSize(new Dimension(1080, 1));
-        window.add(line1, BorderLayout.NORTH); 
+      
 
 
         JPanel back = new JPanel();

@@ -85,13 +85,11 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 labelFile.setForeground(new Color(60, 60, 60));
-                labelFile.setFont(new Font("Arial", Font.BOLD, 15));
                 labelFile.setBackground(new Color(60, 60, 60));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 labelFile.setForeground(new Color(118, 118, 118));
-                labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
                 labelFile.setBackground(new Color(43, 43, 43));
             }
         });
@@ -99,10 +97,12 @@ public class Main {
 
      
         JLabel labelEdit = new JLabel(medit);
+        labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelEdit);
 
         JLabel labelOptions = new JLabel(moptions);
+        labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelOptions);
 

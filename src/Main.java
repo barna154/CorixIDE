@@ -85,12 +85,13 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 labelFile.setForeground(Color.WHITE);
-                labelFile.setFont(new Font("Arial", Font.BOLD, 20));
+                labelFile.setFont(new Font("Arial", Font.BOLD, 15));
                 labelFile.setBackground(new Color(60, 60, 60));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 labelFile.setForeground(new Color(118, 118, 118));
+                labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
                 labelFile.setBackground(new Color(43, 43, 43));
             }
         });
@@ -134,6 +135,7 @@ public class Main {
             @Override
             public void mouseExited(MouseEvent e) {
                 closeBtn.setForeground(new Color(118, 118, 118));
+                closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
                 closeBtn.setBackground(new Color(43, 43, 43));
             }
         });
@@ -171,6 +173,7 @@ public class Main {
             @Override
             public void mouseExited(MouseEvent e) {
                 maximize.setForeground(new Color(118, 118, 118));
+                maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 20));
                 maximize.setBackground(new Color(43, 43, 43));
             }
         });

@@ -299,51 +299,52 @@ public class Main {
         explolerp.setBackground(new Color(40, 40, 40));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setPreferredSize(new Dimension(200, screenHeight));
-                    final int RESIZE_MARGIN = 5;
-                    final Point[] startMouse = new Point[1];
-                    final int[] startWidth = new int[1];
+                        final int PANEL_RESIZE_MARGIN = 5;
+                        final Point[] panelStartMouse = new Point[1];
+                        final int[] panelStartWidth = new int[1];
 
-                    explorer.addMouseMotionListener(new MouseMotionAdapter() {
-                        @Override
-                        public void mouseMoved(MouseEvent e) {
-                            int x = e.getX();
-                            int w = explorer.getWidth();
+                        explorerp.addMouseMotionListener(new MouseMotionAdapter() {
+                            @Override
+                            public void mouseMoved(MouseEvent e) {
+                                int x = e.getX();
+                                int w = explorp.getWidth();
 
-                            if (x > w - RESIZE_MARGIN) {
-                                explorer.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                            } else {
-                                explorer.setCursor(Cursor.getDefaultCursor());
+                                if (x > w - PANEL_RESIZE_MARGIN) {
+                                    explorp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                                } else {
+                                    explorp.setCursor(Cursor.getDefaultCursor());
+                                }
                             }
-                        }
 
-                        @Override
-                        public void mouseDragged(MouseEvent e) {
-                            if (startMouse[0] != null) {
-                                int dx = e.getXOnScreen() - startMouse[0].x;
-                                int newWidth = startWidth[0] + dx;
+                            @Override
+                            public void mouseDragged(MouseEvent e) {
+                                if (panelStartMouse[0] != null) {
+                                    int dx = e.getXOnScreen() - panelStartMouse[0].x;
+                                    int newWidth = panelStartWidth[0] + dx;
 
-                                if (newWidth < 120) newWidth = 120; // minimum szélesség
+                                    if (newWidth < 120) newWidth = 120; // minimum szélesség
 
-                                explorer.setPreferredSize(new Dimension(newWidth, explorer.getHeight()));
-                                explorer.revalidate();
+                                    explorp.setPreferredSize(new Dimension(newWidth, explorp.getHeight()));
+                                    explorp.revalidate();
+                                }
                             }
-                        }
-                    });
+                        });
 
-                    explorer.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            int x = e.getX();
-                            int w = explorer.getWidth();
+                        explorerp.addMouseListener(new MouseAdapter() {
+                            @Override
+                            public void mousePressed(MouseEvent e) {
+                                int x = e.getX();
+                                int w = explorp.getWidth();
 
-                            if (x > w - RESIZE_MARGIN) {
-                                startMouse[0] = e.getLocationOnScreen();
-                                startWidth[0] = explorer.getWidth();
-                            } else {
-                                startMouse[0] = null;
+                                if (x > w - PANEL_RESIZE_MARGIN) {
+                                    panelStartMouse[0] = e.getLocationOnScreen();
+                                    panelStartWidth[0] = explorp.getWidth();
+                                } else {
+                                    panelStartMouse[0] = null;
+                                }
                             }
-                        }
-                    });
+                        });
+
 
 
 

@@ -307,12 +307,12 @@ public class Main {
                             @Override
                             public void mouseMoved(MouseEvent e) {
                                 int x = e.getX();
-                                int w = explorp.getWidth();
+                                int w = explolerp.getWidth();
 
                                 if (x > w - PANEL_RESIZE_MARGIN) {
-                                    explorp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                                    explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                                 } else {
-                                    explorp.setCursor(Cursor.getDefaultCursor());
+                                    explolerp.setCursor(Cursor.getDefaultCursor());
                                 }
                             }
 
@@ -324,8 +324,8 @@ public class Main {
 
                                     if (newWidth < 120) newWidth = 120; // minimum szélesség
 
-                                    explorp.setPreferredSize(new Dimension(newWidth, explorp.getHeight()));
-                                    explorp.revalidate();
+                                    explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
+                                    explolerp.revalidate();
                                 }
                             }
                         });
@@ -334,11 +334,11 @@ public class Main {
                             @Override
                             public void mousePressed(MouseEvent e) {
                                 int x = e.getX();
-                                int w = explorp.getWidth();
+                                int w = explolerp.getWidth();
 
                                 if (x > w - PANEL_RESIZE_MARGIN) {
                                     panelStartMouse[0] = e.getLocationOnScreen();
-                                    panelStartWidth[0] = explorp.getWidth();
+                                    panelStartWidth[0] = explolerp.getWidth();
                                 } else {
                                     panelStartMouse[0] = null;
                                 }

@@ -293,7 +293,7 @@ public class Main {
 
         JPanel back = new JPanel();
         back.setBackground(new Color(90, 90, 90));
-        back.setLayout(new FlowLayout(new BorderLayout()));
+        back.setLayout(new BorderLayout());
 
         JPanel explolerp = new JPanel();
         explolerp.setBackground(new Color(20, 20, 20));

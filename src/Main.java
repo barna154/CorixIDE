@@ -121,7 +121,6 @@ public class Main {
         JLabel labelOptions = new JLabel(moptions);
         labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
-        labelOptions.add(labelOptions);
         labelOptions.addMouseListener(new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) { 
@@ -137,6 +136,8 @@ public class Main {
                     labelOptions.setBackground(new Color(43, 43, 43));
                 }
             });
+        leftPanel.add(labelOptions);
+            
         Menu.add(leftPanel, BorderLayout.WEST);
 
 

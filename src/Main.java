@@ -350,7 +350,7 @@ public class Main {
         sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 20));
         sourcecon.setForeground(new Color(118, 118, 118));
-        explolerp.add(sourcecon);
+        explolerp.add(sourcecon, BorderLayout.CENTER);
 
 
         back.add(explolerp, BorderLayout.WEST);

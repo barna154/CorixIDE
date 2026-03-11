@@ -293,12 +293,12 @@ public class Main {
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
-        JPanel exploler = new JPanel();
-        exploler.setBackground(new Color(90, 90, 90));
-        exploler.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
-        exploler.setPreferredSize(new Dimension(200, 400));
+        JPanel explolerp = new JPanel();
+        explolerp.setBackground(new Color(90, 90, 90));
+        explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
+        explolerp.setPreferredSize(new Dimension(200, 400));
 
-        back.add(exploler, BorderLayout..EAST)
+        back.add(explolerp, BorderLayout.EAST)
         window.add(back, BorderLayout.CENTER);
 
 

@@ -357,7 +357,7 @@ public class Main {
         JPanel console = new JPanel();
         console.setBackground(new Color(20, 20, 20));
         console.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        console.setPreferredSize(new Dimension(screenWidth, 250));
+        console.setPreferredSize(new Dimension(250, 250));
 
         back.add(explolerp, BorderLayout.WEST);
         back.add(console, BorderLayout.SOUTH);

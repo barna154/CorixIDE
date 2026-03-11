@@ -121,20 +121,20 @@ public class Main {
         JLabel labelOptions = new JLabel(moptions);
         labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
-        leftPanel.add(labelOptions);
-        leftPanel.addMouseListener(new MouseAdapter() {
+        labelOptions.add(labelOptions);
+        labelOptions.addMouseListener(new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) { 
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    leftPanel.setForeground(new Color(60, 60, 60));
-                    leftPanel.setBackground(new Color(60, 60, 60));
+                    labelOptions.setForeground(new Color(60, 60, 60));
+                    labelOptions.setBackground(new Color(60, 60, 60));
                 }
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    leftPanel.setForeground(new Color(118, 118, 118));
-                    leftPanel.setBackground(new Color(43, 43, 43));
+                    labelOptions.setForeground(new Color(118, 118, 118));
+                    labelOptions.setBackground(new Color(43, 43, 43));
                 }
             });
         Menu.add(leftPanel, BorderLayout.WEST);

@@ -130,10 +130,10 @@ public class Main {
         maximize.setCursor(new Cursor(Cursor.HAND_CURSOR));
         maximize.setOpaque(true);
         maximize.setBackground(new Color(43, 43, 43));
-
-         maximize.addMouseListener(new MouseAdapter() {
              final Rectangle[] normalBounds = new Rectangle[1]; 
             normalBounds[0] = window.getBounds();
+         maximize.addMouseListener(new MouseAdapter() {
+          
             @Override
             public void mouseClicked(MouseEvent e) { 
                 Rectangle current = window.getBounds();

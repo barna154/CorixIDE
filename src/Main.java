@@ -299,6 +299,53 @@ public class Main {
         explolerp.setBackground(new Color(40, 40, 40));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setPreferredSize(new Dimension(200, screenHeight));
+                    final int RESIZE_MARGIN = 5;
+                    final Point[] startMouse = new Point[1];
+                    final int[] startWidth = new int[1];
+
+                    explorer.addMouseMotionListener(new MouseMotionAdapter() {
+                        @Override
+                        public void mouseMoved(MouseEvent e) {
+                            int x = e.getX();
+                            int w = explorer.getWidth();
+
+                            if (x > w - RESIZE_MARGIN) {
+                                explorer.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                            } else {
+                                explorer.setCursor(Cursor.getDefaultCursor());
+                            }
+                        }
+
+                        @Override
+                        public void mouseDragged(MouseEvent e) {
+                            if (startMouse[0] != null) {
+                                int dx = e.getXOnScreen() - startMouse[0].x;
+                                int newWidth = startWidth[0] + dx;
+
+                                if (newWidth < 120) newWidth = 120; // minimum szélesség
+
+                                explorer.setPreferredSize(new Dimension(newWidth, explorer.getHeight()));
+                                explorer.revalidate();
+                            }
+                        }
+                    });
+
+                    explorer.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            int x = e.getX();
+                            int w = explorer.getWidth();
+
+                            if (x > w - RESIZE_MARGIN) {
+                                startMouse[0] = e.getLocationOnScreen();
+                                startWidth[0] = explorer.getWidth();
+                            } else {
+                                startMouse[0] = null;
+                            }
+                        }
+                    });
+
+
 
         back.add(explolerp, BorderLayout.WEST);
         window.add(back, BorderLayout.CENTER);

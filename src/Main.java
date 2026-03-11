@@ -294,9 +294,9 @@ public class Main {
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         JPanel explolerp = new JPanel();
-        explolerp.setBackground(new Color(60, 60, 60));
+        explolerp.setBackground(new Color(40, 40, 40));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        explolerp.setPreferredSize(new Dimension(200, 700));
+        explolerp.setPreferredSize(new Dimension(200, screenHeight));
 
         back.add(explolerp, BorderLayout.WEST);
         window.add(back, BorderLayout.CENTER);

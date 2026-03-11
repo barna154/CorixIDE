@@ -361,6 +361,7 @@ public class Main {
         console.setPreferredSize(new Dimension(0, 250));
 
         back.add(explolerp, BorderLayout.WEST);
+        back.add(new JPanel(), BorderLayout.CENTER);
         back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 

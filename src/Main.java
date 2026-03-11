@@ -322,7 +322,8 @@ public class Main {
                                     int dx = e.getXOnScreen() - panelStartMouse[0].x;
                                     int newWidth = panelStartWidth[0] + dx;
 
-                                    if (newWidth < 120) newWidth = 120; // minimum szélesség
+                                    if (newWidth < 120) newWidth = 120; 
+                                    if (newWidth > 800) newWidth = 800;
 
                                     explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
                                     explolerp.revalidate();

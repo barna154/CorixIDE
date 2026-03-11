@@ -114,7 +114,7 @@ public class Main {
             }
         });
 
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  0));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  3));
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);

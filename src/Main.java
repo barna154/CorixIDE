@@ -167,13 +167,13 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);
-                maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 20));
+                maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 22));
                 maximize.setBackground(new Color(60, 60, 60));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 maximize.setForeground(new Color(118, 118, 118));
-                maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 20));
+                maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 22));
                 maximize.setBackground(new Color(43, 43, 43));
             }
         });
@@ -198,12 +198,13 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 minimize.setForeground(Color.WHITE);
-                minimize.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
+                minimize.setFont(new Font("Segoe UI Emoji", Font.BOLD, 22));
                 minimize.setBackground(new Color(60, 60, 60));
             }
             @Override
             public void mouseExited(MouseEvent e) {
                 minimize.setForeground(new Color(118, 118, 118));
+                minimize.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 22));
                 minimize.setBackground(new Color(43, 43, 43));
             }
         });

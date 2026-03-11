@@ -279,8 +279,8 @@ public class Main {
 
         
         JPanel line1 = new JPanel();
-        line1.setBackground(new Color(255, 0, 0, 20));
-        line1.setPreferredSize(new Dimension(screenWidth, 5));
+        line1.setBackground(new Color(255, 0, 0));
+        line1.setPreferredSize(new Dimension(screenWidth, 1));
     
 
         JPanel northPanel = new JPanel(new BorderLayout());

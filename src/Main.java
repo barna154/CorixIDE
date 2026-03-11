@@ -346,7 +346,25 @@ public class Main {
                             }
                         });
 
-
+        JLabel sourcecon = new JLabel(medit);
+        sourcecon.setFont(new Font("Arial", Font.PLAIN, 15));
+        sourcecon.setForeground(new Color(118, 118, 118));
+        sourcecon.addMouseListener(new MouseAdapter() {
+        @Override
+            public void mouseClicked(MouseEvent e) { 
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                sourcecon.setForeground(new Color(60, 60, 60));
+                sourcecon.setBackground(new Color(60, 60, 60));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                sourcecon.setForeground(new Color(118, 118, 118));
+                sourcecon.setBackground(new Color(43, 43, 43));
+            }
+        });
+        explolerp.add(sourcecon);
 
 
         back.add(explolerp, BorderLayout.WEST);

@@ -139,7 +139,7 @@ public class Main {
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);
                 maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 20));
-                maximize.setBackground(Color.GREY);
+                maximize.setBackground(Color.GRAY);
             }
             @Override
             public void mouseExited(MouseEvent e) {

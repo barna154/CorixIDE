@@ -122,7 +122,7 @@ public class Main {
 
         JLabel maximize = new JLabel("🗗");
         maximize.setPreferredSize(new Dimension(45, 43));
-        maximize.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 16));
         maximize.setHorizontalAlignment(SwingConstants.CENTER);
         maximize.setVerticalAlignment(SwingConstants.CENTER);
         maximize.setForeground(new Color(118, 118, 118));

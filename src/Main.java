@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Main {
 
-    // LANGUAGE SCANNER
+// LANGUAGE SCANNER
     public static String getValue(String key) throws Exception {
         Scanner sc = new Scanner(new File("../lang/lang.json"));
         String value = "";
@@ -29,12 +29,14 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        // STRINGLIST
+// STRINGLIST
         String mtitle = getValue("Title");
         String mfile = getValue("File");
         String medit = getValue("Edit");
         String moptions = getValue("Options");
 
+
+//WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
 
@@ -53,23 +55,23 @@ public class Main {
         window.setBackground(new Color(60, 60, 60));
         window.setMinimumSize(new Dimension(400, 300));
 
-        // ===== Custom Title Bar =====
+     
         final int[] mouseOffset = new int[2];
         JPanel Menu = new JPanel(new BorderLayout());
         Menu.setBackground(new Color(43, 43, 43));
         Menu.setPreferredSize(new Dimension(1080, 35));
 
-        // ----- Bal oldal: logo + menüpontok -----
+        
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 7));
         leftPanel.setOpaque(false);
 
-        // Logo
+// Logo
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         Image img = icon.getImage();
         Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
 
-        // Menüpontok
+// Menüpontok
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
@@ -118,6 +120,9 @@ public class Main {
         Menu.add(rightPanel, BorderLayout.EAST);
 
 
+
+ //Dupla katt resize
+
         Menu.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                 mouseOffset[0] = e.getX();
@@ -129,20 +134,18 @@ public class Main {
                 window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
             }
         });
-       final Rectangle[] normalBounds = new Rectangle[1]; 
 
-        normalBounds[0] = window.getBounds(); // kezdeti méret
 
+        final Rectangle[] normalBounds = new Rectangle[1]; 
+        normalBounds[0] = window.getBounds();
         Menu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     Rectangle current = window.getBounds();
                     if (current.width == maxBounds.width && current.height == maxBounds.height) {
-                        // már nagy, vissza az előző normál méretre
                         window.setBounds(normalBounds[0]);
                     } else {
-                        // elmentjük az aktuális méretet, majd teljes képernyőre váltunk
                         normalBounds[0] = current;
                         window.setBounds(maxBounds);
                     }
@@ -167,7 +170,9 @@ public class Main {
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         window.add(back, BorderLayout.CENTER);
 
-       // ===== Mindenirányú resize =====
+
+
+//RESIZE
         final int RESIZE_MARGIN = 5;
         final Rectangle[] startBounds = new Rectangle[1];
         final Point[] startMouse = new Point[1];
@@ -239,6 +244,11 @@ public class Main {
                 }
             }
         });
+
+
+
+
+
 
         window.setVisible(true);
     }

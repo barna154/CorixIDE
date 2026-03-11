@@ -97,6 +97,7 @@ public class Main {
         closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         closeBtn.setHorizontalAlignment(SwingConstants.CENTER);
         closeBtn.setVerticalAlignment(SwingConstants.CENTER);
+        closeBtn.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);
@@ -124,7 +125,7 @@ public class Main {
 
         JLabel maximize = new JLabel("🗗");
         maximize.setPreferredSize(new Dimension(45, 43));
-        maximize.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, -1));
+        maximize.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 22));
         maximize.setHorizontalAlignment(SwingConstants.CENTER);
         maximize.setVerticalAlignment(SwingConstants.CENTER);

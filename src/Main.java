@@ -303,7 +303,7 @@ public class Main {
                         final Point[] panelStartMouse = new Point[1];
                         final int[] panelStartWidth = new int[1];
 
-                        explorerp.addMouseMotionListener(new MouseMotionAdapter() {
+                        explolerp.addMouseMotionListener(new MouseMotionAdapter() {
                             @Override
                             public void mouseMoved(MouseEvent e) {
                                 int x = e.getX();
@@ -330,7 +330,7 @@ public class Main {
                             }
                         });
 
-                        explorerp.addMouseListener(new MouseAdapter() {
+                        explolerp.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mousePressed(MouseEvent e) {
                                 int x = e.getX();

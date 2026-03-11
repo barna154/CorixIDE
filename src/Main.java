@@ -354,7 +354,7 @@ public class Main {
         
 
 
-        JPanel console = new JPanel();
+        JPanel console = new JPanel(new BorderLayout());
         console.setBackground(new Color(50, 50, 50));
         console.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
@@ -364,7 +364,7 @@ public class Main {
                 terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
                 terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
                 terminalp.setForeground(new Color(118, 118, 118));
-                console.add(terminalp, BorderLayout.CENTER);
+                console.add(terminalp, BorderLayout.WEST);
 
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));

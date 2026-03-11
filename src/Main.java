@@ -314,13 +314,17 @@ public class Main {
                                     explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                                 } else {
                                     explolerp.setCursor(Cursor.getDefaultCursor());
-                                    return; // → átengedi az eseményt az ablaknak
+                                    window.dispatchEvent(SwingUtilities.convertMouseEvent(explolerp, e, window));
+                                    return;
                                 }
                             }
 
                             @Override
                             public void mouseDragged(MouseEvent e) {
-                                if (explorerStartMouse[0] == null) return; // → ablak kapja az eseményt
+                                if (explorerStartMouse[0] == null) {
+                                    window.dispatchEvent(SwingUtilities.convertMouseEvent(explolerp, e, window));
+                                    return;
+                                }
 
                                 int dx = e.getXOnScreen() - explorerStartMouse[0].x;
                                 int newWidth = explorerStartWidth[0] + dx;

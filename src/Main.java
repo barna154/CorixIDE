@@ -347,8 +347,8 @@ public class Main {
                         });
 
         JLabel sourcecon = new JLabel(sourcecont);
-        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 30, 0, 0));
-        sourcecon.setFont(new Font("Arial", Font.PLAIN, 15));
+        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        sourcecon.setFont(new Font("Arial", Font.PLAIN, 20));
         sourcecon.setForeground(new Color(118, 118, 118));
         sourcecon.addMouseListener(new MouseAdapter() {
         @Override

@@ -77,8 +77,26 @@ public class Main {
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
+        labelFile.addMouseListener(new MouseAdapter() {
+         @Override
+            public void mouseClicked(MouseEvent e) { 
+                window.setState(JFrame.ICONIFIED);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                labelFile.setForeground(Color.WHITE);
+                labelFile.setFont(new Font("Arial", Font.BOLD, 20));
+                labelFile.setBackground(new Color(60, 60, 60));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelFile.setForeground(new Color(118, 118, 118));
+                labelFile.setBackground(new Color(43, 43, 43));
+            }
+        });
         leftPanel.add(labelFile);
 
+     
         JLabel labelEdit = new JLabel(medit);
         labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
@@ -168,7 +186,7 @@ public class Main {
         minimize.setCursor(new Cursor(Cursor.HAND_CURSOR));
         minimize.setOpaque(true);
         minimize.setBackground(new Color(43, 43, 43));
-         minimize.addMouseListener(new MouseAdapter() {
+        minimize.addMouseListener(new MouseAdapter() {
           
             @Override
             public void mouseClicked(MouseEvent e) { 

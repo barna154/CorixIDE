@@ -351,9 +351,16 @@ public class Main {
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
         sourcecon.setForeground(new Color(118, 118, 118));
         explolerp.add(sourcecon, BorderLayout.CENTER);
+        
 
+
+        JPanel console = new JPanel();
+        console.setBackground(new Color(20, 20, 20));
+        console.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        console.setPreferredSize(new Dimension(250, screenHeight));
 
         back.add(explolerp, BorderLayout.WEST);
+        back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 
 

@@ -150,8 +150,8 @@ public class Main {
 
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  0));
         rightPanel.setOpaque(false);
-        rightPanel.add(closeBtn);
         rightPanel.add(maximize);
+        rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
 
 

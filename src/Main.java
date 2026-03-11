@@ -362,10 +362,11 @@ public class Main {
 
         JPanel line2 = new JPanel();
         line2.setBackground(new Color(105, 10, 10));
+        line2.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         line2.setPreferredSize(new Dimension(1, 200));
 
-        back.add(explolerp, BorderLayout.WEST);
-        back.add(line2, BorderLayout.WEST);
+        back.add(explolerp);
+        back.add(line2);
         back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 

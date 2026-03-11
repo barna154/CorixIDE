@@ -91,8 +91,8 @@ public class Main {
 
 
         JLabel closeBtn = new JLabel("✕");
-        closeBtn.setPreferredSize(new Dimension(45, 45));
-        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
+        closeBtn.setPreferredSize(new Dimension(45, 43));
+        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         closeBtn.setHorizontalAlignment(SwingConstants.CENTER);
         closeBtn.setVerticalAlignment(SwingConstants.CENTER);
         closeBtn.setForeground(new Color(118, 118, 118));
@@ -108,6 +108,7 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 closeBtn.setForeground(Color.WHITE);
+                closeBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
                 closeBtn.setBackground(Color.RED);
             }
             @Override

@@ -157,8 +157,45 @@ public class Main {
             }
         });
 
+
+        JLabel minimize = new JLabel("—");
+        minimize.setPreferredSize(new Dimension(43, 43));
+        minimize.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
+        minimize.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 22));
+        minimize.setHorizontalAlignment(SwingConstants.CENTER);
+        minimize.setVerticalAlignment(SwingConstants.CENTER);
+        minimize.setForeground(new Color(118, 118, 118));
+        minimize.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        minimize.setOpaque(true);
+        minimize.setBackground(new Color(43, 43, 43));
+         minimize.addMouseListener(new MouseAdapter() {
+          
+            @Override
+            public void mouseClicked(MouseEvent e) { 
+                Rectangle current = window.getBounds();
+                if (current.width == maxBounds.width && current.height == maxBounds.height) {
+                        window.setBounds(normalBounds[0]);
+                    } else {
+                        normalBounds[0] = current;
+                        window.setBounds(maxBounds);
+                    }
+                 }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                minimize.setForeground(Color.WHITE);
+                minimize.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
+                minimize.setBackground(Color.GRAY);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                minimize.setForeground(new Color(118, 118, 118));
+                minimize.setBackground(new Color(43, 43, 43));
+            }
+        });
+
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         rightPanel.setOpaque(false);
+        rightPanel.add(minimize);
         rightPanel.add(maximize);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);

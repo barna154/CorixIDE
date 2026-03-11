@@ -300,9 +300,9 @@ public class Main {
         explolerp.setBackground(new Color(20, 20, 20));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
-                        final int EXPLORER_RESIZE_MARGIN = 5;
-                        final Point[] explorerStartMouse = new Point[1];
-                        final int[] explorerStartWidth = new int[1];
+                        final int PANEL_RESIZE_MARGIN = 5;
+                        final Point[] panelStartMouse = new Point[1];
+                        final int[] panelStartWidth = new int[1];
 
                         explolerp.addMouseMotionListener(new MouseMotionAdapter() {
                             @Override
@@ -310,30 +310,25 @@ public class Main {
                                 int x = e.getX();
                                 int w = explolerp.getWidth();
 
-                                if (x > w - EXPLORER_RESIZE_MARGIN) {
+                                if (x > w - PANEL_RESIZE_MARGIN) {
                                     explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                                 } else {
                                     explolerp.setCursor(Cursor.getDefaultCursor());
-                                    window.dispatchEvent(SwingUtilities.convertMouseEvent(explolerp, e, window));
-                                    return;
                                 }
                             }
 
                             @Override
                             public void mouseDragged(MouseEvent e) {
-                                if (explorerStartMouse[0] == null) {
-                                    window.dispatchEvent(SwingUtilities.convertMouseEvent(explolerp, e, window));
-                                    return;
+                                if (panelStartMouse[0] != null) {
+                                    int dx = e.getXOnScreen() - panelStartMouse[0].x;
+                                    int newWidth = panelStartWidth[0] + dx;
+
+                                    if (newWidth < 120) newWidth = 120; 
+                                    if (newWidth > 800) newWidth = 800;
+
+                                    explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
+                                    explolerp.revalidate();
                                 }
-
-                                int dx = e.getXOnScreen() - explorerStartMouse[0].x;
-                                int newWidth = explorerStartWidth[0] + dx;
-
-                                if (newWidth < 120) newWidth = 120;
-                                if (newWidth > 800) newWidth = 800;
-
-                                explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
-                                explolerp.revalidate();
                             }
                         });
 
@@ -343,11 +338,11 @@ public class Main {
                                 int x = e.getX();
                                 int w = explolerp.getWidth();
 
-                                if (x > w - EXPLORER_RESIZE_MARGIN) {
-                                    explorerStartMouse[0] = e.getLocationOnScreen();
-                                    explorerStartWidth[0] = explolerp.getWidth();
+                                if (x > w - PANEL_RESIZE_MARGIN) {
+                                    panelStartMouse[0] = e.getLocationOnScreen();
+                                    panelStartWidth[0] = explolerp.getWidth();
                                 } else {
-                                    explorerStartMouse[0] = null;
+                                    panelStartMouse[0] = null;
                                 }
                             }
                         });

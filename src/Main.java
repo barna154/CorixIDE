@@ -80,7 +80,6 @@ public class Main {
         labelFile.addMouseListener(new MouseAdapter() {
          @Override
             public void mouseClicked(MouseEvent e) { 
-                window.setState(JFrame.ICONIFIED);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -99,13 +98,45 @@ public class Main {
         JLabel labelEdit = new JLabel(medit);
         labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
+        labelEdit.addMouseListener(new MouseAdapter() {
+        @Override
+            public void mouseClicked(MouseEvent e) { 
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                labelEdit.setForeground(new Color(60, 60, 60));
+                labelEdit.setBackground(new Color(60, 60, 60));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelEdit.setForeground(new Color(118, 118, 118));
+                labelEdit.setBackground(new Color(43, 43, 43));
+            }
+        });
         leftPanel.add(labelEdit);
+
+
+
 
         JLabel labelOptions = new JLabel(moptions);
         labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelOptions);
-
+        leftPanel.addMouseListener(new MouseAdapter() {
+            @Override
+                public void mouseClicked(MouseEvent e) { 
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    leftPanel.setForeground(new Color(60, 60, 60));
+                    leftPanel.setBackground(new Color(60, 60, 60));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    leftPanel.setForeground(new Color(118, 118, 118));
+                    leftPanel.setBackground(new Color(43, 43, 43));
+                }
+            });
         Menu.add(leftPanel, BorderLayout.WEST);
 
 

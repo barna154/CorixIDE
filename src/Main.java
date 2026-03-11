@@ -280,7 +280,7 @@ public class Main {
  
         JPanel line1 = new JPanel();
         line1.setBackground(new Color(117, 117, 117));
-        line1.setPreferredSize(new Dimension(1080, 1));
+        line1.setPreferredSize(new Dimension(1080, 0.5));
 
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(Menu, BorderLayout.NORTH);

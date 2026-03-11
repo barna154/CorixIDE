@@ -34,7 +34,7 @@ public class Main {
         String mfile = getValue("File");
         String medit = getValue("Edit");
         String moptions = getValue("Options");
-
+        String sourcecont = getValue("SourceCon");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -346,7 +346,8 @@ public class Main {
                             }
                         });
 
-        JLabel sourcecon = new JLabel(medit);
+        JLabel sourcecon = new JLabel(sourcecont);
+        sourcecon.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 15));
         sourcecon.setForeground(new Color(118, 118, 118));
         sourcecon.addMouseListener(new MouseAdapter() {

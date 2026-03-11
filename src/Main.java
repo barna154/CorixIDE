@@ -142,7 +142,7 @@ public class Main {
                         window.setBounds(maxBounds);       // maximalizálás
                     }
                 }
-            }
+            
             @Override
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);

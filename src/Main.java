@@ -35,6 +35,7 @@ public class Main {
         String medit = getValue("Edit");
         String moptions = getValue("Options");
         String sourcecont = getValue("Explorer");
+        String terminalname = getValue("Terminal");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -356,10 +357,9 @@ public class Main {
 
         JPanel console = new JPanel(new BorderLayout());
         console.setBackground(new Color(50, 50, 50));
-       // console.setBorder(BorderFactory.createEmptyBorder(300, 0, 0, 0));
         console.setPreferredSize(new Dimension(0, 250));
 
-                JLabel terminalp = new JLabel("source222222222222222222222222222222cont");
+                JLabel terminalp = new JLabel(terminalname);
                 terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
                 terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
                 terminalp.setForeground(new Color(255, 255, 255));

@@ -182,7 +182,7 @@ public class Main {
         maximize.setCursor(new Cursor(Cursor.HAND_CURSOR));
         maximize.setOpaque(true);
         maximize.setBackground(new Color(43, 43, 43));
-         maximize.addMouseListener(new MouseAdapter() {
+        maximize.addMouseListener(new MouseAdapter() {
           
             @Override
             public void mouseClicked(MouseEvent e) { 
@@ -282,11 +282,7 @@ public class Main {
         line1.setBackground(new Color(117, 117, 117));
         line1.setPreferredSize(new Dimension(1080, 1));
 
-        JPanel northPanel = new JPanel(new BorderLayout());
-        northPanel.add(Menu, BorderLayout.NORTH);
-        northPanel.add(line1, BorderLayout.SOUTH);
-
-        window.add(northPanel, BorderLayout.NORTH);
+    
 
 
         JPanel back = new JPanel();

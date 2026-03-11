@@ -91,7 +91,7 @@ public class Main {
 
 
         JLabel closeBtn = new JLabel("  ✕  ");
-        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 30));
+        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 35));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);
@@ -114,7 +114,7 @@ public class Main {
             }
         });
 
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  3));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  0));
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);

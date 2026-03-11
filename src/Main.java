@@ -363,6 +363,57 @@ public class Main {
                 terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
                 terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
                 terminalp.setForeground(new Color(255, 255, 255));
+
+
+                            final int CONSOLE_RESIZE_MARGIN = 5;
+                            final Point[] consoleStartMouse = new Point[1];
+                            final int[] consoleStartHeight = new int[1];
+
+                            console.addMouseMotionListener(new MouseMotionAdapter() {
+                                @Override
+                                public void mouseMoved(MouseEvent e) {
+                                    int y = e.getY();
+
+                                    // Ha az egér a felső 5px-ben van → resize kurzor
+                                    if (y < CONSOLE_RESIZE_MARGIN) {
+                                        console.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+                                    } else {
+                                        console.setCursor(Cursor.getDefaultCursor());
+                                    }
+                                }
+
+                                @Override
+                                public void mouseDragged(MouseEvent e) {
+                                    if (consoleStartMouse[0] != null) {
+                                        int dy = consoleStartMouse[0].y - e.getYOnScreen();
+                                        int newHeight = consoleStartHeight[0] + dy;
+
+                                        // minimum és maximum magasság
+                                        if (newHeight < 100) newHeight = 100;
+                                        if (newHeight > 600) newHeight = 600;
+
+                                        console.setPreferredSize(new Dimension(console.getWidth(), newHeight));
+                                        console.revalidate();
+                                    }
+                                }
+                            });
+
+                            console.addMouseListener(new MouseAdapter() {
+                                @Override
+                                public void mousePressed(MouseEvent e) {
+                                    int y = e.getY();
+
+                                    if (y < CONSOLE_RESIZE_MARGIN) {
+                                        consoleStartMouse[0] = e.getLocationOnScreen();
+                                        consoleStartHeight[0] = console.getHeight();
+                                    } else {
+                                        consoleStartMouse[0] = null;
+                                    }
+                                }
+                            });
+
+
+
                 
 
         JPanel center = new JPanel(new BorderLayout());

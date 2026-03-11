@@ -383,13 +383,17 @@ public class Main {
                                         console.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                                     } else {
                                         console.setCursor(Cursor.getDefaultCursor());
-                                        return; // → átengedi az eseményt az ablaknak
+                                        window.dispatchEvent(SwingUtilities.convertMouseEvent(console, e, window));
+                                        return;
                                     }
                                 }
 
                                 @Override
                                 public void mouseDragged(MouseEvent e) {
-                                    if (consoleStartMouse[0] == null) return; // → ablak kapja az eseményt
+                                    if (consoleStartMouse[0] == null) {
+                                        window.dispatchEvent(SwingUtilities.convertMouseEvent(console, e, window));
+                                        return;
+                                    }
 
                                     int dy = consoleStartMouse[0].y - e.getYOnScreen();
                                     int newHeight = consoleStartHeight[0] + dy;

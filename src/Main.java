@@ -118,9 +118,40 @@ public class Main {
             }
         });
 
+
+
+        JLabel maximize = new JLabel("🗗");
+        maximize.setPreferredSize(new Dimension(45, 43));
+        maximize.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        maximize.setHorizontalAlignment(SwingConstants.CENTER);
+        maximize.setVerticalAlignment(SwingConstants.CENTER);
+        maximize.setForeground(new Color(118, 118, 118));
+        maximize.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        maximize.setOpaque(true);
+        maximize.setBackground(new Color(43, 43, 43));
+
+        maximize.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                maximize.setForeground(Color.WHITE);
+                maximize.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+                maximize.setBackground(Color.RED);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                maximize.setForeground(new Color(118, 118, 118));
+                maximize.setBackground(new Color(43, 43, 43));
+            }
+        });
+
         JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0,  0));
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
+        rightPanel.add(maximize);
         Menu.add(rightPanel, BorderLayout.EAST);
 
 

@@ -374,35 +374,32 @@ public class Main {
                             final Point[] consoleStartMouse = new Point[1];
                             final int[] consoleStartHeight = new int[1];
 
-                           explolerp.addMouseMotionListener(new MouseMotionAdapter() {
+                            console.addMouseMotionListener(new MouseMotionAdapter() {
                                 @Override
                                 public void mouseMoved(MouseEvent e) {
-                                    int x = e.getX();
-                                    int w = explolerp.getWidth();
+                                    int y = e.getY();
 
-                                    if (x > w - EXPLORER_RESIZE_MARGIN) {
-                                        explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                                    // Ha az egér a felső 5px-ben van → resize kurzor
+                                    if (y < CONSOLE_RESIZE_MARGIN) {
+                                        console.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                                     } else {
-                                        explolerp.setCursor(Cursor.getDefaultCursor());
-                                        // NEM küldünk tovább semmit!
+                                        console.setCursor(Cursor.getDefaultCursor());
                                     }
                                 }
 
                                 @Override
                                 public void mouseDragged(MouseEvent e) {
-                                    if (explorerStartMouse[0] == null) {
-                                        // NEM küldünk tovább semmit!
-                                        return;
+                                    if (consoleStartMouse[0] != null) {
+                                        int dy = consoleStartMouse[0].y - e.getYOnScreen();
+                                        int newHeight = consoleStartHeight[0] + dy;
+
+                                        // minimum és maximum magasság
+                                        if (newHeight < 100) newHeight = 100;
+                                        if (newHeight > 600) newHeight = 600;
+
+                                        console.setPreferredSize(new Dimension(console.getWidth(), newHeight));
+                                        console.revalidate();
                                     }
-
-                                    int dx = e.getXOnScreen() - explorerStartMouse[0].x;
-                                    int newWidth = explorerStartWidth[0] + dx;
-
-                                    if (newWidth < 120) newWidth = 120;
-                                    if (newWidth > 800) newWidth = 800;
-
-                                    explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
-                                    explolerp.revalidate();
                                 }
                             });
 
@@ -419,7 +416,6 @@ public class Main {
                                     }
                                 }
                             });
-
 
                 
 

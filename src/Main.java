@@ -363,7 +363,7 @@ public class Main {
                 JLabel terminalp = new JLabel(sourcecont);
                 terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
                 terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
-                terminalp.setForeground(new Color(118, 118, 118));
+                terminalp.setForeground(new Color(255, 255, 255));
                 console.add(terminalp, BorderLayout.WEST);
 
         JPanel center = new JPanel(new BorderLayout());

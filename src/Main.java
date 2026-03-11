@@ -131,19 +131,19 @@ public class Main {
         maximize.setOpaque(true);
         maximize.setBackground(new Color(43, 43, 43));
 
-        maximize.addMouseListener(new MouseAdapter() {
+         maximize.addMouseListener(new MouseAdapter() {
              final Rectangle[] normalBounds = new Rectangle[1]; 
             normalBounds[0] = window.getBounds();
             @Override
             public void mouseClicked(MouseEvent e) { 
-                  Rectangle current = window.getBounds();
-                  if (current.width == maxBounds.width && current.height == maxBounds.height) {
+                Rectangle current = window.getBounds();
+                if (current.width == maxBounds.width && current.height == maxBounds.height) {
                         window.setBounds(normalBounds[0]);
                     } else {
                         normalBounds[0] = current;
                         window.setBounds(maxBounds);
                     }
-            }
+                 }
             @Override
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);

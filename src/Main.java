@@ -123,7 +123,7 @@ public class Main {
 
 
         JLabel maximize = new JLabel("🗗");
-        maximize.setPreferredSize(new Dimension(45, 43));
+        maximize.setPreferredSize(new Dimension(43, 43));
         maximize.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 22));
         maximize.setHorizontalAlignment(SwingConstants.CENTER);
@@ -157,7 +157,7 @@ public class Main {
             }
         });
 
-        JPanel rightPanel = new JPanel(new GridLayout(1, 2));
+        JPanel rightPanel = new JPanel(new GridLayout(0, 0));
         rightPanel.setOpaque(false);
         rightPanel.add(maximize);
         rightPanel.add(closeBtn);

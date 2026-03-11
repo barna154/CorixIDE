@@ -294,7 +294,7 @@ public class Main {
         back.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
 
         JPanel explolerp = new JPanel();
-        explolerp.setBackground(new Color(90, 90, 90));
+        explolerp.setBackground(new Color(60, 60, 60));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         explolerp.setPreferredSize(new Dimension(200, 400));
 

@@ -135,6 +135,8 @@ public class Main {
             @Override
             public void mouseClicked(MouseEvent e) {
                Rectangle current = window.getBounds();
+                final Rectangle[] normalBounds = new Rectangle[1]; 
+                normalBounds[0] = window.getBounds();
                if (current.width == maxBounds.width && current.height == maxBounds.height) {
                         window.setBounds(normalBounds[0]); // visszaállítás
                     } else {

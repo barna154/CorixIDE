@@ -157,7 +157,7 @@ public class Main {
             }
         });
 
-        JPanel rightPanel = new JPanel(new GridLayout(0, 0));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         rightPanel.setOpaque(false);
         rightPanel.add(maximize);
         rightPanel.add(closeBtn);

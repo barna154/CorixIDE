@@ -279,8 +279,8 @@ public class Main {
 
         
         JPanel line1 = new JPanel();
-        line1.setBackground(new Color(100, 100, 100, 20));
-        line1.setPreferredSize(new Dimension(1080, 1));
+        line1.setBackground(new Color(80, 80, 80, 20));
+        line1.setPreferredSize(new Dimension(screenWidth, 1));
     
 
         JPanel northPanel = new JPanel(new BorderLayout());
@@ -298,7 +298,7 @@ public class Main {
         JPanel explolerp = new JPanel();
         explolerp.setBackground(new Color(40, 40, 40));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        explolerp.setPreferredSize(new Dimension(200, screenHeight));
+        explolerp.setPreferredSize(new Dimension(300, screenHeight));
 
         back.add(explolerp, BorderLayout.WEST);
         window.add(back, BorderLayout.CENTER);

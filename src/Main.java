@@ -77,6 +77,9 @@ public class Main {
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
+        labelFile.setPreferredSize(new Dimension(45, 43));
+        closeBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        closeBtn.setVerticalAlignment(SwingConstants.CENTER);
         labelFile.addMouseListener(new MouseAdapter() {
          @Override
             public void mouseClicked(MouseEvent e) { 

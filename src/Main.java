@@ -132,18 +132,17 @@ public class Main {
         maximize.setBackground(new Color(43, 43, 43));
 
         maximize.addMouseListener(new MouseAdapter() {
+             final Rectangle[] normalBounds = new Rectangle[1]; 
+            normalBounds[0] = window.getBounds();
             @Override
-            public void mouseClicked(MouseEvent e) {
-               Rectangle current = window.getBounds();
-                final Rectangle[] normalBounds = new Rectangle[1]; 
-                normalBounds[0] = window.getBounds();
-               if (current.width == maxBounds.width && current.height == maxBounds.height) {
-                        window.setBounds(normalBounds[0]); // visszaállítás
+            public void mouseClicked(MouseEvent e) { 
+                  Rectangle current = window.getBounds();
+                  if (current.width == maxBounds.width && current.height == maxBounds.height) {
+                        window.setBounds(normalBounds[0]);
                     } else {
-                        normalBounds[0] = current;         // elmentjük a normál méretet
-                        window.setBounds(maxBounds);       // maximalizálás
+                        normalBounds[0] = current;
+                        window.setBounds(maxBounds);
                     }
-                }
             
             @Override
             public void mouseEntered(MouseEvent e) {

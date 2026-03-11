@@ -427,77 +427,82 @@ public class Main {
 
 
 //RESIZE
-        final int RESIZE_MARGIN = 5;
-        final Rectangle[] startBounds = new Rectangle[1];
-        final Point[] startMouse = new Point[1];
+        // RESIZE - listener-ek létrehozása egyszer
+final int RESIZE_MARGIN = 5;
+final Rectangle[] startBounds = new Rectangle[1];
+final Point[] startMouse = new Point[1];
 
-        window.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                int w = window.getWidth();
-                int h = window.getHeight();
+MouseMotionListener resizeMotion = new MouseMotionAdapter() {
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        Component comp = e.getComponent();
+        int x = e.getX();
+        int y = e.getY();
+        int w = comp.getWidth();
+        int h = comp.getHeight();
 
-                if (x < RESIZE_MARGIN && y < RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
-                else if (x > w - RESIZE_MARGIN && y < RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
-                else if (x < RESIZE_MARGIN && y > h - RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
-                else if (x > w - RESIZE_MARGIN && y > h - RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
-                else if (x < RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
-                else if (x > w - RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                else if (y < RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
-                else if (y > h - RESIZE_MARGIN) window.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
-                else window.setCursor(Cursor.getDefaultCursor());
+        if (x < RESIZE_MARGIN && y < RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.NW_RESIZE_CURSOR));
+        else if (x > w - RESIZE_MARGIN && y < RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
+        else if (x < RESIZE_MARGIN && y > h - RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
+        else if (x > w - RESIZE_MARGIN && y > h - RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+        else if (x < RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+        else if (x > w - RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+        else if (y < RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
+        else if (y > h - RESIZE_MARGIN) comp.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
+        else comp.setCursor(Cursor.getDefaultCursor());
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (startBounds[0] != null && startMouse[0] != null) {
+            int dx = e.getXOnScreen() - startMouse[0].x;
+            int dy = e.getYOnScreen() - startMouse[0].y;
+            Rectangle b = new Rectangle(startBounds[0]);
+            int type = e.getComponent().getCursor().getType();
+
+            switch (type) {
+                case Cursor.NW_RESIZE_CURSOR:
+                    b.x += dx; b.width -= dx; b.y += dy; b.height -= dy; break;
+                case Cursor.NE_RESIZE_CURSOR:
+                    b.width += dx; b.y += dy; b.height -= dy; break;
+                case Cursor.SW_RESIZE_CURSOR:
+                    b.x += dx; b.width -= dx; b.height += dy; break;
+                case Cursor.SE_RESIZE_CURSOR:
+                    b.width += dx; b.height += dy; break;
+                case Cursor.W_RESIZE_CURSOR:
+                    b.x += dx; b.width -= dx; break;
+                case Cursor.E_RESIZE_CURSOR:
+                    b.width += dx; break;
+                case Cursor.N_RESIZE_CURSOR:
+                    b.y += dy; b.height -= dy; break;
+                case Cursor.S_RESIZE_CURSOR:
+                    b.height += dy; break;
             }
 
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                if (startBounds[0] != null && startMouse[0] != null) {
-                    int dx = e.getXOnScreen() - startMouse[0].x;
-                    int dy = e.getYOnScreen() - startMouse[0].y;
-                    Rectangle b = new Rectangle(startBounds[0]);
-                    int type = window.getCursor().getType();
+            if (b.width < 200) b.width = 200;
+            if (b.height < 150) b.height = 150;
 
-                    switch (type) {
-                        case Cursor.NW_RESIZE_CURSOR:
-                            b.x += dx; b.width -= dx; b.y += dy; b.height -= dy; break;
-                        case Cursor.NE_RESIZE_CURSOR:
-                            b.width += dx; b.y += dy; b.height -= dy; break;
-                        case Cursor.SW_RESIZE_CURSOR:
-                            b.x += dx; b.width -= dx; b.height += dy; break;
-                        case Cursor.SE_RESIZE_CURSOR:
-                            b.width += dx; b.height += dy; break;
-                        case Cursor.W_RESIZE_CURSOR:
-                            b.x += dx; b.width -= dx; break;
-                        case Cursor.E_RESIZE_CURSOR:
-                            b.width += dx; break;
-                        case Cursor.N_RESIZE_CURSOR:
-                            b.y += dy; b.height -= dy; break;
-                        case Cursor.S_RESIZE_CURSOR:
-                            b.height += dy; break;
-                    }
+            window.setBounds(b);
+        }
+    }
+};
 
-                    if (b.width < 200) b.width = 200;
-                    if (b.height < 150) b.height = 150;
+MouseListener resizeListener = new MouseAdapter() {
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int type = e.getComponent().getCursor().getType();
+        if (type != Cursor.DEFAULT_CURSOR) {
+            startBounds[0] = window.getBounds();
+            startMouse[0] = e.getLocationOnScreen();
+        } else {
+            startBounds[0] = null;
+            startMouse[0] = null;
+        }
+    }
+};
 
-                    window.setBounds(b);
-                }
-            }
-        });
-
-        window.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int type = window.getCursor().getType();
-                if (type != Cursor.DEFAULT_CURSOR) {
-                    startBounds[0] = window.getBounds();
-                    startMouse[0] = e.getLocationOnScreen();
-                } else {
-                    startBounds[0] = null;
-                    startMouse[0] = null;
-                }
-            }
-        });
+// Rekurzívan hozzáadjuk minden komponenshez
+addResizeRecursive(window, new MouseListener[]{resizeListener}, new MouseMotionListener[]{resizeMotion});
 
 
 
@@ -506,4 +511,20 @@ public class Main {
 
         window.setVisible(true);
     }
+
+
+    public static void addResizeRecursive(Component c,
+                                      MouseListener[] ml,
+                                      MouseMotionListener[] mml) {
+    for (MouseListener m : ml) c.addMouseListener(m);
+    for (MouseMotionListener m : mml) c.addMouseMotionListener(m);
+
+    // Recurse into children
+    if (c instanceof Container) {
+        for (Component child : ((Container) c).getComponents()) {
+            addResizeRecursive(child, ml, mml);
+        }
+    }
+}
+
 }

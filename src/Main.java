@@ -39,8 +39,6 @@ public class Main {
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
-        final Rectangle[] normalBounds = new Rectangle[1]; 
-        normalBounds[0] = window.getBounds();
 
         int screenWidth = maxBounds.width;
         int screenHeight = maxBounds.height;
@@ -62,6 +60,8 @@ public class Main {
         JPanel Menu = new JPanel(new BorderLayout());
         Menu.setBackground(new Color(43, 43, 43));
         Menu.setPreferredSize(new Dimension(1080, 35));
+        final Rectangle[] normalBounds = new Rectangle[1]; 
+        normalBounds[0] = window.getBounds();
 
         
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 7));

@@ -365,7 +365,7 @@ public class Main {
         line2.setPreferredSize(new Dimension(1, 200));
 
         back.add(explolerp, BorderLayout.WEST);
-        back.add(line2, BorderLayout.CENTER);
+        back.add(line2, BorderLayout.WEST);
         back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 

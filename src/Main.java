@@ -99,12 +99,10 @@ public class Main {
 
      
         JLabel labelEdit = new JLabel(medit);
-        labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelEdit);
 
         JLabel labelOptions = new JLabel(moptions);
-        labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelOptions);
 

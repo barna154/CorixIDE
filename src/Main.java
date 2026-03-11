@@ -90,8 +90,8 @@ public class Main {
         Menu.add(leftPanel, BorderLayout.WEST);
 
 
-        JLabel closeBtn = new JLabel("  ❌  ");
-        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 30));
+        JLabel closeBtn = new JLabel("  ✖  ");
+        closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
         closeBtn.setForeground(new Color(118, 118, 118));
         closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);

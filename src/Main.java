@@ -298,7 +298,7 @@ public class Main {
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 7));
         explolerp.setPreferredSize(new Dimension(200, 400));
 
-        back.add(explolerp, BorderLayout.EAST)
+        back.add(explolerp, BorderLayout.EAST);
         window.add(back, BorderLayout.CENTER);
 
 

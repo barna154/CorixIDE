@@ -34,7 +34,7 @@ public class Main {
         String mfile = getValue("File");
         String medit = getValue("Edit");
         String moptions = getValue("Options");
-        String sourcecont = getValue("SourceCon");
+        String sourcecont = getValue("Explorer");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

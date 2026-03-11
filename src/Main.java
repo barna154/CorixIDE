@@ -134,7 +134,14 @@ public class Main {
         maximize.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
+               Rectangle current = window.getBounds();
+               if (current.width == maxBounds.width && current.height == maxBounds.height) {
+                        window.setBounds(normalBounds[0]); // visszaállítás
+                    } else {
+                        normalBounds[0] = current;         // elmentjük a normál méretet
+                        window.setBounds(maxBounds);       // maximalizálás
+                    }
+                }
             }
             @Override
             public void mouseEntered(MouseEvent e) {

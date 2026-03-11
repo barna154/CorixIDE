@@ -121,8 +121,8 @@ public class Main {
 
 
         JLabel maximize = new JLabel("🗗");
-        maximize.setPreferredSize(new Dimension(45, 30));
-        maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 16));
+        maximize.setPreferredSize(new Dimension(45, 40));
+        maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 20));
         maximize.setHorizontalAlignment(SwingConstants.CENTER);
         maximize.setVerticalAlignment(SwingConstants.CENTER);
         maximize.setForeground(new Color(118, 118, 118));
@@ -138,8 +138,8 @@ public class Main {
             @Override
             public void mouseEntered(MouseEvent e) {
                 maximize.setForeground(Color.WHITE);
-                maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 16));
-                maximize.setBackground(Color.RED);
+                maximize.setFont(new Font("Noto Sans Symbols 2", Font.BOLD, 20));
+                maximize.setBackground(Color.GREY);
             }
             @Override
             public void mouseExited(MouseEvent e) {

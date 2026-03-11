@@ -158,7 +158,7 @@ public class Main {
         });
 
 
-        JLabel minimize = new JLabel("—");
+        JLabel minimize = new JLabel("_");
         minimize.setPreferredSize(new Dimension(43, 43));
         minimize.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0));
         minimize.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 22));

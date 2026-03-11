@@ -375,27 +375,26 @@ public class Main {
                                 public void mouseMoved(MouseEvent e) {
                                     int y = e.getY();
 
-                                    // Ha az egér a felső 5px-ben van → resize kurzor
                                     if (y < CONSOLE_RESIZE_MARGIN) {
                                         console.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                                     } else {
                                         console.setCursor(Cursor.getDefaultCursor());
+                                        return; // → átengedi az eseményt az ablaknak
                                     }
                                 }
 
                                 @Override
                                 public void mouseDragged(MouseEvent e) {
-                                    if (consoleStartMouse[0] != null) {
-                                        int dy = consoleStartMouse[0].y - e.getYOnScreen();
-                                        int newHeight = consoleStartHeight[0] + dy;
+                                    if (consoleStartMouse[0] == null) return; // → ablak kapja az eseményt
 
-                                        // minimum és maximum magasság
-                                        if (newHeight < 100) newHeight = 100;
-                                        if (newHeight > 600) newHeight = 600;
+                                    int dy = consoleStartMouse[0].y - e.getYOnScreen();
+                                    int newHeight = consoleStartHeight[0] + dy;
 
-                                        console.setPreferredSize(new Dimension(console.getWidth(), newHeight));
-                                        console.revalidate();
-                                    }
+                                    if (newHeight < 100) newHeight = 100;
+                                    if (newHeight > 600) newHeight = 600;
+
+                                    console.setPreferredSize(new Dimension(console.getWidth(), newHeight));
+                                    console.revalidate();
                                 }
                             });
 
@@ -412,7 +411,6 @@ public class Main {
                                     }
                                 }
                             });
-
 
 
                 

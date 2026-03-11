@@ -121,7 +121,7 @@ public class Main {
 
 
         JLabel maximize = new JLabel("🗗");
-        maximize.setPreferredSize(new Dimension(45, 38));
+        maximize.setPreferredSize(new Dimension(45, 43));
         maximize.setFont(new Font("Noto Sans Symbols 2", Font.PLAIN, 22));
         maximize.setHorizontalAlignment(SwingConstants.CENTER);
         maximize.setVerticalAlignment(SwingConstants.CENTER);

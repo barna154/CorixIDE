@@ -365,8 +365,8 @@ public class Main {
    
 
         back.add(explolerp, BorderLayout.WEST);
+        center.add(console, BorderLayout.SOUTH);
         back.add(center, BorderLayout.CENTER);
-        back.add(console, BorderLayout.SOUTH);
         window.add(back, BorderLayout.CENTER);
 
 

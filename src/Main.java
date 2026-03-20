@@ -453,10 +453,9 @@ public class Main {
 
         JPanel leftWrapper = new JPanel(new BorderLayout());
         leftWrapper.add(explolerp, BorderLayout.CENTER);
-        leftWrapper.add(lineLeft, BorderLayout.EAST);
+        leftWrapper.add(line3, BorderLayout.EAST);
 
         back.add(leftWrapper, BorderLayout.WEST);
-        back.add(line3, BorderLayout.WEST);
 
         console.add(terminalp, BorderLayout.WEST);
         center.add(editor, BorderLayout.CENTER);

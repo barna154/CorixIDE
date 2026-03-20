@@ -447,10 +447,16 @@ public class Main {
         editor.setLayout(new BorderLayout());
 
 
+        JPanel line3 = new JPanel();
+        line3.setBackground(new Color(100, 100, 100));
+        line3.setPreferredSize(new Dimension(1, 0)); 
+
 
 
 
         back.add(explolerp, BorderLayout.WEST);
+        back.add(line3, BorderLayout.WEST);
+         
         console.add(terminalp, BorderLayout.WEST);
         center.add(editor, BorderLayout.CENTER);
         center.add(consoleWrapper, BorderLayout.SOUTH);

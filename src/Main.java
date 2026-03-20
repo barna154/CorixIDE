@@ -72,7 +72,7 @@ public class Main {
             JPanel resizeBorder = new JPanel();
             resizeBorder.setOpaque(false);
             resizeBorder.setLayout(new BorderLayout());
-            resizeBorder.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 5px láthatatlan perem
+            resizeBorder.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2)); // 5px láthatatlan perem
             window.setContentPane(resizeBorder);
 
 // Logo

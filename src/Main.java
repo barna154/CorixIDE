@@ -312,7 +312,7 @@ public class Main {
         back.setLayout(new BorderLayout());
 
         JPanel explolerp = new JPanel();
-        explolerp.setBackground(new Color(20, 20, 20));
+        explolerp.setBackground(new Color(25, 25, 25));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
                         final int PANEL_RESIZE_MARGIN = 5;
@@ -371,7 +371,7 @@ public class Main {
 
 
         JPanel console = new JPanel(new BorderLayout());
-        console.setBackground(new Color(50, 50, 50));
+        console.setBackground(new Color(30, 30, 30));
         console.setPreferredSize(new Dimension(0, 250));
 
                 JLabel terminalp = new JLabel(terminalname);
@@ -443,7 +443,7 @@ public class Main {
 //texting
 
         JPanel editor = new JPanel();
-        editor.setBackground(new Color(70, 70, 70));
+        editor.setBackground(new Color(50, 50, 50));
         editor.setLayout(new BorderLayout());
 
 

@@ -451,12 +451,13 @@ public class Main {
         line3.setBackground(new Color(100, 100, 100));
         line3.setPreferredSize(new Dimension(1, 0)); 
 
+        JPanel leftWrapper = new JPanel(new BorderLayout());
+        leftWrapper.add(explolerp, BorderLayout.CENTER);
+        leftWrapper.add(lineLeft, BorderLayout.EAST);
 
-
-
-        back.add(explolerp, BorderLayout.WEST);
+        back.add(leftWrapper, BorderLayout.WEST);
         back.add(line3, BorderLayout.WEST);
-         
+
         console.add(terminalp, BorderLayout.WEST);
         center.add(editor, BorderLayout.CENTER);
         center.add(consoleWrapper, BorderLayout.SOUTH);

@@ -431,7 +431,7 @@ public class Main {
         consoleWrapper.setBackground(new Color(255, 255, 255));
 
         JPanel line2 = new JPanel();
-        line2.setBackground(new Color(100, 100, 100));
+        line2.setBackground(new Color(150, 150, 150));
         line2.setPreferredSize(new Dimension(0, 2));
 
         consoleWrapper.add(line2, BorderLayout.NORTH);

@@ -269,6 +269,14 @@ public class Main {
                 window.setLocation(e.getXOnScreen() - mouseOffset[0], e.getYOnScreen() - mouseOffset[1]);
             }
         });
+        
+
+        Menu.addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                Menu.setCursor(Cursor.getDefaultCursor());
+            }
+        });
 
         Menu.addMouseListener(new MouseAdapter() {
             @Override

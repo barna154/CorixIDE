@@ -68,6 +68,13 @@ public class Main {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 7));
         leftPanel.setOpaque(false);
 
+// Border
+            JPanel resizeBorder = new JPanel();
+            resizeBorder.setOpaque(false);
+            resizeBorder.setLayout(new BorderLayout());
+            resizeBorder.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 5px láthatatlan perem
+            window.setContentPane(resizeBorder);
+
 // Logo
         ImageIcon icon = new ImageIcon("../gui/logo.png");
         Image img = icon.getImage();
@@ -287,7 +294,7 @@ public class Main {
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(Menu, BorderLayout.NORTH);
         northPanel.add(line1, BorderLayout.SOUTH);
-        window.add(northPanel, BorderLayout.NORTH);
+        resizeBorder.add(northPanel, BorderLayout.NORTH);
 
       
 
@@ -422,7 +429,7 @@ public class Main {
         console.add(terminalp, BorderLayout.WEST);
         center.add(console, BorderLayout.SOUTH);
         back.add(center, BorderLayout.CENTER);
-        window.add(back, BorderLayout.CENTER);
+        resizeBorder.add(back, BorderLayout.CENTER);
 
 
 

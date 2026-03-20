@@ -432,7 +432,7 @@ public class Main {
 
         JPanel line2 = new JPanel();
         line2.setBackground(new Color(100, 100, 100));
-        line2.setPreferredSize(new Dimension(0, 1));
+        line2.setPreferredSize(new Dimension(0, 10));
 
         consoleWrapper.add(line2, BorderLayout.NORTH);
         consoleWrapper.add(console, BorderLayout.CENTER);

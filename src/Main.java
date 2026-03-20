@@ -427,7 +427,9 @@ public class Main {
                                 }
                             }); 
 
-                
+        JPanel line2 = new JPanel();
+        line2.setBackground(new Color(100, 100, 100));
+        line2.setPreferredSize(new Dimension(0, 1));
 
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
@@ -435,6 +437,7 @@ public class Main {
 
         back.add(explolerp, BorderLayout.WEST);
         console.add(terminalp, BorderLayout.WEST);
+        center.add(line2, BorderLayout.CENTER);
         center.add(console, BorderLayout.SOUTH);
         back.add(center, BorderLayout.CENTER);
         resizeBorder.add(back, BorderLayout.CENTER);

@@ -431,8 +431,8 @@ public class Main {
         consoleWrapper.setBackground(new Color(255, 255, 255));
 
         JPanel line2 = new JPanel();
-        line2.setBackground(new Color(150, 150, 150));
-        line2.setPreferredSize(new Dimension(0, 2));
+        line2.setBackground(new Color(100, 100, 100));
+        line2.setPreferredSize(new Dimension(0, 1));
 
         consoleWrapper.add(line2, BorderLayout.NORTH);
         consoleWrapper.add(console, BorderLayout.CENTER);
@@ -440,9 +440,19 @@ public class Main {
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
    
+//texting
+
+        JPanel editor = new JPanel();
+        editor.setBackground(new Color(70, 70, 70));
+        editor.setLayout(new BorderLayout());
+
+
+
+
 
         back.add(explolerp, BorderLayout.WEST);
         console.add(terminalp, BorderLayout.WEST);
+        center.add(editor, BorderLayout.CENTER);
         center.add(consoleWrapper, BorderLayout.SOUTH);
 
         back.add(center, BorderLayout.CENTER);

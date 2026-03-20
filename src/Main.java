@@ -439,7 +439,7 @@ final int RESIZE_MARGIN = 5;
 final Rectangle[] startBounds = new Rectangle[1];
 final Point[] startMouse = new Point[1];
 
-window.addMouseMotionListener(new MouseMotionAdapter() {
+resizeBorder.addMouseMotionListener(new MouseMotionAdapter() {
     @Override
     public void mouseMoved(MouseEvent e) {
         int x = e.getX();
@@ -493,7 +493,7 @@ window.addMouseMotionListener(new MouseMotionAdapter() {
     }
 });
 
-window.addMouseListener(new MouseAdapter() {
+resizeBorder.addMouseListener(new MouseAdapter() {
     @Override
     public void mousePressed(MouseEvent e) {
         int type = window.getCursor().getType();

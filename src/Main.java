@@ -389,6 +389,9 @@ public class Main {
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
 //fájlkezelő
+        UIManager.put("MenuItem.background", new Color(30, 30, 30));
+        UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
+        UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(new Color(10, 10, 10)));
 
         JPopupMenu dataexplorer = new JPopupMenu();
         dataexplorer.setOpaque(true);

@@ -184,7 +184,7 @@ public class Main {
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    uploadb.setForeground(new Color(60, 60, 60));
+                    uploadb.setForeground(new Color(0, 168, 0));
                 }
                 @Override
                 public void mouseExited(MouseEvent e) {

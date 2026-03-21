@@ -36,6 +36,7 @@ public class Main {
         String moptions = getValue("Options");
         String sourcecont = getValue("Explorer");
         String terminalname = getValue("Terminal");
+        String mboards = getValue("Boards");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -145,6 +146,27 @@ public class Main {
                 }
             });
         leftPanel.add(labelOptions);
+
+
+        JLabel labelBoards = new JLabel(mboards);
+        labelBoards.setFont(new Font("Arial", Font.PLAIN, 15));
+        labelBoards.setForeground(new Color(118, 118, 118));
+        labelBoards.addMouseListener(new MouseAdapter() {
+            @Override
+                public void mouseClicked(MouseEvent e) { 
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    labelBoards.setForeground(new Color(60, 60, 60));
+                    labelBoards.setBackground(new Color(60, 60, 60));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    labelBoards.setForeground(new Color(118, 118, 118));
+                    labelBoards.setBackground(new Color(43, 43, 43));
+                }
+            });
+        leftPanel.add(labelBoards);
             
         Menu.add(leftPanel, BorderLayout.WEST);
 
@@ -389,7 +411,6 @@ public class Main {
                                 public void mouseMoved(MouseEvent e) {
                                     int y = e.getY();
 
-                                    // Ha az egér a felső 5px-ben van → resize kurzor
                                     if (y < CONSOLE_RESIZE_MARGIN) {
                                         console.setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                                     } else {

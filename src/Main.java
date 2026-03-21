@@ -393,6 +393,7 @@ public class Main {
 
         JMenuItem item1 = new JMenuItem("Új fájl");
             item1.setBackground(new Color(30, 30, 30));
+            item1.setForeground(new Color(255, 255, 255));
         JMenuItem item2 = new JMenuItem("Új mappa");
             item2.setBackground(new Color(30, 30, 30));
         JMenuItem item3 = new JMenuItem("Törlés");

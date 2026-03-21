@@ -393,7 +393,7 @@ public class Main {
         JPopupMenu dataexplorer = new JPopupMenu();
         dataexplorer.setBackground(new Color(30, 30, 30));
         dataexplorer.setForeground(new Color(30, 30, 30));
-        dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
+        //dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
 
         JMenuItem item1 = new JMenuItem(newp);
             item1.setBackground(new Color(30, 30, 30));

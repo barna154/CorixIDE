@@ -391,6 +391,7 @@ public class Main {
 //fájlkezelő
 
         JPopupMenu dataexplorer = new JPopupMenu();
+        dataexplorer.setOpaque(true);
         dataexplorer.setBackground(new Color(30, 30, 30));
         dataexplorer.setForeground(new Color(30, 30, 30));
         dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(10, 10, 10)));
@@ -408,9 +409,13 @@ public class Main {
             item4.setBackground(new Color(30, 30, 30));
             item4.setForeground(new Color(230, 230, 230));
 
+        JSeparator sep = new JSeparator();
+            sep.setForeground(new Color(80, 80, 80));
+            sep.setBackground(new Color(30, 30, 30));
+
         dataexplorer.add(item1);
         dataexplorer.add(item2);
-        dataexplorer.addSeparator();
+        dataexplorer.add(sep);
         dataexplorer.add(item3);
         dataexplorer.add(item4);
 

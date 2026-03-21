@@ -394,12 +394,15 @@ public class Main {
         UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
         UIManager.put("MenuItem.selectionForeground", new Color(230, 230, 230));
         UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(new Color(10, 10, 10)));
+        UIManager.put("MenuItem.checkIcon", null);
+        UIManager.put("MenuItem.arrowIcon", null);
 
         JPopupMenu dataexplorer = new JPopupMenu();
         dataexplorer.setOpaque(true);
         dataexplorer.setBackground(new Color(30, 30, 30));
         dataexplorer.setForeground(new Color(30, 30, 30));
         dataexplorer.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+        dataexplorer.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
         JMenuItem item1 = new JMenuItem(newp);
             item1.setMargin(new Insets(0, 0, 0, 0));

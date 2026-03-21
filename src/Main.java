@@ -168,7 +168,7 @@ public class Main {
             });
         leftPanel.add(labelBoards);
 
-        JLabel uploadb = new JLabel("📤");
+        JLabel uploadb = new JLabel("⬆️");
         //uploadb.setPreferredSize(new Dimension(45, 43));
         uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
         uploadb.setHorizontalAlignment(SwingConstants.CENTER);

@@ -197,6 +197,7 @@ public class Main {
             }
         });
 
+        leftPanel.add(uploadb);
             
         Menu.add(leftPanel, BorderLayout.WEST);
 

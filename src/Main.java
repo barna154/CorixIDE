@@ -385,7 +385,10 @@ public class Main {
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
 //fájlkezelő
+
         JPopupMenu dataexplorer = new JPopupMenu();
+        dataexplorer.setBackground(new Color(30, 30, 30));
+        dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
 
         JMenuItem item1 = new JMenuItem("Új fájl");
         JMenuItem item2 = new JMenuItem("Új mappa");

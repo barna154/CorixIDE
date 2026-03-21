@@ -385,6 +385,18 @@ public class Main {
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
 //fájlkezelő
+        JPopupMenu dataexplorer = new JPopupMenu();
+
+        JMenuItem item1 = new JMenuItem("Új fájl");
+        JMenuItem item2 = new JMenuItem("Új mappa");
+        JMenuItem item3 = new JMenuItem("Törlés");
+
+        dataexplorer.add(item1);
+        dataexplorer.add(item2);
+        dataexplorer.addSeparator();
+        dataexplorer.add(item3);
+
+
         JPanel explolerp = new JPanel();
         explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -426,7 +438,7 @@ public class Main {
                         explolerp.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mousePressed(MouseEvent e) {
-                                if (e.isPopupTrigger()) menu.show(contentPanel, e.getX(), e.getY());
+                                if (e.isPopupTrigger()) dataexplorer.show(contentPanel, e.getX(), e.getY());
 
                                 int x = e.getX();
                                 int w = explolerp.getWidth();
@@ -440,7 +452,7 @@ public class Main {
                             }
                             @Override
                             public void mouseReleased(MouseEvent e) {
-                                    if (e.isPopupTrigger()) menu.show(contentPanel, e.getX(), e.getY());
+                                    if (e.isPopupTrigger()) dataexplorer.show(contentPanel, e.getX(), e.getY());
                                 }
                         }); 
 
@@ -450,17 +462,6 @@ public class Main {
         sourcecon.setForeground(new Color(118, 118, 118));
         explolerp.add(sourcecon, BorderLayout.CENTER);
 
-
-        JPopupMenu dataexplorer = new JPopupMenu();
-
-        JMenuItem item1 = new JMenuItem("Új fájl");
-        JMenuItem item2 = new JMenuItem("Új mappa");
-        JMenuItem item3 = new JMenuItem("Törlés");
-
-        dataexplorer.add(item1);
-        dataexplorer.add(item2);
-        dataexplorer.addSeparator();
-        dataexplorer.add(item3);
 
 
         

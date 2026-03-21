@@ -402,15 +402,19 @@ public class Main {
         JMenuItem item1 = new JMenuItem(newp);
             item1.setBackground(new Color(30, 30, 30));
             item1.setForeground(new Color(230, 230, 230));
+            item1.setOpaque(true);
         JMenuItem item2 = new JMenuItem(newf);
             item2.setBackground(new Color(30, 30, 30));
             item2.setForeground(new Color(230, 230, 230));
+            item2.setOpaque(true);
         JMenuItem item3 = new JMenuItem(openp);
             item3.setBackground(new Color(30, 30, 30));
             item3.setForeground(new Color(230, 230, 230));
+            item3.setOpaque(true);
         JMenuItem item4 = new JMenuItem(mainp);
             item4.setBackground(new Color(30, 30, 30));
             item4.setForeground(new Color(230, 230, 230));
+            item4.setOpaque(true);
 
         JSeparator sep = new JSeparator();
             sep.setForeground(new Color(80, 80, 80));

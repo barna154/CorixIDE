@@ -393,9 +393,9 @@ public class Main {
         UIManager.put("MenuItem.background", new Color(30, 30, 30));
         UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
         UIManager.put("MenuItem.selectionForeground", new Color(230, 230, 230));
-        UIManager.put("PopupMenu.border", BorderFactory.createLineBorder(new Color(10, 10, 10)));
-        UIManager.put("MenuItem.selectionBackground", UIManager.get("MenuItem.background"));
-        UIManager.put("MenuItem.selectionForeground", UIManager.get("MenuItem.foreground"));
+        UIManager.put("PopupMenu.border", BorderFactory.createEmptyBorder());
+        UIManager.put("MenuItem.border", BorderFactory.createEmptyBorder());
+
         JPopupMenu dataexplorer = new JPopupMenu();
         dataexplorer.setOpaque(true);
         dataexplorer.setBackground(new Color(30, 30, 30));

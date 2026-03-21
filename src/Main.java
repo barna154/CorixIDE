@@ -420,6 +420,7 @@ public class Main {
             item4.setOpaque(true);
 
         JSeparator sep = new JSeparator();
+            sep.setOpaque(true);
             sep.setForeground(new Color(80, 80, 80));
             sep.setBackground(new Color(30, 30, 30));
 

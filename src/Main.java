@@ -170,7 +170,7 @@ public class Main {
 
         JLabel uploadb = new JLabel("⬆️");
         //uploadb.setPreferredSize(new Dimension(45, 43));
-        uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
+        uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
         uploadb.setHorizontalAlignment(SwingConstants.CENTER);
         uploadb.setVerticalAlignment(SwingConstants.CENTER);
         uploadb.setForeground(new Color(118, 118, 118));

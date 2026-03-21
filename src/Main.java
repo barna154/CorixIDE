@@ -399,10 +399,13 @@ public class Main {
             item1.setBackground(new Color(30, 30, 30));
             item1.setForeground(new Color(230, 230, 230));
         JMenuItem item2 = new JMenuItem(newf);
+            item2.setBackground(new Color(30, 30, 30));
             item2.setForeground(new Color(230, 230, 230));
         JMenuItem item3 = new JMenuItem(openp);
+            item3.setBackground(new Color(30, 30, 30));
             item3.setForeground(new Color(230, 230, 230));
         JMenuItem item4 = new JMenuItem(mainp);
+            item4.setBackground(new Color(30, 30, 30));
             item4.setForeground(new Color(230, 230, 230));
 
         dataexplorer.add(item1);

@@ -445,7 +445,7 @@ public class Main {
 
 
         JPanel console = new JPanel(new BorderLayout());
-        console.setBackground(new Color(30, 30, 30));
+        console.setBackground(new Color(23, 24, 23));
         console.setPreferredSize(new Dimension(0, 250));
 
                 JLabel terminalp = new JLabel(terminalname);

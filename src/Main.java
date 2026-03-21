@@ -438,7 +438,7 @@ public class Main {
                         explolerp.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mousePressed(MouseEvent e) {
-                                if (e.isPopupTrigger()) dataexplorer.show(contentPanel, e.getX(), e.getY());
+                                if (e.isPopupTrigger()) dataexplorer.show(explolerp, e.getX(), e.getY());
 
                                 int x = e.getX();
                                 int w = explolerp.getWidth();
@@ -452,7 +452,7 @@ public class Main {
                             }
                             @Override
                             public void mouseReleased(MouseEvent e) {
-                                    if (e.isPopupTrigger()) dataexplorer.show(contentPanel, e.getX(), e.getY());
+                                    if (e.isPopupTrigger()) dataexplorer.show(explolerp, e.getX(), e.getY());
                                 }
                         }); 
 

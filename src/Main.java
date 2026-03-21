@@ -386,7 +386,7 @@ public class Main {
         back.setLayout(new BorderLayout());
 
         JPanel explolerp = new JPanel();
-        explolerp.setBackground(new Color(16, 23, 16));
+        explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
                         final int PANEL_RESIZE_MARGIN = 5;

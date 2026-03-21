@@ -168,7 +168,7 @@ public class Main {
             });
         leftPanel.add(labelBoards);
 
-        JLabel complinelb = new JLabel("🗹");
+        JLabel complinelb = new JLabel("☑️");
         complinelb.setPreferredSize(new Dimension(26, 23));
         complinelb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         complinelb.setHorizontalAlignment(SwingConstants.CENTER);
@@ -184,7 +184,7 @@ public class Main {
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    complinelb.setForeground(new Color(0, 168, 0));
+                    complinelb.setForeground(new Color(0, 28, 150));
                 }
                 @Override
                 public void mouseExited(MouseEvent e) {

@@ -398,7 +398,7 @@ public class Main {
         dataexplorer.setOpaque(true);
         dataexplorer.setBackground(new Color(30, 30, 30));
         dataexplorer.setForeground(new Color(30, 30, 30));
-        dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(10, 10, 10)));
+        dataexplorer.setBorder(new RoundedBorder(10, new Color(10, 10, 10)));
 
         JMenuItem item1 = new JMenuItem(newp);
             item1.setMargin(new Insets(0, 0, 0, 0));

@@ -392,8 +392,11 @@ public class Main {
         dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
 
         JMenuItem item1 = new JMenuItem("Új fájl");
+            item2.setBackground(new Color(30, 30, 30));
         JMenuItem item2 = new JMenuItem("Új mappa");
+            item3.setBackground(new Color(30, 30, 30));
         JMenuItem item3 = new JMenuItem("Törlés");
+            item4.setBackground(new Color(30, 30, 30));
 
         dataexplorer.add(item1);
         dataexplorer.add(item2);

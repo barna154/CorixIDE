@@ -384,7 +384,7 @@ public class Main {
         JPanel back = new JPanel();
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
-
+//fájlkezelő
         JPanel explolerp = new JPanel();
         explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -419,11 +419,15 @@ public class Main {
                                     explolerp.revalidate();
                                 }
                             }
+
+                            
                         });
 
                         explolerp.addMouseListener(new MouseAdapter() {
                             @Override
                             public void mousePressed(MouseEvent e) {
+                                if (e.isPopupTrigger()) menu.show(contentPanel, e.getX(), e.getY());
+
                                 int x = e.getX();
                                 int w = explolerp.getWidth();
 
@@ -434,6 +438,10 @@ public class Main {
                                     panelStartMouse[0] = null;
                                 }
                             }
+                            @Override
+                            public void mouseReleased(MouseEvent e) {
+                                    if (e.isPopupTrigger()) menu.show(contentPanel, e.getX(), e.getY());
+                                }
                         }); 
 
         JLabel sourcecon = new JLabel(sourcecont);
@@ -441,8 +449,22 @@ public class Main {
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
         sourcecon.setForeground(new Color(118, 118, 118));
         explolerp.add(sourcecon, BorderLayout.CENTER);
-        
 
+
+        JPopupMenu dataexplorer = new JPopupMenu();
+
+        JMenuItem item1 = new JMenuItem("Új fájl");
+        JMenuItem item2 = new JMenuItem("Új mappa");
+        JMenuItem item3 = new JMenuItem("Törlés");
+
+        dataexplorer.add(item1);
+        dataexplorer.add(item2);
+        dataexplorer.addSeparator();
+        dataexplorer.add(item3);
+
+
+        
+//Konzol
 
         JPanel console = new JPanel(new BorderLayout());
         console.setBackground(new Color(23, 24, 23));

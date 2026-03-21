@@ -516,7 +516,7 @@ public class Main {
 //texting
 
         JPanel editor = new JPanel();
-        editor.setBackground(new Color(53, 61, 53));
+        editor.setBackground(new Color(40, 43, 40));
         editor.setLayout(new BorderLayout());
 
 

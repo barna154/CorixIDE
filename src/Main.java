@@ -37,6 +37,10 @@ public class Main {
         String sourcecont = getValue("Explorer");
         String terminalname = getValue("Terminal");
         String mboards = getValue("Boards");
+        String newp = getValue("New Project");
+        String newf = getValue("New file");
+        String openp = getValue("Open Project");
+        String mainp = getValue("Main Project");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -391,18 +395,21 @@ public class Main {
         dataexplorer.setForeground(new Color(30, 30, 30));
         dataexplorer.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70)));
 
-        JMenuItem item1 = new JMenuItem("Új fájl");
+        JMenuItem item1 = new JMenuItem(newp);
             item1.setBackground(new Color(30, 30, 30));
             item1.setForeground(new Color(255, 255, 255));
-        JMenuItem item2 = new JMenuItem("Új mappa");
+        JMenuItem item2 = new JMenuItem(newf);
             item2.setBackground(new Color(30, 30, 30));
-        JMenuItem item3 = new JMenuItem("Törlés");
+        JMenuItem item3 = new JMenuItem(openp);
             item3.setBackground(new Color(30, 30, 30));
+        JMenuItem item4 = new JMenuItem(mainp);
+            item4.setBackground(new Color(30, 30, 30));
 
         dataexplorer.add(item1);
         dataexplorer.add(item2);
         dataexplorer.addSeparator();
         dataexplorer.add(item3);
+        dataexplorer.add(item4);
 
 
         JPanel explolerp = new JPanel();

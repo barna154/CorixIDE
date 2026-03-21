@@ -5,5 +5,9 @@
    "Options": "Beállítások",
    "Explorer": "Fájlkezelő",
    "Terminal": "Terminál",  
-   "Boards": "Próbapanel"
+   "Boards": "Próbapanel",
+   "New Project": "Új projekt",
+   "New file": "Új fájl",
+   "Open Project": "Projekt megnyitása",
+   "Main Project": "Főprojektnek jelölés"
  }

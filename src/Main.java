@@ -167,6 +167,36 @@ public class Main {
                 }
             });
         leftPanel.add(labelBoards);
+
+        JLabel uploadb = new JLabel("📤");
+        uploadb.setPreferredSize(new Dimension(45, 43));
+        uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        uploadb.setHorizontalAlignment(SwingConstants.CENTER);
+        uploadb.setVerticalAlignment(SwingConstants.CENTER);
+        uploadb.setForeground(new Color(118, 118, 118));
+        uploadb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        uploadb.setOpaque(true);
+        uploadb.setBackground(new Color(43, 43, 43));
+
+        uploadb.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                uploadb.setForeground(Color.WHITE);
+                uploadb.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+                uploadb.setBackground(Color.RED);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                uploadb.setForeground(new Color(118, 118, 118));
+                uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+                uploadb.setBackground(new Color(43, 43, 43));
+            }
+        });
+
             
         Menu.add(leftPanel, BorderLayout.WEST);
 

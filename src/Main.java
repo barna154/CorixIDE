@@ -168,7 +168,33 @@ public class Main {
             });
         leftPanel.add(labelBoards);
 
-        JLabel uploadb = new JLabel("⬆️");
+        JLabel complinelb = new JLabel("⬆️");
+        complinelb.setPreferredSize(new Dimension(26, 23));
+        complinelb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        complinelb.setHorizontalAlignment(SwingConstants.CENTER);
+        complinelb.setVerticalAlignment(SwingConstants.CENTER);
+        complinelb.setForeground(new Color(118, 118, 118));
+        complinelb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        complinelb.setOpaque(true);
+        complinelb.setBackground(new Color(43, 43, 43));
+
+        complinelb.addMouseListener(new MouseAdapter() {
+           @Override
+                public void mouseClicked(MouseEvent e) { 
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    complinelb.setForeground(new Color(0, 168, 0));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    complinelb.setForeground(new Color(118, 118, 118));
+                }
+            });
+
+        leftPanel.add(complinelb);
+
+        JLabel uploadb = new JLabel("☑️");
         uploadb.setPreferredSize(new Dimension(26, 23));
         uploadb.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         uploadb.setHorizontalAlignment(SwingConstants.CENTER);

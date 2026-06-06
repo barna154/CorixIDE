@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class LineNumberComponent extends JComponent {
 
@@ -11,22 +12,17 @@ public class LineNumberComponent extends JComponent {
     public LineNumberComponent(JTextArea textArea) {
         this.textArea = textArea;
 
-        setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
+        setOpaque(true);
+        setFont(textArea.getFont());
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 
         textArea.addCaretListener(e -> repaint());
-        textArea.addComponentListener(new java.awt.event.ComponentAdapter() {
-            @Override
-            public void componentResized(java.awt.event.ComponentEvent e) {
-                repaint();
-            }
-        });
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(fixedWidth, Integer.MAX_VALUE);
+        return new Dimension(fixedWidth, textArea.getHeight());
     }
 
     @Override
@@ -37,38 +33,38 @@ public class LineNumberComponent extends JComponent {
 
         Rectangle visible = textArea.getVisibleRect();
 
+        // 🔥 FIX 1: mindig TELJES háttér, nem csak visible
         g2.setColor(getBackground());
-        g2.fillRect(0, 0, getWidth(), visible.height);
+        g2.fillRect(0, 0, getWidth(), getHeight());
 
         g2.setColor(getForeground());
-        FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
 
         Element root = textArea.getDocument().getDefaultRootElement();
 
-        int startLine = root.getElementIndex(textArea.viewToModel2D(new Point(0, visible.y)));
-        int endLine = root.getElementIndex(textArea.viewToModel2D(
-                new Point(0, visible.y + visible.height)));
+        int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
+        int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
 
-        int lineHeight = fm.getHeight();
+        int startLine = root.getElementIndex(startOffset);
+        int endLine = root.getElementIndex(endOffset);
 
         for (int i = startLine; i <= endLine; i++) {
 
             Element line = root.getElement(i);
 
-            Rectangle r;
             try {
-                r = textArea.modelToView2D(line.getStartOffset()).getBounds();
-            } catch (Exception ex) {
-                continue;
-            }
+                Rectangle2D r = textArea.modelToView2D(line.getStartOffset());
+                if (r == null) continue;
 
-            int y = (i - startLine) * lineHeight + fm.getAscent();
+                FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
 
-            String text = String.valueOf(i + 1);
+                int x = fixedWidth - fm.stringWidth(String.valueOf(i + 1)) - padding;
 
-            int x = fixedWidth - fm.stringWidth(text) - padding;
+                // 🔥 FIX 2: NEM saját lineHeight, hanem view alapú Y
+                int y = (int) (r.getY() - visible.y + fm.getAscent());
 
-            g2.drawString(text, x, y);
+                g2.drawString(String.valueOf(i + 1), x, y);
+
+            } catch (Exception ignored) {}
         }
     }
 }

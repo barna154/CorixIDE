@@ -1,5 +1,7 @@
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class LineNumberComponent extends JComponent {
 
@@ -36,32 +38,30 @@ public class LineNumberComponent extends JComponent {
         g.setColor(getForeground());
         FontMetrics fm = g.getFontMetrics();
 
-        int lineHeight = textArea.getFontMetrics(textArea.getFont()).getHeight();
-        int ascent = textArea.getFontMetrics(textArea.getFont()).getAscent();
+        try {
+            Rectangle visible = textArea.getVisibleRect();
+            int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
+            int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
 
-        // viewport lekérése
-        JViewport viewport = (JViewport) getParent();
-        Rectangle view = viewport.getViewRect();
+            Element root = textArea.getDocument().getDefaultRootElement();
+            int startLine = root.getElementIndex(startOffset);
+            int endLine = root.getElementIndex(endOffset);
 
-        // első látható sor
-        int firstLine = view.y / lineHeight;
+            for (int line = startLine; line <= endLine; line++) {
+                Element elem = root.getElement(line);
+                Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
 
-        // utolsó sor = dokumentum utolsó sora (NEM viewport alapján!)
-        int lastLine = textArea.getLineCount() - 1;
+                if (r != null) {
+                    String lineNumber = String.valueOf(line + 1);
 
-        for (int lineIndex = firstLine; lineIndex <= lastLine; lineIndex++) {
+                    int textWidth = fm.stringWidth(lineNumber);
+                    int x = fixedWidth - textWidth - padding;
+                    int y = (int) (r.getY() - visible.y + fm.getAscent());
 
-            // ha a sor már nem látszik, kilépünk
-            int y = (lineIndex * lineHeight) - view.y + ascent;
-            if (y > view.height + lineHeight) break;
+                    g.drawString(lineNumber, x, y);
+                }
+            }
 
-            String lineNumber = String.valueOf(lineIndex + 1);
-
-            // jobbra igazítás
-            int textWidth = fm.stringWidth(lineNumber);
-            int x = fixedWidth - textWidth - padding;
-
-            g.drawString(lineNumber, x, y);
-        }
+        } catch (Exception ignored) {}
     }
 }

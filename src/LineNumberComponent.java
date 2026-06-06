@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class LineNumberComponent extends JComponent {
 

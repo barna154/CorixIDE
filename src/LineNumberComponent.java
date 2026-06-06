@@ -5,6 +5,7 @@ public class LineNumberComponent extends JComponent {
 
     private final JTextArea textArea;
     private final int padding = 8;
+    private final int fixedWidth = 50; // fix szélesség, nem fog ugrálni
 
     public LineNumberComponent(JTextArea textArea) {
         this.textArea = textArea;
@@ -14,17 +15,15 @@ public class LineNumberComponent extends JComponent {
         setBackground(new Color(30, 30, 30));
 
         textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
         });
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int lineCount = textArea.getLineCount();
-        int width = getFontMetrics(getFont()).stringWidth(String.valueOf(lineCount)) + padding * 2;
-        return new Dimension(width, textArea.getHeight());
+        return new Dimension(fixedWidth, textArea.getHeight());
     }
 
     @Override
@@ -41,7 +40,6 @@ public class LineNumberComponent extends JComponent {
         int ascent = textArea.getFontMetrics(textArea.getFont()).getAscent();
 
         int startY = -textArea.getInsets().top + ascent;
-
         int visibleLines = getHeight() / lineHeight + 1;
 
         for (int i = 0; i < visibleLines; i++) {
@@ -49,9 +47,13 @@ public class LineNumberComponent extends JComponent {
             if (lineIndex >= textArea.getLineCount()) break;
 
             String lineNumber = String.valueOf(lineIndex + 1);
-            int y = startY + i * lineHeight;
 
-            g.drawString(lineNumber, padding, y);
+            // JOBBRA igazítás
+            int textWidth = fm.stringWidth(lineNumber);
+            int x = fixedWidth - textWidth - padding;
+
+            int y = startY + i * lineHeight;
+            g.drawString(lineNumber, x, y);
         }
     }
 

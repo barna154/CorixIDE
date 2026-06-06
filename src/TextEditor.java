@@ -1,6 +1,7 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.border.Border;
 
 
 public class TextEditor {

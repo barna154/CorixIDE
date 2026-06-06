@@ -14,6 +14,7 @@ public class TextEditor {
         textArea.setCaretColor(Color.WHITE);
 
         JScrollPane scroll = new JScrollPane(textArea);
+        scroll.setBorder(new EmptyBorder(1, 1, 1, 1));
 
         editorPanel.add(scroll, BorderLayout.CENTER);
     }

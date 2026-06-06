@@ -46,22 +46,20 @@ public class LineNumberComponent extends JComponent {
         // első látható sor
         int firstLine = view.y / lineHeight;
 
-        // utolsó látható sor (NEM viewport magasság alapján!)
-        int lastLine = Math.min(
-                textArea.getLineCount() - 1,
-                firstLine + (view.height / lineHeight) + 1
-        );
+        // utolsó sor = dokumentum utolsó sora (NEM viewport alapján!)
+        int lastLine = textArea.getLineCount() - 1;
 
         for (int lineIndex = firstLine; lineIndex <= lastLine; lineIndex++) {
+
+            // ha a sor már nem látszik, kilépünk
+            int y = (lineIndex * lineHeight) - view.y + ascent;
+            if (y > view.height + lineHeight) break;
 
             String lineNumber = String.valueOf(lineIndex + 1);
 
             // jobbra igazítás
             int textWidth = fm.stringWidth(lineNumber);
             int x = fixedWidth - textWidth - padding;
-
-            // pontos Y pozíció
-            int y = (lineIndex * lineHeight) - view.y + ascent;
 
             g.drawString(lineNumber, x, y);
         }

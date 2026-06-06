@@ -10,10 +10,9 @@ import javax.swing.border.Border;
 
 public class Main {
 
-    LanguageManager.load("../lang/lang.json");
 
     public static void main(String[] args) throws Exception {
-
+        LanguageManager.load("../lang/lang.json");
 
 // STRINGLIST
         String mtitle = LanguageManager.get("Title");

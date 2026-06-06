@@ -30,36 +30,38 @@ public class LineNumberComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // háttér
         g.setColor(getBackground());
         g.fillRect(0, 0, getWidth(), getHeight());
 
+        // szöveg szín
         g.setColor(getForeground());
         FontMetrics fm = g.getFontMetrics();
 
         int lineHeight = textArea.getFontMetrics(textArea.getFont()).getHeight();
         int ascent = textArea.getFontMetrics(textArea.getFont()).getAscent();
 
-        int startY = -textArea.getInsets().top + ascent;
-        int visibleLines = getHeight() / lineHeight + 1;
+        // viewport lekérése (EZ A LÉNYEG!)
+        JViewport viewport = (JViewport) getParent();
+        Rectangle view = viewport.getViewRect();
+
+        int firstLine = view.y / lineHeight;
+        int visibleLines = view.height / lineHeight + 2;
 
         for (int i = 0; i < visibleLines; i++) {
-            int lineIndex = i + getFirstVisibleLine();
+            int lineIndex = firstLine + i;
             if (lineIndex >= textArea.getLineCount()) break;
 
             String lineNumber = String.valueOf(lineIndex + 1);
 
-            // JOBBRA igazítás
+            // jobbra igazítás
             int textWidth = fm.stringWidth(lineNumber);
             int x = fixedWidth - textWidth - padding;
 
-            int y = startY + i * lineHeight;
+            // pontos Y pozíció
+            int y = (lineIndex * lineHeight) - view.y + ascent;
+
             g.drawString(lineNumber, x, y);
         }
-    }
-
-    private int getFirstVisibleLine() {
-        int scroll = textArea.getVisibleRect().y;
-        int lineHeight = textArea.getFontMetrics(textArea.getFont()).getHeight();
-        return scroll / lineHeight;
     }
 }

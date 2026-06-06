@@ -22,6 +22,7 @@ public class TextEditor {
         scroll.setBorder(null);
         scroll.getViewport().setBorder(null);
         scroll.getViewport().setBackground(new Color(30,30,30));
+        scroll.setRowHeaderView(new LineNumberComponent(textArea));
 
         editorPanel.add(scroll, BorderLayout.CENTER);
     }

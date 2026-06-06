@@ -20,7 +20,8 @@ public class TextEditor {
         scroll.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         scroll.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(18, 0));
-        scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 20));
+        scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(Integer.MAX_VALUE, 3));
+
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);

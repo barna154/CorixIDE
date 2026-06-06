@@ -9,6 +9,7 @@ public class LineNumberComponent extends JComponent {
     private final JTextArea textArea;
     private final int padding = 8;
     private final int fixedWidth = 50;
+    private final int rightGap = 16;
 
     public LineNumberComponent(JTextArea textArea) {
         this.textArea = textArea;
@@ -17,7 +18,6 @@ public class LineNumberComponent extends JComponent {
         setFont(textArea.getFont());
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
-        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));
 
 
         DocumentListener dl = new DocumentListener() {
@@ -75,7 +75,7 @@ public class LineNumberComponent extends JComponent {
 
                 String lineNumber = String.valueOf(line + 1);
                 int textWidth = fm.stringWidth(lineNumber);
-                int x = fixedWidth - textWidth - padding;
+                int x = fixedWidth - textWidth - padding - rightGap;
                 int y = (int) (r.getY() + fm.getAscent());
 
            

@@ -78,7 +78,7 @@ public class LineNumberComponent extends JComponent {
 
            
                 if (line == currentLine) {
-                    g2.setColor(new Color(220, 220, 100)); 
+                    g2.setColor(new Color(24, 71, 33)); 
                 } else {
                     g2.setColor(getForeground());
                 }

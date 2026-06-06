@@ -11,7 +11,7 @@ public class TextEditor {
         textArea.setForeground(new Color(218, 218, 218));
         textArea.setCaretColor(Color.GRAY);
         textArea.setFont(new Font("Consolas", Font.PLAIN, 17));
-        textArea.setSelectionColor(new Color(40, 60, 160));     
+        textArea.setSelectionColor(new Color(40, 50, 110));     
         textArea.setSelectedTextColor(new Color(218, 218, 218));
 
         JScrollPane scroll = new JScrollPane(textArea);

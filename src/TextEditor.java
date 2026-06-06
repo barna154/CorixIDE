@@ -21,10 +21,19 @@ public class TextEditor {
         scroll.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(18, 0));
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 18));
+        scroll.setCorner(JScrollPane.LOWER_RIGHT_CORNER, createDarkPanel());
+        scroll.setCorner(JScrollPane.LOWER_LEFT_CORNER, createDarkPanel());
+        scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, createDarkPanel());
 
 
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
     }
+    private JPanel createDarkPanel() {
+    JPanel p = new JPanel();
+    p.setBackground(new Color(30, 30, 30));
+    return p;
+    }
 }
+

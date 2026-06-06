@@ -30,7 +30,6 @@ public class LineNumberComponent extends JComponent {
 
     @Override
     public Dimension getPreferredSize() {
-        // A magasságot a textArea teljes (preferred) magasságából vesszük
         int height = textArea.getPreferredSize().height;
         return new Dimension(fixedWidth, height);
     }
@@ -53,7 +52,6 @@ public class LineNumberComponent extends JComponent {
 
         g2.setColor(getForeground());
 
-        // A clip területet használjuk (a JScrollPane ezt kezeli)
         Rectangle clip = g.getClipBounds();
         Element root = textArea.getDocument().getDefaultRootElement();
 
@@ -63,19 +61,27 @@ public class LineNumberComponent extends JComponent {
 
         FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
 
+        int caretPos = textArea.getCaretPosition();
+        int currentLine = root.getElementIndex(caretPos);
+
         for (int line = startLine; line < totalLines; line++) {
             Element elem = root.getElement(line);
             try {
                 Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
                 if (r == null) continue;
-
                 if (r.getY() > clip.y + clip.height) break;
 
                 String lineNumber = String.valueOf(line + 1);
                 int textWidth = fm.stringWidth(lineNumber);
                 int x = fixedWidth - textWidth - padding;
-                // Nincs visible.y kivonás! A JScrollPane kezeli az offsetet.
                 int y = (int) (r.getY() + fm.getAscent());
+
+                // Aktív sor: más szín
+                if (line == currentLine) {
+                    g2.setColor(new Color(220, 220, 100)); // sárga/highlight
+                } else {
+                    g2.setColor(getForeground()); // alapszín (szürke)
+                }
 
                 g2.drawString(lineNumber, x, y);
 

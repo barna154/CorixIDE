@@ -35,6 +35,10 @@ public class LineNumberComponent extends JComponent {
         int height = textArea.getPreferredSize().height;
         return new Dimension(fixedWidth, height);
     }
+    @Override
+    protected Dimension getMaximumThumbSize() {
+    return new Dimension(8, 60); // 60 = maximum magasság pixelben
+    }
 
     @Override
     protected void paintComponent(Graphics g) {

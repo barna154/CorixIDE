@@ -10,38 +10,23 @@ import javax.swing.border.Border;
 
 public class Main {
 
-// LANGUAGE SCANNER
-    public static String getValue(String key) throws Exception {
-        Scanner sc = new Scanner(new File("../lang/lang.json"));
-        String value = "";
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine().trim();
-            if (line.startsWith("\"" + key + "\"")) {
-                int firstQuote = line.indexOf("\"", key.length() + 2);
-                int secondQuote = line.indexOf("\"", firstQuote + 1);
-                value = line.substring(firstQuote + 1, secondQuote);
-                break;
-            }
-        }
-        sc.close();
-        return value;
-    }
+    LanguageManager.load("../lang/lang.json");
 
     public static void main(String[] args) throws Exception {
 
 
 // STRINGLIST
-        String mtitle = getValue("Title");
-        String mfile = getValue("File");
-        String medit = getValue("Edit");
-        String moptions = getValue("Options");
-        String sourcecont = getValue("Explorer");
-        String terminalname = getValue("Terminal");
-        String mboards = getValue("Boards");
-        String newp = getValue("New Project");
-        String newf = getValue("New file");
-        String openp = getValue("Open Project");
-        String mainp = getValue("Main Project");
+        String mtitle = LanguageManager.get("Title");
+        String mfile = LanguageManager.get("File");
+        String medit = LanguageManager.get("Edit");
+        String moptions = LanguageManager.get("Options");
+        String sourcecont = LanguageManager.get("Explorer");
+        String terminalname = LanguageManager.get("Terminal");
+        String mboards = LanguageManager.get("Boards");
+        String newp = LanguageManager.get("New Project");
+        String newf = LanguageManager.get("New file");
+        String openp = LanguageManager.get("Open Project");
+        String mainp = LanguageManager.get("Main Project");
 
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

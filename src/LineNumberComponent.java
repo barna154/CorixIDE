@@ -31,7 +31,6 @@ public class LineNumberComponent extends JComponent {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // 🔥 FIX: ugyanaz a renderelés, mint a JTextArea-ban
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_RENDERING,

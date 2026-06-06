@@ -15,7 +15,7 @@ public class TextEditor {
         JScrollPane scroll = new JScrollPane(textArea);
         scroll.setBorder(null);
         scroll.getViewport().setBackground(new Color(30, 30, 30));
-        scrollPane.setRowHeaderView(new LineNumberComponent(textArea));
+        scroll.setRowHeaderView(new LineNumberComponent(textArea));
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);

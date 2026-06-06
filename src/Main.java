@@ -563,11 +563,17 @@ public class Main {
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
    
-//texting
+//Editor
 
         JPanel editor = new JPanel();
         editor.setBackground(new Color(40, 43, 40));
         editor.setLayout(new BorderLayout());
+
+
+        
+        TextEditor te = new TextEditor();
+        te.init(editor);
+
 
 
         JPanel line3 = new JPanel();

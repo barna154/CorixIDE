@@ -16,52 +16,54 @@ public class LineNumberComponent extends JComponent {
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 
-        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-        });
+        // FONTOS: csak repaint, nincs extra logika
+        textArea.addCaretListener(e -> repaint());
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(fixedWidth, textArea.getHeight());
+        // stabil szélesség, magasságot nem erőltetjük
+        return new Dimension(fixedWidth, Integer.MAX_VALUE);
     }
 
     @Override
-protected void paintComponent(Graphics g) {
-    super.paintComponent(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-    Rectangle visible = textArea.getVisibleRect();
-    g.setColor(getBackground());
-    g.fillRect(0, 0, getWidth(), visible.height);
+        Rectangle visible = textArea.getVisibleRect();
 
-    g.setColor(getForeground());
-    FontMetrics fm = g.getFontMetrics();
+        g.setColor(getBackground());
+        g.fillRect(0, 0, getWidth(), visible.height);
 
-    Element root = textArea.getDocument().getDefaultRootElement();
+        g.setColor(getForeground());
+        FontMetrics fm = g.getFontMetrics();
 
-    int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
-    int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
+        Element root = textArea.getDocument().getDefaultRootElement();
 
-    int startLine = root.getElementIndex(startOffset);
-    int endLine = root.getElementIndex(endOffset);
+        int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
+        int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
 
-    for (int i = startLine; i <= endLine; i++) {
-        Element lineElem = root.getElement(i);
+        int startLine = root.getElementIndex(startOffset);
+        int endLine = root.getElementIndex(endOffset);
 
-        try {
-            Rectangle2D r = textArea.modelToView2D(lineElem.getStartOffset());
-            if (r == null) continue;
+        for (int i = startLine; i <= endLine; i++) {
 
-            String text = String.valueOf(i + 1);
+            Element lineElem = root.getElement(i);
 
-            int x = fixedWidth - fm.stringWidth(text) - padding;
-            int y = (int) (r.getY() - visible.y + fm.getAscent());
+            try {
+                Rectangle2D r = textArea.modelToView2D(lineElem.getStartOffset());
+                if (r == null) continue;
 
-            g.drawString(text, x, y);
+                String text = String.valueOf(i + 1);
 
-        } catch (Exception ignored) {}
+                int x = fixedWidth - fm.stringWidth(text) - padding;
+                int y = (int) (r.getY() - visible.y + fm.getAscent());
+
+                g.drawString(text, x, y);
+
+            } catch (Exception ignored) {
+                // Swing layout közbeni instabilitás kezelve
+            }
+        }
     }
 }
- 

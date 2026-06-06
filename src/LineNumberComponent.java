@@ -17,7 +17,7 @@ public class LineNumberComponent extends JComponent {
         setFont(textArea.getFont());
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
-        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 12));
+        setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));
 
 
         DocumentListener dl = new DocumentListener() {

@@ -15,16 +15,7 @@ public class TextEditor {
         JScrollPane scroll = new JScrollPane(textArea);
         scroll.setBorder(null);
         scroll.getViewport().setBackground(new Color(30, 30, 30));
-
-        LineNumberComponent lineNumbers = new LineNumberComponent(textArea);
-        scroll.setRowHeaderView(lineNumbers);
-
-        // frissítés csak amikor kell
-        textArea.addCaretListener(e -> scroll.getRowHeader().repaint());
-
-        textArea.addPropertyChangeListener("font",
-                e -> scroll.getRowHeader().repaint()
-        );
+        scrollPane.setRowHeaderView(new LineNumberComponent(textArea));
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);

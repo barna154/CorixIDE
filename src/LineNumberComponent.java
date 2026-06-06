@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -17,18 +18,21 @@ public class LineNumberComponent extends JComponent {
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 
-        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
-        });
+        DocumentListener dl = new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { revalidate(); repaint(); }
+            public void removeUpdate(DocumentEvent e) { revalidate(); repaint(); }
+            public void changedUpdate(DocumentEvent e) { revalidate(); repaint(); }
+        };
 
+        textArea.getDocument().addDocumentListener(dl);
         textArea.addCaretListener(e -> repaint());
     }
 
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(fixedWidth, textArea.getHeight());
+        // A magasságot a textArea teljes (preferred) magasságából vesszük
+        int height = textArea.getPreferredSize().height;
+        return new Dimension(fixedWidth, height);
     }
 
     @Override
@@ -49,31 +53,29 @@ public class LineNumberComponent extends JComponent {
 
         g2.setColor(getForeground());
 
-        Rectangle visible = textArea.getVisibleRect();
+        // A clip területet használjuk (a JScrollPane ezt kezeli)
+        Rectangle clip = g.getClipBounds();
         Element root = textArea.getDocument().getDefaultRootElement();
 
-        int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
+        int startOffset = textArea.viewToModel2D(new Point(0, clip.y));
         int startLine = root.getElementIndex(startOffset);
-
         int totalLines = textArea.getLineCount();
+
         FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
 
         for (int line = startLine; line < totalLines; line++) {
-
             Element elem = root.getElement(line);
-
             try {
                 Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
                 if (r == null) continue;
 
-                // ha a sor már nem látszik → kilépünk
-                if (r.getY() > visible.y + visible.height) break;
+                if (r.getY() > clip.y + clip.height) break;
 
                 String lineNumber = String.valueOf(line + 1);
-
                 int textWidth = fm.stringWidth(lineNumber);
                 int x = fixedWidth - textWidth - padding;
-                int y = (int) (r.getY() - visible.y + fm.getAscent());
+                // Nincs visible.y kivonás! A JScrollPane kezeli az offsetet.
+                int y = (int) (r.getY() + fm.getAscent());
 
                 g2.drawString(lineNumber, x, y);
 

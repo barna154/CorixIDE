@@ -15,6 +15,16 @@ public class TextEditor {
         textArea.setForeground(Color.WHITE);
         textArea.setCaretColor(Color.WHITE);
         textArea.setFont(new Font("Consolas", Font.PLAIN, 17));
+
+        textArea.addCaretListener(e -> repaint());
+
+        textArea.addPropertyChangeListener("font", e -> repaint());
+
+        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+        });
         
 
         JScrollPane scroll = new JScrollPane(textArea);

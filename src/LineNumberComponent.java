@@ -29,39 +29,39 @@ public class LineNumberComponent extends JComponent {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+protected void paintComponent(Graphics g) {
+    super.paintComponent(g);
 
-        g.setColor(getBackground());
-        g.fillRect(0, 0, getWidth(), getHeight());
+    Rectangle visible = textArea.getVisibleRect();
+    g.setColor(getBackground());
+    g.fillRect(0, 0, getWidth(), visible.height);
 
-        g.setColor(getForeground());
-        FontMetrics fm = g.getFontMetrics();
+    g.setColor(getForeground());
+    FontMetrics fm = g.getFontMetrics();
+
+    Element root = textArea.getDocument().getDefaultRootElement();
+
+    int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
+    int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
+
+    int startLine = root.getElementIndex(startOffset);
+    int endLine = root.getElementIndex(endOffset);
+
+    for (int i = startLine; i <= endLine; i++) {
+        Element lineElem = root.getElement(i);
 
         try {
-            Rectangle visible = textArea.getVisibleRect();
-            int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
-            int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
+            Rectangle2D r = textArea.modelToView2D(lineElem.getStartOffset());
+            if (r == null) continue;
 
-            Element root = textArea.getDocument().getDefaultRootElement();
-            int startLine = root.getElementIndex(startOffset);
-            int endLine = root.getElementIndex(endOffset);
+            String text = String.valueOf(i + 1);
 
-            for (int line = startLine; line <= endLine; line++) {
-                Element elem = root.getElement(line);
-                Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
+            int x = fixedWidth - fm.stringWidth(text) - padding;
+            int y = (int) (r.getY() - visible.y + fm.getAscent());
 
-                if (r != null) {
-                    String lineNumber = String.valueOf(line + 1);
-
-                    int textWidth = fm.stringWidth(lineNumber);
-                    int x = fixedWidth - textWidth - padding;
-                    int y = (int) (r.getY() - visible.y + fm.getAscent());
-
-                    g.drawString(lineNumber, x, y);
-                }
-            }
+            g.drawString(text, x, y);
 
         } catch (Exception ignored) {}
     }
 }
+ 

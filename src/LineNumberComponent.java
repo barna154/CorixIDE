@@ -1,7 +1,5 @@
 import javax.swing.*;
-import javax.swing.text.*;
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class LineNumberComponent extends JComponent {
 
@@ -33,34 +31,33 @@ public class LineNumberComponent extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Rectangle clip = g.getClipBounds();
         g.setColor(getBackground());
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(getForeground());
         FontMetrics fm = g.getFontMetrics();
 
-        int startOffset = textArea.viewToModel2D(new Point(0, clip.y));
-        int endOffset = textArea.viewToModel2D(new Point(0, clip.y + clip.height));
+        int lineHeight = textArea.getFontMetrics(textArea.getFont()).getHeight();
+        int ascent = textArea.getFontMetrics(textArea.getFont()).getAscent();
 
-        Element root = textArea.getDocument().getDefaultRootElement();
-        int startLine = root.getElementIndex(startOffset);
-        int endLine = root.getElementIndex(endOffset);
+        int startY = -textArea.getInsets().top + ascent;
 
-        for (int line = startLine; line <= endLine; line++) {
-            try {
-                Rectangle2D r = textArea.modelToView2D(
-                        root.getElement(line).getStartOffset()
-                );
+        int visibleLines = getHeight() / lineHeight + 1;
 
-                if (r != null) {
-                    String lineNumber = String.valueOf(line + 1);
-                    int x = padding;
-                    int y = (int) (r.getY() + r.getHeight() - fm.getDescent());
-                    g.drawString(lineNumber, x, y);
-                }
+        for (int i = 0; i < visibleLines; i++) {
+            int lineIndex = i + getFirstVisibleLine();
+            if (lineIndex >= textArea.getLineCount()) break;
 
-            } catch (Exception ignored) {}
+            String lineNumber = String.valueOf(lineIndex + 1);
+            int y = startY + i * lineHeight;
+
+            g.drawString(lineNumber, padding, y);
         }
+    }
+
+    private int getFirstVisibleLine() {
+        int scroll = textArea.getVisibleRect().y;
+        int lineHeight = textArea.getFontMetrics(textArea.getFont()).getHeight();
+        return scroll / lineHeight;
     }
 }

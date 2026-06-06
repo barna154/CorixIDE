@@ -8,7 +8,7 @@ public class LineNumberComponent extends JComponent {
 
     private final JTextArea textArea;
     private final int padding = 8;
-    private final int fixedWidth = 50;
+    private final int fixedWidth = 60;
     private final int rightGap = 12;
 
     public LineNumberComponent(JTextArea textArea) {

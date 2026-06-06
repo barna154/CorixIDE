@@ -1,16 +1,24 @@
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 
 public class LineNumberComponent extends JComponent {
 
     private final JTextArea textArea;
-    private final int padding = 5;
+    private final int padding = 8;
 
     public LineNumberComponent(JTextArea textArea) {
         this.textArea = textArea;
-        setFont(new Font("Consolas", Font.PLAIN, 16));
+
+        setFont(new Font("Consolas", Font.PLAIN, 17));
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
+
+        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); revalidate(); }
+        });
     }
 
     @Override
@@ -25,29 +33,32 @@ public class LineNumberComponent extends JComponent {
         super.paintComponent(g);
 
         Rectangle clip = g.getClipBounds();
-        int start = textArea.viewToModel(new Point(0, clip.y));
-        int end = textArea.viewToModel(new Point(0, clip.y + clip.height));
-
         g.setColor(getBackground());
         g.fillRect(0, 0, getWidth(), getHeight());
 
         g.setColor(getForeground());
         FontMetrics fm = g.getFontMetrics();
 
-        int startLine = textArea.getDocument().getDefaultRootElement().getElementIndex(start);
-        int endLine = textArea.getDocument().getDefaultRootElement().getElementIndex(end);
+        int startOffset = textArea.viewToModel2D(new Point(0, clip.y));
+        int endOffset = textArea.viewToModel2D(new Point(0, clip.y + clip.height));
+
+        Element root = textArea.getDocument().getDefaultRootElement();
+        int startLine = root.getElementIndex(startOffset);
+        int endLine = root.getElementIndex(endOffset);
 
         for (int line = startLine; line <= endLine; line++) {
             try {
-                Rectangle r = textArea.modelToView(
-                        textArea.getDocument().getDefaultRootElement().getElement(line).getStartOffset()
+                Rectangle2D r = textArea.modelToView2D(
+                        root.getElement(line).getStartOffset()
                 );
+
                 if (r != null) {
                     String lineNumber = String.valueOf(line + 1);
                     int x = padding;
-                    int y = r.y + r.height - fm.getDescent();
+                    int y = (int) (r.getY() + r.getHeight() - fm.getDescent());
                     g.drawString(lineNumber, x, y);
                 }
+
             } catch (Exception ignored) {}
         }
     }

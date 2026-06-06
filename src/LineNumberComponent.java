@@ -10,7 +10,7 @@ public class LineNumberComponent extends JComponent {
     public LineNumberComponent(JTextArea textArea) {
         this.textArea = textArea;
 
-        setFont(new Font("Consolas", Font.PLAIN, 16));
+        setFont(new Font("JetBrains Mono", Font.PLAIN, 16));
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 

@@ -31,9 +31,16 @@ public class LineNumberComponent extends JComponent {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // 🔥 FIX: ugyanaz a renderelés, mint a JTextArea-ban
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_RENDERING,
+                            RenderingHints.VALUE_RENDER_QUALITY);
+        g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
+                            RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
+
         Rectangle visible = textArea.getVisibleRect();
 
-        // 🔥 FIX 1: mindig TELJES háttér, nem csak visible
         g2.setColor(getBackground());
         g2.fillRect(0, 0, getWidth(), getHeight());
 
@@ -58,8 +65,6 @@ public class LineNumberComponent extends JComponent {
                 FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
 
                 int x = fixedWidth - fm.stringWidth(String.valueOf(i + 1)) - padding;
-
-                // 🔥 FIX 2: NEM saját lineHeight, hanem view alapú Y
                 int y = (int) (r.getY() - visible.y + fm.getAscent());
 
                 g2.drawString(String.valueOf(i + 1), x, y);

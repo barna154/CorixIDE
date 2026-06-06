@@ -9,7 +9,7 @@ public class TextEditor {
 
         textArea.setBackground(new Color(30, 30, 30));
         textArea.setForeground(Color.WHITE);
-        textArea.setCaretColor(Color.WHITE);
+        textArea.setCaretColor(Color.GRAY);
         textArea.setFont(new Font("Consolas", Font.PLAIN, 17));
 
         JScrollPane scroll = new JScrollPane(textArea);

@@ -35,6 +35,11 @@ public class CustomScrollBarUI extends BasicScrollBarUI {
     }
 
     @Override
+    protected Dimension getMaximumThumbSize() {
+        return new Dimension(8, 60); // 60 = maximum magasság pixelben
+    }
+    
+    @Override
     protected JButton createDecreaseButton(int orientation) {
         return createInvisibleButton();
     }

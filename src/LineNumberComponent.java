@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
+import java.awt.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 

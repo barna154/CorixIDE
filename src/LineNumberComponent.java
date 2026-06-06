@@ -76,11 +76,11 @@ public class LineNumberComponent extends JComponent {
                 int x = fixedWidth - textWidth - padding;
                 int y = (int) (r.getY() + fm.getAscent());
 
-                // Aktív sor: más szín
+           
                 if (line == currentLine) {
-                    g2.setColor(new Color(220, 220, 100)); // sárga/highlight
+                    g2.setColor(new Color(220, 220, 100)); 
                 } else {
-                    g2.setColor(getForeground()); // alapszín (szürke)
+                    g2.setColor(getForeground());
                 }
 
                 g2.drawString(lineNumber, x, y);

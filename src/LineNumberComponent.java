@@ -17,6 +17,14 @@ public class LineNumberComponent extends JComponent {
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 
+        // újrarajzolás dokumentumváltozáskor
+        textArea.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { repaint(); }
+        });
+
+        // újrarajzolás caret mozgáskor
         textArea.addCaretListener(e -> repaint());
     }
 
@@ -31,6 +39,7 @@ public class LineNumberComponent extends JComponent {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // 🔥 Ugyanaz a renderelés, mint a JTextArea-ban → nem mosódik el
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
                             RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setRenderingHint(RenderingHints.KEY_RENDERING,
@@ -38,35 +47,46 @@ public class LineNumberComponent extends JComponent {
         g2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS,
                             RenderingHints.VALUE_FRACTIONALMETRICS_OFF);
 
-        Rectangle visible = textArea.getVisibleRect();
-
+        // háttér
         g2.setColor(getBackground());
         g2.fillRect(0, 0, getWidth(), getHeight());
 
         g2.setColor(getForeground());
 
+        Rectangle visible = textArea.getVisibleRect();
         Element root = textArea.getDocument().getDefaultRootElement();
 
+        // első látható karakter offset
         int startOffset = textArea.viewToModel2D(new Point(0, visible.y));
-        int endOffset = textArea.viewToModel2D(new Point(0, visible.y + visible.height));
-
         int startLine = root.getElementIndex(startOffset);
-        int endLine = root.getElementIndex(endOffset);
 
-        for (int i = startLine; i <= endLine; i++) {
+        // összes sor száma
+        int totalLines = textArea.getLineCount();
 
-            Element line = root.getElement(i);
+        FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
+
+        // végigmegyünk a dokumentum valódi sorain
+        for (int line = startLine; line < totalLines; line++) {
+
+            Element elem = root.getElement(line);
 
             try {
-                Rectangle2D r = textArea.modelToView2D(line.getStartOffset());
+                Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
                 if (r == null) continue;
 
-                FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
+                // ha a sor már nem látszik → kilépünk
+                if (r.getY() > visible.y + visible.height) break;
 
-                int x = fixedWidth - fm.stringWidth(String.valueOf(i + 1)) - padding;
+                String lineNumber = String.valueOf(line + 1);
+
+                // jobbra igazítás
+                int textWidth = fm.stringWidth(lineNumber);
+                int x = fixedWidth - textWidth - padding;
+
+                // pontos Y pozíció
                 int y = (int) (r.getY() - visible.y + fm.getAscent());
 
-                g2.drawString(String.valueOf(i + 1), x, y);
+                g2.drawString(lineNumber, x, y);
 
             } catch (Exception ignored) {}
         }

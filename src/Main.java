@@ -571,8 +571,8 @@ public class Main {
 
 
         
-        //TextEditor te = new TextEditor();
-        //te.init(editor);
+        TextEditor te = new TextEditor();
+        te.init(editor);
 
 
 

@@ -17,6 +17,11 @@ public class TextEditor {
         scroll.getViewport().setBackground(new Color(30, 30, 30));
         scroll.setRowHeaderView(new LineNumberComponent(textArea));
 
+        scroll.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scroll.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+        scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 8));
+
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
     }

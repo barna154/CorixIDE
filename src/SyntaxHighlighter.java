@@ -31,7 +31,7 @@ public class SyntaxHighlighter {
         normalStyle = doc.addStyle("normal", null);
         StyleConstants.setForeground(normalStyle, new Color(218, 218, 218));
 
-        tesztStyle = doc.addStyle("{", null);
+        tesztStyle = doc.addStyle("brace", null);
         StyleConstants.setForeground(tesztStyle, new Color(120, 120, 200));
 
         typeStyle = doc.addStyle("types", null);
@@ -78,9 +78,9 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(zarojel2.start(), zarojel2.end() - zarojel2.start(), tesztStyle, false);
             }
             
-            Matcher void = Pattern.compile("\\bvoid\\b").matcher(text);
-            while (void.find()) {
-                doc.setCharacterAttributes(void.start(), void.end() - void.start(), typeStyle, false);
+            Matcher v = Pattern.compile("\\bvoid\\b").matcher(text);
+            while (v.find()) {
+                doc.setCharacterAttributes(v.start(), v.end() - v.start(), typeStyle, false);
             }
     
 

@@ -35,7 +35,7 @@ public class SyntaxHighlighter {
         StyleConstants.setForeground(tesztStyle, new Color(120, 120, 200));
 
         typeStyle = doc.addStyle("types", null);
-        StyleConstants.setForeground(numberStyle, new Color(150, 220, 150));
+        StyleConstants.setForeground(typeStyle, new Color(150, 220, 150));
 
         numberStyle = doc.addStyle("number", null);
         StyleConstants.setForeground(numberStyle, new Color(75, 220, 165));
@@ -78,7 +78,7 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(zarojel2.start(), zarojel2.end() - zarojel2.start(), tesztStyle, false);
             }
             
-            Matcher void = Pattern.compile("\\b\\void\\b").matcher(text);
+            Matcher void = Pattern.compile("\\bvoid\\b").matcher(text);
             while (void.find()) {
                 doc.setCharacterAttributes(void.start(), void.end() - void.start(), typeStyle, false);
             }

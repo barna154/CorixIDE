@@ -6,6 +6,8 @@ public class TextEditor {
 
     public void init(JPanel editorPanel) {
 
+        ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
+
         JTextPane textComponent = new JTextPane();
 
         textComponent.setBackground(new Color(30, 30, 30));

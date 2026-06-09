@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
+import javax.swing.text.JTextComponent;
 
 public class CustomScrollBarUI extends BasicScrollBarUI {
 

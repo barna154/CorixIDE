@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.text.JTextComponent;
 
 public class TextEditor {
 

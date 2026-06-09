@@ -17,7 +17,7 @@ public class LineNumberComponent extends JComponent {
         this.textComponent = textComponent;
 
         setOpaque(true);
-        setFont(textArea.getFont());
+        setFont(textComponent.getFont());
         setForeground(new Color(120, 120, 120));
         setBackground(new Color(30, 30, 30));
 
@@ -28,13 +28,13 @@ public class LineNumberComponent extends JComponent {
             public void changedUpdate(DocumentEvent e) { revalidate(); repaint(); }
         };
 
-        textArea.getDocument().addDocumentListener(dl);
-        textArea.addCaretListener(e -> repaint());
+        textComponent.getDocument().addDocumentListener(dl);
+        textComponent.addCaretListener(e -> repaint());
     }
 
     @Override
     public Dimension getPreferredSize() {
-        int height = textArea.getPreferredSize().height;
+        int height = textComponent.getPreferredSize().height;
         return new Dimension(fixedWidth, height);
     }
 
@@ -57,21 +57,21 @@ public class LineNumberComponent extends JComponent {
         g2.setColor(getForeground());
 
         Rectangle clip = g.getClipBounds();
-        Element root = textArea.getDocument().getDefaultRootElement();
+        Element root = textComponent.getDocument().getDefaultRootElement();
 
-        int startOffset = textArea.viewToModel2D(new Point(0, clip.y));
+        int startOffset = textComponent.viewToModel2D(new Point(0, clip.y));
         int startLine = root.getElementIndex(startOffset);
-        int totalLines = textArea.getLineCount();
+        int totalLines = textComponent.getLineCount();
 
-        FontMetrics fm = textArea.getFontMetrics(textArea.getFont());
+        FontMetrics fm = textComponent.getFontMetrics(textComponent.getFont());
 
-        int caretPos = textArea.getCaretPosition();
+        int caretPos = textComponent.getCaretPosition();
         int currentLine = root.getElementIndex(caretPos);
 
         for (int line = startLine; line < totalLines; line++) {
             Element elem = root.getElement(line);
             try {
-                Rectangle2D r = textArea.modelToView2D(elem.getStartOffset());
+                Rectangle2D r = textComponent.modelToView2D(elem.getStartOffset());
                 if (r == null) continue;
                 if (r.getY() > clip.y + clip.height) break;
 

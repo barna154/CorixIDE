@@ -94,6 +94,11 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(v.start(), v.end() - v.start(), typeStyle, false);
             }
 
+            Matcher l = Pattern.compile("\\bloop\\b").matcher(text);
+            while (l.find()) {
+                doc.setCharacterAttributes(l.start(), l.end() - l.start(), typeStyle, false);
+            }
+
             Matcher input = Pattern.compile("\\bIN\\b").matcher(text);
             while (input.find()) {
                 doc.setCharacterAttributes(input.start(), input.end() - input.start(), paramStyle, false);

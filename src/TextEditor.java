@@ -38,5 +38,7 @@ public class TextEditor {
     p.setBackground(new Color(30, 30, 30));
     return p;
     }
+
+    new SyntaxHighlighter(textComponent);
 }
 

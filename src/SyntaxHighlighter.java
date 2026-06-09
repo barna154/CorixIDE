@@ -64,7 +64,12 @@ public class SyntaxHighlighter {
             }
 
 
-            Matcher teszt = Pattern.compile("\\bteszt\\b").matcher(text);
+            Matcher teszt = Pattern.compile("\\b{\\b").matcher(text);
+            while (teszt.find()) {
+                doc.setCharacterAttributes(teszt.start(), teszt.end() - teszt.start(), tesztStyle, false);
+            }
+
+            Matcher teszt = Pattern.compile("\\b}\\b").matcher(text);
             while (teszt.find()) {
                 doc.setCharacterAttributes(teszt.start(), teszt.end() - teszt.start(), tesztStyle, false);
             }

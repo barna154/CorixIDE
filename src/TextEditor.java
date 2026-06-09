@@ -15,6 +15,8 @@ public class TextEditor {
         textComponent.setSelectionColor(new Color(40, 60, 40));     
         textComponent.setSelectedTextColor(new Color(218, 218, 218));
 
+         new SyntaxHighlighter(textComponent);
+
         JScrollPane scroll = new JScrollPane(textComponent);
         scroll.setBorder(null);
         scroll.getViewport().setBackground(new Color(30, 30, 30));
@@ -39,6 +41,6 @@ public class TextEditor {
     return p;
     }
 
-    new SyntaxHighlighter(textComponent);
+
 }
 

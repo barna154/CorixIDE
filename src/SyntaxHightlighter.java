@@ -37,10 +37,8 @@ public class SyntaxHighlighter {
             try {
                 String text = doc.getText(0, doc.getLength());
 
-                // először mindent vissza normál színre
                 doc.setCharacterAttributes(0, text.length(), normalStyle, true);
 
-                // számok keresése
                 Matcher m = Pattern.compile("\\b\\d+\\b").matcher(text);
                 while (m.find()) {
                     doc.setCharacterAttributes(m.start(), m.end() - m.start(), numberStyle, true);

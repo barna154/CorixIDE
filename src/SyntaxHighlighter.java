@@ -77,6 +77,11 @@ public class SyntaxHighlighter {
             while (zarojel2.find()) {
                 doc.setCharacterAttributes(zarojel2.start(), zarojel2.end() - zarojel2.start(), tesztStyle, false);
             }
+
+            Matcher vesszo = Pattern.compile("\\;").matcher(text);
+            while (vesszo.find()) {
+                doc.setCharacterAttributes(vesszo.start(), vesszo.end() - vesszo.start(), tesztStyle, false);
+            }
             
             Matcher v = Pattern.compile("\\bvoid\\b").matcher(text);
             while (v.find()) {

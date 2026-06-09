@@ -30,11 +30,11 @@ public class SyntaxHighlighter {
         StyleConstants.setForeground(normalStyle, new Color(218, 218, 218));
 
         numberStyle = doc.addStyle("number", null);
-        StyleConstants.setForeground(numberStyle, new Color(120, 170, 255));
+        StyleConstants.setForeground(numberStyle, new Color(75, 220, 165));
     }
 
     private void highlightSafe() {
-        if (updating) return; // 🔥 megakadályozza a végtelen ciklust
+        if (updating) return; 
 
         updating = true;
         SwingUtilities.invokeLater(() -> {
@@ -50,10 +50,10 @@ public class SyntaxHighlighter {
         try {
             String text = doc.getText(0, doc.getLength());
 
-            // mindent vissza normálra
+    
             doc.setCharacterAttributes(0, text.length(), normalStyle, false);
 
-            // számok
+
             Matcher m = Pattern.compile("\\b\\d+\\b").matcher(text);
             while (m.find()) {
                 doc.setCharacterAttributes(m.start(), m.end() - m.start(), numberStyle, false);

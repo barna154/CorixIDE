@@ -61,8 +61,7 @@ public class LineNumberComponent extends JComponent {
 
         int startOffset = textComponent.viewToModel2D(new Point(0, clip.y));
         int startLine = root.getElementIndex(startOffset);
-        int totalLines = textComponent.getLineCount();
-
+        int totalLines = textComponent.getDocument().getDefaultRootElement().getElementCount();
         FontMetrics fm = textComponent.getFontMetrics(textComponent.getFont());
 
         int caretPos = textComponent.getCaretPosition();

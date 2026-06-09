@@ -30,7 +30,7 @@ public class SyntaxHighlighter {
         normalStyle = doc.addStyle("normal", null);
         StyleConstants.setForeground(normalStyle, new Color(218, 218, 218));
 
-        tesztStyle = doc.addStyle("teszt", null);
+        tesztStyle = doc.addStyle("{", null);
         StyleConstants.setForeground(tesztStyle, new Color(255, 120, 120));
 
         numberStyle = doc.addStyle("number", null);
@@ -70,8 +70,8 @@ public class SyntaxHighlighter {
             }
 
             Matcher teszt2 = Pattern.compile("\\b}\\b").matcher(text);
-            while (teszt.find()) {
-                doc.setCharacterAttributes(teszt.start(), teszt.end() - teszt.start(), tesztStyle, false);
+            while (teszt2.find()) {
+                doc.setCharacterAttributes(teszt2.start(), teszt2.end() - teszt2.start(), tesztStyle, false);
             }
 
         } catch (Exception ex) {

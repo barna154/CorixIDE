@@ -1,14 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 
 public class TextEditor {
 
     public void init(JPanel editorPanel) {
 
-        ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
 
         JTextPane textComponent = new JTextPane();
+
+        ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
 
         textComponent.setBackground(new Color(30, 30, 30));
         textComponent.setForeground(new Color(218, 218, 218));

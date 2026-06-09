@@ -1,4 +1,5 @@
 import javax.swing.text.*;
+import javax.swing.text.AbstractDocument;
 
 public class AutoBraceFilter extends DocumentFilter {
 
@@ -30,11 +31,11 @@ public class AutoBraceFilter extends DocumentFilter {
         Document doc = fb.getDocument();
         String content = doc.getText(0, doc.getLength());
 
-        // ha az előző karakter '{'
+
         if (offset > 0 && content.charAt(offset - 1) == '{') {
 
             String insert =
-                    "\n    \n}";  // középső sorba kerül a kurzor
+                    "\n    \n}"; 
 
             fb.insertString(offset, insert, attrs);
 

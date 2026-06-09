@@ -46,7 +46,7 @@ public class SyntaxHighlighter {
         StyleConstants.setForeground(paramStyle, new Color(170, 60, 150));
 
         boolStyle = doc.addStyle("bool", null);
-        StyleConstants.setForeground(boolStyle, new Color(50, 50, 225));
+        StyleConstants.setForeground(boolStyle, new Color(50, 50, 200));
 
 
     }

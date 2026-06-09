@@ -69,7 +69,7 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(zarojel.start(), zarojel.end() - zarojel.start(), tesztStyle, false);
             }
 
-            Matcher zarojel2 = Pattern.compile("\\{").matcher(text);
+            Matcher zarojel2 = Pattern.compile("\\}").matcher(text);
             while (zarojel2.find()) {
                 doc.setCharacterAttributes(zarojel2.start(), zarojel2.end() - zarojel2.start(), tesztStyle, false);
             }

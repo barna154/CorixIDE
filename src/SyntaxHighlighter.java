@@ -27,6 +27,7 @@ public class SyntaxHighlighter {
     private Style tesztStyle;
     private Style typeStyle;
     private Style paramStyle;
+    private Style boolStyle;
 
     private void createStyles() {
         normalStyle = doc.addStyle("normal", null);
@@ -43,6 +44,9 @@ public class SyntaxHighlighter {
 
         paramStyle = doc.addStyle("param", null);
         StyleConstants.setForeground(paramStyle, new Color(170, 60, 150));
+
+        boolStyle = doc.addStyle("bool", null);
+        StyleConstants.setForeground(boolStyle, new Color(50, 50, 225));
 
 
     }
@@ -107,6 +111,16 @@ public class SyntaxHighlighter {
             Matcher output = Pattern.compile("\\bOUT\\b").matcher(text);
             while (output.find()) {
                 doc.setCharacterAttributes(output.start(), output.end() - output.start(), paramStyle, false);
+            }
+
+            Matcher trueb = Pattern.compile("\\bTRUE\\b").matcher(text);
+            while (trueb.find()) {
+                doc.setCharacterAttributes(trueb.start(), trueb.end() - trueb.start(), boolStyle, false);
+            }
+
+            Matcher falseb = Pattern.compile("\\bFALSE\\b").matcher(text);
+            while (falseb.find()) {
+                doc.setCharacterAttributes(falseb.start(), falseb.end() - falseb.start(), boolStyle, false);
             }
     
 

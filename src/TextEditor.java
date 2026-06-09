@@ -5,19 +5,19 @@ public class TextEditor {
 
     public void init(JPanel editorPanel) {
 
-        JTextArea textArea = new JTextArea();
+        JTextPane textComponent = new JTextPane();
 
-        textArea.setBackground(new Color(30, 30, 30));
-        textArea.setForeground(new Color(218, 218, 218));
-        textArea.setCaretColor(Color.GRAY);
-        textArea.setFont(new Font("Consolas", Font.PLAIN, 17));
-        textArea.setSelectionColor(new Color(40, 60, 40));     
-        textArea.setSelectedTextColor(new Color(218, 218, 218));
+        textComponent.setBackground(new Color(30, 30, 30));
+        textComponent.setForeground(new Color(218, 218, 218));
+        textComponent.setCaretColor(Color.GRAY);
+        textComponent.setFont(new Font("Consolas", Font.PLAIN, 17));
+        textComponent.setSelectionColor(new Color(40, 60, 40));     
+        textComponent.setSelectedTextColor(new Color(218, 218, 218));
 
-        JScrollPane scroll = new JScrollPane(textArea);
+        JScrollPane scroll = new JScrollPane(textComponent);
         scroll.setBorder(null);
         scroll.getViewport().setBackground(new Color(30, 30, 30));
-        scroll.setRowHeaderView(new LineNumberComponent(textArea));
+        scroll.setRowHeaderView(new LineNumberComponent(textComponent));
 
         scroll.getVerticalScrollBar().setUI(new CustomScrollBarUI());
         scroll.getHorizontalScrollBar().setUI(new CustomScrollBarUI());

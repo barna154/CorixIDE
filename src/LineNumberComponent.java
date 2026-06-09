@@ -4,16 +4,17 @@ import javax.swing.text.*;
 import java.awt.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import javax.swing.text.JTextComponent;
 
 public class LineNumberComponent extends JComponent {
 
-    private final JTextArea textArea;
+    private final JTextComponent textComponent;
     private final int padding = 8;
     private final int fixedWidth = 60;
     private final int rightGap = 12;
 
-    public LineNumberComponent(JTextArea textArea) {
-        this.textArea = textArea;
+    public LineNumberComponent(JTextComponent textComponent) {
+        this.textComponent = textComponent;
 
         setOpaque(true);
         setFont(textArea.getFont());

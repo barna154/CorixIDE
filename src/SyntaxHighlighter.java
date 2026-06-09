@@ -64,7 +64,7 @@ public class SyntaxHighlighter {
             }
 
 
-            Matcher teszt = Pattern.compile("\\b{\\b").matcher(text);
+            Matcher teszt = Pattern.compile("\\{").matcher(text);
             while (teszt.find()) {
                 doc.setCharacterAttributes(teszt.start(), teszt.end() - teszt.start(), tesztStyle, false);
             }

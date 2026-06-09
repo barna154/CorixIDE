@@ -69,10 +69,7 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(teszt.start(), teszt.end() - teszt.start(), tesztStyle, false);
             }
 
-            Matcher teszt2 = Pattern.compile("\\b}\\b").matcher(text);
-            while (teszt2.find()) {
-                doc.setCharacterAttributes(teszt2.start(), teszt2.end() - teszt2.start(), tesztStyle, false);
-            }
+    
 
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -30,7 +30,7 @@ public class SyntaxHighlighter {
         normalStyle = doc.addStyle("normal", null);
         StyleConstants.setForeground(normalStyle, new Color(218, 218, 218));
 
-        teszt = doc.addStyle("teszt", null);
+        tesztStyle = doc.addStyle("teszt", null);
         StyleConstants.setForeground(tesztStyle, new Color(255, 120, 120));
 
         numberStyle = doc.addStyle("number", null);

@@ -26,6 +26,7 @@ public class SyntaxHighlighter {
     private Style normalStyle;
     private Style tesztStyle;
     private Style typeStyle;
+    private Style paramStyle;
 
     private void createStyles() {
         normalStyle = doc.addStyle("normal", null);
@@ -39,6 +40,11 @@ public class SyntaxHighlighter {
 
         numberStyle = doc.addStyle("number", null);
         StyleConstants.setForeground(numberStyle, new Color(75, 220, 165));
+
+        paramStyle = doc.addStyle("param", null);
+        StyleConstants.setForeground(paramStyle, new Color(170, 60, 150));
+
+
     }
 
     private void highlightSafe() {
@@ -86,6 +92,16 @@ public class SyntaxHighlighter {
             Matcher v = Pattern.compile("\\bvoid\\b").matcher(text);
             while (v.find()) {
                 doc.setCharacterAttributes(v.start(), v.end() - v.start(), typeStyle, false);
+            }
+
+            Matcher input = Pattern.compile("\\bIN\\b").matcher(text);
+            while (input.find()) {
+                doc.setCharacterAttributes(input.start(), input.end() - input.start(), paramStyle, false);
+            }
+
+            Matcher output = Pattern.compile("\\bOUT\\b").matcher(text);
+            while (output.find()) {
+                doc.setCharacterAttributes(output.start(), output.end() - output.start(), paramStyle, false);
             }
     
 

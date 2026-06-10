@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class FileExplorer {
 
-    public void init(JPanel filePanel) {
+    public void init(JPanel filePanel String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
         
         String sourcecont = LanguageManager.get("Explorer");

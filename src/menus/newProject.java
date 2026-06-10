@@ -94,8 +94,6 @@ public class newProject {
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
-
-        Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
 
     }

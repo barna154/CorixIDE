@@ -43,7 +43,7 @@ public class newProject {
         leftPanel.add(labelFile);
 
             
-        Menu.add(leftPanel, BorderLayout.CENTER);
+        Menu.add(leftPanel, BorderLayout.WEST);
 
 
         JLabel closeBtn = new JLabel("✕");
@@ -80,7 +80,7 @@ public class newProject {
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
-        newProject.add(Menu, BorderLayout.NORTH);
+        newProject.add(Menu, BorderLayout.CENTER);
 
     }
 

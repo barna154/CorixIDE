@@ -18,12 +18,7 @@ public class newProject {
     public void init(JPanel newProject) throws Exception {
         LanguageManager.load("../lang/lang.json");
         
-        String mtitle = LanguageManager.get("Title");
-        String mfile = LanguageManager.get("File");
-        String medit = LanguageManager.get("Edit");
-        String moptions = LanguageManager.get("Options");
-        String terminalname = LanguageManager.get("Terminal");
-        String mboards = LanguageManager.get("Boards");
+
         String newp = LanguageManager.get("New Project");
 
 
@@ -37,14 +32,14 @@ public class newProject {
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         leftPanel.setOpaque(false);
 
-// Menüpontok
+
         JLabel labelFile = new JLabel(newp);
         labelFile.setFont(new Font("Arial", Font.BOLD, 18));
         labelFile.setForeground(new Color(250, 250, 250));
         leftPanel.add(labelFile);
-
-            
         Menu.add(leftPanel, BorderLayout.CENTER);
+
+
 
 
         JLabel closeBtn = new JLabel("✕");
@@ -53,7 +48,6 @@ public class newProject {
         closeBtn.setHorizontalAlignment(SwingConstants.CENTER);
         closeBtn.setVerticalAlignment(SwingConstants.CENTER);
         closeBtn.setForeground(new Color(118, 118, 118));
-        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         closeBtn.setOpaque(true);
         closeBtn.setBackground(new Color(43, 43, 43));
 
@@ -82,6 +76,37 @@ public class newProject {
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
+
+        
+        JLabel finishBtn = new JLabel("Finish");
+        finishBtn.setPreferredSize(new Dimension(45, 43));
+        finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+        finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        finishBtn.setVerticalAlignment(SwingConstants.CENTER);
+        finishBtn.setForeground(new Color(118, 118, 118));
+        finishBtn.setOpaque(true);
+        finishBtn.setBackground(new Color(43, 43, 43));
+        closeBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                 newProject.setVisible(false);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                closeBtn.setForeground(Color.WHITE);
+                closeBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+                closeBtn.setBackground(Color.RED);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                closeBtn.setForeground(new Color(118, 118, 118));
+                closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+                closeBtn.setBackground(new Color(43, 43, 43));
+            }
+        });
+        newProject.add(finishBtn, BorderLayout.SOUTH);
+
+
 
     }
 

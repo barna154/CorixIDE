@@ -600,12 +600,13 @@ public class Main {
 
                     JPanel newProjectPanel = new JPanel();
                     newProjectPanel.setBackground(new Color(50, 50, 50));
-                    newProjectPanel.setPreferredSize(new Dimension(300, 200));
+                    newProjectPanel.setBounds(100, 100, 300, 200); // pozíció + méret
+                    newProjectPanel.setLayout(new BorderLayout());
 
                     newProject npp = new newProject();
                     npp.init(newProjectPanel);
 
-                    back.add(newProjectPanel, BorderLayout.CENTER);
+                    window.getLayeredPane().add(newProjectPanel, JLayeredPane.POPUP_LAYER);
                 
 
 

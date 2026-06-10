@@ -48,7 +48,6 @@ public class SyntaxHighlighter {
         boolStyle = doc.addStyle("bool", null);
         StyleConstants.setForeground(boolStyle, new Color(50, 50, 200));
 
-
     }
 
     private void highlightSafe() {

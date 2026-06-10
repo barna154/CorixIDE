@@ -102,9 +102,9 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(l.start(), l.end() - l.start(), typeStyle, false);
             }
 
-            Matcher op = Pattern.compile("\\boptions\\b").matcher(text);
-            while (op.find()) {
-                doc.setCharacterAttributes(op.start(), op.end() - op.start(), typeStyle, false);
+            Matcher cf = Pattern.compile("\\bconfig\\b").matcher(text);
+            while (cf.find()) {
+                doc.setCharacterAttributes(cf.start(), cf.end() - cf.start(), typeStyle, false);
             }
 
             Matcher input = Pattern.compile("\\bIN\\b").matcher(text);

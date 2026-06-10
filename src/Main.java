@@ -593,7 +593,7 @@ public class Main {
 
 
         //TESZT
-        newProject npp = new newProjectPanel();
+        newProject npp = new newProject();
         npp.init(back);
 
 

@@ -82,7 +82,7 @@ public class newProject {
         JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(90, 30));
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-        finishBtn.setForeground(new Color(118, 118, 118));
+        finishBtn.setForeground(new Color(193, 199, 193));
         finishBtn.setOpaque(true);
         finishBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
@@ -99,7 +99,7 @@ public class newProject {
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                finishBtn.setBackground(new Color(193, 199, 193));
+                finishBtn.setBackground(new Color(43, 43, 43));
             }
         });
         rightPanel2.add(finishBtn);

@@ -488,11 +488,11 @@ public class Main {
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
         sourcecon.setForeground(new Color(118, 118, 118));
 
-        explolerp.add(sourcecon, BorderLayout.CENTER);
-        
+
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
-
+        explolerp.add(sourcecon, BorderLayout.CENTER);
+        
         
 
 

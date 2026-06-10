@@ -9,7 +9,6 @@ public class FileExplorer {
     public void init(JPanel filePanel) {
 
         filePanel.setLayout(new BorderLayout());
-        filePanel.add(scroll, BorderLayout.CENTER);
 
     }
 

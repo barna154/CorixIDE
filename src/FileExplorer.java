@@ -7,9 +7,18 @@ import javax.swing.text.JTextComponent;
 public class FileExplorer {
 
     public void init(JPanel filePanel) {
+        LanguageManager.load("../lang/lang.json");
+        
+        String sourcecont = LanguageManager.get("Explorer");
 
         filePanel.setLayout(new BorderLayout());
 
+
+        JLabel sourcecon = new JLabel(sourcecont);
+        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
+        sourcecon.setForeground(new Color(118, 118, 118));
+        explolerp.add(sourcecon, BorderLayout.CENTER);
     }
 
 }

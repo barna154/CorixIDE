@@ -19,7 +19,6 @@ public class Main {
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");
         String moptions = LanguageManager.get("Options");
-        String sourcecont = LanguageManager.get("Explorer");
         String terminalname = LanguageManager.get("Terminal");
         String mboards = LanguageManager.get("Boards");
         String newp = LanguageManager.get("New Project");
@@ -482,17 +481,10 @@ public class Main {
                                     if (e.isPopupTrigger()) dataexplorer.show(explolerp, e.getX(), e.getY());
                                 }
                         }); 
-
-        JLabel sourcecon = new JLabel(sourcecont);
-        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
-        sourcecon.setForeground(new Color(118, 118, 118));
-
-
+        
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
-        fe.add(sourcecon, BorderLayout.CENTER);
-        
+
         
 
 

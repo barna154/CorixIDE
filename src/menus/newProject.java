@@ -1,3 +1,5 @@
+package menus;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.AbstractDocument;
@@ -6,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
-package menus;
+
 
 public class newProject {
 

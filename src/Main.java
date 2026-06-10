@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
 import menus.newProject;
+import util.LanguageManager;
+
 
 public class Main {
 

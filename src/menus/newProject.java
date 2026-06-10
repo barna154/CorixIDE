@@ -97,7 +97,7 @@ public class newProject {
             public void mouseEntered(MouseEvent e) {
                 finishBtn.setForeground(Color.WHITE);
                 finishBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-                finishBtn.setBackground(Color.GREEN);
+                finishBtn.setBackground(new Color(33, 97, 35));
             }
             @Override
             public void mouseExited(MouseEvent e) {

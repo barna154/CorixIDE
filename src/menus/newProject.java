@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
+package menus;
 
 public class newProject {
 
@@ -14,14 +15,14 @@ public class newProject {
         
         String sourcecont = LanguageManager.get("Explorer");
 
-        newProjectPanel.setLayout(new BorderLayout());
+        newProject.setLayout(new BorderLayout());
 
 
         JLabel sourcecon = new JLabel(sourcecont);
         sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 15));
         sourcecon.setForeground(new Color(118, 118, 118));
-        newProjectPanel.add(sourcecon, BorderLayout.NORTH);
+        newProject.add(sourcecon, BorderLayout.NORTH);
     }
 
 }

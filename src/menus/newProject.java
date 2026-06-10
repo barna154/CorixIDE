@@ -77,12 +77,11 @@ public class newProject {
         Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
 
-        
+        JPanel leftPanel2 = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        leftPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(45, 43));
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-        finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
-        finishBtn.setVerticalAlignment(SwingConstants.CENTER);
         finishBtn.setForeground(new Color(118, 118, 118));
         finishBtn.setOpaque(true);
         finishBtn.setBackground(new Color(43, 43, 43));
@@ -104,7 +103,7 @@ public class newProject {
                 closeBtn.setBackground(new Color(43, 43, 43));
             }
         });
-        newProject.add(finishBtn, BorderLayout.SOUTH);
+        newProject.add(leftPanel2, BorderLayout.EAST);
 
 
 

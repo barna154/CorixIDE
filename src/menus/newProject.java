@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class newProject {
 
-    public void init(JPanel newProjectPanel) throws Exception {
+    public void init(JPanel newProject) throws Exception {
         LanguageManager.load("../lang/lang.json");
         
         String sourcecont = LanguageManager.get("Explorer");

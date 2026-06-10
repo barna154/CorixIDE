@@ -76,11 +76,11 @@ public class newProject {
         });
 
 
-        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
-        newProject.add(Menu, BorderLayout.CENTER);
+        newProject.add(Menu, BorderLayout.NORTH);
 
     }
 

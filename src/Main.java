@@ -592,6 +592,11 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 
+        //TESZT
+        newProject npp = new newProjectPanel();
+        npp.init(back);
+
+
 
 //RESIZE
 

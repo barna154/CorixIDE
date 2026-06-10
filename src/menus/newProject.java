@@ -18,13 +18,14 @@ public class newProject {
     public void init(JPanel newProject) throws Exception {
         LanguageManager.load("../lang/lang.json");
         
-        String sourcecont = LanguageManager.get("Explorer");
         String mtitle = LanguageManager.get("Title");
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");
         String moptions = LanguageManager.get("Options");
         String terminalname = LanguageManager.get("Terminal");
         String mboards = LanguageManager.get("Boards");
+        String newp = LanguageManager.get("New Project");
+
 
         newProject.setLayout(new BorderLayout());
 
@@ -37,8 +38,8 @@ public class newProject {
         leftPanel.setOpaque(false);
 
 // Menüpontok
-        JLabel labelFile = new JLabel(sourcecont);
-        labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
+        JLabel labelFile = new JLabel(newp);
+        labelFile.setFont(new Font("Arial", Font.PLAIN, 18));
         labelFile.setForeground(new Color(118, 118, 118));
         leftPanel.add(labelFile);
 

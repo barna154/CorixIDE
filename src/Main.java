@@ -395,6 +395,13 @@ public class Main {
             item1.setFont(new Font("Arial", Font.PLAIN, 15));
             item1.setForeground(new Color(230, 230, 230));
             item1.setOpaque(true);
+            
+            item1.addActionListener(e -> {
+                newProjectPanel.setVisible(true);
+                window.getLayeredPane().revalidate();
+                window.getLayeredPane().repaint();
+            });
+
         JMenuItem item2 = new JMenuItem(newf);
             item2.setMargin(new Insets(0, 0, 0, 0));
             item2.setBackground(new Color(30, 30, 30));
@@ -595,23 +602,23 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 
-    
-        //TESZT
+//New Project panel
 
-                    JPanel newProjectPanel = new JPanel();
-                    newProjectPanel.setBackground(new Color(50, 50, 50));
-                    int panelWidth = (int) (screenWidth / 1.5);
-                    int panelHeight = (int) (screenHeight / 1.5);
-                    int x = (screenWidth - panelWidth) / 2;
-                    int y = (screenHeight - panelHeight) / 2;
+        JPanel newProjectPanel = new JPanel();
+        newProjectPanel.setBackground(new Color(50, 50, 50));
+        int panelWidth = (int) (screenWidth / 1.5);
+        int panelHeight = (int) (screenHeight / 1.5);
+        int x = (screenWidth - panelWidth) / 2;
+        int y = (screenHeight - panelHeight) / 2;
 
-                    newProjectPanel.setBounds(x, y, panelWidth, panelHeight);
-                    newProjectPanel.setLayout(new BorderLayout());
+        newProjectPanel.setBounds(x, y, panelWidth, panelHeight);
+        newProjectPanel.setLayout(new BorderLayout());
+        newProjectPanel.setVisible(false); 
 
-                    newProject npp = new newProject();
-                    npp.init(newProjectPanel);
+        newProject npp = new newProject();
+        npp.init(newProjectPanel);
 
-                    window.getLayeredPane().add(newProjectPanel, JLayeredPane.POPUP_LAYER);
+        window.getLayeredPane().add(newProjectPanel, JLayeredPane.POPUP_LAYER);
                 
 
 

@@ -600,8 +600,8 @@ public class Main {
 
                     JPanel newProjectPanel = new JPanel();
                     newProjectPanel.setBackground(new Color(50, 50, 50));
-                    int panelWidth = screenWidth/3;
-                    int panelHeight = screenHeight/3;
+                    int panelWidth = screenWidth/2;
+                    int panelHeight = screenHeight/2;
                     int x = (screenWidth - panelWidth) / 2;
                     int y = (screenHeight - panelHeight) / 2;
 

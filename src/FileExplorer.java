@@ -18,7 +18,7 @@ public class FileExplorer {
 
 
         JLabel sourcecon = new JLabel(sourcecont);
-        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 18));
         sourcecon.setForeground(new Color(118, 118, 118));
         filePanel.add(sourcecon, BorderLayout.NORTH);

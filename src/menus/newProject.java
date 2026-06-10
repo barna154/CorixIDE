@@ -7,21 +7,21 @@ import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
 
-public class FileExplorer {
+public class newProject {
 
-    public void init(JPanel filePanel) throws Exception {
+    public void init(JPanel newProjectPanel) throws Exception {
         LanguageManager.load("../lang/lang.json");
         
         String sourcecont = LanguageManager.get("Explorer");
 
-        filePanel.setLayout(new BorderLayout());
+        newProjectPanel.setLayout(new BorderLayout());
 
 
         JLabel sourcecon = new JLabel(sourcecont);
         sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
         sourcecon.setFont(new Font("Arial", Font.PLAIN, 15));
         sourcecon.setForeground(new Color(118, 118, 118));
-        filePanel.add(sourcecon, BorderLayout.NORTH);
+        newProjectPanel.add(sourcecon, BorderLayout.NORTH);
     }
 
 }

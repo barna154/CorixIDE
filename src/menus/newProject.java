@@ -85,22 +85,22 @@ public class newProject {
         finishBtn.setForeground(new Color(118, 118, 118));
         finishBtn.setOpaque(true);
         finishBtn.setBackground(new Color(43, 43, 43));
-        closeBtn.addMouseListener(new MouseAdapter() {
+        finishBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                  newProject.setVisible(false);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                closeBtn.setForeground(Color.WHITE);
-                closeBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-                closeBtn.setBackground(Color.RED);
+                finishBtn.setForeground(Color.WHITE);
+                finishBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+                finishBtn.setBackground(Color.RED);
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                closeBtn.setForeground(new Color(118, 118, 118));
-                closeBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-                closeBtn.setBackground(new Color(43, 43, 43));
+                finishBtn.setForeground(new Color(118, 118, 118));
+                finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
+                finishBtn.setBackground(new Color(43, 43, 43));
             }
         });
         leftPanel2.add(finishBtn, BorderLayout.WEST);

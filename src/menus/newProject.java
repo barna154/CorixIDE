@@ -77,13 +77,15 @@ public class newProject {
         Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
 
-        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         rightPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("  Finish  ");
         finishBtn.setPreferredSize(new Dimension(90, 45));
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         finishBtn.setForeground(new Color(118, 118, 118));
         finishBtn.setOpaque(true);
+        finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        finishBtn.setVerticalAlignment(SwingConstants.CENTER);
         finishBtn.setBackground(new Color(43, 43, 43));
         finishBtn.addMouseListener(new MouseAdapter() {
             @Override

@@ -77,7 +77,7 @@ public class newProject {
         Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
 
-        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         rightPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(80, 30));

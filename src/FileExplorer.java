@@ -2,7 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.File; 
+import java.util.Scanner;
 
 public class FileExplorer {
 

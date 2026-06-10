@@ -33,7 +33,7 @@ public class newProject {
         JPanel Menu = new JPanel(new BorderLayout());
         Menu.setBackground(new Color(43, 43, 43));
 
-        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 7));
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 7));
         leftPanel.setOpaque(false);
 
 // Menüpontok

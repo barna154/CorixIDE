@@ -595,9 +595,18 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 
+    
         //TESZT
-        newProject npp = new newProject();
-        npp.init(back);
+
+                    JPanel newProjectPanel = new JPanel();
+                    newProjectPanel.setBackground(new Color(50, 50, 50));
+                    newProjectPanel.setPreferredSize(new Dimension(300, 200));
+
+                    newProject npp = new newProject();
+                    npp.init(newProjectPanel);
+
+                    back.add(newProjectPanel, BorderLayout.CENTER);
+                
 
 
 

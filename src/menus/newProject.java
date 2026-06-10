@@ -105,7 +105,7 @@ public class newProject {
                 finishBtn.setBackground(new Color(43, 43, 43));
             }
         });
-        rightPanel2.add(finishBtn, BorderLayout.WEST);
+        rightPanel2.add(finishBtn);
         newProject.add(rightPanel2, BorderLayout.SOUTH);
 
 

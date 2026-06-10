@@ -79,7 +79,7 @@ public class newProject {
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         rightPanel2.setOpaque(false);
-        JLabel finishBtn = new JLabel("  Finish  ");
+        JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(90, 45));
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         finishBtn.setForeground(new Color(118, 118, 118));

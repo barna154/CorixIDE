@@ -491,7 +491,7 @@ public class Main {
 
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
-        explolerp.add(sourcecon, BorderLayout.CENTER);
+        explolerp.add(sourcecon, BorderLayout.LEFT);
         
         
 

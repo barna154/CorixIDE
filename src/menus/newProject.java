@@ -40,7 +40,7 @@ public class newProject {
 // Menüpontok
         JLabel labelFile = new JLabel(newp);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 18));
-        labelFile.setForeground(new Color(200, 200, 200));
+        labelFile.setForeground(new Color(250, 250, 250));
         leftPanel.add(labelFile);
 
             

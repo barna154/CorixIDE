@@ -84,6 +84,7 @@ public class newProject {
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         finishBtn.setForeground(new Color(118, 118, 118));
         finishBtn.setOpaque(true);
+        finishBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
         finishBtn.setVerticalAlignment(SwingConstants.CENTER);
         finishBtn.setBackground(new Color(43, 43, 43));

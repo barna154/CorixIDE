@@ -20,6 +20,7 @@ public class newProject {
         String sourcecont = LanguageManager.get("Explorer");
 
         newProject.setLayout(new BorderLayout());
+        newProject.setPreferredSize(new Dimension(200, 300));
 
 
         JLabel sourcecon = new JLabel(sourcecont);

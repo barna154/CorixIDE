@@ -600,7 +600,12 @@ public class Main {
 
                     JPanel newProjectPanel = new JPanel();
                     newProjectPanel.setBackground(new Color(50, 50, 50));
-                    newProjectPanel.setBounds(100, 100, 300, 200); // pozíció + méret
+                    int panelWidth = 300;
+                    int panelHeight = 200;
+                    int x = (screenWidth - panelWidth) / 2;
+                    int y = (screenHeight - panelHeight) / 2;
+
+                    newProjectPanel.setBounds(x, y, panelWidth, panelHeight);
                     newProjectPanel.setLayout(new BorderLayout());
 
                     newProject npp = new newProject();

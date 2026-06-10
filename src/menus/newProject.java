@@ -95,12 +95,10 @@ public class newProject {
             }
             @Override
             public void mouseEntered(MouseEvent e) {
-                finishBtn.setForeground(Color.WHITE);
-                finishBtn.setBackground(new Color(33, 97, 35));
+                finishBtn.setBackground(new Color(19, 54, 20));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                finishBtn.setForeground(new Color(118, 118, 118));
                 finishBtn.setBackground(new Color(43, 43, 43));
             }
         });

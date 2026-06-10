@@ -37,24 +37,9 @@ public class newProject {
         leftPanel.setOpaque(false);
 
 // Menüpontok
-        JLabel labelFile = new JLabel(mfile);
+        JLabel labelFile = new JLabel(sourcecont);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
-        labelFile.addMouseListener(new MouseAdapter() {
-         @Override
-            public void mouseClicked(MouseEvent e) { 
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                labelFile.setForeground(new Color(60, 60, 60));
-                labelFile.setBackground(new Color(60, 60, 60));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                labelFile.setForeground(new Color(118, 118, 118));
-                labelFile.setBackground(new Color(43, 43, 43));
-            }
-        });
         leftPanel.add(labelFile);
 
             

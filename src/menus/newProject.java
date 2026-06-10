@@ -103,6 +103,7 @@ public class newProject {
                 closeBtn.setBackground(new Color(43, 43, 43));
             }
         });
+        leftPanel2.add(finishBtn, BorderLayout.SOUTH);
         newProject.add(leftPanel2, BorderLayout.EAST);
 
 

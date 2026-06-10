@@ -99,7 +99,7 @@ public class newProject {
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                finishBtn.setBackground(new Color(43, 43, 43));
+                finishBtn.setBackground(new Color(193, 199, 193));
             }
         });
         rightPanel2.add(finishBtn);

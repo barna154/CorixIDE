@@ -21,6 +21,7 @@ public class newProject {
 
         String newp = LanguageManager.get("New Project");
         String ppath = LanguageManager.get("Project Path");
+        String npan = LanguageManager.get("Project Name");
 
 
         newProject.setLayout(new BorderLayout());
@@ -80,7 +81,7 @@ public class newProject {
 
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
-        JLabel pathLabel = new JLabel(ppath);
+        /* Majd a mappamegnyitás miatt JLabel pathLabel = new JLabel(ppath);
 
         JTextField pathField = new JTextField(40);
         String projectPath = pathField.getText();
@@ -98,7 +99,10 @@ public class newProject {
 
         centerPanel.add(pathLabel);
         centerPanel.add(pathField);
-        centerPanel.add(browseButton);
+        centerPanel.add(browseButton); */
+        JLabel namePanel = new JLabel(npan);
+        centerPanel.add(namePanel);
+
         newProject.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));

@@ -93,13 +93,16 @@ public class newProject {
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         String projectPath = pathField.getText();
 
+
+        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
 
         centerPanel.add(namePanel);
         centerPanel.add(pathField);
-        centerPanel.add(mconPanel);
+        row2.add(mconPanel);
+        centerPanel.add(row2);
         newProject.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));

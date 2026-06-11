@@ -87,7 +87,6 @@ public class newProject {
         namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(40);
         pathField.setLineWrap(false);
-        pathField.setAlignmentY(Component.CENTER_ALIGNMENT);
         pathField.setBackground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));

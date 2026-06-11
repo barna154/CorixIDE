@@ -79,10 +79,10 @@ public class newProject {
         newProject.add(Menu, BorderLayout.NORTH);
 
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         JLabel pathLabel = new JLabel(ppath);
 
-        JTextField pathField = new JTextField(50); 
+        JTextField pathField = new JTextField(40); 
         String projectPath = pathField.getText();
         centerPanel.add(pathLabel);
         centerPanel.add(pathField);

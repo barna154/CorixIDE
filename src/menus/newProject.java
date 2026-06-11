@@ -82,10 +82,23 @@ public class newProject {
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
         JLabel pathLabel = new JLabel(ppath);
 
-        JTextField pathField = new JTextField(40); 
+        JTextField pathField = new JTextField(40);
         String projectPath = pathField.getText();
+
+        JButton browseButton = new JButton("Tallóz...");
+        browseButton.addActionListener(e -> {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // csak mappát lehessen választani
+                
+                int result = fileChooser.showOpenDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    pathField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                }
+            });
+
         centerPanel.add(pathLabel);
         centerPanel.add(pathField);
+        centerPanel.add(browseButton);
         newProject.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));

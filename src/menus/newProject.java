@@ -77,6 +77,11 @@ public class newProject {
         Menu.add(rightPanel, BorderLayout.EAST);
         newProject.add(Menu, BorderLayout.NORTH);
 
+
+        JTextField pathField = new JTextField(50); 
+        String projectPath = pathField.getText();
+        newProject.add(pathField, BorderLayout.EAST)
+
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));
         rightPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("Finish");

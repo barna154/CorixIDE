@@ -81,8 +81,10 @@ public class newProject {
         newProject.add(Menu, BorderLayout.NORTH);
 
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 30));
+        JPanel centerPanel = new JPanel(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(new Color(140, 140, 140));
+
+        JPanel row1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
@@ -99,9 +101,10 @@ public class newProject {
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
 
-        centerPanel.add(namePanel);
-        centerPanel.add(pathField);
+        row1.add(namePanel);
+        row1.add(pathField);
         row2.add(mconPanel);
+        centerPanel.add(row1);
         centerPanel.add(row2);
         newProject.add(centerPanel);
 

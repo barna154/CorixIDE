@@ -81,9 +81,10 @@ public class newProject {
 
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        centerPanel.setBackground(new Color(200, 200, 200));
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-        namePanel.setForeground(new Color(118, 118, 118));
+        namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(40);
         String projectPath = pathField.getText();
 

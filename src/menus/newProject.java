@@ -22,6 +22,7 @@ public class newProject {
         String newp = LanguageManager.get("New Project");
         String ppath = LanguageManager.get("Project Path");
         String npan = LanguageManager.get("Project Name");
+        String mcon = LanguageManager.get("Microcontroller");
 
 
         newProject.setLayout(new BorderLayout());
@@ -82,6 +83,7 @@ public class newProject {
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 30));
         centerPanel.setBackground(new Color(140, 140, 140));
+
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         namePanel.setForeground(new Color(50, 50, 50));
@@ -91,8 +93,13 @@ public class newProject {
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         String projectPath = pathField.getText();
 
+        JLabel mconPanel = new JLabel(mcon);
+        mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+        mconPanel.setForeground(new Color(50, 50, 50));
+
         centerPanel.add(namePanel);
         centerPanel.add(pathField);
+        centerPanel.add(mconPanel);
         newProject.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));

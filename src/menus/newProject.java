@@ -85,9 +85,8 @@ public class newProject {
         JTextField pathField = new JTextField(40);
         String projectPath = pathField.getText();
 
-        centerPanel.add(pathField);
         centerPanel.add(namePanel);
-
+        centerPanel.add(pathField);
         newProject.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 100, 20));

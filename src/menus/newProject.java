@@ -80,7 +80,7 @@ public class newProject {
         newProject.add(Menu, BorderLayout.NORTH);
 
 
-        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         centerPanel.setBackground(new Color(140, 140, 140));
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));

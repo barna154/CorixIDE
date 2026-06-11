@@ -20,6 +20,7 @@ public class newProject {
         
 
         String newp = LanguageManager.get("New Project");
+        String ppath = LanguageManager.get("Project Path");
 
 
         newProject.setLayout(new BorderLayout());
@@ -79,8 +80,11 @@ public class newProject {
 
 
         JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 30, 20));
+        JLabel pathLabel = new JLabel(ppath);
+
         JTextField pathField = new JTextField(50); 
         String projectPath = pathField.getText();
+        centerPanel.add(pathLabel);
         centerPanel.add(pathField);
         newProject.add(centerPanel);
 

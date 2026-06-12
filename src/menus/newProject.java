@@ -97,7 +97,7 @@ public class newProject {
         namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
-        pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
+        pathField.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         String projectPath = pathField.getText();
 
@@ -117,7 +117,7 @@ public class newProject {
             mconBox.setBackground(new Color(200, 200, 200));
             mconBox.setForeground(new Color(20, 20, 20));
             mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-            mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
+            mconBox.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70), 2));
             String selectedMcu = (String) mconBox.getSelectedItem();
 
         

@@ -88,7 +88,7 @@ public class newProject {
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setPreferredSize(new Dimension(150, 25));
-        row1.setBackground(new Color(20, 20, 20));
+        row1.setBackground(new Color(70, 70, 70));
 
 
         JLabel namePanel = new JLabel(npan);
@@ -97,14 +97,14 @@ public class newProject {
         namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
-        pathField.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70), 3));
+        pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         String projectPath = pathField.getText();
 
 
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setPreferredSize(new Dimension(150, 25));
-        row2.setBackground(new Color(20, 20, 20));
+        row2.setBackground(new Color(70, 70, 70));
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
@@ -117,7 +117,7 @@ public class newProject {
             mconBox.setBackground(new Color(200, 200, 200));
             mconBox.setForeground(new Color(20, 20, 20));
             mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-            mconBox.setBorder(BorderFactory.createLineBorder(new Color(70, 70, 70), 2));
+            mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
             String selectedMcu = (String) mconBox.getSelectedItem();
 
         

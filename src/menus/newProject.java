@@ -81,7 +81,8 @@ public class newProject {
         newProject.add(Menu, BorderLayout.NORTH);
 
 
-        JPanel centerPanel = new JPanel(new BoxLayout(BoxLayout.Y_AXIS));
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); 
         centerPanel.setBackground(new Color(140, 140, 140));
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.CENTER));

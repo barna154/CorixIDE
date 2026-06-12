@@ -91,6 +91,7 @@ public class newProject {
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         namePanel.setForeground(new Color(50, 50, 50));
+        namePanel.setPreferredSize(new Dimension(150, 25));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
@@ -102,6 +103,8 @@ public class newProject {
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
+        mconPanel.setPreferredSize(new Dimension(150, 25));
+
                     
                      String[] microcontrollers = {"PIC16F15256", "PIC16F15274", "PIC16F15275", "PIC16F15276"};
                     JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
@@ -110,6 +113,8 @@ public class newProject {
                     mconBox.setForeground(new Color(20, 20, 20));
                     mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
                     mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
+                    String selectedMcu = (String) mconBox.getSelectedItem();
+
         
 
 

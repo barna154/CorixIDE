@@ -102,11 +102,21 @@ public class newProject {
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
+                    
+                     String[] microcontrollers = {"Arduino Uno", "ESP32", "STM32", "Raspberry Pi Pico"};
+                    JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
+                    mconBox.setPreferredSize(new Dimension(150, 30));
+                    mconBox.setBackground(new Color(200, 200, 200));
+                    mconBox.setForeground(new Color(20, 20, 20));
+                    mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+                    mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
         
+
 
         row1.add(namePanel);
         row1.add(pathField);
         row2.add(mconPanel);
+        row2.add(mconBox);
         centerPanel.add(row1);
         centerPanel.add(row2);
         newProject.add(centerPanel);

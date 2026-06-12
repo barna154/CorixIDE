@@ -103,7 +103,7 @@ public class newProject {
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         mconPanel.setForeground(new Color(50, 50, 50));
                     
-                     String[] microcontrollers = {"Arduino Uno", "ESP32", "STM32", "Raspberry Pi Pico"};
+                     String[] microcontrollers = {"PIC16F15256", "PIC16F15274", "PIC16F15275", "PIC16F15276"};
                     JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
                     mconBox.setPreferredSize(new Dimension(150, 30));
                     mconBox.setBackground(new Color(200, 200, 200));

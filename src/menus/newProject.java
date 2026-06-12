@@ -87,11 +87,11 @@ public class newProject {
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row1.setPreferredSize(new Dimension(150, 25));
 
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         namePanel.setForeground(new Color(50, 50, 50));
-        namePanel.setPreferredSize(new Dimension(150, 25));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));

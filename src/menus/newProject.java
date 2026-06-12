@@ -83,14 +83,13 @@ public class newProject {
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); 
-        centerPanel.setBackground(new Color(80, 80, 80));
+        centerPanel.setBackground(new Color(20, 20, 20));
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        namePanel.setBackground(new Color(80, 80, 80));
         namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));

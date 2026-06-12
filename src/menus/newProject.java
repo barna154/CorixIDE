@@ -106,14 +106,14 @@ public class newProject {
         mconPanel.setPreferredSize(new Dimension(150, 25));
 
                     
-                     String[] microcontrollers = {"PIC16F15256", "PIC16F15274", "PIC16F15275", "PIC16F15276"};
-                    JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
-                    mconBox.setPreferredSize(new Dimension(150, 30));
-                    mconBox.setBackground(new Color(200, 200, 200));
-                    mconBox.setForeground(new Color(20, 20, 20));
-                    mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-                    mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
-                    String selectedMcu = (String) mconBox.getSelectedItem();
+            String[] microcontrollers = {"PIC16F15256", "PIC16F15274", "PIC16F15275", "PIC16F15276"};
+            JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
+            mconBox.setPreferredSize(new Dimension(150, 30));
+            mconBox.setBackground(new Color(200, 200, 200));
+            mconBox.setForeground(new Color(20, 20, 20));
+            mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+            mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
+            String selectedMcu = (String) mconBox.getSelectedItem();
 
         
 

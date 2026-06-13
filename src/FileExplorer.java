@@ -136,7 +136,7 @@ public class FileExplorer {
         scrollPane.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
 
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
-        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 8));
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(8, 8));
 
         filePanel.add(scrollPane, BorderLayout.CENTER);
 

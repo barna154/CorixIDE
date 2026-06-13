@@ -143,7 +143,7 @@ public class FileExplorer {
             }
         });
 
-        scrollPane = new JScrollPane(tree);
+        scrollPane = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(new Color(30, 33, 30));
 

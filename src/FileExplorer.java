@@ -261,7 +261,7 @@ public class FileExplorer {
 
     @Override
     public int getIconHeight() {
-        return size + 4;
+        return size + 1;
     }
 }
 }

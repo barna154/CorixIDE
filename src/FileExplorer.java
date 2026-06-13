@@ -109,31 +109,29 @@ public class FileExplorer {
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
                             setText(
-                                      "<html>"
-                                    + "<span style='display:inline-block; vertical-align:middle;'>"
-                                    + "<span style='font-size:11px; color:#819984'>📂</span>"
-                                    + "</span> "
-                                    + "<span style='display:inline-block; vertical-align:middle; font-size:11px; color:#AAAAAA'>"
+                                    "<html><div style='white-space:nowrap;'>"
+                                    + "<span style='font-size:11px; color:#819984'>📂</span> "
+                                    + "<span style='font-size:11px; color:#AAAAAA'>"
                                     + file.getName()
                                     + "</span>"
-                                    + "</html>"
+                                    + "</div></html>"
                                     );
-                    } else if (file.getName().endsWith(".crxprjct")) {
+                        } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(
-                                        "<html>"
+                                        "<html><div style='white-space:nowrap;'>"
                                         + "<span style='font-size:9px; color:#31E047'>⚙</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
-                                        + "</html>"
+                                        + "</div></html>"
                                 );
-                    } else {
+                        } else {
                             setText(
-                                        "<html>"
+                                        "<html><div style='white-space:nowrap;'>"
                                         + "<span style='font-size:9px; color:#A4E0AC'>📄</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
-                                        + "</html>"
+                                        + "</div></html>"
                                 );
-                    }
+                        }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));
                 setTextNonSelectionColor(new Color(170, 170, 170));

@@ -60,7 +60,7 @@ public class FileExplorer {
                         @Override public int getIconHeight() { return 14; }
                     };
 
-                    Icon expanded = new Icon() {
+                Icon expanded = new Icon() {
                         @Override
                         public void paintIcon(Component c, Graphics g, int x, int y) {
                             g.setColor(new Color(180,180,180));
@@ -71,13 +71,13 @@ public class FileExplorer {
                         @Override public int getIconHeight() { return 14; }
                     };
 
-                    @Override
-                    protected Icon getCollapsedIcon() {
+                @Override
+                    public Icon getCollapsedIcon() {
                         return collapsed;
                     }
 
-                    @Override
-                    protected Icon getExpandedIcon() {
+                @Override
+                    public Icon getExpandedIcon() {
                         return expanded;
                     }
                 @Override

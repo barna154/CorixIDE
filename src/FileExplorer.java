@@ -75,14 +75,14 @@ public class FileExplorer {
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
                             setText("📂 " + file.getName());
-                            setForeground(new Color(187, 237, 178));
+                            setForeground(new Color(129, 153, 132));
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText("🧩 " + name);
                             setForeground(new Color(49, 224, 71));
                     } else {
                             setText("📄 " + file.getName());
-                            setForeground(new Color(90, 122, 84));
+                            setForeground(new Color(175, 201, 181));
                     }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));

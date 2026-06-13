@@ -150,7 +150,7 @@ public class newProject {
                     });
             mconBox.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
                 @Override
-                protected void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
+                public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
                     g.setColor(new Color(30, 30, 30)); 
                     g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
                 }

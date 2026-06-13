@@ -195,7 +195,13 @@ public class newProject {
         finishBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                 newProject.setVisible(false);
+                newProject.setVisible(false);
+                String projectNameField = pathField.getText().trim();
+
+
+
+
+
             }
             @Override
             public void mouseEntered(MouseEvent e) {

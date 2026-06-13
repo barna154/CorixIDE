@@ -18,6 +18,7 @@ public class Main {
         LanguageManager.load("../lang/lang.json");
 
 // STRINGLIST
+        public String basePath = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "CRXProjects";
         String mtitle = LanguageManager.get("Title");
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");

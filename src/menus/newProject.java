@@ -23,6 +23,7 @@ public class newProject {
         String ppath = LanguageManager.get("Project Path");
         String npan = LanguageManager.get("Project Name");
         String mcon = LanguageManager.get("Microcontroller");
+        String fnsbtn = LanguageManager.get("Finish Button");
 
 
         newProject.setLayout(new BorderLayout());
@@ -182,7 +183,7 @@ public class newProject {
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
         rightPanel2.setOpaque(false);
-        JLabel finishBtn = new JLabel("Finish");
+        JLabel finishBtn = new JLabel(fnsbtn);
         finishBtn.setPreferredSize(new Dimension(90, 30));
         finishBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
         finishBtn.setForeground(new Color(230, 230, 230));

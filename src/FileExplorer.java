@@ -3,8 +3,6 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.io.File;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.*;
 import javax.swing.plaf.basic.BasicTreeUI;
@@ -16,7 +14,6 @@ import util.AppPath;
 public class FileExplorer {
 
     private JTree tree;
-    private File contextMenuTarget;
     private JScrollPane scrollPane;
     private DefaultMutableTreeNode rootNode;
     private WatchService watchService;
@@ -130,28 +127,6 @@ public class FileExplorer {
                 return this;
                     }
         });
-
-        tree.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        if (SwingUtilities.isRightMouseButton(e)) {
-                            TreePath path = tree.getPathForLocation(e.getX(), e.getY());
-                            if (path != null) {
-                                tree.setSelectionPath(path);
-                                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-                                contextMenuTarget = (File) node.getUserObject();
-
-                                if (clickedFile.isDirectory()) {
-                                contextTarget[0] = clickedFile;
-                                folderMenu.show(fileTree, e.getX(), e.getY());
-                            } else {
-                                contextTarget[0] = clickedFile;
-                                fileMenu.show(fileTree, e.getX(), e.getY());
-                            }
-                            }
-                        }
-                    }
-                });
 
         scrollPane = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());

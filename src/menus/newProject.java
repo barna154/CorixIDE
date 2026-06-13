@@ -171,7 +171,6 @@ public class newProject {
                 }
             });
             mconBox.setFocusable(false);
-            String selectedMcu = (String) mconBox.getSelectedItem();
 
         
 
@@ -199,6 +198,7 @@ public class newProject {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newProject.setVisible(false);
+                String selectedMcu = (String) mconBox.getSelectedItem();
                 String projectNameField = pathField.getText().trim();
                 if (projectNameField.isEmpty()) {
                         System.out.println("Üres mező");

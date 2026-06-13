@@ -203,7 +203,7 @@ public class newProject {
                         System.out.println("Üres mező");
                      return;
                      }
-                File newDir = new File(AppPath.basePath, projectNameField + ".crxprjct");
+                File newDir = new File(AppPath.basePath, projectNameField);
                 
                 if (newDir.exists()) {
                     System.out.println("Már létezik ilyen mappa!");

@@ -59,12 +59,19 @@ public class TextEditor {
             ex.printStackTrace();
         }
     }
-
     public void saveFile() {
         if (currentFile == null) return;
 
         try {
-            Files.write(currentFile.toPath(), textComponent.getText().getBytes(StandardCharsets.UTF_8));
+            if (!Files.exists(currentFile.toPath())) {
+                Files.createDirectories(currentFile.getParentFile().toPath());
+                Files.createFile(currentFile.toPath());
+            }
+            Files.write(
+                currentFile.toPath(),
+                textComponent.getText().getBytes(StandardCharsets.UTF_8)
+            );
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }

@@ -197,10 +197,22 @@ public class newProject {
             public void mouseClicked(MouseEvent e) {
                 newProject.setVisible(false);
                 String projectNameField = pathField.getText().trim();
-
-
-
-
+                if (projectName.isEmpty()) {
+                        System.out.println("Már létezik ilyen mappa!");
+                     return;
+                     }
+                File newDir = new File(main.basePath, projectNameField);
+                
+                if (newDir.exists()) {
+                    System.out.println("Már létezik ilyen mappa!");
+                } else {
+                    boolean success = newDir.mkdirs();
+                    if (success) {
+                        System.out.println("Mappa létrehozva: " + newDir.getAbsolutePath());
+                    } else {
+                        System.out.println("Hiba a mappa létrehozásakor!");
+                    }
+                }
 
             }
             @Override

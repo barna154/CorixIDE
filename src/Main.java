@@ -19,6 +19,8 @@ public class Main {
 
 // STRINGLIST        
         String mtitle = LanguageManager.get("Title");
+        String rnam = LanguageManager.get("Rename");
+        String dlte = LanguageManager.get("Delete");
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");
         String moptions = LanguageManager.get("Options");
@@ -458,14 +460,35 @@ public class Main {
         JPopupMenu folderMenu = new JPopupMenu();
         folderMenu.setBackground(new Color(30, 30, 30));
         folderMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+        folderMenu.setOpaque(true);
+        folderMenu.setForeground(new Color(30, 30, 30));
+        folderMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
-        JMenuItem newFileInFolder = new JMenuItem("Új fájl");
-        JMenuItem renameFolder = new JMenuItem("Átnevezés");
-        JMenuItem deleteFolder = new JMenuItem("Törlés");
+        JMenuItem newFileInFolder = new JMenuItem(newf);
+            newFileInFolder.setMargin(new Insets(0, 0, 0, 0));
+            newFileInFolder.setBackground(new Color(30, 30, 30));
+            newFileInFolder.setFont(new Font("Arial", Font.PLAIN, 15));
+            newFileInFolder.setForeground(new Color(230, 230, 230));
+            newFileInFolder.setOpaque(true);
+        JMenuItem renameFolder = new JMenuItem(rnam);
+            renameFolder.setMargin(new Insets(0, 0, 0, 0));
+            renameFolder.setBackground(new Color(30, 30, 30));
+            renameFolder.setFont(new Font("Arial", Font.PLAIN, 15));
+            renameFolder.setForeground(new Color(230, 230, 230));
+            renameFolder.setOpaque(true);
+        JMenuItem deleteFolder = new JMenuItem(dlte);
+            deleteFolder.setMargin(new Insets(0, 0, 0, 0));
+            deleteFolder.setBackground(new Color(30, 30, 30));
+            deleteFolder.setFont(new Font("Arial", Font.PLAIN, 15));
+            deleteFolder.setForeground(new Color(230, 230, 230));
+            deleteFolder.setOpaque(true);
 
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
+
+
+
 
         JPopupMenu fileMenu = new JPopupMenu();
         fileMenu.setBackground(new Color(30, 30, 30));

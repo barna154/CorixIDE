@@ -691,7 +691,7 @@ public class Main {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2 && !e.isPopupTrigger()) {
-                        te.saveFile(te.getCurrentFile());
+                        te.saveFile();
                         TreePath path = fileTree.getPathForLocation(e.getX(), e.getY());
                         if (path != null) {
                             DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();

@@ -108,8 +108,13 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 15));
-                            setText(file.getName());
+                            if (file.equals(util.AppPath.MainProject)) {
+                                setIcon(new EmojiIcon("📂", new Color(0x00, 0xFF, 0x4A), 15));
+                            }
+                            else {
+                               setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 15));
+                            }
+                            setText(name);
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setIcon(new EmojiIcon("⚙", new Color(0x12, 0xCC, 0x2B), 15));

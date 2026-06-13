@@ -150,21 +150,43 @@ public class FileExplorer {
         startWatching(rootDir.toPath());
     }
 
-    private java.util.List<TreePath> getExpandedPaths(JTree tree) {
-    java.util.List<TreePath> paths = new java.util.ArrayList<>();
+    private java.util.List<String> getExpandedFilePaths(JTree tree) {
+            java.util.List<String> paths = new java.util.ArrayList<>();
+
             for (int i = 0; i < tree.getRowCount(); i++) {
                 if (tree.isExpanded(i)) {
-                    paths.add(tree.getPathForRow(i));
+                    TreePath tp = tree.getPathForRow(i);
+                    File f = (File) ((DefaultMutableTreeNode) tp.getLastPathComponent()).getUserObject();
+                    paths.add(f.getAbsolutePath());
                 }
             }
             return paths;
-    }
+        }
 
-    private void restoreExpandedPaths(JTree tree, java.util.List<TreePath> paths) {
-            for (TreePath path : paths) {
-                tree.expandPath(path);
+    private DefaultMutableTreeNode findNodeByPath(DefaultMutableTreeNode root, String path) {
+            File file = (File) root.getUserObject();
+            if (file.getAbsolutePath().equals(path)) {
+                return root;
             }
-    }
+
+            for (int i = 0; i < root.getChildCount(); i++) {
+                DefaultMutableTreeNode found = findNodeByPath(
+                    (DefaultMutableTreeNode) root.getChildAt(i), path
+                );
+                if (found != null) return found;
+            }
+            return null;
+        }
+
+    private void restoreExpandedFilePaths(JTree tree, java.util.List<String> paths) {
+            for (String path : paths) {
+                DefaultMutableTreeNode node = findNodeByPath(rootNode, path);
+                if (node != null) {
+                    TreePath tp = new TreePath(node.getPath());
+                    tree.expandPath(tp);
+                }
+            }
+        }
 
     public void refresh() {
         File rootDir = new File(AppPath.basePath);
@@ -177,8 +199,8 @@ public class FileExplorer {
         DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
         model.reload();
 
-        restoreExpandedPaths(tree, expanded);
-    }
+        restoreExpandedFilePaths(tree, expandedPaths);   
+     }
 
     private void buildTree(DefaultMutableTreeNode node, File file) {
         if (!file.isDirectory()) return;

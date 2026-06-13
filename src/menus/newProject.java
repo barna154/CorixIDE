@@ -183,8 +183,8 @@ public class newProject {
         rightPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(90, 30));
-        finishBtn.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
-        finishBtn.setForeground(new Color(193, 199, 193));
+        finishBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
+        finishBtn.setForeground(new Color(230, 230, 230));
         finishBtn.setOpaque(true);
         finishBtn.setHorizontalTextPosition(SwingConstants.CENTER);
         finishBtn.setHorizontalAlignment(SwingConstants.CENTER);

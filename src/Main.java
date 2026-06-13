@@ -14,6 +14,7 @@ import util.LanguageManager;
 
 public class Main {
     private static final int PANEL_RESIZE_MARGIN = 3;
+    final File[] contextTarget = new File[1];
     public static void main(String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
 
@@ -484,28 +485,28 @@ public class Main {
             deleteFolder.setForeground(new Color(230, 230, 230));
             deleteFolder.setOpaque(true);
             deleteFolder.addActionListener(e -> {
-                        if (contextMenuTarget == null) return;
+                    if (contextTarget[0] == null) return;
 
-                        int confirm = JOptionPane.showConfirmDialog(
-                                tree,
-                                "Biztosan törlöd ezt a mappát és teljes tartalmát: " + contextMenuTarget.getName() + "?",
-                                "Törlés megerősítése",
-                                JOptionPane.YES_NO_OPTION,
-                                JOptionPane.WARNING_MESSAGE
-                        );
+                    int confirm = JOptionPane.showConfirmDialog(
+                            fe.getTree(),
+                            "Biztosan törlöd ezt a mappát és teljes tartalmát: " + contextTarget[0].getName() + "?",
+                            "Törlés megerősítése",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.WARNING_MESSAGE
+                    );
 
-                        if (confirm == JOptionPane.YES_OPTION) {
-                            boolean deleted = deleteRecursive(contextMenuTarget);
-                            if (deleted) {
-                                refresh();
-                            } else {
-                                JOptionPane.showMessageDialog(tree,
-                                        "Nem sikerült törölni a mappát (lehet, hogy egy fájl épp használatban van).",
-                                        "Hiba",
-                                        JOptionPane.ERROR_MESSAGE);
-                            }
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        boolean deleted = fe.deleteRecursive(contextTarget[0]);
+                        if (deleted) {
+                            fe.refresh();
+                        } else {
+                            JOptionPane.showMessageDialog(fe.getTree(),
+                                    "Nem sikerült törölni a mappát (lehet, hogy egy fájl épp használatban van).",
+                                    "Hiba",
+                                    JOptionPane.ERROR_MESSAGE);
                         }
-                    });
+                    }
+                });
         JMenuItem mainpr = new JMenuItem(mainp);
             mainpr.setMargin(new Insets(0, 0, 0, 0));
             mainpr.setBackground(new Color(30, 30, 30));
@@ -553,28 +554,28 @@ public class Main {
             deleteFile.setForeground(new Color(230, 230, 230));
             deleteFile.setOpaque(true);
             deleteFile.addActionListener(e -> {
-                            if (contextMenuTarget == null) return;
+                if (contextTarget[0] == null) return;
 
-                            int confirm = JOptionPane.showConfirmDialog(
-                                    tree,
-                                    "Biztosan törlöd ezt a fájlt: " + contextMenuTarget.getName() + "?",
-                                    "Törlés megerősítése",
-                                    JOptionPane.YES_NO_OPTION,
-                                    JOptionPane.WARNING_MESSAGE
-                            );
+                int confirm = JOptionPane.showConfirmDialog(
+                        fe.getTree(),
+                        "Biztosan törlöd ezt a fájlt: " + contextTarget[0].getName() + "?",
+                        "Törlés megerősítése",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.WARNING_MESSAGE
+                );
 
-                            if (confirm == JOptionPane.YES_OPTION) {
-                                boolean deleted = contextMenuTarget.delete();
-                                if (deleted) {
-                                    refresh();
-                                } else {
-                                    JOptionPane.showMessageDialog(tree,
-                                            "Nem sikerült törölni a fájlt.",
-                                            "Hiba",
-                                            JOptionPane.ERROR_MESSAGE);
-                                }
-                            }
-                        });
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean deleted = contextTarget[0].delete();
+                    if (deleted) {
+                        fe.refresh();
+                    } else {
+                        JOptionPane.showMessageDialog(fe.getTree(),
+                                "Nem sikerült törölni a fájlt.",
+                                "Hiba",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
 
         fileMenu.add(openFile);
         fileMenu.add(renameFile);

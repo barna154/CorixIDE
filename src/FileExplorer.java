@@ -3,14 +3,14 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.io.File;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.nio.file.*;
 import javax.swing.plaf.basic.BasicTreeUI;
 import java.util.HashMap;
 import java.util.Map;
 import util.LanguageManager;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import util.AppPath;
 
 public class FileExplorer {
@@ -141,11 +141,13 @@ public class FileExplorer {
                                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
                                 contextMenuTarget = (File) node.getUserObject();
 
-                                if (contextMenuTarget.isDirectory()) {
-                                    folderMenu.show(tree, e.getX(), e.getY());
-                                } else {
-                                    fileMenu.show(tree, e.getX(), e.getY());
-                                }
+                                if (clickedFile.isDirectory()) {
+                                contextTarget[0] = clickedFile;
+                                folderMenu.show(fileTree, e.getX(), e.getY());
+                            } else {
+                                contextTarget[0] = clickedFile;
+                                fileMenu.show(fileTree, e.getX(), e.getY());
+                            }
                             }
                         }
                     }
@@ -191,19 +193,19 @@ public class FileExplorer {
         }
     }
 
-    private boolean deleteRecursive(File file) {
-        if (file.isDirectory()) {
-            File[] children = file.listFiles();
-            if (children != null) {
-                for (File child : children) {
-                    if (!deleteRecursive(child)) {
-                        return false;
-                    }
+    public boolean deleteRecursive(File file) {
+    if (file.isDirectory()) {
+        File[] children = file.listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (!deleteRecursive(child)) {
+                    return false;
                 }
             }
         }
-        return file.delete();
     }
+    return file.delete();
+  }
 
     private void startWatching(Path root) {
         try {

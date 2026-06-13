@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
+import java.io.FileWriter;
 import util.LanguageManager;
 import java.io.IOException;
 import util.AppPath;

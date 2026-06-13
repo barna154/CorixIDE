@@ -123,10 +123,8 @@ public class FileExplorer {
                 setTextNonSelectionColor(new Color(170, 170, 170));
                 setTextSelectionColor(new Color(255, 255, 255));
 
-                setIcon(null);
-
                 return this;
-            }
+                    }
         });
 
         scrollPane = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

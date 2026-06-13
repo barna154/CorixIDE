@@ -108,30 +108,16 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                                setText(
-                                        "<html><nobr>"
-                                        + "<span style='font-size:11px; color:#819984'>📂</span> "
-                                        + "<span style='font-size:11px; color:#AAAAAA'>"
-                                        + file.getName()
-                                        + "</span>"
-                                        + "</nobr></html>"
-                                        );
-                            } else if (file.getName().endsWith(".crxprjct")) {
-                                String name = file.getName().replaceFirst("\\.crxprjct$", "");
-                                setText(
-                                            "<html><nobr>"
-                                            + "<span style='font-size:9px; color:#31E047'>⚙</span> "
-                                            + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
-                                            + "</nobr></html>"
-                                    );
-                            } else {
-                                setText(
-                                            "<html><nobr>"
-                                            + "<span style='font-size:9px; color:#A4E0AC'>📄</span> "
-                                            + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
-                                            + "</nobr></html>"
-                                    );
-                            }
+                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 14));
+                            setText(file.getName());
+                        } else if (file.getName().endsWith(".crxprjct")) {
+                            String name = file.getName().replaceFirst("\\.crxprjct$", "");
+                            setIcon(new EmojiIcon("⚙", new Color(0x31, 0xE0, 0x47), 12));
+                            setText(name);
+                        } else {
+                            setIcon(new EmojiIcon("📄", new Color(0xA4, 0xE0, 0xAC), 12));
+                            setText(file.getName());
+                        }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));
                 setTextNonSelectionColor(new Color(170, 170, 170));
@@ -251,5 +237,34 @@ public class FileExplorer {
     }
     public JScrollPane getScrollPane() {
              return scrollPane;
+    }
+}
+
+private static class EmojiIcon implements Icon {
+    private final String emoji;
+    private final Color color;
+    private final int size;
+
+    EmojiIcon(String emoji, Color color, int size) {
+        this.emoji = emoji;
+        this.color = color;
+        this.size = size;
+    }
+
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        g.setFont(new Font("Segoe UI Emoji", Font.PLAIN, size));
+        g.setColor(color);
+        g.drawString(emoji, x, y + size);
+    }
+
+    @Override
+    public int getIconWidth() {
+        return size + 4;
+    }
+
+    @Override
+    public int getIconHeight() {
+        return size + 2;
     }
 }

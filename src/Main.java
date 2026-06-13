@@ -382,6 +382,27 @@ public class Main {
         JPanel back = new JPanel();
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
+
+   
+//Editor
+
+        JPanel editor = new JPanel();
+        editor.setBackground(new Color(40, 43, 40));
+        editor.setLayout(new BorderLayout());
+
+
+        
+        TextEditor te = new TextEditor();
+        te.init(editor);
+
+
+
+        JPanel line3 = new JPanel();
+        line3.setBackground(new Color(100, 100, 100));
+        line3.setPreferredSize(new Dimension(1, 0)); 
+
+
+
 //fájlkezelő
         UIManager.put("MenuItem.background", new Color(30, 30, 30));
         UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
@@ -785,24 +806,8 @@ public class Main {
 
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
-   
-//Editor
 
-        JPanel editor = new JPanel();
-        editor.setBackground(new Color(40, 43, 40));
-        editor.setLayout(new BorderLayout());
-
-
-        
-        TextEditor te = new TextEditor();
-        te.init(editor);
-
-
-
-        JPanel line3 = new JPanel();
-        line3.setBackground(new Color(100, 100, 100));
-        line3.setPreferredSize(new Dimension(1, 0)); 
-
+//Editor panelhez adása
         JPanel leftWrapper = new JPanel(new BorderLayout());
         leftWrapper.add(explolerp, BorderLayout.CENTER);
         leftWrapper.add(line3, BorderLayout.EAST);

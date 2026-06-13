@@ -228,9 +228,9 @@ public class newProject {
                                         writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
                                         writer.write("CPU=" + selectedMcu + ";\n\n");
                                         writer.write("config {\n\n");
-                                        writer.write("}\n");
+                                        writer.write("}\n\n");
                                         writer.write("setup {\n\n");
-                                        writer.write("}\n");
+                                        writer.write("}\n\n");
                                         writer.write("loop {\n\n");
                                         writer.write("}");
                                     }

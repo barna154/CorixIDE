@@ -61,7 +61,12 @@ public class TextEditor {
         }
     }
     public void saveFile() {
-            LanguageManager.load("../lang/lang.json");
+            try {
+                LanguageManager.load("../lang/lang.json");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             String saveerror = LanguageManager.get("Saving falied");
             if (currentFile == null) return;
 

@@ -226,7 +226,13 @@ public class newProject {
                             if (success) {
                                 try (FileWriter writer = new FileWriter(newFile)) {
                                         writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
-                                        writer.write("CPU=" + selectedMcu + ";\n");
+                                        writer.write("CPU=" + selectedMcu + ";\n\n");
+                                        writer.wrint("config {\n");
+                                        writer.wrint("}\n");
+                                        writer.write("setup {\n")
+                                        writer.wrint("}\n");
+                                        writer.write("loop {\n")
+                                        writer.wrint("}");
                                     }
 
                             } else {

@@ -871,7 +871,38 @@ resizeBorder.addMouseListener(new MouseAdapter() {
     return e.getX() >= e.getComponent().getWidth() - PANEL_RESIZE_MARGIN;
     }
 
-        private static boolean showStyledConfirm(Component parent, String message, String title) {
+    private static void showStyledMessage(Component parent, String message, String title) {
+            JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parent), title, true);
+            dialog.setUndecorated(true);
+            dialog.setBackground(new Color(0, 0, 0, 0));
+
+            JPanel panel = new JPanel(new BorderLayout());
+            panel.setBackground(new Color(30, 30, 30));
+            panel.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+
+            JLabel label = new JLabel("<html><div style='width:280px;'>" + message + "</div></html>");
+            label.setForeground(new Color(230, 230, 230));
+            label.setFont(new Font("Arial", Font.PLAIN, 14));
+            label.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+            panel.add(label, BorderLayout.CENTER);
+
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+            buttonPanel.setOpaque(false);
+            buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+            JButton okBtn = new JButton("OK");
+            styleDialogButton(okBtn, new Color(60, 60, 60));
+            okBtn.addActionListener(e -> dialog.dispose());
+
+            buttonPanel.add(okBtn);
+            panel.add(buttonPanel, BorderLayout.SOUTH);
+
+            dialog.setContentPane(panel);
+            dialog.pack();
+            dialog.setLocationRelativeTo(parent);
+            dialog.setVisible(true);
+        }
+    private static boolean showStyledConfirm(Component parent, String message, String title) {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parent), title, true);
         dialog.setUndecorated(true);
         dialog.setBackground(new Color(0, 0, 0, 0));

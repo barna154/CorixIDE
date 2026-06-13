@@ -46,15 +46,21 @@ public class FileExplorer {
         tree.setForeground(new Color(170, 170, 170));
         tree.setFont(new Font("Segoe UI Emoji", Font.BOLD, 15));
         tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
-        tree.setUI(new javax.swing.plaf.basic.BasicTreeUI() {
+        tree.setUI(new BasicTreeUI() {
                 @Override
-                protected Icon getExpandedIcon() {
-                    return new ArrowIcon(true);   
+                protected void paintHorizontalLine(Graphics g, JComponent c, int y, int left, int right) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setColor(new Color(90, 90, 90)); // szürke
+                    g2.setStroke(new BasicStroke(1.5f));
+                    g2.drawLine(left, y, right, y);
                 }
 
                 @Override
-                protected Icon getCollapsedIcon() {
-                    return new ArrowIcon(false);  
+                protected void paintVerticalLine(Graphics g, JComponent c, int x, int top, int bottom) {
+                    Graphics2D g2 = (Graphics2D) g;
+                    g2.setColor(new Color(90, 90, 90)); // szürke
+                    g2.setStroke(new BasicStroke(1.5f));
+                    g2.drawLine(x, top, x, bottom);
                 }
             });
 

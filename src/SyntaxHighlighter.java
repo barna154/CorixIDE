@@ -28,6 +28,7 @@ public class SyntaxHighlighter {
     private Style typeStyle;
     private Style paramStyle;
     private Style boolStyle;
+    private Style fullLineStyle;
 
     private void createStyles() {
         normalStyle = doc.addStyle("normal", null);
@@ -47,6 +48,9 @@ public class SyntaxHighlighter {
 
         boolStyle = doc.addStyle("bool", null);
         StyleConstants.setForeground(boolStyle, new Color(50, 50, 200));
+
+        fullLineStyle = doc.addStyle("fullLine", null);
+        StyleConstants.setForeground(fullLineStyle, new Color(120, 180, 255));  
 
     }
 
@@ -126,7 +130,19 @@ public class SyntaxHighlighter {
             while (falseb.find()) {
                 doc.setCharacterAttributes(falseb.start(), falseb.end() - falseb.start(), boolStyle, false);
             }
-    
+
+
+            String[] lines = text.split("\n");
+            int pos = 0;
+
+            for (String line : lines) {
+
+                if (line.startsWith("//")) { 
+                    doc.setCharacterAttributes(pos, line.length(), fullLineStyle, false);
+                }
+
+                pos += line.length() + 1;
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

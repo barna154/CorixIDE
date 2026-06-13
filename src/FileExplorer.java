@@ -48,6 +48,38 @@ public class FileExplorer {
         tree.setFont(new Font("Segoe UI Emoji", Font.BOLD, 15));
         tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         tree.setUI(new BasicTreeUI() {
+
+                Icon collapsed = new Icon() {
+                        @Override
+                        public void paintIcon(Component c, Graphics g, int x, int y) {
+                            g.setColor(new Color(180,180,180));
+                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 14));
+                            g.drawString("▶", x, y + 12);
+                        }
+                        @Override public int getIconWidth() { return 14; }
+                        @Override public int getIconHeight() { return 14; }
+                    };
+
+                    Icon expanded = new Icon() {
+                        @Override
+                        public void paintIcon(Component c, Graphics g, int x, int y) {
+                            g.setColor(new Color(180,180,180));
+                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 14));
+                            g.drawString("▼", x, y + 12);
+                        }
+                        @Override public int getIconWidth() { return 14; }
+                        @Override public int getIconHeight() { return 14; }
+                    };
+
+                    @Override
+                    protected Icon getCollapsedIcon() {
+                        return collapsed;
+                    }
+
+                    @Override
+                    protected Icon getExpandedIcon() {
+                        return expanded;
+                    }
                 @Override
                 protected void paintHorizontalLine(Graphics g, JComponent c, int y, int left, int right) {
                     Graphics2D g2 = (Graphics2D) g;

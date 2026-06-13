@@ -28,6 +28,7 @@ public class Main {
         String mboards = LanguageManager.get("Boards");
         String newp = LanguageManager.get("New Project");
         String newf = LanguageManager.get("New file");
+        String openf = LanguageManager.get("Open");
         String openp = LanguageManager.get("Open Project");
         String mainp = LanguageManager.get("Main Project");
 
@@ -506,10 +507,28 @@ public class Main {
         JPopupMenu fileMenu = new JPopupMenu();
         fileMenu.setBackground(new Color(30, 30, 30));
         fileMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+        fileMenu.setOpaque(true);
+        fileMenu.setForeground(new Color(30, 30, 30));
+        fileMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
-        JMenuItem openFile = new JMenuItem("Megnyitás");
-        JMenuItem renameFile = new JMenuItem("Átnevezés");
-        JMenuItem deleteFile = new JMenuItem("Törlés");
+        JMenuItem openFile = new JMenuItem(openf);
+            openFile.setMargin(new Insets(0, 0, 0, 0));
+            openFile.setBackground(new Color(30, 30, 30));
+            openFile.setFont(new Font("Arial", Font.PLAIN, 15));
+            openFile.setForeground(new Color(230, 230, 230));
+            openFile.setOpaque(true);
+        JMenuItem renameFile = new JMenuItem(rnam);
+            renameFile.setMargin(new Insets(0, 0, 0, 0));
+            renameFile.setBackground(new Color(30, 30, 30));
+            renameFile.setFont(new Font("Arial", Font.PLAIN, 15));
+            renameFile.setForeground(new Color(230, 230, 230));
+            renameFile.setOpaque(true);
+        JMenuItem deleteFile = new JMenuItem(dlte);
+            deleteFile.setMargin(new Insets(0, 0, 0, 0));
+            deleteFile.setBackground(new Color(30, 30, 30));
+            deleteFile.setFont(new Font("Arial", Font.PLAIN, 15));
+            deleteFile.setForeground(new Color(230, 230, 230));
+            deleteFile.setOpaque(true);
 
         fileMenu.add(openFile);
         fileMenu.add(renameFile);

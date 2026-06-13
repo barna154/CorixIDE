@@ -31,7 +31,8 @@ public class Main {
         String openf = LanguageManager.get("Open");
         String openp = LanguageManager.get("Open Project");
         String mainp = LanguageManager.get("Main Project");
-
+        String arsdfi = LanguageManager.get("Deleting files");
+        String arsdfo = LanguageManager.get("Deleting folders");
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
@@ -609,7 +610,7 @@ public class Main {
 
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
-                        "Biztosan törlöd ezt a mappát és teljes tartalmát: " + contextTarget[0].getName() + "?",
+                        arsdfo + contextTarget[0].getName() + "?",
                         "Törlés megerősítése"
                 );
 
@@ -620,8 +621,8 @@ public class Main {
                     } else {
                         showStyledMessage(
                                 fe.getTree(),
-                                "Nem sikerült törölni a mappát (lehet, hogy egy fájl épp használatban van).",
-                                "Hiba"
+                                "Error!",
+                                "Error!"
                         );
                     }
                 }
@@ -632,7 +633,7 @@ public class Main {
 
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
-                        "Biztosan törlöd ezt a fájlt: " + contextTarget[0].getName() + "?",
+                        arsdfi + contextTarget[0].getName() + "?",
                         "Törlés megerősítése"
                 );
 
@@ -643,8 +644,8 @@ public class Main {
                     } else {
                         showStyledMessage(
                                 fe.getTree(),
-                                "Nem sikerült törölni a fájlt.",
-                                "Hiba"
+                                "Error!",
+                                "Error!"
                         );
                     }
                 }

@@ -229,9 +229,9 @@ public class newProject {
                                         writer.write("CPU=" + selectedMcu + ";\n\n");
                                         writer.wrint("config {\n");
                                         writer.wrint("}\n");
-                                        writer.write("setup {\n")
+                                        writer.write("setup {\n");
                                         writer.wrint("}\n");
-                                        writer.write("loop {\n")
+                                        writer.write("loop {\n");
                                         writer.wrint("}");
                                     }
 

@@ -64,7 +64,7 @@ public class FileExplorer {
                         @Override
                         public void paintIcon(Component c, Graphics g, int x, int y) {
                             g.setColor(new Color(180,180,180));
-                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 12));
+                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 10));
                             g.drawString("▼", x, y + 8);
                         }
                         @Override public int getIconWidth() { return 10; }

@@ -256,12 +256,12 @@ public class FileExplorer {
 
     @Override
     public int getIconWidth() {
-        return size;
+        return size + 4;
     }
 
     @Override
     public int getIconHeight() {
-        return size;
+        return size + 4;
     }
 }
 }

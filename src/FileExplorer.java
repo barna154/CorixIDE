@@ -119,7 +119,7 @@ public class FileExplorer {
                             setText(file.getName());
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
-                            setIcon(new EmojiIcon("⚙", new Color(0x12, 0xCC, 0x2B), 15));
+                            setIcon(new EmojiIcon("⚙", new Color(0x6F, 0xA1, 0x18), 15));
                             setText(name);
                         } else {
                             setIcon(new EmojiIcon("📄", new Color(0xA4, 0xE0, 0xAC), 15));

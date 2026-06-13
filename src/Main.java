@@ -14,7 +14,6 @@ import util.LanguageManager;
 
 public class Main {
     private static final int PANEL_RESIZE_MARGIN = 3;
-    final File[] contextTarget = new File[1];
     public static void main(String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
 
@@ -54,6 +53,7 @@ public class Main {
 
      
         final int[] mouseOffset = new int[2];
+        final File[] contextTarget = new File[1];
         JPanel Menu = new JPanel(new BorderLayout());
         Menu.setBackground(new Color(43, 43, 43));
         Menu.setPreferredSize(new Dimension(1080, 35));
@@ -868,6 +868,27 @@ resizeBorder.addMouseListener(new MouseAdapter() {
 
         window.setVisible(true);
     }
+
+    private void handlePopup(MouseEvent e) {
+    if (!e.isPopupTrigger()) return;
+    TreePath path = fileTree.getPathForLocation(e.getX(), e.getY());
+
+    if (path != null) {
+        fileTree.setSelectionPath(path); 
+
+        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+        File clickedFile = (File) node.getUserObject();
+        contextTarget[0] = clickedFile;   // <-- EZ HIÁNYZIK
+
+        if (clickedFile.isDirectory()) {
+            folderMenu.show(fileTree, e.getX(), e.getY());
+        } else {
+            fileMenu.show(fileTree, e.getX(), e.getY());
+        }
+    } else {
+        dataexplorer.show(fileTree, e.getX(), e.getY());
+    }
+}
 
     private static boolean isInResizeZone(MouseEvent e) {
     return e.getX() >= e.getComponent().getWidth() - PANEL_RESIZE_MARGIN;

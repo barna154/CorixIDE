@@ -13,7 +13,7 @@ import util.LanguageManager;
 
 
 public class Main {
-
+    private static final int PANEL_RESIZE_MARGIN = 3;
     public static void main(String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
 
@@ -482,7 +482,6 @@ public class Main {
 
 
         JPanel explolerp = new JPanel();
-                 private static final int PANEL_RESIZE_MARGIN = 3;
                  final Point[] panelStartMouse = new Point[1];
                  final int[] panelStartWidth = new int[1];
 

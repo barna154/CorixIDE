@@ -33,6 +33,8 @@ public class Main {
         String mainp = LanguageManager.get("Main Project");
         String arsdfi = LanguageManager.get("Deleting files");
         String arsdfo = LanguageManager.get("Deleting folders");
+        String suretext = LanguageManager.get("Sure");
+        String notext = LanguageManager.get("No");
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
@@ -611,7 +613,7 @@ public class Main {
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
                         arsdfo + " " + contextTarget[0].getName() + "?",
-                        "Törlés megerősítése"
+                        "Confirm Action"
                 );
 
                 if (confirmed) {
@@ -634,7 +636,7 @@ public class Main {
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
                         arsdfi + " " + contextTarget[0].getName() + "?",
-                        "Törlés megerősítése"
+                        "Confirm action"
                 );
 
                 if (confirmed) {
@@ -925,14 +927,14 @@ resizeBorder.addMouseListener(new MouseAdapter() {
 
         final boolean[] result = {false};
 
-        JButton yesBtn = new JButton("Igen");
+        JButton yesBtn = new JButton(suretext);
         styleDialogButton(yesBtn, new Color(180, 60, 60));
         yesBtn.addActionListener(e -> {
             result[0] = true;
             dialog.dispose();
         });
 
-        JButton noBtn = new JButton("Mégse");
+        JButton noBtn = new JButton(notext);
         styleDialogButton(noBtn, new Color(60, 60, 60));
         noBtn.addActionListener(e -> {
             result[0] = false;

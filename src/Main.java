@@ -502,10 +502,7 @@ public class Main {
                             explolerp.setCursor(Cursor.getDefaultCursor());
                         }
                     }
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        explolerp.setCursor(Cursor.getDefaultCursor());
-                    }
+        
 
                     @Override
                     public void mouseDragged(MouseEvent e) {
@@ -527,6 +524,10 @@ public class Main {
                 });
 
                         explolerp.addMouseListener(new MouseAdapter() {
+                                @Override
+                                        public void mouseExited(MouseEvent e) {
+                                            explolerp.setCursor(Cursor.getDefaultCursor());
+                                 }
 
                                 @Override
                                 public void mousePressed(MouseEvent e) {

@@ -55,8 +55,13 @@ public class FileExplorer {
                 super.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
-                setText(file.getName().isEmpty() ? file.getPath() : file.getName());
-
+                if (file.isDirectory()) {
+                setText("📂 " + file.getName());
+                    } else if (file.getName().endsWith(".crxprjct")) {
+                        setText("🧩 " + file.getName());
+                    } else {
+                        setText("📄 " + file.getName());
+                    }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));
                 setTextNonSelectionColor(new Color(170, 170, 170));

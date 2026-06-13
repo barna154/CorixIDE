@@ -227,11 +227,11 @@ public class newProject {
                                 try (FileWriter writer = new FileWriter(newFile)) {
                                         writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
                                         writer.write("CPU=" + selectedMcu + ";\n\n");
-                                        writer.write("config {\n");
+                                        writer.write("config {\n\n");
                                         writer.write("}\n");
-                                        writer.write("setup {\n");
+                                        writer.write("setup {\n\n");
                                         writer.write("}\n");
-                                        writer.write("loop {\n");
+                                        writer.write("loop {\n\n");
                                         writer.write("}");
                                     }
 

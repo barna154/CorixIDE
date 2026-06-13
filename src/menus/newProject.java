@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.io.File; 
 import java.util.Scanner;
 import util.LanguageManager;
-import Main;
+import util.AppPath;
 
 
 
@@ -202,7 +202,7 @@ public class newProject {
                         System.out.println("Üres mező");
                      return;
                      }
-                File newDir = new File(Main.basePath, projectNameField);
+                File newDir = new File(AppPath.basePath, projectNameField);
                 
                 if (newDir.exists()) {
                     System.out.println("Már létezik ilyen mappa!");

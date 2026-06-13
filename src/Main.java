@@ -13,8 +13,6 @@ import util.LanguageManager;
 
 public class Main {
 
-    public static String basePath = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "CRXProjects";
-
     public static void main(String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
 

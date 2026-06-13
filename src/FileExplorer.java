@@ -108,14 +108,14 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 12));
+                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 15));
                             setText(file.getName());
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
-                            setIcon(new EmojiIcon("⚙", new Color(0x31, 0xE0, 0x47), 12));
+                            setIcon(new EmojiIcon("⚙", new Color(0x31, 0xE0, 0x47), 15));
                             setText(name);
                         } else {
-                            setIcon(new EmojiIcon("📄", new Color(0xA4, 0xE0, 0xAC), 12));
+                            setIcon(new EmojiIcon("📄", new Color(0xA4, 0xE0, 0xAC), 15));
                             setText(file.getName());
                         }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));

@@ -78,6 +78,7 @@ public class FileExplorer {
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText("🧩 " + name);
+                            setForeground(new Color(170, 255, 170));
                     } else {
                             setText("📄 " + file.getName());
                     }

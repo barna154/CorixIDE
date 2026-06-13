@@ -7,6 +7,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.Border;
+import javax.swing.tree.*;
 import menus.newProject;
 import util.LanguageManager;
 
@@ -461,13 +462,12 @@ public class Main {
         JMenuItem newFileInFolder = new JMenuItem("Új fájl");
         JMenuItem renameFolder = new JMenuItem("Átnevezés");
         JMenuItem deleteFolder = new JMenuItem("Törlés");
-        // ... stílusozás, mint a többi item-nél
+
 
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
 
-        // Fájlra kattintva
         JPopupMenu fileMenu = new JPopupMenu();
         fileMenu.setBackground(new Color(30, 30, 30));
         fileMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));

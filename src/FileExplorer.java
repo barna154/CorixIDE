@@ -153,7 +153,7 @@ public class FileExplorer {
     public void refresh() {
         File rootDir = new File(AppPath.basePath);
 
-        rootNode.removeAllChildren();
+        //rootNode.removeAllChildren();
         buildTree(rootNode, rootDir);
 
         DefaultTreeModel model = (DefaultTreeModel) tree.getModel();

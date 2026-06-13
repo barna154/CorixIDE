@@ -111,8 +111,12 @@ public class FileExplorer {
                             setForeground(new Color(129, 153, 132));
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
-                            setText("⚙ " + name);
-                            setForeground(new Color(49, 170, 71));
+                            setText(
+                                        "<html>"
+                                        + "<span style='font-size:10px; color:#31E047'>⚙</span> "
+                                        + "<span style='font-size:13px; color:#AAAAAA'>" + name + "</span>"
+                                        + "</html>"
+                                );
                     } else {
                             setText("📄 " + file.getName());
                             setForeground(new Color(175, 220, 181));

@@ -113,8 +113,8 @@ public class FileExplorer {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(
                                         "<html>"
-                                        + "<span style='font-size:10px; color:#31E047'>⚙</span> "
-                                        + "<span style='font-size:13px; color:#AAAAAA'>" + name + "</span>"
+                                        + "<span style='font-size:8px; color:#31E047'>⚙</span> "
+                                        + "<span style='font-size:10px; color:#AAAAAA'>" + name + "</span>"
                                         + "</html>"
                                 );
                     } else {

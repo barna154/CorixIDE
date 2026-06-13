@@ -39,9 +39,10 @@ public class FileExplorer {
         JTree tree = new JTree(rootNode);
         tree.setRootVisible(true);
         tree.setShowsRootHandles(true);
+        tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         tree.setBackground(new Color(30, 33, 30));
         tree.setForeground(new Color(220, 220, 220));
-        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 18));
+        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 
         tree.setCellRenderer(new DefaultTreeCellRenderer() {
             @Override

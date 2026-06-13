@@ -33,8 +33,8 @@ public class Main {
         String mainp = LanguageManager.get("Main Project");
         String arsdfi = LanguageManager.get("Deleting files");
         String arsdfo = LanguageManager.get("Deleting folders");
-        String suretext = LanguageManager.get("Sure");
-        String notext = LanguageManager.get("No");
+        public String suretext = LanguageManager.get("Sure");
+        public String notext = LanguageManager.get("No");
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca

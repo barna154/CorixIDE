@@ -167,9 +167,10 @@ public class FileExplorer {
             }
 
             key.reset();
-
-            // UI frissítés a Swing szálon
             SwingUtilities.invokeLater(this::refresh);
         }
+    }
+    public JTree getTree() {
+            return tree;
     }
 }

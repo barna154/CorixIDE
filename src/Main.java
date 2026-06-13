@@ -515,6 +515,21 @@ public class Main {
         
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
+        JTree fileTree = fe.getTree();
+        fileTree.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    if (e.isPopupTrigger()) {
+                        dataexplorer.show(fileTree, e.getX(), e.getY());
+                    }
+                }
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    if (e.isPopupTrigger()) {
+                        dataexplorer.show(fileTree, e.getX(), e.getY());
+                    }
+                }
+        });
 
         
 

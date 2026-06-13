@@ -68,7 +68,7 @@ public class FileExplorer {
             }
         });
 
-        JScrollPane scrollPane = new JScrollPane(tree);
+        scrollPane = new JScrollPane(tree);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(new Color(30, 33, 30));
 

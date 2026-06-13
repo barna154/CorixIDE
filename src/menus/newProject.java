@@ -99,7 +99,7 @@ public class newProject {
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
-        pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
+        pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
         String projectPath = pathField.getText();
 
 

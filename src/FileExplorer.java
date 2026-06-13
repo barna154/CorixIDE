@@ -14,6 +14,7 @@ import util.AppPath;
 public class FileExplorer {
 
     private JTree tree;
+    private File contextMenuTarget;
     private JScrollPane scrollPane;
     private DefaultMutableTreeNode rootNode;
     private WatchService watchService;
@@ -128,6 +129,26 @@ public class FileExplorer {
                     }
         });
 
+        tree.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            TreePath path = tree.getPathForLocation(e.getX(), e.getY());
+                            if (path != null) {
+                                tree.setSelectionPath(path);
+                                DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+                                contextMenuTarget = (File) node.getUserObject();
+
+                                if (contextMenuTarget.isDirectory()) {
+                                    folderMenu.show(tree, e.getX(), e.getY());
+                                } else {
+                                    fileMenu.show(tree, e.getX(), e.getY());
+                                }
+                            }
+                        }
+                    }
+                });
+
         scrollPane = new JScrollPane(tree, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.getViewport().setBackground(new Color(30, 33, 30));
@@ -166,6 +187,20 @@ public class FileExplorer {
                 buildTree(childNode, child);
             }
         }
+    }
+
+    private boolean deleteRecursive(File file) {
+        if (file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    if (!deleteRecursive(child)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return file.delete();
     }
 
     private void startWatching(Path root) {

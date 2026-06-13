@@ -489,10 +489,15 @@ public class Main {
             mainpr.setForeground(new Color(230, 230, 230));
             mainpr.setOpaque(true);
 
+        JSeparator sep2 = new JSeparator();
+            sep2.setOpaque(true);
+            sep2.setForeground(new Color(80, 80, 80));
+            sep2.setBackground(new Color(30, 30, 30));
+
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
-        folderMenu.add(sep);
+        folderMenu.add(sep2);
         folderMenu.add(mainpr);
 
 

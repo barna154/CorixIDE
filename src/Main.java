@@ -613,7 +613,7 @@ public class Main {
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
                         arsdfo + " " + contextTarget[0].getName() + "?",
-                        "Confirm Action"
+                        "Confirm Action",
                         suretext,
                         notext
                 );
@@ -638,7 +638,7 @@ public class Main {
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
                         arsdfi + " " + contextTarget[0].getName() + "?",
-                        "Confirm action"
+                        "Confirm action",
                         suretext,
                         notext
                 );

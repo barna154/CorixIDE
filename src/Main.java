@@ -489,6 +489,7 @@ public class Main {
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         explolerp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, PANEL_RESIZE_MARGIN, new Color(0,0,0,0)));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
+        explolerp.setCursor(Cursor.getDefaultCursor());
                
 
                  explolerp.addMouseMotionListener(new MouseMotionAdapter() {

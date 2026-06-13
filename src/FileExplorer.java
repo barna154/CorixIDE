@@ -13,6 +13,7 @@ import util.AppPath;
 public class FileExplorer {
 
     private JTree tree;
+    private JScrollPane scrollPane;
     private DefaultMutableTreeNode rootNode;
     private WatchService watchService;
     private final Map<WatchKey, Path> watchKeys = new HashMap<>();
@@ -172,5 +173,8 @@ public class FileExplorer {
     }
     public JTree getTree() {
             return tree;
+    }
+    public JScrollPane getScrollPane() {
+             return scrollPane;
     }
 }

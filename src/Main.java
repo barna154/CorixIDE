@@ -549,9 +549,7 @@ public class Main {
         explolerp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, PANEL_RESIZE_MARGIN, new Color(0,0,0,0)));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
         explolerp.setCursor(Cursor.getDefaultCursor());
-               
-
-                 explolerp.addMouseMotionListener(new MouseMotionAdapter() {
+        explolerp.addMouseMotionListener(new MouseMotionAdapter() {
 
                     @Override
                     public void mouseMoved(MouseEvent e) {
@@ -582,7 +580,7 @@ public class Main {
                     }
                 });
 
-                        explolerp.addMouseListener(new MouseAdapter() {
+                      explolerp.addMouseListener(new MouseAdapter() {
                                 @Override
                                         public void mouseExited(MouseEvent e) {
                                             explolerp.setCursor(Cursor.getDefaultCursor());
@@ -607,7 +605,14 @@ public class Main {
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
 
-              deleteFolder.addActionListener(e -> {
+        mainpr.addActionListenere -> {
+                if (contextTarget[0] == null) return;
+
+                System.out.println(contextTarget[0]);
+
+        };
+
+        deleteFolder.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
                 boolean confirmed = showStyledConfirm(
@@ -632,7 +637,7 @@ public class Main {
                 }
             });
 
-            deleteFile.addActionListener(e -> {
+        deleteFile.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
                 boolean confirmed = showStyledConfirm(

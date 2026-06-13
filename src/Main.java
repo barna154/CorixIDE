@@ -482,125 +482,70 @@ public class Main {
 
 
         JPanel explolerp = new JPanel();
+                 final int PANEL_RESIZE_MARGIN = 3;
+                 final Point[] panelStartMouse = new Point[1];
+                 final int[] panelStartWidth = new int[1];
+
         explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        explolerp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, RESIZE_BORDER, new Color(0,0,0,0)));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
-                        final int PANEL_RESIZE_MARGIN = 5;
-                        final Point[] panelStartMouse = new Point[1];
-                        final int[] panelStartWidth = new int[1];
+               
 
                  explolerp.addMouseMotionListener(new MouseMotionAdapter() {
-                            @Override
-                            public void mouseMoved(MouseEvent e) {
-                                int x = e.getX();
-                                int w = explolerp.getWidth();
 
-                                if (x > w - PANEL_RESIZE_MARGIN) {
-                                    explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                                } else {
-                                    explolerp.setCursor(Cursor.getDefaultCursor());
-                                }
-                            }
+                    @Override
+                    public void mouseMoved(MouseEvent e) {
+                        if (isInResizeZone(e)) {
+                            explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                        } else {
+                            explolerp.setCursor(Cursor.getDefaultCursor());
+                        }
+                    }
 
-                            @Override
-                            public void mouseDragged(MouseEvent e) {
-                                if (panelStartMouse[0] != null) {
-                                    int dx = e.getXOnScreen() - panelStartMouse[0].x;
-                                    int newWidth = panelStartWidth[0] + dx;
+                    @Override
+                    public void mouseDragged(MouseEvent e) {
+                        if (panelStartMouse[0] != null) {
 
-                                    if (newWidth < 120) newWidth = 120; 
-                                    if (newWidth > 800) newWidth = 800;
+                            int dx = e.getXOnScreen() - panelStartMouse[0].x;
+                            int newWidth = panelStartWidth[0] + dx;
 
-                                    explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
-                                    explolerp.revalidate();
-                                }
-                            }
+                        
+                            newWidth = Math.max(120, Math.min(800, newWidth));
 
-                            
-                        });
+                            explolerp.setPreferredSize(
+                                new Dimension(newWidth, explolerp.getHeight())
+                            );
+
+                            explolerp.revalidate();
+                        }
+                    }
+                });
 
                         explolerp.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mousePressed(MouseEvent e) {
-                                if (e.isPopupTrigger()) dataexplorer.show(explolerp, e.getX(), e.getY());
 
-                                int x = e.getX();
-                                int w = explolerp.getWidth();
-
-                                if (x > w - PANEL_RESIZE_MARGIN) {
-                                    panelStartMouse[0] = e.getLocationOnScreen();
-                                    panelStartWidth[0] = explolerp.getWidth();
-                                } else {
-                                    panelStartMouse[0] = null;
+                                @Override
+                                public void mousePressed(MouseEvent e) {
+                                    if (isInResizeZone(e)) {
+                                        panelStartMouse[0] = e.getLocationOnScreen();
+                                        panelStartWidth[0] = explolerp.getWidth();
+                                    } else {
+                                        panelStartMouse[0] = null;
+                                    }
                                 }
-                            }
+                          
                             @Override
                             public void mouseReleased(MouseEvent e) {
                                     if (e.isPopupTrigger()) dataexplorer.show(explolerp, e.getX(), e.getY());
                                 }
-                        }); 
+                        });  
         
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
 
-                JScrollPane fileScrollPane = fe.getScrollPane();
-
-                    fileScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
-                        @Override
-                        public void mouseMoved(MouseEvent e) {
-                            int x = e.getX();
-                            int w = explolerp.getWidth();
-
-                            if (x > w - PANEL_RESIZE_MARGIN) {
-                                explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                            } else {
-                                explolerp.setCursor(Cursor.getDefaultCursor());
-                            }
-                        }
-
-                        @Override
-                        public void mouseDragged(MouseEvent e) {
-                            if (panelStartMouse[0] != null) {
-                                int dx = e.getXOnScreen() - panelStartMouse[0].x;
-                                int newWidth = panelStartWidth[0] + dx;
-
-                                if (newWidth < 120) newWidth = 120;
-                                if (newWidth > 800) newWidth = 800;
-
-                                explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
-                                explolerp.revalidate();
-                            }
-                        }
-                    });
-
-                    fileScrollPane.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            int x = e.getX();
-                            int w = explolerp.getWidth();
-
-                            if (x > w - PANEL_RESIZE_MARGIN) {
-                                panelStartMouse[0] = e.getLocationOnScreen();
-                                panelStartWidth[0] = explolerp.getWidth();
-                            } else {
-                                panelStartMouse[0] = null;
-                            }
-                        }
-                    });
-
         JTree fileTree = fe.getTree();
         fileTree.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseMoved(MouseEvent e) {
-                    int x = e.getXOnScreen() - explolerp.getLocationOnScreen().x;
-                    int w = explolerp.getWidth();
-
-                    if (x > w - PANEL_RESIZE_MARGIN) {
-                        explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                    } else {
-                        explolerp.setCursor(Cursor.getDefaultCursor());
-                    }
-                }
+    
                 @Override
                 public void mousePressed(MouseEvent e) {
                     handlePopup(e);

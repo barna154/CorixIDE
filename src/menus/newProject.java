@@ -207,7 +207,7 @@ public class newProject {
                 File newDir = new File(AppPath.basePath, projectNameField);
                 
                 if (newDir.exists()) {
-                    System.out.println("Már létezik ilyen mappa!");
+                    System.out.println("Folder already exists!");
                 } else {
                     boolean success = newDir.mkdirs();
                     if (success) {
@@ -219,7 +219,7 @@ public class newProject {
 
                 File newFile = new File(newDir, projectNameField + ".crxprjct");
                 if (newFile.exists()) {
-                        System.out.println("Már létezik ilyen fájl!");
+                        System.out.println("File already exists!");
                     } else {
                         try {
                             boolean success = newFile.createNewFile();

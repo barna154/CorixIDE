@@ -17,6 +17,7 @@
    "Project Name": "Projekt neve:",
    "Microcontroller": "Mikrokontroller:",
    "Finish Button": "Létrehozás",
-   "Deleting files": "Biztosan törlöd ezt a fájlt: ",
-   "Deleting folders": "Biztosan törlöd ezt a mappát: "
+   "Deleting files": "Biztosan törlöd ezt a fájlt:",
+   "Deleting folders": "Biztosan törlöd ezt a mappát:",
+   "Saving falied": "Saving failed! The file no longer exists."
  }

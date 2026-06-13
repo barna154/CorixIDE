@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
+import util.LanguageManager;
 
 public class TextEditor {
 
@@ -14,6 +15,9 @@ public class TextEditor {
   
 
     public void init(JPanel editorPanel) {
+        LanguageManager.load("../lang/lang.json");
+
+        String saveerror = LanguageManager.get("Saving falied");
 
 
         textComponent = new JTextPane();
@@ -66,7 +70,7 @@ public class TextEditor {
             try {
                 if (!Files.exists(currentFile.toPath())) {
                     if (messageHandler != null) {
-                        messageHandler.show("Saving failed! The file no longer exists.", "File not exist!");
+                        messageHandler.show(saveerror, saveerror);
 
                     }
                     return;

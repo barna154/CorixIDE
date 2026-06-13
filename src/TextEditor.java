@@ -15,7 +15,6 @@ public class TextEditor {
 
 
     public void init(JPanel editorPanel) {
-        LanguageManager.load("../lang/lang.json");
 
         textComponent = new JTextPane();
 
@@ -62,7 +61,8 @@ public class TextEditor {
         }
     }
     public void saveFile() {
-             String saveerror = LanguageManager.get("Saving falied");
+            LanguageManager.load("../lang/lang.json");
+            String saveerror = LanguageManager.get("Saving falied");
             if (currentFile == null) return;
 
             try {

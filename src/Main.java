@@ -33,8 +33,8 @@ public class Main {
         String mainp = LanguageManager.get("Main Project");
         String arsdfi = LanguageManager.get("Deleting files");
         String arsdfo = LanguageManager.get("Deleting folders");
-        public String suretext = LanguageManager.get("Sure");
-        public String notext = LanguageManager.get("No");
+        String suretext = LanguageManager.get("Sure");
+        String notext = LanguageManager.get("No");
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
@@ -614,6 +614,8 @@ public class Main {
                         fe.getTree(),
                         arsdfo + " " + contextTarget[0].getName() + "?",
                         "Confirm Action"
+                        suretext,
+                        notext
                 );
 
                 if (confirmed) {
@@ -637,6 +639,8 @@ public class Main {
                         fe.getTree(),
                         arsdfi + " " + contextTarget[0].getName() + "?",
                         "Confirm action"
+                        suretext,
+                        notext
                 );
 
                 if (confirmed) {
@@ -905,53 +909,53 @@ resizeBorder.addMouseListener(new MouseAdapter() {
             dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         }
-    private static boolean showStyledConfirm(Component parent, String message, String title) {
-        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parent), title, true);
-        dialog.setUndecorated(true);
-        dialog.setBackground(new Color(0, 0, 0, 0));
+    private static boolean showStyledConfirm(Component parent, String message, String title, String yesText, String noText) {
+    JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parent), title, true);
+    dialog.setUndecorated(true);
+    dialog.setBackground(new Color(0, 0, 0, 0));
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        panel.setBackground(new Color(30, 30, 30));
-        panel.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+    JPanel panel = new JPanel();
+    panel.setLayout(new BorderLayout());
+    panel.setBackground(new Color(30, 30, 30));
+    panel.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
 
-        JLabel label = new JLabel("<html><div style='width:280px;'>" + message + "</div></html>");
-        label.setForeground(new Color(230, 230, 230));
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
-        label.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
-        panel.add(label, BorderLayout.CENTER);
+    JLabel label = new JLabel("<html><div style='width:280px;'>" + message + "</div></html>");
+    label.setForeground(new Color(230, 230, 230));
+    label.setFont(new Font("Arial", Font.PLAIN, 14));
+    label.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+    panel.add(label, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
-        buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+    buttonPanel.setOpaque(false);
+    buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
-        final boolean[] result = {false};
+    final boolean[] result = {false};
 
-        JButton yesBtn = new JButton(suretext);
-        styleDialogButton(yesBtn, new Color(180, 60, 60));
-        yesBtn.addActionListener(e -> {
-            result[0] = true;
-            dialog.dispose();
-        });
+    JButton yesBtn = new JButton(yesText);
+    styleDialogButton(yesBtn, new Color(180, 60, 60));
+    yesBtn.addActionListener(e -> {
+        result[0] = true;
+        dialog.dispose();
+    });
 
-        JButton noBtn = new JButton(notext);
-        styleDialogButton(noBtn, new Color(60, 60, 60));
-        noBtn.addActionListener(e -> {
-            result[0] = false;
-            dialog.dispose();
-        });
+    JButton noBtn = new JButton(noText);
+    styleDialogButton(noBtn, new Color(60, 60, 60));
+    noBtn.addActionListener(e -> {
+        result[0] = false;
+        dialog.dispose();
+    });
 
-        buttonPanel.add(noBtn);
-        buttonPanel.add(yesBtn);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+    buttonPanel.add(noBtn);
+    buttonPanel.add(yesBtn);
+    panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        dialog.setContentPane(panel);
-        dialog.pack();
-        dialog.setLocationRelativeTo(null);
-        dialog.setVisible(true);
+    dialog.setContentPane(panel);
+    dialog.pack();
+    dialog.setLocationRelativeTo(null);
+    dialog.setVisible(true);
 
-        return result[0];
-    }
+    return result[0];
+}
 
     private static void styleDialogButton(JButton btn, Color bgColor) {
         btn.setBackground(bgColor);

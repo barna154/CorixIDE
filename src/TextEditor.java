@@ -31,6 +31,7 @@ public class TextEditor {
         textComponent.setFont(new Font("Consolas", Font.PLAIN, 17));
         textComponent.setSelectionColor(new Color(40, 60, 40));     
         textComponent.setSelectedTextColor(new Color(218, 218, 218));
+        textComponent.getDocument().addUndoableEditListener(undoManager);
 
          new SyntaxHighlighter(textComponent);
 

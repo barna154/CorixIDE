@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 
 public class TextEditor {
 

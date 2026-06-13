@@ -58,8 +58,8 @@ public class FileExplorer {
                 setText(file.getName().isEmpty() ? file.getPath() : file.getName());
 
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
-                setBackgroundSelectionColor(new Color(60, 60, 60));
-                setTextNonSelectionColor(new Color(220, 220, 220));
+                setBackgroundSelectionColor(new Color(60, 66, 60));
+                setTextNonSelectionColor(new Color(170, 170, 170));
                 setTextSelectionColor(new Color(255, 255, 255));
 
                 setIcon(null);

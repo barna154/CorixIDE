@@ -610,7 +610,7 @@ public class Main {
 
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
-                        arsdfo + contextTarget[0].getName() + "?",
+                        arsdfo + " " + contextTarget[0].getName() + "?",
                         "Törlés megerősítése"
                 );
 
@@ -633,7 +633,7 @@ public class Main {
 
                 boolean confirmed = showStyledConfirm(
                         fe.getTree(),
-                        arsdfi + contextTarget[0].getName() + "?",
+                        arsdfi + " " + contextTarget[0].getName() + "?",
                         "Törlés megerősítése"
                 );
 

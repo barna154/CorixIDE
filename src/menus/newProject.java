@@ -87,14 +87,14 @@ public class newProject {
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row1.setPreferredSize(new Dimension(150, 25));
+        row1.setPreferredSize(new Dimension(300, 25));
         row1.setMaximumSize(row1.getPreferredSize());
         row1.setBackground(new Color(170, 170, 170));
 
 
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        namePanel.setPreferredSize(new Dimension(150, 25));
+        namePanel.setPreferredSize(new Dimension(300, 25));
         namePanel.setForeground(new Color(50, 50, 50));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
@@ -104,7 +104,7 @@ public class newProject {
 
 
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row2.setPreferredSize(new Dimension(150, 25));
+        row2.setPreferredSize(new Dimension(300, 25));
         row2.setBackground(new Color(170, 170, 170));
         row2.setMaximumSize(row2.getPreferredSize());
         JLabel mconPanel = new JLabel(mcon);
@@ -115,7 +115,7 @@ public class newProject {
                     
             String[] microcontrollers = {"PIC16F15256", "PIC16F15274", "PIC16F15275", "PIC16F15276"};
             JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
-            mconBox.setPreferredSize(new Dimension(150, 30));
+            mconBox.setPreferredSize(new Dimension(300, 30));
             mconBox.setBackground(new Color(200, 200, 200));
             mconBox.setForeground(new Color(20, 20, 20));
             mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));

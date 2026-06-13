@@ -224,6 +224,11 @@ public class newProject {
                             boolean success = newFile.createNewFile();
                             if (success) {
                                 System.out.println("Fájl létrehozva: " + newFile.getAbsolutePath());
+                                try (FileWriter writer = new FileWriter(newFile)) {
+                                        writer.write("// "+projectNameField + "\n");
+                                        writer.write("CPU=" + selectedMcu + "\n");
+                                    }
+
                             } else {
                                 System.out.println("Hiba a fájl létrehozásakor!");
                             }

@@ -120,7 +120,7 @@ public class FileExplorer {
                         }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));
-                setTextNonSelectionColor(new Color(181, 196, 184));
+                setTextNonSelectionColor(new Color(215, 219, 216));
                 setTextSelectionColor(new Color(255, 255, 255));
                 setBorderSelectionColor(null);
 

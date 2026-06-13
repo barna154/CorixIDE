@@ -15,10 +15,5 @@ public class KeyStrokes extends KeyAdapter {
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_S) {
             onSave.run();
         }
-
-        // Példa: SHIFT + ENTER
-        if (e.isShiftDown() && e.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Shift+Enter detected");
-        }
     }
 }

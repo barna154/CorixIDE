@@ -482,7 +482,7 @@ public class Main {
 
 
         JPanel explolerp = new JPanel();
-                 final int PANEL_RESIZE_MARGIN = 3;
+                 private static final int PANEL_RESIZE_MARGIN = 3;
                  final Point[] panelStartMouse = new Point[1];
                  final int[] panelStartWidth = new int[1];
 
@@ -763,7 +763,7 @@ resizeBorder.addMouseListener(new MouseAdapter() {
     }
 
     private static boolean isInResizeZone(MouseEvent e) {
-        return e.getX() >= e.getComponent().getWidth() - 6;
+    return e.getX() >= e.getComponent().getWidth() - PANEL_RESIZE_MARGIN;
     }
 
 }

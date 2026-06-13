@@ -158,7 +158,7 @@ public class newProject {
                 }
                 @Override
                 protected JButton createArrowButton() {
-                    JButton button = new JButton("ˇ");
+                    JButton button = new JButton("V");
                     button.setBackground(new Color(30, 30, 30));
                     button.setForeground(new Color(230, 230, 230));
                     button.setBorder(BorderFactory.createEmptyBorder());

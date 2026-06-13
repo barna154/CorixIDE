@@ -207,6 +207,7 @@ public class newProject {
             }
         });
         rightPanel2.add(finishBtn);
+        newProject.setCursor(Cursor.getDefaultCursor());
         newProject.add(rightPanel2, BorderLayout.SOUTH);
 
 

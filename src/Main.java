@@ -463,7 +463,6 @@ public class Main {
         JMenuItem renameFolder = new JMenuItem("Átnevezés");
         JMenuItem deleteFolder = new JMenuItem("Törlés");
 
-
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
@@ -543,6 +542,52 @@ public class Main {
         
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
+
+                JScrollPane fileScrollPane = fe.getScrollPane();
+
+                    fileScrollPane.addMouseMotionListener(new MouseMotionAdapter() {
+                        @Override
+                        public void mouseMoved(MouseEvent e) {
+                            int x = e.getX();
+                            int w = explolerp.getWidth();
+
+                            if (x > w - PANEL_RESIZE_MARGIN) {
+                                explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                            } else {
+                                explolerp.setCursor(Cursor.getDefaultCursor());
+                            }
+                        }
+
+                        @Override
+                        public void mouseDragged(MouseEvent e) {
+                            if (panelStartMouse[0] != null) {
+                                int dx = e.getXOnScreen() - panelStartMouse[0].x;
+                                int newWidth = panelStartWidth[0] + dx;
+
+                                if (newWidth < 120) newWidth = 120;
+                                if (newWidth > 800) newWidth = 800;
+
+                                explolerp.setPreferredSize(new Dimension(newWidth, explolerp.getHeight()));
+                                explolerp.revalidate();
+                            }
+                        }
+                    });
+
+                    fileScrollPane.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            int x = e.getX();
+                            int w = explolerp.getWidth();
+
+                            if (x > w - PANEL_RESIZE_MARGIN) {
+                                panelStartMouse[0] = e.getLocationOnScreen();
+                                panelStartWidth[0] = explolerp.getWidth();
+                            } else {
+                                panelStartMouse[0] = null;
+                            }
+                        }
+                    });
+
         JTree fileTree = fe.getTree();
         fileTree.addMouseListener(new MouseAdapter() {
                 @Override

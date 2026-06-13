@@ -135,8 +135,8 @@ public class newProject {
                             label.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
 
                             if (isSelected) {
-                                label.setBackground(new Color(4, 71, 6)); 
-                                label.setForeground(Color.WHITE);
+                                label.setBackground(new Color(60, 60, 60)); 
+                                label.setForeground(new Color(230, 230, 230));
                             } else {
                                 label.setBackground(new Color(30, 30, 30));
                                 label.setForeground(new Color(230, 230, 230));

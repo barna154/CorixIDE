@@ -393,9 +393,6 @@ public class Main {
 
         
         TextEditor te = new TextEditor();
-        te.setMessageHandler((title, message) -> {
-            showStyledMessage(fe.getTree(), title, message);
-        });
         te.init(editor);
 
 
@@ -628,6 +625,10 @@ public class Main {
         
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
+
+        te.setMessageHandler((title, message) -> {
+            showStyledMessage(fe.getTree(), title, message);
+        });
 
         mainpr.addActionListener(e -> {
                 if (contextTarget[0] == null) return;

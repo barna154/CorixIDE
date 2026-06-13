@@ -610,7 +610,7 @@ public class Main {
 
                 System.out.println(contextTarget[0]);
 
-        };
+        });
 
         deleteFolder.addActionListener(e -> {
                 if (contextTarget[0] == null) return;

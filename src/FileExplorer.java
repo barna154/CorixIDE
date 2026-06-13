@@ -1,25 +1,29 @@
+package menus;
+
 import javax.swing.*;
-import java.awt.*;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.JTextComponent;
 import javax.swing.tree.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.io.File; 
-import java.util.Scanner;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
+import java.util.HashMap;
+import java.util.Map;
 import util.LanguageManager;
 import util.AppPath;
 
-
 public class FileExplorer {
+
+    private JTree tree;
+    private DefaultMutableTreeNode rootNode;
+    private WatchService watchService;
+    private final Map<WatchKey, Path> watchKeys = new HashMap<>();
 
     public void init(JPanel filePanel) throws Exception {
         LanguageManager.load("../lang/lang.json");
-        
+
         String sourcecont = LanguageManager.get("Explorer");
 
         filePanel.setLayout(new BorderLayout());
-
 
         JLabel sourcecon = new JLabel(sourcecont);
         sourcecon.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
@@ -27,22 +31,21 @@ public class FileExplorer {
         sourcecon.setForeground(new Color(118, 118, 118));
         filePanel.add(sourcecon, BorderLayout.NORTH);
 
-
         File rootDir = new File(AppPath.basePath);
         if (!rootDir.exists()) {
             rootDir.mkdirs();
         }
 
-        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(rootDir);
+        rootNode = new DefaultMutableTreeNode(rootDir);
         buildTree(rootNode, rootDir);
 
-        JTree tree = new JTree(rootNode);
+        tree = new JTree(rootNode);
         tree.setRootVisible(true);
         tree.setShowsRootHandles(true);
-        tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
         tree.setBackground(new Color(30, 33, 30));
         tree.setForeground(new Color(220, 220, 220));
-        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
+        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
+        tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
 
         tree.setCellRenderer(new DefaultTreeCellRenderer() {
             @Override
@@ -59,7 +62,7 @@ public class FileExplorer {
                 setTextNonSelectionColor(new Color(220, 220, 220));
                 setTextSelectionColor(new Color(255, 255, 255));
 
-                setIcon(null); 
+                setIcon(null);
 
                 return this;
             }
@@ -70,6 +73,18 @@ public class FileExplorer {
         scrollPane.getViewport().setBackground(new Color(30, 33, 30));
 
         filePanel.add(scrollPane, BorderLayout.CENTER);
+
+        startWatching(rootDir.toPath());
+    }
+
+    public void refresh() {
+        File rootDir = new File(AppPath.basePath);
+
+        rootNode.removeAllChildren();
+        buildTree(rootNode, rootDir);
+
+        DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
+        model.reload();
     }
 
     private void buildTree(DefaultMutableTreeNode node, File file) {
@@ -78,7 +93,6 @@ public class FileExplorer {
         File[] children = file.listFiles();
         if (children == null) return;
 
-        // Mappák előre, majd fájlok, mindkettő ABC sorrendben
         java.util.Arrays.sort(children, (a, b) -> {
             if (a.isDirectory() && !b.isDirectory()) return -1;
             if (!a.isDirectory() && b.isDirectory()) return 1;
@@ -92,7 +106,71 @@ public class FileExplorer {
                 buildTree(childNode, child);
             }
         }
-    
     }
 
+    private void startWatching(Path root) {
+        try {
+            watchService = FileSystems.getDefault().newWatchService();
+            registerRecursive(root);
+
+            Thread watchThread = new Thread(this::processEvents);
+            watchThread.setDaemon(true); 
+            watchThread.start();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void registerRecursive(Path start) throws IOException {
+        Files.walk(start)
+             .filter(Files::isDirectory)
+             .forEach(this::registerDir);
+    }
+
+    private void registerDir(Path dir) {
+        try {
+            WatchKey key = dir.register(watchService,
+                    StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_DELETE,
+                    StandardWatchEventKinds.ENTRY_MODIFY);
+            watchKeys.put(key, dir);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void processEvents() {
+        while (true) {
+            WatchKey key;
+            try {
+                key = watchService.take(); 
+            } catch (InterruptedException e) {
+                return;
+            }
+
+            Path dir = watchKeys.get(key);
+            if (dir == null) {
+                continue;
+            }
+
+            for (WatchEvent<?> event : key.pollEvents()) {
+                WatchEvent.Kind<?> kind = event.kind();
+
+                if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+                    Path created = dir.resolve((Path) event.context());
+                    if (Files.isDirectory(created)) {
+                        try {
+                            registerRecursive(created);
+                        } catch (IOException ignored) {}
+                    }
+                }
+            }
+
+            key.reset();
+
+            // UI frissítés a Swing szálon
+            SwingUtilities.invokeLater(this::refresh);
+        }
+    }
 }

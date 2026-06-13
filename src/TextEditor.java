@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import util.LanguageManager;
+import util.KeyStrokes;
 
 public class TextEditor {
 

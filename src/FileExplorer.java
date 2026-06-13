@@ -9,6 +9,8 @@ import javax.swing.plaf.basic.BasicTreeUI;
 import java.util.HashMap;
 import java.util.Map;
 import util.LanguageManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import util.AppPath;
 
 public class FileExplorer {

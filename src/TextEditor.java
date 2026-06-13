@@ -46,6 +46,7 @@ public class TextEditor {
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
+        textComponent.addKeyListener(new KeyStrokes(() -> saveFile()));
     }
 
         public void openFile(File file) {
@@ -61,12 +62,6 @@ public class TextEditor {
         }
     }
     public void saveFile() {
-            try {
-                LanguageManager.load("../lang/lang.json");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
             String saveerror = LanguageManager.get("Saving falied");
             if (currentFile == null) return;
 

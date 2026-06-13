@@ -671,6 +671,8 @@ public class Main {
 
                         DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
                         File clickedFile = (File) node.getUserObject();
+                        contextTarget[0] = clickedFile; 
+
 
                         if (clickedFile.isDirectory()) {
                             folderMenu.show(fileTree, e.getX(), e.getY());
@@ -682,11 +684,6 @@ public class Main {
                     }
                 }
             });
-
-        
-
-
-
 
 
         
@@ -869,26 +866,6 @@ resizeBorder.addMouseListener(new MouseAdapter() {
         window.setVisible(true);
     }
 
-    private void handlePopup(MouseEvent e) {
-    if (!e.isPopupTrigger()) return;
-    TreePath path = fileTree.getPathForLocation(e.getX(), e.getY());
-
-    if (path != null) {
-        fileTree.setSelectionPath(path); 
-
-        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
-        File clickedFile = (File) node.getUserObject();
-        contextTarget[0] = clickedFile;   // <-- EZ HIÁNYZIK
-
-        if (clickedFile.isDirectory()) {
-            folderMenu.show(fileTree, e.getX(), e.getY());
-        } else {
-            fileMenu.show(fileTree, e.getX(), e.getY());
-        }
-    } else {
-        dataexplorer.show(fileTree, e.getX(), e.getY());
-    }
-}
 
     private static boolean isInResizeZone(MouseEvent e) {
     return e.getX() >= e.getComponent().getWidth() - PANEL_RESIZE_MARGIN;

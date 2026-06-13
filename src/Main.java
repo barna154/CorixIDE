@@ -393,6 +393,9 @@ public class Main {
 
         
         TextEditor te = new TextEditor();
+        te.setMessageHandler((title, message) -> {
+            showStyledMessage(fe.getTree(), title, message);
+        });
         te.init(editor);
 
 

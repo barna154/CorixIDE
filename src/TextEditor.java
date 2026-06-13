@@ -11,6 +11,7 @@ public class TextEditor {
 
     private JTextPane textComponent;
     private File currentFile;
+  
 
     public void init(JPanel editorPanel) {
 
@@ -64,11 +65,9 @@ public class TextEditor {
 
             try {
                 if (!Files.exists(currentFile.toPath())) {
-                    JOptionPane.showMessageDialog(null,
-                        "A fájl törölve lett vagy már nem létezik:\n" + currentFile.getAbsolutePath(),
-                        "Hiba",
-                        JOptionPane.ERROR_MESSAGE
-                    );
+                    if (messageHandler != null) {
+                        messageHandler.show("Hiba", "A fájl törölve lett vagy nem létezik.");
+                    }
                     return;
                 }
                 Files.write(
@@ -85,6 +84,15 @@ public class TextEditor {
         return currentFile;
     }
 
+    public interface MessageHandler {
+             void show(String title, String message);
+    }
+
+    private MessageHandler messageHandler;
+
+    public void setMessageHandler(MessageHandler handler) {
+        this.messageHandler = handler;
+    }
 
     private JPanel createDarkPanel() {
     JPanel p = new JPanel();

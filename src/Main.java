@@ -488,7 +488,7 @@ public class Main {
 
         explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        explolerp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, RESIZE_BORDER, new Color(0,0,0,0)));
+        explolerp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, PANEL_RESIZE_MARGIN, new Color(0,0,0,0)));
         explolerp.setPreferredSize(new Dimension(250, screenHeight));
                
 

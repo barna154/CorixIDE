@@ -108,14 +108,15 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                            setText(
-                                    "<html><div style='white-space:nowrap;'>"
-                                    + "<span style='font-size:5px; color:#819984'>📂</span> "
-                                    + "<span style='font-size:11px; color:#AAAAAA'>"
-                                    + file.getName()
-                                    + "</span>"
-                                    + "</div></html>"
-                                    );
+                                setText(
+                                        "<html><div style='white-space:nowrap;'>"
+                                        + "<span style='font-size:11px; color:#819984'>📂</span> "
+                                        + "<span style='font-size:11px; color:#AAAAAA'>"
+                                        + file.getName()
+                                        + "</span>"
+                                        + "</div></html>"
+                                        );
+                            }
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(

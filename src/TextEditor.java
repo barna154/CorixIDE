@@ -66,7 +66,7 @@ public class TextEditor {
             try {
                 if (!Files.exists(currentFile.toPath())) {
                     if (messageHandler != null) {
-                        messageHandler.show("File not exist anymore!", "File not exist!");
+                        messageHandler.show("Saving failed! The File not exist anymore.", "File not exist!");
                     }
                     return;
                 }

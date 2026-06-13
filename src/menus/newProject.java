@@ -83,13 +83,13 @@ public class newProject {
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); 
-        centerPanel.setBackground(new Color(60, 66, 60));
+        centerPanel.setBackground(new Color(80, 88, 80));
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setPreferredSize(new Dimension(newProject.getWidth(), 40));
         row1.setMaximumSize(row1.getPreferredSize());
-        row1.setBackground(new Color(60, 66, 60));
+        row1.setBackground(new Color(80, 88, 80));
 
 
         JLabel namePanel = new JLabel(npan);
@@ -105,7 +105,7 @@ public class newProject {
 
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setPreferredSize(new Dimension(newProject.getWidth(), 40));
-        row2.setBackground(new Color(60, 66, 60));
+        row2.setBackground(new Color(80, 88, 80));
         row2.setMaximumSize(row2.getPreferredSize());
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));

@@ -116,7 +116,7 @@ public class FileExplorer {
                                         + "</span>"
                                         + "</div></html>"
                                         );
-                            }
+                        
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(

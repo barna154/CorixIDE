@@ -226,8 +226,8 @@ public class newProject {
                             if (success) {
                                 System.out.println("Fájl létrehozva: " + newFile.getAbsolutePath());
                                 try (FileWriter writer = new FileWriter(newFile)) {
-                                        writer.write("// "+projectNameField + "\n");
-                                        writer.write("CPU=" + selectedMcu + "\n");
+                                        writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
+                                        writer.write("CPU=" + selectedMcu + ";\n");
                                     }
 
                             } else {

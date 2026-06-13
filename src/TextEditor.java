@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
+import javax.swing.undo.UndoManager;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.CannotRedoException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +15,7 @@ import util.KeyStrokes;
 public class TextEditor {
 
     private JTextPane textComponent;
+    private UndoManager undoManager = new UndoManager();
     private File currentFile;
 
 
@@ -47,7 +51,19 @@ public class TextEditor {
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
-        textComponent.addKeyListener(new KeyStrokes(() -> saveFile()));
+        textComponent.addKeyListener(
+                    new KeyStrokes(
+                        () -> saveFile(),
+                        () -> {
+                            try { undoManager.undo(); }
+                            catch (Exception ex) { }
+                        }
+                        () -> {
+                            try { undoManager.redo(); }
+                            catch (Exception ex) { }
+                        }
+                    )
+                );
     }
 
         public void openFile(File file) {

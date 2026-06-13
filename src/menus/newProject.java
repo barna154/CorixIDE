@@ -117,7 +117,7 @@ public class newProject {
             JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
             mconBox.setPreferredSize(new Dimension(300, 30));
             mconBox.setBackground(new Color(200, 200, 200));
-            mconBox.setForeground(new Color(20, 20, 20));
+            mconBox.setForeground(new Color(30, 30, 30));
             mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
             mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
             mconBox.setRenderer(new DefaultListCellRenderer() {
@@ -138,8 +138,8 @@ public class newProject {
                                 label.setBackground(new Color(4, 71, 6)); // highlight szín
                                 label.setForeground(Color.WHITE);
                             } else {
-                                label.setBackground(new Color(200, 200, 200));
-                                label.setForeground(new Color(20, 20, 20));
+                                label.setBackground(new Color(30, 30, 30));
+                                label.setForeground(new Color(230, 230, 230));
                             }
 
                             return label;

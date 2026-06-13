@@ -110,7 +110,7 @@ public class FileExplorer {
                     if (file.isDirectory()) {
                             setText(
                                     "<html><div style='white-space:nowrap;'>"
-                                    + "<span style='font-size:11px; color:#819984'>📂</span> "
+                                    + "<span style='font-size:5px; color:#819984'>📂</span> "
                                     + "<span style='font-size:11px; color:#AAAAAA'>"
                                     + file.getName()
                                     + "</span>"

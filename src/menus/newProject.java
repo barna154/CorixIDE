@@ -165,6 +165,7 @@ public class newProject {
                     return button;
                 }
             });
+            mconBox.setFocusable(false);
             String selectedMcu = (String) mconBox.getSelectedItem();
 
         

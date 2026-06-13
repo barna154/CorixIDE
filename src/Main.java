@@ -617,7 +617,7 @@ public class Main {
                                         int dy = consoleStartMouse[0].y - e.getYOnScreen();
                                         int newHeight = consoleStartHeight[0] + dy;
 
-                                        // minimum és maximum magasság
+                               
                                         if (newHeight < 100) newHeight = 100;
                                         if (newHeight > 600) newHeight = 600;
 

@@ -197,8 +197,8 @@ public class newProject {
             public void mouseClicked(MouseEvent e) {
                 newProject.setVisible(false);
                 String projectNameField = pathField.getText().trim();
-                if (projectName.isEmpty()) {
-                        System.out.println("Már létezik ilyen mappa!");
+                if (projectNameField.isEmpty()) {
+                        System.out.println("Üres mező");
                      return;
                      }
                 File newDir = new File(main.basePath, projectNameField);

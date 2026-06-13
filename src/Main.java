@@ -607,47 +607,45 @@ public class Main {
               deleteFolder.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
-                    int confirm = JOptionPane.showConfirmDialog(
-                            fe.getTree(),
-                            "Biztosan törlöd ezt a mappát és teljes tartalmát: " + contextTarget[0].getName() + "?",
-                            "Törlés megerősítése",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.WARNING_MESSAGE
-                    );
+                boolean confirmed = showStyledConfirm(
+                        fe.getTree(),
+                        "Biztosan törlöd ezt a mappát és teljes tartalmát: " + contextTarget[0].getName() + "?",
+                        "Törlés megerősítése"
+                );
 
-                    if (confirm == JOptionPane.YES_OPTION) {
-                        boolean deleted = fe.deleteRecursive(contextTarget[0]);
-                        if (deleted) {
-                            fe.refresh();
-                        } else {
-                            JOptionPane.showMessageDialog(fe.getTree(),
-                                    "Nem sikerült törölni a mappát (lehet, hogy egy fájl épp használatban van).",
-                                    "Hiba",
-                                    JOptionPane.ERROR_MESSAGE);
-                        }
+                if (confirmed) {
+                    boolean deleted = fe.deleteRecursive(contextTarget[0]);
+                    if (deleted) {
+                        fe.refresh();
+                    } else {
+                        showStyledMessage(
+                                fe.getTree(),
+                                "Nem sikerült törölni a mappát (lehet, hogy egy fájl épp használatban van).",
+                                "Hiba"
+                        );
                     }
-                });
+                }
+            });
 
             deleteFile.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
-                int confirm = JOptionPane.showConfirmDialog(
+                boolean confirmed = showStyledConfirm(
                         fe.getTree(),
                         "Biztosan törlöd ezt a fájlt: " + contextTarget[0].getName() + "?",
-                        "Törlés megerősítése",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.WARNING_MESSAGE
+                        "Törlés megerősítése"
                 );
 
-                if (confirm == JOptionPane.YES_OPTION) {
+                if (confirmed) {
                     boolean deleted = contextTarget[0].delete();
                     if (deleted) {
                         fe.refresh();
                     } else {
-                        JOptionPane.showMessageDialog(fe.getTree(),
+                        showStyledMessage(
+                                fe.getTree(),
                                 "Nem sikerült törölni a fájlt.",
-                                "Hiba",
-                                JOptionPane.ERROR_MESSAGE);
+                                "Hiba"
+                        );
                     }
                 }
             });
@@ -872,6 +870,66 @@ resizeBorder.addMouseListener(new MouseAdapter() {
     private static boolean isInResizeZone(MouseEvent e) {
     return e.getX() >= e.getComponent().getWidth() - PANEL_RESIZE_MARGIN;
     }
+
+        private static boolean showStyledConfirm(Component parent, String message, String title) {
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parent), title, true);
+        dialog.setUndecorated(true);
+        dialog.setBackground(new Color(0, 0, 0, 0));
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(new Color(30, 30, 30));
+        panel.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+
+        JLabel label = new JLabel("<html><div style='width:280px;'>" + message + "</div></html>");
+        label.setForeground(new Color(230, 230, 230));
+        label.setFont(new Font("Arial", Font.PLAIN, 14));
+        label.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
+        panel.add(label, BorderLayout.CENTER);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        buttonPanel.setOpaque(false);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+        final boolean[] result = {false};
+
+        JButton yesBtn = new JButton("Igen");
+        styleDialogButton(yesBtn, new Color(180, 60, 60));
+        yesBtn.addActionListener(e -> {
+            result[0] = true;
+            dialog.dispose();
+        });
+
+        JButton noBtn = new JButton("Mégse");
+        styleDialogButton(noBtn, new Color(60, 60, 60));
+        noBtn.addActionListener(e -> {
+            result[0] = false;
+            dialog.dispose();
+        });
+
+        buttonPanel.add(noBtn);
+        buttonPanel.add(yesBtn);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(parent);
+        dialog.setVisible(true);
+
+        return result[0];
+    }
+
+    private static void styleDialogButton(JButton btn, Color bgColor) {
+        btn.setBackground(bgColor);
+        btn.setForeground(new Color(230, 230, 230));
+        btn.setFont(new Font("Arial", Font.PLAIN, 14));
+        btn.setFocusPainted(false);
+        btn.setBorder(BorderFactory.createEmptyBorder(6, 16, 6, 16));
+        btn.setOpaque(true);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.setBorder(new RoundedBorder(6, bgColor.darker()));
+    }
+
 
 }
 

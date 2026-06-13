@@ -482,10 +482,17 @@ public class Main {
             deleteFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             deleteFolder.setForeground(new Color(230, 230, 230));
             deleteFolder.setOpaque(true);
+        JMenuItem mainpr = new JMenuItem(mainp);
+            mainpr.setMargin(new Insets(0, 0, 0, 0));
+            mainpr.setBackground(new Color(30, 30, 30));
+            mainpr.setFont(new Font("Arial", Font.PLAIN, 15));
+            mainpr.setForeground(new Color(230, 230, 230));
+            mainpr.setOpaque(true);
 
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
+        folderMenu.add(mainpr);
 
 
 

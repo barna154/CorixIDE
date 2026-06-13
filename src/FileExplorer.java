@@ -53,22 +53,22 @@ public class FileExplorer {
                         @Override
                         public void paintIcon(Component c, Graphics g, int x, int y) {
                             g.setColor(new Color(180,180,180));
-                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 14));
+                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 12));
                             g.drawString("▶", x, y + 12);
                         }
-                        @Override public int getIconWidth() { return 14; }
-                        @Override public int getIconHeight() { return 14; }
+                        @Override public int getIconWidth() { return 12; }
+                        @Override public int getIconHeight() { return 12; }
                     };
 
                 Icon expanded = new Icon() {
                         @Override
                         public void paintIcon(Component c, Graphics g, int x, int y) {
                             g.setColor(new Color(180,180,180));
-                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 14));
+                            g.setFont(new Font("Segoe UI Symbol", Font.PLAIN, 12));
                             g.drawString("▼", x, y + 12);
                         }
-                        @Override public int getIconWidth() { return 14; }
-                        @Override public int getIconHeight() { return 14; }
+                        @Override public int getIconWidth() { return 12; }
+                        @Override public int getIconHeight() { return 12; }
                     };
 
                 @Override

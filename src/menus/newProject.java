@@ -180,7 +180,7 @@ public class newProject {
         centerPanel.add(row2);
         newProject.add(centerPanel);
 
-        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 40, 20));
+        JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
         rightPanel2.setOpaque(false);
         JLabel finishBtn = new JLabel("Finish");
         finishBtn.setPreferredSize(new Dimension(90, 30));

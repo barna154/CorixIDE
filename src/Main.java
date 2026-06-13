@@ -605,7 +605,7 @@ public class Main {
         FileExplorer fe = new FileExplorer();
         fe.init(explolerp);
 
-        mainpr.addActionListenere -> {
+        mainpr.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
                 System.out.println(contextTarget[0]);

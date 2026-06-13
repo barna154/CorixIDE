@@ -154,6 +154,16 @@ public class newProject {
                     g.setColor(new Color(30, 30, 30)); 
                     g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
                 }
+                @Override
+                protected JButton createArrowButton() {
+                    JButton button = new JButton("▼");
+                    button.setBackground(new Color(30, 30, 30));
+                    button.setForeground(new Color(230, 230, 230));
+                    button.setBorder(BorderFactory.createEmptyBorder());
+                    button.setFocusPainted(false);
+                    button.setContentAreaFilled(true);
+                    return button;
+                }
             });
             String selectedMcu = (String) mconBox.getSelectedItem();
 

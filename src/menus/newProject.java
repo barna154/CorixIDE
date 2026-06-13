@@ -89,7 +89,6 @@ public class newProject {
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row1.setPreferredSize(new Dimension(newProject.getWidth(), 40));
         row1.setMaximumSize(row1.getPreferredSize());
-        row1.setBackground(new Color(70, 77, 70));
 
 
         JLabel namePanel = new JLabel(npan);

@@ -119,7 +119,7 @@ public class FileExplorer {
                             setText(file.getName());
                         }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
-                setBackgroundSelectionColor(new Color(60, 66, 60));
+                setBackgroundSelectionColor(new Color(40, 60, 40));
                 setTextNonSelectionColor(new Color(230, 232, 230));
                 setTextSelectionColor(new Color(255, 255, 255));
                 setBorderSelectionColor(null);

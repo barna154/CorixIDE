@@ -107,19 +107,27 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                            setText("📂 " + file.getName());
-                            setForeground(new Color(129, 153, 132));
+                            setText(
+                                        "<html>"
+                                        + "<span style='font-size:8px; color:#819984'>📂</span> "
+                                        + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
+                                        + "</html>"
+                                );
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(
                                         "<html>"
                                         + "<span style='font-size:8px; color:#31E047'>⚙</span> "
-                                        + "<span style='font-size:10px; color:#AAAAAA'>" + name + "</span>"
+                                        + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
                                         + "</html>"
                                 );
                     } else {
-                            setText("📄 " + file.getName());
-                            setForeground(new Color(175, 220, 181));
+                            setText(
+                                        "<html>"
+                                        + "<span style='font-size:8px; color:#A4E0AC'>📄</span> "
+                                        + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
+                                        + "</html>"
+                                );
                     }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));

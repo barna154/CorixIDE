@@ -87,7 +87,7 @@ public class newProject {
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row1.setPreferredSize(new Dimension(800, 25));
+        row1.setPreferredSize(new Dimension(newProject.getWidth(), 25));
         row1.setMaximumSize(row1.getPreferredSize());
         row1.setBackground(new Color(170, 170, 170));
 
@@ -104,7 +104,7 @@ public class newProject {
 
 
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row2.setPreferredSize(new Dimension(800, 25));
+        row2.setPreferredSize(new Dimension(newProject.getWidth(), 25));
         row2.setBackground(new Color(170, 170, 170));
         row2.setMaximumSize(row2.getPreferredSize());
         JLabel mconPanel = new JLabel(mcon);

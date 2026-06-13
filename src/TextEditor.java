@@ -66,7 +66,7 @@ public class TextEditor {
             try {
                 if (!Files.exists(currentFile.toPath())) {
                     if (messageHandler != null) {
-                        messageHandler.show("Hiba", "A fájl törölve lett vagy nem létezik.");
+                        messageHandler.show("File not exist anymore!", "File not exist!");
                     }
                     return;
                 }

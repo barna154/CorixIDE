@@ -201,7 +201,7 @@ public class newProject {
                         System.out.println("Üres mező");
                      return;
                      }
-                File newDir = new File(main.basePath, projectNameField);
+                File newDir = new File(Main.basePath, projectNameField);
                 
                 if (newDir.exists()) {
                     System.out.println("Már létezik ilyen mappa!");

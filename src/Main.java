@@ -899,7 +899,7 @@ resizeBorder.addMouseListener(new MouseAdapter() {
 
             dialog.setContentPane(panel);
             dialog.pack();
-            dialog.setLocationRelativeTo(parent);
+            dialog.setLocationRelativeTo(null);
             dialog.setVisible(true);
         }
     private static boolean showStyledConfirm(Component parent, String message, String title) {
@@ -944,7 +944,7 @@ resizeBorder.addMouseListener(new MouseAdapter() {
 
         dialog.setContentPane(panel);
         dialog.pack();
-        dialog.setLocationRelativeTo(parent);
+        dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
 
         return result[0];

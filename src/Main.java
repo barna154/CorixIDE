@@ -492,7 +492,7 @@ public class Main {
         folderMenu.add(newFileInFolder);
         folderMenu.add(renameFolder);
         folderMenu.add(deleteFolder);
-        dataexplorer.add(sep);
+        folderMenu.add(sep);
         folderMenu.add(mainpr);
 
 

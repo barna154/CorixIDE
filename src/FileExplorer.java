@@ -20,7 +20,6 @@ public class FileExplorer {
     private final Map<WatchKey, Path> watchKeys = new HashMap<>();
 
     public void init(JPanel filePanel) throws Exception {
-        LanguageManager.load("../lang/lang.json");
 
         String sourcecont = LanguageManager.get("Explorer");
 

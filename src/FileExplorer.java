@@ -112,10 +112,10 @@ public class FileExplorer {
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText("⚙ " + name);
-                            setForeground(new Color(49, 200, 71));
+                            setForeground(new Color(49, 170, 71));
                     } else {
                             setText("📄 " + file.getName());
-                            setForeground(new Color(175, 201, 181));
+                            setForeground(new Color(175, 220, 181));
                     }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));

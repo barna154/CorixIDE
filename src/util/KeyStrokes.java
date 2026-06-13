@@ -8,7 +8,7 @@ public class KeyStrokes extends KeyAdapter {
     private final Runnable onUndo;
     private final Runnable onRedo;
 
-    public KeyStrokes(Runnable onSave, Runnable onUndo, onRedo) {
+    public KeyStrokes(Runnable onSave, Runnable onUndo, Runnable onRedo) {
         this.onSave = onSave;
         this.onUndo = onUndo;
         this.onRedo = onRedo;

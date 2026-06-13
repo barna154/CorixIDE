@@ -58,7 +58,7 @@ public class TextEditor {
                         () -> {
                             try { undoManager.undo(); }
                             catch (Exception ex) { }
-                        }
+                        },
                         () -> {
                             try { undoManager.redo(); }
                             catch (Exception ex) { }

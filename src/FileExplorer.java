@@ -150,14 +150,34 @@ public class FileExplorer {
         startWatching(rootDir.toPath());
     }
 
+    private java.util.List<TreePath> getExpandedPaths(JTree tree) {
+    java.util.List<TreePath> paths = new java.util.ArrayList<>();
+            for (int i = 0; i < tree.getRowCount(); i++) {
+                if (tree.isExpanded(i)) {
+                    paths.add(tree.getPathForRow(i));
+                }
+            }
+            return paths;
+    }
+
+    private void restoreExpandedPaths(JTree tree, java.util.List<TreePath> paths) {
+            for (TreePath path : paths) {
+                tree.expandPath(path);
+            }
+    }
+
     public void refresh() {
         File rootDir = new File(AppPath.basePath);
+
+        java.util.List<TreePath> expanded = getExpandedPaths(tree);
 
         rootNode.removeAllChildren();
         buildTree(rootNode, rootDir);
 
         DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
         model.reload();
+
+        restoreExpandedPaths(tree, expanded);
     }
 
     private void buildTree(DefaultMutableTreeNode node, File file) {

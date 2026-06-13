@@ -18,9 +18,7 @@ import util.AppPath;
 
 public class newProject {
 
-    public void init(JPanel newProject) throws Exception {
-        LanguageManager.load("../lang/lang.json");
-        
+    public void init(JPanel newProject) throws Exception {       
 
         String newp = LanguageManager.get("New Project");
         String ppath = LanguageManager.get("Project Path");

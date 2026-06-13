@@ -211,7 +211,7 @@ public class newProject {
                 } else {
                     boolean success = newDir.mkdirs();
                     if (success) {
-                        System.out.println("Mappa létrehozva: " + newDir.getAbsolutePath());
+                        util.AppPath.MainProject = newDir;
                     } else {
                         System.out.println("Hiba a mappa létrehozásakor!");
                     }
@@ -224,7 +224,6 @@ public class newProject {
                         try {
                             boolean success = newFile.createNewFile();
                             if (success) {
-                                System.out.println("Fájl létrehozva: " + newFile.getAbsolutePath());
                                 try (FileWriter writer = new FileWriter(newFile)) {
                                         writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
                                         writer.write("CPU=" + selectedMcu + ";\n");

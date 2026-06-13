@@ -97,7 +97,7 @@ public class newProject {
         namePanel.setPreferredSize(new Dimension(125, 25));
         namePanel.setForeground(new Color(225, 225, 225));
         JTextField pathField = new JTextField(20);
-        pathField.setBackground(new Color(20, 20, 20));
+        pathField.setBackground(new Color(30, 30, 30));
         pathField.setForeground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));

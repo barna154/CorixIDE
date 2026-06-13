@@ -215,6 +215,22 @@ public class newProject {
                     }
                 }
 
+                File newFile = new File(newDir, projectNameField + ".crxprjct");
+                if (newFile.exists()) {
+                        System.out.println("Már létezik ilyen fájl!");
+                    } else {
+                        try {
+                            boolean success = newFile.createNewFile();
+                            if (success) {
+                                System.out.println("Fájl létrehozva: " + newFile.getAbsolutePath());
+                            } else {
+                                System.out.println("Hiba a fájl létrehozásakor!");
+                            }
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+
             }
             @Override
             public void mouseEntered(MouseEvent e) {

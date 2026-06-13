@@ -595,7 +595,7 @@ public class Main {
                 terminalp.setForeground(new Color(255, 255, 255));
 
 
-                          final int CONSOLE_RESIZE_MARGIN = 5;
+                            final int CONSOLE_RESIZE_MARGIN = 5;
                             final Point[] consoleStartMouse = new Point[1];
                             final int[] consoleStartHeight = new int[1];
 
@@ -760,6 +760,10 @@ resizeBorder.addMouseListener(new MouseAdapter() {
 });
 
         window.setVisible(true);
+    }
+
+    private static boolean isInResizeZone(MouseEvent e) {
+        return e.getX() >= e.getComponent().getWidth() - 6;
     }
 
 }

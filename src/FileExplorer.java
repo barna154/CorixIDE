@@ -109,7 +109,7 @@ public class FileExplorer {
                     if (file.isDirectory()) {
                             setText(
                                         "<html>"
-                                        + "<span style='font-size:8px; color:#819984'>📂</span> "
+                                        + "<span style='font-size:9px; color:#819984'>📂</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
                                         + "</html>"
                                 );
@@ -117,14 +117,14 @@ public class FileExplorer {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(
                                         "<html>"
-                                        + "<span style='font-size:8px; color:#31E047'>⚙</span> "
+                                        + "<span style='font-size:9px; color:#31E047'>⚙</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
                                         + "</html>"
                                 );
                     } else {
                             setText(
                                         "<html>"
-                                        + "<span style='font-size:8px; color:#A4E0AC'>📄</span> "
+                                        + "<span style='font-size:9px; color:#A4E0AC'>📄</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
                                         + "</html>"
                                 );

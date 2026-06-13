@@ -46,6 +46,17 @@ public class FileExplorer {
         tree.setForeground(new Color(170, 170, 170));
         tree.setFont(new Font("Segoe UI Emoji", Font.BOLD, 15));
         tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
+        tree.setUI(new javax.swing.plaf.basic.BasicTreeUI() {
+                @Override
+                protected Icon getExpandedIcon() {
+                    return new ArrowIcon(true);   
+                }
+
+                @Override
+                protected Icon getCollapsedIcon() {
+                    return new ArrowIcon(false);  
+                }
+            });
 
         tree.setCellRenderer(new DefaultTreeCellRenderer() {
             @Override

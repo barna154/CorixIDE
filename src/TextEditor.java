@@ -5,10 +5,13 @@ import javax.swing.text.JTextComponent;
 
 public class TextEditor {
 
+    private JTextPane textComponent;
+    private File currentFile;
+
     public void init(JPanel editorPanel) {
 
 
-        JTextPane textComponent = new JTextPane();
+        textComponent = new JTextPane();
 
         ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
 
@@ -39,6 +42,35 @@ public class TextEditor {
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
     }
+
+        public void openFile(File file) {
+        if (file == null || file.isDirectory()) return;
+
+        try {
+            String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+            textComponent.setText(content);
+            textComponent.setCaretPosition(0);
+            currentFile = file;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void saveFile() {
+        if (currentFile == null) return;
+
+        try {
+            Files.write(currentFile.toPath(), textComponent.getText().getBytes(StandardCharsets.UTF_8));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public File getCurrentFile() {
+        return currentFile;
+    }
+
+
     private JPanel createDarkPanel() {
     JPanel p = new JPanel();
     p.setBackground(new Color(30, 30, 30));

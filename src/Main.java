@@ -668,6 +668,20 @@ public class Main {
         fileTree.addMouseListener(new MouseAdapter() {
     
                 @Override
+                public void mouseClicked(MouseEvent e) {
+                    if (e.getClickCount() == 2 && !e.isPopupTrigger()) {
+                        TreePath path = fileTree.getPathForLocation(e.getX(), e.getY());
+                        if (path != null) {
+                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+                            File clickedFile = (File) node.getUserObject();
+
+                            if (!clickedFile.isDirectory()) {
+                                te.openFile(clickedFile);
+                            }
+                        }
+                    }
+                }
+                @Override
                 public void mousePressed(MouseEvent e) {
                     handlePopup(e);
                 }

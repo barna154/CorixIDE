@@ -191,7 +191,7 @@ public class FileExplorer {
     public void refresh() {
         File rootDir = new File(AppPath.basePath);
 
-        java.util.List<TreePath> expanded = getExpandedPaths(tree);
+        java.util.List<String> expandedPaths = getExpandedFilePaths(tree);;
 
         rootNode.removeAllChildren();
         buildTree(rootNode, rootDir);

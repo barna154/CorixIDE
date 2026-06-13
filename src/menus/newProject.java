@@ -95,7 +95,7 @@ public class newProject {
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         namePanel.setPreferredSize(new Dimension(150, 25));
-        namePanel.setForeground(new Color(50, 50, 50));
+        namePanel.setForeground(new Color(170, 170, 170));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
@@ -109,7 +109,7 @@ public class newProject {
         row2.setMaximumSize(row2.getPreferredSize());
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        mconPanel.setForeground(new Color(50, 50, 50));
+        mconPanel.setForeground(new Color(170, 170, 170));
         mconPanel.setPreferredSize(new Dimension(150, 25));
 
                     

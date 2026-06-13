@@ -12,7 +12,6 @@ public class KeyStrokes extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        // CTRL + S
         if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_S) {
             onSave.run();
         }

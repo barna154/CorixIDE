@@ -83,7 +83,7 @@ public class newProject {
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); 
-        centerPanel.setBackground(new Color(170, 170, 170));
+        centerPanel.setBackground(new Color(30, 33, 30));
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));

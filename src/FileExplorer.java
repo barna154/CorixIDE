@@ -43,6 +43,7 @@ public class FileExplorer {
         tree = new JTree(rootNode);
         tree.setRootVisible(true);
         tree.setShowsRootHandles(true);
+        tree.setRowHeight(22);
         tree.setBackground(new Color(30, 33, 30));
         tree.setForeground(new Color(170, 170, 170));
         tree.setFont(new Font("Segoe UI Emoji", Font.BOLD, 15));
@@ -83,7 +84,7 @@ public class FileExplorer {
                 @Override
                 protected void paintHorizontalLine(Graphics g, JComponent c, int y, int left, int right) {
                     Graphics2D g2 = (Graphics2D) g;
-                    g2.setColor(new Color(90, 90, 90)); // szürke
+                    g2.setColor(new Color(90, 90, 90)); 
                     g2.setStroke(new BasicStroke(1.5f));
                     g2.drawLine(left, y, right, y);
                 }
@@ -91,7 +92,7 @@ public class FileExplorer {
                 @Override
                 protected void paintVerticalLine(Graphics g, JComponent c, int x, int top, int bottom) {
                     Graphics2D g2 = (Graphics2D) g;
-                    g2.setColor(new Color(90, 90, 90)); // szürke
+                    g2.setColor(new Color(90, 90, 90)); 
                     g2.setStroke(new BasicStroke(1.5f));
                     g2.drawLine(x, top, x, bottom);
                 }

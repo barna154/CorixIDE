@@ -109,7 +109,7 @@ public class newProject {
         row2.setMaximumSize(row2.getPreferredSize());
         JLabel mconPanel = new JLabel(mcon);
         mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        mconPanel.setForeground(new Color(90, 90, 90));
+        mconPanel.setForeground(new Color(225, 225, 225));
         mconPanel.setPreferredSize(new Dimension(150, 25));
 
                     

@@ -236,9 +236,7 @@ public class FileExplorer {
     public JScrollPane getScrollPane() {
              return scrollPane;
     }
-}
-
-private static class EmojiIcon implements Icon {
+    private static class EmojiIcon implements Icon {
     private final String emoji;
     private final Color color;
     private final int size;
@@ -266,3 +264,5 @@ private static class EmojiIcon implements Icon {
         return size + 2;
     }
 }
+}
+

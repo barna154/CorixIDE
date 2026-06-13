@@ -109,30 +109,29 @@ public class FileExplorer {
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
                                 setText(
-                                        "<html><div style='white-space:nowrap;'>"
+                                        "<html><nobr>"
                                         + "<span style='font-size:11px; color:#819984'>📂</span> "
                                         + "<span style='font-size:11px; color:#AAAAAA'>"
                                         + file.getName()
                                         + "</span>"
-                                        + "</div></html>"
+                                        + "</nobr></html>"
                                         );
-                        
-                        } else if (file.getName().endsWith(".crxprjct")) {
-                            String name = file.getName().replaceFirst("\\.crxprjct$", "");
-                            setText(
-                                        "<html><div style='white-space:nowrap;'>"
-                                        + "<span style='font-size:9px; color:#31E047'>⚙</span> "
-                                        + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
-                                        + "</div></html>"
-                                );
-                        } else {
-                            setText(
-                                        "<html><div style='white-space:nowrap;'>"
-                                        + "<span style='font-size:9px; color:#A4E0AC'>📄</span> "
-                                        + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
-                                        + "</div></html>"
-                                );
-                        }
+                            } else if (file.getName().endsWith(".crxprjct")) {
+                                String name = file.getName().replaceFirst("\\.crxprjct$", "");
+                                setText(
+                                            "<html><nobr>"
+                                            + "<span style='font-size:9px; color:#31E047'>⚙</span> "
+                                            + "<span style='font-size:11px; color:#AAAAAA'>" + name + "</span>"
+                                            + "</nobr></html>"
+                                    );
+                            } else {
+                                setText(
+                                            "<html><nobr>"
+                                            + "<span style='font-size:9px; color:#A4E0AC'>📄</span> "
+                                            + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
+                                            + "</nobr></html>"
+                                    );
+                            }
                 setBackgroundNonSelectionColor(new Color(30, 33, 30));
                 setBackgroundSelectionColor(new Color(60, 66, 60));
                 setTextNonSelectionColor(new Color(170, 170, 170));

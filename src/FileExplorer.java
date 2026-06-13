@@ -109,11 +109,11 @@ public class FileExplorer {
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
                             setText(
-                                        "<html>"
-                                        + "<span style='font-size:9px; color:#819984'>📂</span> "
-                                        + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
-                                        + "</html>"
-                                );
+                                      "<html><div style='line-height: 14px;'>"
+                                    + "<span style='font-size:9px; color:#819984'>📂</span> "
+                                    + "<span style='font-size:11px; color:#AAAAAA'>" + file.getName() + "</span>"
+                                    + "</div></html>"
+                                    );
                     } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");
                             setText(

@@ -591,6 +591,17 @@ public class Main {
         JTree fileTree = fe.getTree();
         fileTree.addMouseListener(new MouseAdapter() {
                 @Override
+                public void mouseMoved(MouseEvent e) {
+                    int x = e.getXOnScreen() - explolerp.getLocationOnScreen().x;
+                    int w = explolerp.getWidth();
+
+                    if (x > w - PANEL_RESIZE_MARGIN) {
+                        explolerp.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+                    } else {
+                        explolerp.setCursor(Cursor.getDefaultCursor());
+                    }
+                }
+                @Override
                 public void mousePressed(MouseEvent e) {
                     handlePopup(e);
                 }

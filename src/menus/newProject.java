@@ -120,6 +120,31 @@ public class newProject {
             mconBox.setForeground(new Color(20, 20, 20));
             mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
             mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
+            mconBox.setRenderer(new DefaultListCellRenderer() {
+                        @Override
+                        public Component getListCellRendererComponent(
+                                JList<?> list,
+                                Object value,
+                                int index,
+                                boolean isSelected,
+                                boolean cellHasFocus) {
+
+                            JLabel label = (JLabel) super.getListCellRendererComponent(
+                                    list, value, index, isSelected, cellHasFocus);
+
+                            label.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
+
+                            if (isSelected) {
+                                label.setBackground(new Color(4, 71, 6)); // highlight szín
+                                label.setForeground(Color.WHITE);
+                            } else {
+                                label.setBackground(new Color(200, 200, 200));
+                                label.setForeground(new Color(20, 20, 20));
+                            }
+
+                            return label;
+                        }
+                    });
             String selectedMcu = (String) mconBox.getSelectedItem();
 
         

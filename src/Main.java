@@ -18,7 +18,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         LanguageManager.load("../lang/lang.json");
 
-// STRINGLIST        String mtitle = LanguageManager.get("Title");
+// STRINGLIST        
+        String mtitle = LanguageManager.get("Title");
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");
         String moptions = LanguageManager.get("Options");

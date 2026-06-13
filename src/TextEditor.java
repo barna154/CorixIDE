@@ -60,22 +60,26 @@ public class TextEditor {
         }
     }
     public void saveFile() {
-        if (currentFile == null) return;
+            if (currentFile == null) return;
 
-        try {
-            if (!Files.exists(currentFile.toPath())) {
-                Files.createDirectories(currentFile.getParentFile().toPath());
-                Files.createFile(currentFile.toPath());
+            try {
+                if (!Files.exists(currentFile.toPath())) {
+                    JOptionPane.showMessageDialog(null,
+                        "A fájl törölve lett vagy már nem létezik:\n" + currentFile.getAbsolutePath(),
+                        "Hiba",
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+                Files.write(
+                    currentFile.toPath(),
+                    textComponent.getText().getBytes(StandardCharsets.UTF_8)
+                );
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-            Files.write(
-                currentFile.toPath(),
-                textComponent.getText().getBytes(StandardCharsets.UTF_8)
-            );
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
-    }
 
     public File getCurrentFile() {
         return currentFile;

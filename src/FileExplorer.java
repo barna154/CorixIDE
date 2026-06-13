@@ -43,7 +43,7 @@ public class FileExplorer {
         tree = new JTree(rootNode);
         tree.setRootVisible(true);
         tree.setShowsRootHandles(true);
-        tree.setRowHeight(26);
+        tree.setRowHeight(20);
         tree.setBackground(new Color(30, 33, 30));
         tree.setForeground(new Color(170, 170, 170));
         tree.setFont(new Font("Segoe UI Emoji", Font.BOLD, 15));
@@ -108,7 +108,7 @@ public class FileExplorer {
 
                 File file = (File) ((DefaultMutableTreeNode) value).getUserObject();
                     if (file.isDirectory()) {
-                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 14));
+                            setIcon(new EmojiIcon("📂", new Color(0x81, 0x99, 0x84), 12));
                             setText(file.getName());
                         } else if (file.getName().endsWith(".crxprjct")) {
                             String name = file.getName().replaceFirst("\\.crxprjct$", "");

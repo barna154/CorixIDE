@@ -608,8 +608,9 @@ public class Main {
         mainpr.addActionListener(e -> {
                 if (contextTarget[0] == null) return;
 
-                System.out.println(contextTarget[0]);
+               
                 util.AppPath.MainProject = contextTarget[0];
+                fe.refresh();
 
         });
 

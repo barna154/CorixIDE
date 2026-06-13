@@ -44,7 +44,7 @@ public class FileExplorer {
         tree.setShowsRootHandles(true);
         tree.setBackground(new Color(30, 33, 30));
         tree.setForeground(new Color(220, 220, 220));
-        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
+        tree.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
         tree.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 0));
 
         tree.setCellRenderer(new DefaultTreeCellRenderer() {

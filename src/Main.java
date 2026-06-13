@@ -454,6 +454,34 @@ public class Main {
         dataexplorer.add(item4);
 
 
+        JPopupMenu folderMenu = new JPopupMenu();
+        folderMenu.setBackground(new Color(30, 30, 30));
+        folderMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+
+        JMenuItem newFileInFolder = new JMenuItem("Új fájl");
+        JMenuItem renameFolder = new JMenuItem("Átnevezés");
+        JMenuItem deleteFolder = new JMenuItem("Törlés");
+        // ... stílusozás, mint a többi item-nél
+
+        folderMenu.add(newFileInFolder);
+        folderMenu.add(renameFolder);
+        folderMenu.add(deleteFolder);
+
+        // Fájlra kattintva
+        JPopupMenu fileMenu = new JPopupMenu();
+        fileMenu.setBackground(new Color(30, 30, 30));
+        fileMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+
+        JMenuItem openFile = new JMenuItem("Megnyitás");
+        JMenuItem renameFile = new JMenuItem("Átnevezés");
+        JMenuItem deleteFile = new JMenuItem("Törlés");
+
+        fileMenu.add(openFile);
+        fileMenu.add(renameFile);
+        fileMenu.add(deleteFile);
+
+
+
         JPanel explolerp = new JPanel();
         explolerp.setBackground(new Color(30, 33, 30));
         explolerp.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -519,19 +547,37 @@ public class Main {
         fileTree.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if (e.isPopupTrigger()) {
-                        dataexplorer.show(fileTree, e.getX(), e.getY());
-                    }
+                    handlePopup(e);
                 }
                 @Override
                 public void mouseReleased(MouseEvent e) {
-                    if (e.isPopupTrigger()) {
+                    handlePopup(e);
+                }
+
+                private void handlePopup(MouseEvent e) {
+                    if (!e.isPopupTrigger()) return;
+                    TreePath path = fileTree.getPathForLocation(e.getX(), e.getY());
+
+                    if (path != null) {
+                        fileTree.setSelectionPath(path); 
+
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) path.getLastPathComponent();
+                        File clickedFile = (File) node.getUserObject();
+
+                        if (clickedFile.isDirectory()) {
+                            folderMenu.show(fileTree, e.getX(), e.getY());
+                        } else {
+                            fileMenu.show(fileTree, e.getX(), e.getY());
+                        }
+                    } else {
                         dataexplorer.show(fileTree, e.getX(), e.getY());
                     }
                 }
-        });
+            });
 
         
+
+
 
 
 

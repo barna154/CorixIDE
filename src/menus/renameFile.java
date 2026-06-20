@@ -95,7 +95,7 @@ public class renameFile {
 
         JLabel namePanel = new JLabel(npan);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        namePanel.setPreferredSize(new Dimension(125, 25));
+        namePanel.setPreferredSize(new Dimension(85, 25));
         namePanel.setForeground(new Color(225, 225, 225));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(30, 30, 30));

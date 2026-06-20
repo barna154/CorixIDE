@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.tree.*;
 import menus.newProject;
+import menus.renamePanel;
 import util.LanguageManager;
 
 

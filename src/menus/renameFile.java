@@ -153,7 +153,6 @@ public class renameFile {
                             if (success) {
                                 try (FileWriter writer = new FileWriter(newFile)) {
                                         writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
-                                        writer.write("CPU=" + selectedMcu + ";\n\n");
                                         writer.write("config {\n\n");
                                         writer.write("}\n\n");
                                         writer.write("setup {\n\n");

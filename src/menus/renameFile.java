@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class renameFile {
 
-    public void init(JPanel renameFile, File targetFile) throws Exception {       
+    public void init(JPanel renameFile, File targetFile, Runnable onSuccess) throws Exception {       
 
         String newp = LanguageManager.get("Rename File");
         String ppath = LanguageManager.get("Project Path");
@@ -135,7 +135,7 @@ public class renameFile {
                         boolean success = targetFile.renameTo(renamed);
 
                         if (success) {
-                            renameFilePanel.setVisible(false);
+                            renameFile.setVisible(false); 
                             if (onSuccess != null) onSuccess.run();
                         } else {
                                 System.out.println("Error renameing File!");

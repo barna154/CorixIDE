@@ -566,12 +566,12 @@ public class Main {
             openFile.setFont(new Font("Arial", Font.PLAIN, 15));
             openFile.setForeground(new Color(230, 230, 230));
             openFile.setOpaque(true);
-        JMenuItem renameFile = new JMenuItem(rnam);
-            renameFile.setMargin(new Insets(0, 0, 0, 0));
-            renameFile.setBackground(new Color(30, 30, 30));
-            renameFile.setFont(new Font("Arial", Font.PLAIN, 15));
-            renameFile.setForeground(new Color(230, 230, 230));
-            renameFile.setOpaque(true);
+        JMenuItem renameFileItem = new JMenuItem(rnam);
+            renameFileItem.setMargin(new Insets(0, 0, 0, 0));
+            renameFileItem.setBackground(new Color(30, 30, 30));
+            renameFileItem.setFont(new Font("Arial", Font.PLAIN, 15));
+            renameFileItem.setForeground(new Color(230, 230, 230));
+            renameFileItem.setOpaque(true);
         JMenuItem deleteFile = new JMenuItem(dlte);
             deleteFile.setMargin(new Insets(0, 0, 0, 0));
             deleteFile.setBackground(new Color(30, 30, 30));
@@ -580,7 +580,7 @@ public class Main {
             deleteFile.setOpaque(true);
 
         fileMenu.add(openFile);
-        fileMenu.add(renameFile);
+        fileMenu.add(renameFileItem);
         fileMenu.add(deleteFile);
 
 

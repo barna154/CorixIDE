@@ -106,79 +106,10 @@ public class renameFile {
         String projectPath = pathField.getText();
 
 
-        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row2.setPreferredSize(new Dimension(renameFile.getWidth(), 50));
-        row2.setBackground(centerPanel.getBackground());
-        row2.setMaximumSize(row2.getPreferredSize());
-        JLabel mconPanel = new JLabel(mcon);
-        mconPanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        mconPanel.setForeground(new Color(225, 225, 225));
-        mconPanel.setPreferredSize(new Dimension(150, 25));
-
-                    
-            String[] microcontrollers = {"PIC16F15256"};
-            JComboBox<String> mconBox = new JComboBox<>(microcontrollers);
-            mconBox.setPreferredSize(new Dimension(300, 30));
-            mconBox.setBackground(new Color(30, 30, 30));
-            mconBox.setForeground(new Color(230, 230, 230));
-            mconBox.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-            mconBox.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 2));
-            mconBox.setRenderer(new DefaultListCellRenderer() {
-                        @Override
-                        public Component getListCellRendererComponent(
-                                JList<?> list,
-                                Object value,
-                                int index,
-                                boolean isSelected,
-                                boolean cellHasFocus) {
-
-                            JLabel label = (JLabel) super.getListCellRendererComponent(
-                                    list, value, index, isSelected, cellHasFocus);
-
-                            label.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-
-                            if (index == -1) {
-                                label.setBackground(new Color(30, 30, 30));
-                                label.setForeground(new Color(230, 230, 230));
-                            } else if (isSelected) {
-                                label.setBackground(new Color(60, 60, 60));
-                                label.setForeground(new Color(230, 230, 230));
-                            } else {
-                                label.setBackground(new Color(30, 30, 30));
-                                label.setForeground(new Color(230, 230, 230));
-                            }
-
-                            return label;
-                        }
-                    });
-            mconBox.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
-                @Override
-                public void paintCurrentValueBackground(Graphics g, Rectangle bounds, boolean hasFocus) {
-                    g.setColor(new Color(30, 30, 30)); 
-                    g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height);
-                }
-                @Override
-                protected JButton createArrowButton() {
-                    JButton button = new JButton("⮟");
-                    button.setBackground(new Color(30, 30, 30));
-                    button.setForeground(new Color(230, 230, 230));
-                    button.setBorder(BorderFactory.createEmptyBorder());
-                    button.setFocusPainted(false);
-                    button.setContentAreaFilled(true);
-                    return button;
-                }
-            });
-            mconBox.setFocusable(false);
-
-        
-
 
         row1.add(namePanel);
         row1.add(pathField);
-        row2.add(mconPanel);
-        row2.add(mconBox);
         centerPanel.add(row1);
-        centerPanel.add(row2);
         renameFile.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));

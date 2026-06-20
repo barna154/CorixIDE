@@ -67,7 +67,7 @@ public class TextEditor {
                 );
     }
 
-        public void openFile(File file) {
+    public void openFile(File file) {
         if (file == null || file.isDirectory()) return;
 
         try {

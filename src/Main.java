@@ -740,6 +740,15 @@ public class Main {
             });
 
 
+            openFile.addActionListener(e -> {
+                if (contextTarget[0] == null) return;
+                if (contextTarget[0].isDirectory()) return;
+
+                te.saveFile();
+                te.openFile(contextTarget[0]);
+            });
+
+
         
 //Konzol
 

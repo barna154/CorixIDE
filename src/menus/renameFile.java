@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class renameFile {
 
-    public void init(JPanel renameFile) throws Exception {       
+    public void init(JPanel renameFile, File targetFile, Runnable onSuccess) throws Exception {       
 
         String newp = LanguageManager.get("Rename File");
         String ppath = LanguageManager.get("Project Path");
@@ -101,6 +101,7 @@ public class renameFile {
         pathField.setBackground(new Color(30, 30, 30));
         pathField.setForeground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
+        pathField.setText(targetFile.getName());
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
         String projectPath = pathField.getText();
 
@@ -126,48 +127,20 @@ public class renameFile {
             @Override
             public void mouseClicked(MouseEvent e) {
                 renameFile.setVisible(false);
-                String projectNameField = pathField.getText().trim();
-                if (projectNameField.isEmpty()) {
-                        System.out.println("Üres mező");
-                     return;
-                     }
-                File newDir = new File(AppPath.basePath, projectNameField);
+                String newName = pathField.getText().trim();
                 
-                if (newDir.exists()) {
-                    System.out.println("Folder already exists!");
-                } else {
-                    boolean success = newDir.mkdirs();
-                    if (success) {
-                        util.AppPath.MainProject = newDir;
-                    } else {
-                        System.out.println("Hiba a mappa létrehozásakor!");
-                    }
-                }
+                    if (newName.isEmpty()) return;
 
-                File newFile = new File(newDir, projectNameField + ".crxprjct");
-                if (newFile.exists()) {
-                        System.out.println("File already exists!");
-                    } else {
-                        try {
-                            boolean success = newFile.createNewFile();
-                            if (success) {
-                                try (FileWriter writer = new FileWriter(newFile)) {
-                                        writer.write("// "+projectNameField + " project: " + newFile.getAbsolutePath() + "\n");
-                                        writer.write("config {\n\n");
-                                        writer.write("}\n\n");
-                                        writer.write("setup {\n\n");
-                                        writer.write("}\n\n");
-                                        writer.write("loop {\n\n");
-                                        writer.write("}");
-                                    }
+                        File renamed = new File(targetFile.getParentFile(), newName);
+                        boolean success = targetFile.renameTo(renamed);
 
-                            } else {
-                                System.out.println("Hiba a fájl létrehozásakor!");
-                            }
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
+                        if (success) {
+                            renameFilePanel.setVisible(false);
+                            if (onSuccess != null) onSuccess.run();
+                        } else {
+                                System.out.println("Error renameing File!");
                         }
-                    }
+
 
             }
             @Override

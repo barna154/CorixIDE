@@ -211,7 +211,7 @@ public class newProject {
                     if (success) {
                         util.AppPath.MainProject = newDir;
                     } else {
-                        System.out.println("Hiba a mappa létrehozásakor!");
+                        System.out.println("Error creating file!");
                     }
                 }
 

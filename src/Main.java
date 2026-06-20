@@ -526,13 +526,6 @@ public class Main {
             renameFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             renameFolder.setForeground(new Color(230, 230, 230));
             renameFolder.setOpaque(true);
-
-                    renameFolder.addActionListener(e -> {
-                        renamePanel.setVisible(true);
-                        window.getLayeredPane().revalidate();
-                        window.getLayeredPane().repaint();
-                    });
-
         JMenuItem deleteFolder = new JMenuItem(dlte);
             deleteFolder.setMargin(new Insets(0, 0, 0, 0));
             deleteFolder.setBackground(new Color(30, 30, 30));
@@ -778,6 +771,26 @@ public class Main {
                 te.saveFile();
                 te.openFile(contextTarget[0]);
             });
+
+
+            renameFile.addActionListener(e -> {
+                    if (contextTarget[0] == null) return;
+
+                    renameFile.removeAll();
+                    
+                    menus.renameFile rf = new menus.renameFile();
+                    try {
+                        rf.init(renameFilePanel, contextTarget[0], () -> fe.refresh());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    renamePanel.setVisible(true);
+                    renamePanel.revalidate();
+                    renamePanel.repaint();
+                    renamePanel.setVisible(true);
+                    window.getLayeredPane().revalidate();
+                    window.getLayeredPane().repaint();
+                });
 
 
         

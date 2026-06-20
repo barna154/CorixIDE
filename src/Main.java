@@ -456,9 +456,6 @@ public class Main {
                     renamePanel.setLayout(new BorderLayout());
                     renamePanel.setVisible(false); 
 
-                    renameFile rnp = new renameFile();
-                    rnp.init(renamePanel);
-
                     window.getLayeredPane().add(renamePanel, JLayeredPane.POPUP_LAYER);
                 
 

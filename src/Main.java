@@ -773,14 +773,14 @@ public class Main {
             });
 
 
-            renameFile.addActionListener(e -> {
+            renameFileItem.addActionListener(e -> {
                     if (contextTarget[0] == null) return;
 
-                    renameFile.removeAll();
-                    
+                    renamePanel.removeAll();     
+
                     menus.renameFile rf = new menus.renameFile();
                     try {
-                        rf.init(renameFilePanel, contextTarget[0], () -> fe.refresh());
+                        rf.init(renamePanel, contextTarget[0], () -> fe.refresh());
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

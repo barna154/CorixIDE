@@ -21,5 +21,8 @@
    "Deleting folders": "Biztosan törlöd ezt a mappát:",
    "Sure": "Igen",
    "No": "Mégse",
-   "Saving falied": "Saving failed! The file no longer exists."
+   "Saving falied": "Saving failed! The file no longer exists.",
+   "Rename File": "Átnevezés",
+   "New name": "Új név",
+   "Rename Button": "Átnevezés"
  }

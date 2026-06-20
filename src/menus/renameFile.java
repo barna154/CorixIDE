@@ -20,10 +20,10 @@ public class renameFile {
 
     public void init(JPanel renameFile) throws Exception {       
 
-        String newp = LanguageManager.get("New Project");
+        String newp = LanguageManager.get("Rename File");
         String ppath = LanguageManager.get("Project Path");
-        String npan = LanguageManager.get("Project Name");
-        String fnsbtn = LanguageManager.get("Finish Button");
+        String npan = LanguageManager.get("New name");
+        String fnsbtn = LanguageManager.get("Rename Button");
 
 
         renameFile.setLayout(new BorderLayout());

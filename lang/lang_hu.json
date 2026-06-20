@@ -4,7 +4,7 @@
    "Edit": "Szerkesztés",
    "Options": "Beállítások",
    "Explorer": "Fájlkezelő",
-   "Terminal": "Terminál",  
+   "Terminal": "Terminál",
    "Boards": "Próbapanel",
    "New Project": "Új projekt",
    "New file": "Új fájl",
@@ -19,5 +19,10 @@
    "Finish Button": "Létrehozás",
    "Deleting files": "Biztosan törlöd ezt a fájlt:",
    "Deleting folders": "Biztosan törlöd ezt a mappát:",
-   "Saving falied": "Saving failed! The file no longer exists."
+   "Sure": "Igen",
+   "No": "Mégse",
+   "Saving falied": "Saving failed! The file no longer exists.",
+   "Rename File": "Átnevezés",
+   "New name": "Új név",
+   "Rename Button": "Átnevezés"
  }

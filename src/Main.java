@@ -436,6 +436,28 @@ public class Main {
                     npp.init(newProjectPanel);
 
                     window.getLayeredPane().add(newProjectPanel, JLayeredPane.POPUP_LAYER);
+
+
+
+
+                    //Rename Panel
+
+                    JPanel renamePanel = new JPanel();
+                    renamePanel.setBackground(new Color(50, 50, 50));
+                    renamePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
+                    int panelWidth = (int) (screenWidth / 2.7);
+                    int panelHeight = (int) (screenHeight / 2.7);
+                    int x = (screenWidth - panelWidth) / 2;
+                    int y = (screenHeight - panelHeight) / 2;
+
+                    renamePanel.setBounds(x, y, panelWidth, panelHeight);
+                    renamePanel.setLayout(new BorderLayout());
+                    renamePanel.setVisible(false); 
+
+                    renameFile rnp = new renameFile();
+                    npp.init(renamePanel);
+
+                    window.getLayeredPane().add(renamePanel, JLayeredPane.POPUP_LAYER);
                 
 
 
@@ -502,6 +524,13 @@ public class Main {
             renameFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             renameFolder.setForeground(new Color(230, 230, 230));
             renameFolder.setOpaque(true);
+
+                    renameFolder.addActionListener(e -> {
+                        renamePanel.setVisible(true);
+                        window.getLayeredPane().revalidate();
+                        window.getLayeredPane().repaint();
+                    });
+
         JMenuItem deleteFolder = new JMenuItem(dlte);
             deleteFolder.setMargin(new Insets(0, 0, 0, 0));
             deleteFolder.setBackground(new Color(30, 30, 30));

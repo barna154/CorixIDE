@@ -23,7 +23,6 @@ public class renameFile {
         String newp = LanguageManager.get("New Project");
         String ppath = LanguageManager.get("Project Path");
         String npan = LanguageManager.get("Project Name");
-        String mcon = LanguageManager.get("Microcontroller");
         String fnsbtn = LanguageManager.get("Finish Button");
 
 
@@ -127,7 +126,6 @@ public class renameFile {
             @Override
             public void mouseClicked(MouseEvent e) {
                 renameFile.setVisible(false);
-                String selectedMcu = (String) mconBox.getSelectedItem();
                 String projectNameField = pathField.getText().trim();
                 if (projectNameField.isEmpty()) {
                         System.out.println("Üres mező");

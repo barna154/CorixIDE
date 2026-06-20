@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class renameFile {
 
-    public void init(JPanel renameFile, File targetFile, Runnable onSuccess) throws Exception {       
+    public void init(JPanel renameFile, File targetFile) throws Exception {       
 
         String newp = LanguageManager.get("Rename File");
         String ppath = LanguageManager.get("Project Path");

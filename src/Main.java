@@ -448,8 +448,8 @@ public class Main {
                     renamePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
                     int panelWidth2 = (int) (screenWidth / 5);
                     int panelHeight2 = (int) (screenHeight / 5);
-                    int x2 = (screenWidth - panelWidth2) / 4;
-                    int y2 = (screenHeight - panelHeight2) / 4;
+                    int x2 = (screenWidth - panelWidth2) / 6;
+                    int y2 = (screenHeight - panelHeight2) / 2;
 
                     renamePanel.setBounds(x2, y2, panelWidth2, panelHeight2);
                     renamePanel.setLayout(new BorderLayout());

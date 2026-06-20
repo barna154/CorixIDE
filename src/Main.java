@@ -445,12 +445,12 @@ public class Main {
                     JPanel renamePanel = new JPanel();
                     renamePanel.setBackground(new Color(50, 50, 50));
                     renamePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
-                    int panelWidth = (int) (screenWidth / 2.7);
-                    int panelHeight = (int) (screenHeight / 2.7);
-                    int x = (screenWidth - panelWidth) / 2;
-                    int y = (screenHeight - panelHeight) / 2;
+                    int panelWidth2 = (int) (screenWidth / 2.7);
+                    int panelHeight2 = (int) (screenHeight / 2.7);
+                    int x = (screenWidth - panelWidth2) / 2;
+                    int y = (screenHeight - panelHeight2) / 2;
 
-                    renamePanel.setBounds(x, y, panelWidth, panelHeight);
+                    renamePanel.setBounds(x, y, panelWidth2, panelHeight2);
                     renamePanel.setLayout(new BorderLayout());
                     renamePanel.setVisible(false); 
 

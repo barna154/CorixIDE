@@ -790,6 +790,27 @@ public class Main {
                 });
 
 
+
+            renameFolder.addActionListener(e -> {
+                    if (contextTarget[0] == null) return;
+
+                    renamePanel.removeAll();
+
+                    menus.renameFile rf = new menus.renameFile();
+                    try {
+                        rf.init(renamePanel, contextTarget[0], () -> fe.refresh());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    renamePanel.revalidate();
+                    renamePanel.repaint();
+                    renamePanel.setVisible(true);
+                    window.getLayeredPane().revalidate();
+                    window.getLayeredPane().repaint();
+                });
+
+
         
 //Konzol
 

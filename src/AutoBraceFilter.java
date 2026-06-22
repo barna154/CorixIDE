@@ -3,23 +3,27 @@ import javax.swing.text.*;
 public class AutoBraceFilter extends DocumentFilter {
 
     @Override
-    public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr)
-            throws BadLocationException {
-
-        super.insertString(fb, offset, string, attr);
-    }
-
-    @Override
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
             throws BadLocationException {
+
+        if ("\n".equals(text)) {
+            handleEnter(fb, offset, length, attrs);
+            return;
+        }
 
         super.replace(fb, offset, length, text, attrs);
     }
 
-    @Override
-    public void remove(FilterBypass fb, int offset, int length)
+    private void handleEnter(FilterBypass fb, int offset, int length, AttributeSet attrs)
             throws BadLocationException {
 
-        super.remove(fb, offset, length);
+        Document doc = fb.getDocument();
+        String content = doc.getText(0, doc.getLength());
+
+        if (offset > 0 && content.charAt(offset - 1) == '{') {
+            fb.replace(offset, length, "\n    \n}", attrs);
+        } else {
+            fb.replace(offset, length, "\n", attrs);
+        }
     }
 }

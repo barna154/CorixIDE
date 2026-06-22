@@ -1,18 +1,23 @@
 import javax.swing.*;
-import javax.swing.text.*;
-import javax.swing.undo.*;
 import java.awt.*;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.JTextComponent;
+import javax.swing.undo.UndoManager;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.CannotRedoException;
 import java.io.File;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
+import util.LanguageManager;
+import util.KeyStrokes;
+import menus.editMenu;
 
 public class TextEditor {
 
     private JTextPane textComponent;
     private UndoManager undoManager = new UndoManager();
     private File currentFile;
-
-    private SyntaxHighlighter highlighter;
 
     public void init(JPanel editorPanel) {
 
@@ -25,89 +30,65 @@ public class TextEditor {
         textComponent.setForeground(new Color(218, 218, 218));
         textComponent.setCaretColor(Color.GRAY);
         textComponent.setFont(new Font("Consolas", Font.PLAIN, 17));
+        textComponent.setSelectionColor(new Color(40, 60, 40));
+        textComponent.setSelectedTextColor(new Color(218, 218, 218));
 
         textComponent.getDocument().addUndoableEditListener(undoManager);
 
-        highlighter = new SyntaxHighlighter(textComponent);
-
-        textComponent.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                SwingUtilities.invokeLater(() -> highlighter.highlightNow());
-            }
-
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                SwingUtilities.invokeLater(() -> highlighter.highlightNow());
-            }
-
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {}
-        });
-
-        setupKeyBindings();
+        new SyntaxHighlighter(textComponent);
 
         JScrollPane scroll = new JScrollPane(textComponent);
+        scroll.setBorder(null);
+        scroll.getViewport().setBackground(new Color(30, 30, 30));
+        scroll.setRowHeaderView(new LineNumberComponent(textComponent));
+
+        scroll.getVerticalScrollBar().setUI(new CustomScrollBarUI());
+        scroll.getHorizontalScrollBar().setUI(new CustomScrollBarUI());
+        scroll.getVerticalScrollBar().setPreferredSize(new Dimension(18, 0));
+        scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 18));
+
+        scroll.setCorner(JScrollPane.LOWER_RIGHT_CORNER, createDarkPanel());
+        scroll.setCorner(JScrollPane.LOWER_LEFT_CORNER, createDarkPanel());
+        scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, createDarkPanel());
+
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
-    }
 
-    private void setupKeyBindings() {
+        JPopupMenu popup = new JPopupMenu();
+        menus.editMenu menu = new menus.editMenu();
+        menu.init(popup, textComponent, undoManager);
 
-        InputMap im = textComponent.getInputMap();
-        ActionMap am = textComponent.getActionMap();
+        textComponent.setComponentPopupMenu(popup);
 
-        im.put(KeyStroke.getKeyStroke("control Z"), "undo");
-        am.put("undo", new AbstractAction() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                try {
-                    if (undoManager.canUndo()) undoManager.undo();
-                } catch (CannotUndoException ex) {}
-            }
-        });
-
-        im.put(KeyStroke.getKeyStroke("control Y"), "redo");
-        am.put("redo", new AbstractAction() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                try {
-                    if (undoManager.canRedo()) undoManager.redo();
-                } catch (CannotRedoException ex) {}
-            }
-        });
-
-        im.put(KeyStroke.getKeyStroke("ENTER"), "enter");
-
-        am.put("enter", new AbstractAction() {
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                try {
-                    int pos = textComponent.getCaretPosition();
-                    Document doc = textComponent.getDocument();
-                    String text = doc.getText(0, doc.getLength());
-
-                    if (pos > 0 && text.charAt(pos - 1) == '{') {
-                        doc.insertString(pos, "\n    \n}", null);
-                        textComponent.setCaretPosition(pos + 5);
-                    } else {
-                        doc.insertString(pos, "\n", null);
-                    }
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
+        textComponent.addKeyListener(
+                new KeyStrokes(
+                        () -> saveFile(),
+                        () -> {
+                            try { undoManager.undo(); }
+                            catch (Exception ex) { }
+                        },
+                        () -> {
+                            try { undoManager.redo(); }
+                            catch (Exception ex) { }
+                        }
+                )
+        );
     }
 
     public void openFile(File file) {
-
         if (file == null || file.isDirectory()) return;
 
         try {
-            undoManager.discardAllEdits();
-
-            String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+            String content = new String(
+                    Files.readAllBytes(file.toPath()),
+                    StandardCharsets.UTF_8
+            );
 
             textComponent.setText(content);
+            textComponent.setCaretPosition(0);
             currentFile = file;
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -117,22 +98,20 @@ public class TextEditor {
         if (currentFile == null) return;
 
         try {
-            Files.writeString(currentFile.toPath(),
-                    textComponent.getText(),
-                    StandardCharsets.UTF_8);
+            Files.write(
+                    currentFile.toPath(),
+                    textComponent.getText().getBytes(StandardCharsets.UTF_8)
+            );
 
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
-    public JTextPane getTextComponent() {
-        return textComponent;
+    public File getCurrentFile() {
+        return currentFile;
     }
 
-    public UndoManager getUndoManager() {
-        return undoManager;
-    }
     public interface MessageHandler {
         void show(String title, String message);
     }
@@ -141,5 +120,19 @@ public class TextEditor {
 
     public void setMessageHandler(MessageHandler handler) {
         this.messageHandler = handler;
+    }
+
+    private JPanel createDarkPanel() {
+        JPanel p = new JPanel();
+        p.setBackground(new Color(30, 30, 30));
+        return p;
+    }
+
+    public JTextPane getTextComponent() {
+        return textComponent;
+    }
+
+    public UndoManager getUndoManager() {
+        return undoManager;
     }
 }

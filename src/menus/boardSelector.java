@@ -37,11 +37,6 @@ public class boardSelector {
 
                 JMenuItem item1 = new JMenuItem("PIC16F15256");
                     item1.setName("PIC16F15256");
-                    if (item1.getName().equals(selectedBoard.BoardName)) {
-                        item1.setForeground(new Color(13, 255, 122));
-                    } else {
-                        item1.setForeground(new Color(230, 230, 230));
-                    }
                     item1.setMargin(new Insets(6, 0, 6, 0));
                     item1.setBackground(new Color(30, 30, 30));
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -56,11 +51,6 @@ public class boardSelector {
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
                     item2.setName("PIC16F15274");
-                    if (item2.getName().equals(selectedBoard.BoardName)) {
-                        item2.setForeground(new Color(13, 255, 122));
-                    } else {
-                        item2.setForeground(new Color(230, 230, 230));
-                    }
                     item2.setMargin(new Insets(6, 0, 6, 0));
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -75,11 +65,6 @@ public class boardSelector {
                     });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
                     item3.setName("PIC16F15275");
-                    if (item3.getName().equals(selectedBoard.BoardName)) {
-                        item3.setForeground(new Color(13, 255, 122));
-                    } else {
-                        item3.setForeground(new Color(230, 230, 230));
-                    }
                     item3.setMargin(new Insets(6, 0, 6, 0));
                     item3.setBackground(new Color(30, 30, 30));
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -94,11 +79,6 @@ public class boardSelector {
                     });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
                     item4.setName("PIC16F15276");
-                    if (item4.getName().equals(selectedBoard.BoardName)) {
-                        item4.setForeground(new Color(13, 255, 122));
-                    } else {
-                        item4.setForeground(new Color(230, 230, 230));
-                    }
                     item4.setMargin(new Insets(6, 0, 6, 0));
                     item4.setBackground(new Color(30, 30, 30));
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -136,6 +116,27 @@ public class boardSelector {
                 boardSelector.add(item3);
                 boardSelector.add(item4);
                 boardSelector.add(item5);
+
+                
+                boardSelector.addPopupMenuListener(new PopupMenuListener() {
+                    @Override
+                    public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+                        for (Component c : boardSelector.getComponents()) {
+                            if (c instanceof JMenuItem item) {
+                                if (item.getName().equals(selectedBoard.BoardName)) {
+                                    item.setForeground(new Color(13, 255, 122));
+                                } else {
+                                    item.setForeground(new Color(230, 230, 230));
+                                }
+                            }
+                        }
+                    }
+
+                    @Override public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {}
+                    @Override public void popupMenuCanceled(PopupMenuEvent e) {}
+                });
+
+
 
             }
 

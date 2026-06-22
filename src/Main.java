@@ -144,7 +144,7 @@ public class Main {
         JLabel labelBoards = new JLabel(mboards);
         labelBoards.setFont(new Font("Arial", Font.PLAIN, 15));
         labelBoards.setForeground(new Color(118, 118, 118));
-        JPopupMenu boardSelectorPanel = new boardSelector();
+        JPopupMenu boardSelectorPanel = new JPopupMenu();
         menus.boardSelector bsp = new menus.boardSelector();
         bsp.init(boardSelectorPanel);
         labelBoards.addMouseListener(new MouseAdapter() {

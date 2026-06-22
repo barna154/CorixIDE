@@ -855,7 +855,7 @@ public class Main {
 
                         menus.newFile nfp = new menus.newFile();
                         try {
-                            nfp.init(newFilePanel, contextTarget[0]);
+                            nfp.init(newFilePanel, contextTarget[0], () -> fe.refresh());
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }

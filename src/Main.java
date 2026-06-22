@@ -86,23 +86,6 @@ public class Main {
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
-        labelFile.addMouseListener(new MouseAdapter() {
-         @Override
-            public void mouseClicked(MouseEvent e) { 
-                 dataexplorer.show(labelFile, 0, labelFile.getHeight());
-
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                labelFile.setForeground(new Color(60, 60, 60));
-                labelFile.setBackground(new Color(60, 60, 60));
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                labelFile.setForeground(new Color(118, 118, 118));
-                labelFile.setBackground(new Color(43, 43, 43));
-            }
-        });
         leftPanel.add(labelFile);
 
      
@@ -952,6 +935,34 @@ public class Main {
 
         back.add(center, BorderLayout.CENTER);
         resizeBorder.add(back, BorderLayout.CENTER);
+
+//Menüpont listenerek
+      labelFile.addMouseListener(new MouseAdapter() {
+         @Override
+            public void mouseClicked(MouseEvent e) { 
+                 dataexplorer.show(labelFile, 0, labelFile.getHeight());
+
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                labelFile.setForeground(new Color(60, 60, 60));
+                labelFile.setBackground(new Color(60, 60, 60));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelFile.setForeground(new Color(118, 118, 118));
+                labelFile.setBackground(new Color(43, 43, 43));
+            }
+        });
+        
+
+
+
+
+
+
+
+
 
 //RESIZE
 

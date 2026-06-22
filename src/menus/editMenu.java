@@ -18,8 +18,7 @@ import util.RoundedBorder;
 
 public class editMenu {
 
-            public void init(JPopupMenu editMenu) throws Exception {
-
+            public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager) throws Exception {
 
                 String undo = LanguageManager.get("Undo");
                 String redo = LanguageManager.get("Redo");
@@ -35,7 +34,7 @@ public class editMenu {
                 UIManager.put("MenuItem.selectionForeground", new Color(230, 230, 230));
                 UIManager.put("PopupMenu.border", BorderFactory.createEmptyBorder());
                 UIManager.put("MenuItem.border", BorderFactory.createEmptyBorder());
-                
+           
                 editMenu.setOpaque(true);
                 editMenu.setBackground(new Color(30, 30, 30));
                 editMenu.setForeground(new Color(30, 30, 30));
@@ -49,30 +48,39 @@ public class editMenu {
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setForeground(new Color(230, 230, 230));
                     item1.setOpaque(true);
+                    item1.addActionListener(e -> {
+                        try { undoManager.undo(); } catch (Exception ex) {}
+                    });
                 JMenuItem item2 = new JMenuItem(redo + "                            Ctrl+Y");
                     item2.setMargin(new Insets(2, 0, 0, 0));
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
                     item2.setForeground(new Color(230, 230, 230));
                     item2.setOpaque(true);
+                    item2.addActionListener(e -> {
+                        try { undoManager.redo(); } catch (Exception ex) {}
+                    });
                 JMenuItem item3 = new JMenuItem(cut + "                                   Ctrl+X");
                     item3.setMargin(new Insets(2, 0, 0, 0));
                     item3.setBackground(new Color(30, 30, 30));
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
                     item3.setForeground(new Color(230, 230, 230));
                     item3.setOpaque(true);
+                    item3.addActionListener(e -> textComponent.cut());
                 JMenuItem item4 = new JMenuItem(copy + "                                  Ctrl+C");
                     item4.setMargin(new Insets(2, 0, 0, 0));
                     item4.setBackground(new Color(30, 30, 30));
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
                     item4.setForeground(new Color(230, 230, 230));
                     item4.setOpaque(true);
+                    item4.addActionListener(e -> textComponent.copy());
                 JMenuItem item5 = new JMenuItem(paste + "                              Ctrl+V");
                     item5.setMargin(new Insets(2, 0, 0, 0));
                     item5.setBackground(new Color(30, 30, 30));
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
                     item5.setForeground(new Color(230, 230, 230));
                     item5.setOpaque(true);
+                    item5.addActionListener(e -> textComponent.paste());
                 JMenuItem item6 = new JMenuItem(find + "                                  Ctrl+F");
                     item6.setMargin(new Insets(2, 0, 0, 0));
                     item6.setBackground(new Color(30, 30, 30));
@@ -95,6 +103,7 @@ public class editMenu {
                     sep2.setOpaque(true);
                     sep2.setForeground(new Color(80, 80, 80));
                     sep2.setBackground(new Color(30, 30, 30));
+
 
                 editMenu.add(item1);
                 editMenu.add(item2);

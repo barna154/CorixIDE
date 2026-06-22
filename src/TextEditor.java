@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import util.LanguageManager;
 import util.KeyStrokes;
+import menus.editMenu;
 
 public class TextEditor {
 
@@ -33,7 +34,7 @@ public class TextEditor {
         textComponent.setSelectedTextColor(new Color(218, 218, 218));
         textComponent.getDocument().addUndoableEditListener(undoManager);
 
-         new SyntaxHighlighter(textComponent);
+        new SyntaxHighlighter(textComponent);
 
         JScrollPane scroll = new JScrollPane(textComponent);
         scroll.setBorder(null);
@@ -52,6 +53,14 @@ public class TextEditor {
 
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
+
+        JPopupMenu popup = new JPopupMenu();
+        menus.editMenu menu = new menus.editMenu();
+        menu.init(popup, textComponent, undoManager);
+
+        textComponent.setComponentPopupMenu(popup);
+
+
         textComponent.addKeyListener(
                     new KeyStrokes(
                         () -> saveFile(),

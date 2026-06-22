@@ -144,13 +144,13 @@ public class Main {
         JLabel labelBoards = new JLabel(mboards);
         labelBoards.setFont(new Font("Arial", Font.PLAIN, 15));
         labelBoards.setForeground(new Color(118, 118, 118));
-        JPopupMenu boardSelector = new boardSelector();
+        JPopupMenu boardSelectorPanel = new boardSelector();
         menus.boardSelector bsp = new menus.boardSelector();
-        bsp.init(boardSelector);
+        bsp.init(boardSelectorPanel);
         labelBoards.addMouseListener(new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) { 
-                     boardSelector.show(labelEdit, 0, labelEdit.getHeight());
+                     boardSelectorPanel.show(labelEdit, 0, labelEdit.getHeight());
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {

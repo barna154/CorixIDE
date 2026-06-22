@@ -520,8 +520,8 @@ public class Main {
         dataexplorer.add(item1);
         dataexplorer.add(item2);
         dataexplorer.add(sep);
-        dataexplorer.add(item3);
-        dataexplorer.add(item4);
+        //dataexplorer.add(item3);
+        //dataexplorer.add(item4);
 
 
         JPopupMenu folderMenu = new JPopupMenu();

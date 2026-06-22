@@ -105,6 +105,18 @@ public class newProject {
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
         String projectPath = pathField.getText();
 
+        
+        pathField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        finishBtn.dispatchEvent(new java.awt.event.MouseEvent(
+                            finishBtn, java.awt.event.MouseEvent.MOUSE_CLICKED,
+                            System.currentTimeMillis(), 0, 0, 0, 1, false));
+                    }
+                }
+            });
+
 
         JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
         row2.setPreferredSize(new Dimension(newProject.getWidth(), 50));

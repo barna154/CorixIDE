@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class newFile {
 
-    public void init(JPanel newFile, File targetFile) throws Exception {       
+    public void init(JPanel newFile, File targetFile, Runnable onFinish) throws Exception {       
 
         String newp = LanguageManager.get("New File");
         String ppath = LanguageManager.get("Project Path");
@@ -126,7 +126,35 @@ public class newFile {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newFile.setVisible(false);
-               
+                String fileName = pathField.getText().trim();
+                    if (fileName.isEmpty()) {
+                        System.out.println("Üres mező");
+                        return;
+                    }
+
+                    File dir = (targetFile != null && targetFile.isDirectory())
+                            ? targetFile
+                            : AppPath.MainProject;
+
+                    if (dir == null) {
+                        System.out.println("Nincs célmappa!");
+                        return;
+                    }
+
+                    File newFile2 = new File(dir, fileName);
+                    if (newFile2.exists()) {
+                        System.out.println("A fájl már létezik!");
+                    } else {
+                        try {
+                            boolean success = newFile2.createNewFile();
+                            if (!success) {
+                                System.out.println("Hiba a fájl létrehozásakor!");
+                            }
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    if (onFinish != null) onFinish.run();
 
             }
             @Override

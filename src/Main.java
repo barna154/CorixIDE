@@ -840,7 +840,7 @@ public class Main {
                             File targetDir = (contextTarget[0] != null && contextTarget[0].isDirectory())
                                     ? contextTarget[0]
                                     : util.AppPath.MainProject;
-                            nfp.init(newFilePanel, targetDir);
+                            nfp.init(newFilePanel, targetDir, () -> fe.refresh());
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }

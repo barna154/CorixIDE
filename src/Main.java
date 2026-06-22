@@ -836,11 +836,19 @@ public class Main {
                         newFilePanel.removeAll();
 
                             menus.newFile nfp = new menus.newFile();
-                            try {
-                                nfp.init(newFilePanel, contextTarget[0], () -> fe.refresh());
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
+                                try {
+                                    File targetDir;
+                                    if (contextTarget[0] != null && contextTarget[0].isDirectory()) {
+                                        targetDir = contextTarget[0];
+                                    } else if (contextTarget[0] != null && contextTarget[0].isFile()) {
+                                        targetDir = contextTarget[0].getParentFile();
+                                    } else {
+                                        targetDir = util.AppPath.MainProject;
+                                    }
+                                    nfp.init(newFilePanel, targetDir, () -> fe.refresh());
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
 
                         newFilePanel.revalidate();
                         newFilePanel.repaint();

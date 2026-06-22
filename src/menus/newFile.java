@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class newFile {
 
-    public void init(JPanel newFile, File targetFile, Runnable onSuccess) throws Exception {       
+    public void init(JPanel newFile) throws Exception {       
 
         String newp = LanguageManager.get("New File");
         String ppath = LanguageManager.get("Project Path");
@@ -127,19 +127,7 @@ public class newFile {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newFile.setVisible(false);
-                String newName = pathField.getText().trim();
-                
-                    if (newName.isEmpty()) return;
-
-                        File renamed = new File(targetFile.getParentFile(), newName);
-                        boolean success = targetFile.renameTo(renamed);
-
-                        if (success) {
-                            newFile.setVisible(false); 
-                            if (onSuccess != null) onSuccess.run();
-                        } else {
-                                System.out.println("Error renameing File!");
-                        }
+               
 
             }
             @Override

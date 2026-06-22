@@ -86,6 +86,10 @@ public class Main {
         leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
 
 // Menüpontok
+        TextEditor te = new TextEditor();
+        te.init(editor);
+
+
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));
@@ -388,13 +392,6 @@ public class Main {
         JPanel editor = new JPanel();
         editor.setBackground(new Color(40, 43, 40));
         editor.setLayout(new BorderLayout());
-
-
-        
-        TextEditor te = new TextEditor();
-        te.init(editor);
-
-
 
         JPanel line3 = new JPanel();
         line3.setBackground(new Color(100, 100, 100));

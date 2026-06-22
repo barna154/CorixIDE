@@ -25,5 +25,12 @@
    "Saving falied": "A mentés sikertelen! A fájl már nem létezik.",
    "Rename File": "Átnevezés",
    "New name": "Új név:",
-   "Rename Button": "Átnevezés"
+   "Rename Button": "Átnevezés",
+   "Undo": "Visszavonás",
+   "Redo": "Helyreállítás",
+   "Cut": "Kivágás",
+   "Copy": "Másolás",
+   "Paste": "Beillesztés",
+   "Find": "Keresés",
+   "Replace": "Csere"
  }

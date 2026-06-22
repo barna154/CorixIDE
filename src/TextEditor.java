@@ -1,19 +1,18 @@
 import javax.swing.*;
-import java.awt.*;
 import javax.swing.text.*;
-import javax.swing.undo.UndoManager;
-import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.*;
+import java.awt.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class TextEditor {
 
     private JTextPane textComponent;
     private UndoManager undoManager = new UndoManager();
     private File currentFile;
+
+    private SyntaxHighlighter highlighter;
 
     public void init(JPanel editorPanel) {
 
@@ -29,11 +28,23 @@ public class TextEditor {
 
         textComponent.getDocument().addUndoableEditListener(undoManager);
 
+        highlighter = new SyntaxHighlighter(textComponent);
+
+        textComponent.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                SwingUtilities.invokeLater(() -> highlighter.highlightNow());
+            }
+
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                SwingUtilities.invokeLater(() -> highlighter.highlightNow());
+            }
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {}
+        });
+
         setupKeyBindings();
 
         JScrollPane scroll = new JScrollPane(textComponent);
-        scroll.setBorder(null);
-
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
     }
@@ -43,50 +54,36 @@ public class TextEditor {
         InputMap im = textComponent.getInputMap();
         ActionMap am = textComponent.getActionMap();
 
-        // UNDO
         im.put(KeyStroke.getKeyStroke("control Z"), "undo");
         am.put("undo", new AbstractAction() {
-            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 try {
                     if (undoManager.canUndo()) undoManager.undo();
-                } catch (CannotUndoException ex) {
-                    Toolkit.getDefaultToolkit().beep();
-                }
+                } catch (CannotUndoException ex) {}
             }
         });
 
-        // REDO
         im.put(KeyStroke.getKeyStroke("control Y"), "redo");
         am.put("redo", new AbstractAction() {
-            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 try {
                     if (undoManager.canRedo()) undoManager.redo();
-                } catch (CannotRedoException ex) {
-                    Toolkit.getDefaultToolkit().beep();
-                }
+                } catch (CannotRedoException ex) {}
             }
         });
 
-        // SMART ENTER (AUTO BRACE IDEÁLIS HELYE)
-        im.put(KeyStroke.getKeyStroke("ENTER"), "smart-enter");
+        im.put(KeyStroke.getKeyStroke("ENTER"), "enter");
 
-        am.put("smart-enter", new AbstractAction() {
-            @Override
+        am.put("enter", new AbstractAction() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 try {
                     int pos = textComponent.getCaretPosition();
                     Document doc = textComponent.getDocument();
-
                     String text = doc.getText(0, doc.getLength());
 
                     if (pos > 0 && text.charAt(pos - 1) == '{') {
-
                         doc.insertString(pos, "\n    \n}", null);
-
                         textComponent.setCaretPosition(pos + 5);
-
                     } else {
                         doc.insertString(pos, "\n", null);
                     }
@@ -98,36 +95,33 @@ public class TextEditor {
         });
     }
 
-    // FILE LOAD
     public void openFile(File file) {
+
         if (file == null || file.isDirectory()) return;
 
         try {
-            undoManager.discardAllEdits(); // 🔥 FONTOS
+            undoManager.discardAllEdits();
 
             String content = Files.readString(file.toPath(), StandardCharsets.UTF_8);
 
             textComponent.setText(content);
-            textComponent.setCaretPosition(0);
-
             currentFile = file;
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    // SAVE
     public void saveFile() {
+
         if (currentFile == null) return;
 
         try {
-            Files.writeString(
-                    currentFile.toPath(),
+            Files.writeString(currentFile.toPath(),
                     textComponent.getText(),
-                    StandardCharsets.UTF_8
-            );
-        } catch (IOException ex) {
+                    StandardCharsets.UTF_8);
+
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -138,16 +132,5 @@ public class TextEditor {
 
     public UndoManager getUndoManager() {
         return undoManager;
-
     }
-
-    public interface MessageHandler {
-            void show(String title, String message);
-    }
-
-    private MessageHandler messageHandler;
-
-    public void setMessageHandler(MessageHandler handler) {
-            this.messageHandler = handler;
-        }
 }

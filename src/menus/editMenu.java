@@ -43,7 +43,7 @@ public class editMenu {
                 editMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 
-                JMenuItem item1 = new JMenuItem(undo + "                  Ctrl+Z");
+                JMenuItem item1 = new JMenuItem(undo + "                           Ctrl+Z");
                     item1.setMargin(new Insets(0, 0, 0, 0));
                     item1.setBackground(new Color(30, 30, 30));
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));

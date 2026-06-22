@@ -121,6 +121,7 @@ public class FileExplorer {
                             setIcon(new EmojiIcon("⚙", new Color(0x6F, 0xA1, 0x18), 15));
                             setText(name);
                         } else if (file.getName().endsWith(".hex")) {
+
                         }else {
                             setIcon(new EmojiIcon("📄", new Color(0xA4, 0xE0, 0xAC), 15));
                             setText(file.getName());
@@ -215,6 +216,11 @@ public class FileExplorer {
         });
 
         for (File child : children) {
+
+            if (child.isFile() && child.getName().toLowerCase().endsWith(".hex")) {
+                continue;
+            }
+
             DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(child);
             node.add(childNode);
             if (child.isDirectory()) {

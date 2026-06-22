@@ -73,13 +73,13 @@ public class editMenu {
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
                     item5.setForeground(new Color(230, 230, 230));
                     item5.setOpaque(true);
-                JMenuItem item6 = new JMenuItem(find + "                                 Ctrl+F");
+                JMenuItem item6 = new JMenuItem(find + "                                  Ctrl+F");
                     item6.setMargin(new Insets(0, 0, 0, 0));
                     item6.setBackground(new Color(30, 30, 30));
                     item6.setFont(new Font("Arial", Font.PLAIN, 15));
                     item6.setForeground(new Color(230, 230, 230));
                     item6.setOpaque(true);
-                JMenuItem item7 = new JMenuItem(replace + "                                    Ctrl+H");
+                JMenuItem item7 = new JMenuItem(replace + "                                      Ctrl+H");
                     item7.setMargin(new Insets(0, 0, 0, 0));
                     item7.setBackground(new Color(30, 30, 30));
                     item7.setFont(new Font("Arial", Font.PLAIN, 15));

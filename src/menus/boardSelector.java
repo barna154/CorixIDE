@@ -43,13 +43,11 @@ public class boardSelector {
                     item1.setBackground(new Color(30, 30, 30));
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setOpaque(true);
-                    item1.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                                selectedBoard.BoardName = "PIC16F15256";
-                                boardSelector.setVisible(false); 
-                                boardSelector.repaint();
-                        }
+                    item1.addActionListener(e -> {
+                        selectedBoard.BoardName = "PIC16F15256";
+                        boardSelector.setVisible(false);
+                        boardSelector.repaint();
+                        System.out.println("Selected: " + selectedBoard.BoardName);
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
                     item2.setName("PIC16F15274");
@@ -143,4 +141,3 @@ public class boardSelector {
 
             }
 
-}

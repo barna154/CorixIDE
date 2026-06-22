@@ -101,7 +101,6 @@ public class newFile {
         pathField.setBackground(new Color(30, 30, 30));
         pathField.setForeground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
-        pathField.setText(targetFile.getName());
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
         String projectPath = pathField.getText();
 

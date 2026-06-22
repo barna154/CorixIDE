@@ -38,7 +38,7 @@ public class boardSelector {
                 JMenuItem item1 = new JMenuItem("PIC16F15256");
                     if item1.getName().equals(selectedBoard.BoardName) {
                         item1.setForeground(new Color(13, 255, 122));
-                    } else if {
+                    } else {
                         item1.setForeground(new Color(230, 230, 230));
                     }
                     item1.setMargin(new Insets(6, 0, 6, 0));
@@ -48,7 +48,7 @@ public class boardSelector {
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
                     if item1.getName().equals(selectedBoard.BoardName) {
                         item1.setForeground(new Color(13, 255, 122));
-                    } else if {
+                    } else {
                         item1.setForeground(new Color(230, 230, 230));
                     }
                     item2.setMargin(new Insets(6, 0, 6, 0));
@@ -59,7 +59,7 @@ public class boardSelector {
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
                     if item1.getName().equals(selectedBoard.BoardName) {
                         item1.setForeground(new Color(13, 255, 122));
-                    } else if {
+                    } else {
                         item1.setForeground(new Color(230, 230, 230));
                     }
                     item3.setMargin(new Insets(6, 0, 6, 0));
@@ -70,7 +70,7 @@ public class boardSelector {
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
                     if item1.getName().equals(selectedBoard.BoardName) {
                         item1.setForeground(new Color(13, 255, 122));
-                    } else if {
+                    } else {
                         item1.setForeground(new Color(230, 230, 230));
                     }
                     item4.setMargin(new Insets(6, 0, 6, 0));
@@ -81,7 +81,7 @@ public class boardSelector {
                 JMenuItem item5 = new JMenuItem("Atmega328P");
                     if item1.getName().equals(selectedBoard.BoardName) {
                         item1.setForeground(new Color(13, 255, 122));
-                    } else if {
+                    } else {
                         item1.setForeground(new Color(230, 230, 230));
                     }
                     item5.setMargin(new Insets(6, 0, 6, 0));

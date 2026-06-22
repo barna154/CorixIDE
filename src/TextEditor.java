@@ -138,5 +138,16 @@ public class TextEditor {
 
     public UndoManager getUndoManager() {
         return undoManager;
+
     }
+
+    public interface MessageHandler {
+            void show(String title, String message);
+    }
+
+    private MessageHandler messageHandler;
+
+    public void setMessageHandler(MessageHandler handler) {
+            this.messageHandler = handler;
+        }
 }

@@ -466,12 +466,12 @@ public class Main {
                     JPanel newFilePanel = new JPanel();
                     newFilePanel.setBackground(new Color(50, 50, 50));
                     newFilePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
-                    int panelWidth = (int) (screenWidth / 3.8);
-                    int panelHeight = (int) (screenHeight / 6);
-                    int x = (screenWidth - panelWidth) / 2;
-                    int y = (screenHeight - panelHeight) / 2;
+                    int panelWidth3 = (int) (screenWidth / 3.8);
+                    int panelHeight3 = (int) (screenHeight / 6);
+                    int x3 = (screenWidth - panelWidth3) / 2;
+                    int y3 = (screenHeight - panelHeight3) / 2;
 
-                    newFilePanel.setBounds(x, y, panelWidth, panelHeight);
+                    newFilePanel.setBounds(x3, y3, panelWidth3, panelHeight3);
                     newFilePanel.setLayout(new BorderLayout());
                     newFilePanel.setVisible(false); 
 

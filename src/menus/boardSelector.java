@@ -47,7 +47,6 @@ public class boardSelector {
                         selectedBoard.BoardName = "PIC16F15256";
                         boardSelector.setVisible(false);
                         boardSelector.repaint();
-                        System.out.println("Selected: " + selectedBoard.BoardName);
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
                     item2.setName("PIC16F15274");
@@ -55,13 +54,10 @@ public class boardSelector {
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
                     item2.setOpaque(true);
-                    item2.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                                selectedBoard.BoardName = "PIC16F15274";
-                                boardSelector.setVisible(false); 
-                                boardSelector.repaint();
-                        }
+                    item2.addActionListener(e -> {
+                        selectedBoard.BoardName = "PIC16F15274";
+                        boardSelector.setVisible(false);
+                        boardSelector.repaint();
                     });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
                     item3.setName("PIC16F15275");
@@ -69,13 +65,10 @@ public class boardSelector {
                     item3.setBackground(new Color(30, 30, 30));
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
                     item3.setOpaque(true);
-                    item3.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                                selectedBoard.BoardName = "PIC16F15275";
-                                boardSelector.setVisible(false); 
-                                boardSelector.repaint();
-                        }
+                    item3.addActionListener(e -> {
+                        selectedBoard.BoardName = "PIC16F15275";
+                        boardSelector.setVisible(false);
+                        boardSelector.repaint();
                     });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
                     item4.setName("PIC16F15276");
@@ -83,13 +76,10 @@ public class boardSelector {
                     item4.setBackground(new Color(30, 30, 30));
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
                     item4.setOpaque(true);
-                    item4.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                                selectedBoard.BoardName = "PIC16F15276";
-                                boardSelector.setVisible(false); 
-                                boardSelector.repaint();
-                        }
+                    item4.addActionListener(e -> {
+                        selectedBoard.BoardName = "PIC16F15276";
+                        boardSelector.setVisible(false);
+                        boardSelector.repaint();
                     });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
                     item5.setName("Atmega328P");
@@ -102,14 +92,10 @@ public class boardSelector {
                     item5.setBackground(new Color(30, 30, 30));
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
                     item5.setOpaque(true);
-                    item5.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                                selectedBoard.BoardName = "Atmega328P";
-                                boardSelector.setVisible(false); 
-                                boardSelector.repaint();
-                                System.out.println(selectedBoard.BoardName);
-                        }
+                    item5.addActionListener(e -> {
+                        selectedBoard.BoardName = "Atmega328P";
+                        boardSelector.setVisible(false);
+                        boardSelector.repaint();
                     });
 
                 boardSelector.add(item1);

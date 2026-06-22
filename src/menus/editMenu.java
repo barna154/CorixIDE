@@ -10,6 +10,7 @@ import java.nio.file.Paths;
 import java.io.File; 
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.undo.UndoManager;
 import java.io.FileWriter;
 import util.LanguageManager;
 import util.RoundedBorder;

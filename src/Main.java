@@ -96,8 +96,8 @@ public class Main {
         labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
         JPopupMenu editMenuPopup = new JPopupMenu();
-        menus.editMenu emp = new menus.editMenu();
-        emp.init(editMenuPopup);
+        menus.editMenu emp = new editMenu();
+        emp.init(editMenuPopup, textEditor.getTextComponent(), textEditor.getUndoManager());
 
         labelEdit.addMouseListener(new MouseAdapter() {
         @Override

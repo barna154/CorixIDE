@@ -130,6 +130,13 @@ public class TextEditor {
     return p;
     }
 
+        public JTextPane getTextComponent() {
+            return textComponent;
+        }
+
+        public UndoManager getUndoManager() {
+            return undoManager;
+        }
 
 }
 

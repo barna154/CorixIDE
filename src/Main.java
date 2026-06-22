@@ -839,7 +839,7 @@ public class Main {
 
                     menus.newFile rf = new menus.newFile();
                     try {
-                        rf.init(renamePanel, contextTarget[0]);
+                        rf.init(item2, contextTarget[0]);
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

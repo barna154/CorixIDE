@@ -832,7 +832,7 @@ public class Main {
 
 
 
-                addFile.addActionListener(e -> {
+                item2.addActionListener(e -> {
                     if (contextTarget[0] == null) return;
 
                     item2.removeAll();

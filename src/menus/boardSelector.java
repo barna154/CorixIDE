@@ -7,6 +7,8 @@ import javax.swing.text.JTextComponent;
 import java.nio.file.Files;
 import java.awt.event.*;
 import java.nio.file.Paths;
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 import java.io.File; 
 import java.io.IOException;
 import java.util.Scanner;

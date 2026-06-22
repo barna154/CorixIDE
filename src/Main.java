@@ -101,7 +101,7 @@ public class Main {
         labelEdit.setForeground(new Color(118, 118, 118));
         JPopupMenu editMenuPopup = new JPopupMenu();
         menus.editMenu emp = new editMenu();
-        emp.init(editMenuPopup, textEditor.getTextComponent(), textEditor.getUndoManager());
+        emp.init(editMenuPopup, te.getTextComponent(), te.getUndoManager());
 
         labelEdit.addMouseListener(new MouseAdapter() {
         @Override

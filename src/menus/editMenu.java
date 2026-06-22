@@ -44,7 +44,7 @@ public class editMenu {
 
 
                 JMenuItem item1 = new JMenuItem(undo + "                           Ctrl+Z");
-                    item1.setMargin(new Insets(0, 0, 0, 0));
+                    item1.setMargin(new Insets(1, 0, 1, 0));
                     item1.setBackground(new Color(30, 30, 30));
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setForeground(new Color(230, 230, 230));

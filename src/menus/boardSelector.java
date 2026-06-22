@@ -50,6 +50,8 @@ public class boardSelector {
                         @Override
                         public void mouseClicked(MouseEvent e) {
                                 selectedBoard.BoardName = "PIC16F15256";
+                                boardSelector.setVisible(false); 
+                                boardSelector.repaint();
                         }
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
@@ -63,6 +65,14 @@ public class boardSelector {
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
                     item2.setOpaque(true);
+                    item2.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                                selectedBoard.BoardName = "PIC16F15274";
+                                boardSelector.setVisible(false); 
+                                boardSelector.repaint();
+                        }
+                    });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
                     item3.setName("PIC16F15275");
                     if (item3.getName().equals(selectedBoard.BoardName)) {
@@ -74,6 +84,14 @@ public class boardSelector {
                     item3.setBackground(new Color(30, 30, 30));
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
                     item3.setOpaque(true);
+                    item3.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                                selectedBoard.BoardName = "PIC16F15275";
+                                boardSelector.setVisible(false); 
+                                boardSelector.repaint();
+                        }
+                    });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
                     item4.setName("PIC16F15276");
                     if (item4.getName().equals(selectedBoard.BoardName)) {
@@ -85,6 +103,14 @@ public class boardSelector {
                     item4.setBackground(new Color(30, 30, 30));
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
                     item4.setOpaque(true);
+                    item4.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                                selectedBoard.BoardName = "PIC16F15276";
+                                boardSelector.setVisible(false); 
+                                boardSelector.repaint();
+                        }
+                    });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
                     item5.setName("Atmega328P");
                     if (item5.getName().equals(selectedBoard.BoardName)) {
@@ -96,6 +122,14 @@ public class boardSelector {
                     item5.setBackground(new Color(30, 30, 30));
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
                     item5.setOpaque(true);
+                    item5.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                                selectedBoard.BoardName = "Atmega328P";
+                                boardSelector.setVisible(false); 
+                                boardSelector.repaint();
+                        }
+                    });
 
                 boardSelector.add(item1);
                 boardSelector.add(item2);

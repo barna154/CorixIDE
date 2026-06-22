@@ -458,6 +458,27 @@ public class Main {
                     renamePanel.setVisible(false); 
 
                     window.getLayeredPane().add(renamePanel, JLayeredPane.POPUP_LAYER);
+
+
+
+                    //new file Panel
+
+                    JPanel newFilePanel = new JPanel();
+                    newFilePanel.setBackground(new Color(50, 50, 50));
+                    newFilePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
+                    int panelWidth = (int) (screenWidth / 3.8);
+                    int panelHeight = (int) (screenHeight / 6);
+                    int x = (screenWidth - panelWidth) / 2;
+                    int y = (screenHeight - panelHeight) / 2;
+
+                    newFilePanel.setBounds(x, y, panelWidth, panelHeight);
+                    newFilePanel.setLayout(new BorderLayout());
+                    newFilePanel.setVisible(false); 
+
+                    newFile nfp = new newFile();
+                    nfp.init(newFilePanel);
+
+                    window.getLayeredPane().add(newFilePanel, JLayeredPane.POPUP_LAYER);
                 
 
 
@@ -469,7 +490,7 @@ public class Main {
             item1.setOpaque(true);
             
             item1.addActionListener(e -> {
-                newProjectPanel.setVisible(true);
+                newFilePanel.setVisible(true);
                 window.getLayeredPane().revalidate();
                 window.getLayeredPane().repaint();
             });
@@ -480,6 +501,13 @@ public class Main {
             item2.setFont(new Font("Arial", Font.PLAIN, 15));
             item2.setForeground(new Color(230, 230, 230));
             item2.setOpaque(true);
+
+            item2.addActionListener(e -> {
+                newProjectPanel.setVisible(true);
+                window.getLayeredPane().revalidate();
+                window.getLayeredPane().repaint();
+            });
+
         JMenuItem item3 = new JMenuItem(openp);
             item3.setMargin(new Insets(0, 0, 0, 0));
             item3.setBackground(new Color(30, 30, 30));

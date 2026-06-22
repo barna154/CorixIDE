@@ -952,6 +952,12 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 
+//Menüpontok actionlistenere
+
+        labelFile.addActionListener(e -> {
+            dataexplorer.show(labelFile, 0, labelFile.getHeight());
+        });                        
+
 //RESIZE
 
 final int RESIZE_MARGIN = 5;

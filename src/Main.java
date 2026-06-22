@@ -473,7 +473,7 @@ public class Main {
 
 
         JMenuItem item1 = new JMenuItem(newp);
-            item1.setMargin(new Insets(0, 0, 0, 0));
+            item1.setMargin(new Insets(1, 0, 0, 0));
             item1.setBackground(new Color(30, 30, 30));
             item1.setFont(new Font("Arial", Font.PLAIN, 15));
             item1.setForeground(new Color(230, 230, 230));
@@ -486,19 +486,19 @@ public class Main {
             });
 
         JMenuItem item2 = new JMenuItem(newf);
-            item2.setMargin(new Insets(0, 0, 0, 0));
+            item2.setMargin(new Insets(1, 0, 0, 0));
             item2.setBackground(new Color(30, 30, 30));
             item2.setFont(new Font("Arial", Font.PLAIN, 15));
             item2.setForeground(new Color(230, 230, 230));
             item2.setOpaque(true);
         JMenuItem item3 = new JMenuItem(openp);
-            item3.setMargin(new Insets(0, 0, 0, 0));
+            item3.setMargin(new Insets(1, 0, 0, 0));
             item3.setBackground(new Color(30, 30, 30));
             item3.setFont(new Font("Arial", Font.PLAIN, 15));
             item3.setForeground(new Color(230, 230, 230));
             item3.setOpaque(true);
         JMenuItem item4 = new JMenuItem(mainp);
-            item4.setMargin(new Insets(0, 0, 0, 0));
+            item4.setMargin(new Insets(1, 0, 0, 0));
             item4.setBackground(new Color(30, 30, 30));
             item4.setFont(new Font("Arial", Font.PLAIN, 15));
             item4.setForeground(new Color(230, 230, 230));
@@ -524,25 +524,25 @@ public class Main {
         folderMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
         JMenuItem newFileInFolder = new JMenuItem(newf);
-            newFileInFolder.setMargin(new Insets(0, 0, 0, 0));
+            newFileInFolder.setMargin(new Insets(1, 0, 0, 0));
             newFileInFolder.setBackground(new Color(30, 30, 30));
             newFileInFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             newFileInFolder.setForeground(new Color(230, 230, 230));
             newFileInFolder.setOpaque(true);
         JMenuItem renameFolder = new JMenuItem(rnam);
-            renameFolder.setMargin(new Insets(0, 0, 0, 0));
+            renameFolder.setMargin(new Insets(1, 0, 0, 0));
             renameFolder.setBackground(new Color(30, 30, 30));
             renameFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             renameFolder.setForeground(new Color(230, 230, 230));
             renameFolder.setOpaque(true);
         JMenuItem deleteFolder = new JMenuItem(dlte);
-            deleteFolder.setMargin(new Insets(0, 0, 0, 0));
+            deleteFolder.setMargin(new Insets(1, 0, 0, 0));
             deleteFolder.setBackground(new Color(30, 30, 30));
             deleteFolder.setFont(new Font("Arial", Font.PLAIN, 15));
             deleteFolder.setForeground(new Color(230, 230, 230));
             deleteFolder.setOpaque(true);
         JMenuItem mainpr = new JMenuItem(mainp);
-            mainpr.setMargin(new Insets(0, 0, 0, 0));
+            mainpr.setMargin(new Insets(1, 0, 0, 0));
             mainpr.setBackground(new Color(30, 30, 30));
             mainpr.setFont(new Font("Arial", Font.PLAIN, 15));
             mainpr.setForeground(new Color(230, 230, 230));
@@ -570,19 +570,19 @@ public class Main {
         fileMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
         JMenuItem openFile = new JMenuItem(openf);
-            openFile.setMargin(new Insets(0, 0, 0, 0));
+            openFile.setMargin(new Insets(1, 0, 0, 0));
             openFile.setBackground(new Color(30, 30, 30));
             openFile.setFont(new Font("Arial", Font.PLAIN, 15));
             openFile.setForeground(new Color(230, 230, 230));
             openFile.setOpaque(true);
         JMenuItem renameFileItem = new JMenuItem(rnam);
-            renameFileItem.setMargin(new Insets(0, 0, 0, 0));
+            renameFileItem.setMargin(new Insets(1, 0, 0, 0));
             renameFileItem.setBackground(new Color(30, 30, 30));
             renameFileItem.setFont(new Font("Arial", Font.PLAIN, 15));
             renameFileItem.setForeground(new Color(230, 230, 230));
             renameFileItem.setOpaque(true);
         JMenuItem deleteFile = new JMenuItem(dlte);
-            deleteFile.setMargin(new Insets(0, 0, 0, 0));
+            deleteFile.setMargin(new Insets(1, 0, 0, 0));
             deleteFile.setBackground(new Color(30, 30, 30));
             deleteFile.setFont(new Font("Arial", Font.PLAIN, 15));
             deleteFile.setForeground(new Color(230, 230, 230));

@@ -833,23 +833,24 @@ public class Main {
 
 
                 item2.addActionListener(e -> {
-                    if (contextTarget[0] == null) return;
+                        newFilePanel.removeAll();
 
-                    item2.removeAll();
+                        menus.newFile nfp = new menus.newFile();
+                        try {
+                            File targetDir = (contextTarget[0] != null && contextTarget[0].isDirectory())
+                                    ? contextTarget[0]
+                                    : util.AppPath.MainProject;
+                            nfp.init(newFilePanel, targetDir);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
 
-                    menus.newFile rf = new menus.newFile();
-                    try {
-                        rf.init(item2, contextTarget[0]);
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    item2.revalidate();
-                    item2.repaint();
-                    item2.setVisible(true);
-                    window.getLayeredPane().revalidate();
-                    window.getLayeredPane().repaint();
-                });
+                        newFilePanel.revalidate();
+                        newFilePanel.repaint();
+                        newFilePanel.setVisible(true);
+                        window.getLayeredPane().revalidate();
+                        window.getLayeredPane().repaint();
+                    });
         
 //Konzol
 

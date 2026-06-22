@@ -21,10 +21,13 @@ public class editMenu {
             public void init(JPopupMenu editMenu) throws Exception {
 
 
-                String newp = LanguageManager.get("New Project");
-                String newf = LanguageManager.get("New file");
-                String openp = LanguageManager.get("Open Project");
-                String mainp = LanguageManager.get("Main Project");
+                String undo = LanguageManager.get("Undo");
+                String redo = LanguageManager.get("Redo");
+                String cut = LanguageManager.get("Cut");
+                String copy = LanguageManager.get("Copy");
+                String paste = LanguageManager.get("Paste");
+                String find = LanguageManager.get("Find");
+                String replace = LanguageManager.get("Replace");
 
 
                 UIManager.put("MenuItem.background", new Color(30, 30, 30));
@@ -40,42 +43,68 @@ public class editMenu {
                 editMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 
-                JMenuItem item1 = new JMenuItem(newp);
+                JMenuItem item1 = new JMenuItem(undo);
                     item1.setMargin(new Insets(0, 0, 0, 0));
                     item1.setBackground(new Color(30, 30, 30));
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setForeground(new Color(230, 230, 230));
                     item1.setOpaque(true);
-                JMenuItem item2 = new JMenuItem(newf);
+                JMenuItem item2 = new JMenuItem(redo);
                     item2.setMargin(new Insets(0, 0, 0, 0));
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
                     item2.setForeground(new Color(230, 230, 230));
                     item2.setOpaque(true);
-                JMenuItem item3 = new JMenuItem(openp);
+                JMenuItem item3 = new JMenuItem(cut);
                     item3.setMargin(new Insets(0, 0, 0, 0));
                     item3.setBackground(new Color(30, 30, 30));
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
                     item3.setForeground(new Color(230, 230, 230));
                     item3.setOpaque(true);
-                JMenuItem item4 = new JMenuItem(mainp);
+                JMenuItem item4 = new JMenuItem(copy);
                     item4.setMargin(new Insets(0, 0, 0, 0));
                     item4.setBackground(new Color(30, 30, 30));
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
                     item4.setForeground(new Color(230, 230, 230));
                     item4.setOpaque(true);
+                JMenuItem item5 = new JMenuItem(paste);
+                    item5.setMargin(new Insets(0, 0, 0, 0));
+                    item5.setBackground(new Color(30, 30, 30));
+                    item5.setFont(new Font("Arial", Font.PLAIN, 15));
+                    item5.setForeground(new Color(230, 230, 230));
+                    item5.setOpaque(true);
+                JMenuItem item6 = new JMenuItem(find);
+                    item6.setMargin(new Insets(0, 0, 0, 0));
+                    item6.setBackground(new Color(30, 30, 30));
+                    item6.setFont(new Font("Arial", Font.PLAIN, 15));
+                    item6.setForeground(new Color(230, 230, 230));
+                    item6.setOpaque(true);
+                JMenuItem item7 = new JMenuItem(replace);
+                    item7.setMargin(new Insets(0, 0, 0, 0));
+                    item7.setBackground(new Color(30, 30, 30));
+                    item7.setFont(new Font("Arial", Font.PLAIN, 15));
+                    item7.setForeground(new Color(230, 230, 230));
+                    item7.setOpaque(true);
 
                 JSeparator sep = new JSeparator();
                     sep.setOpaque(true);
                     sep.setForeground(new Color(80, 80, 80));
                     sep.setBackground(new Color(30, 30, 30));
+                
+                JSeparator sep2 = new JSeparator();
+                    sep2.setOpaque(true);
+                    sep2.setForeground(new Color(80, 80, 80));
+                    sep2.setBackground(new Color(30, 30, 30));
 
                 editMenu.add(item1);
                 editMenu.add(item2);
                 editMenu.add(sep);
                 editMenu.add(item3);
                 editMenu.add(item4);
-
+                editMenu.add(item5);
+                editMenu.add(sep2);
+                editMenu.add(item6);
+                editMenu.add(item7);
 
             }
 

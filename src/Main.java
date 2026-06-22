@@ -408,7 +408,7 @@ public class Main {
         dataexplorer.setOpaque(true);
         dataexplorer.setBackground(new Color(30, 30, 30));
         dataexplorer.setForeground(new Color(30, 30, 30));
-        dataexplorer.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+        dataexplorer.setBorder(new RoundedBorder(7, new Color(20, 20, 20)));
         dataexplorer.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 
@@ -518,7 +518,7 @@ public class Main {
 
         JPopupMenu folderMenu = new JPopupMenu();
         folderMenu.setBackground(new Color(30, 30, 30));
-        folderMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+        folderMenu.setBorder(new RoundedBorder(7, new Color(20, 20, 20)));
         folderMenu.setOpaque(true);
         folderMenu.setForeground(new Color(30, 30, 30));
         folderMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);

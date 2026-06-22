@@ -19,6 +19,12 @@ public class editMenu {
             public void init(JPopupMenu editMenu) throws Exception {
 
 
+                String newp = LanguageManager.get("New Project");
+                String newf = LanguageManager.get("New file");
+                String openp = LanguageManager.get("Open Project");
+                String mainp = LanguageManager.get("Main Project");
+
+
                 UIManager.put("MenuItem.background", new Color(30, 30, 30));
                 UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
                 UIManager.put("MenuItem.selectionForeground", new Color(230, 230, 230));
@@ -28,7 +34,6 @@ public class editMenu {
                 editMenu.setOpaque(true);
                 editMenu.setBackground(new Color(30, 30, 30));
                 editMenu.setForeground(new Color(30, 30, 30));
-                editMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
                 editMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 

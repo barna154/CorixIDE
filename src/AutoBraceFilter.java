@@ -1,5 +1,4 @@
 import javax.swing.text.*;
-import javax.swing.text.AbstractDocument;
 
 public class AutoBraceFilter extends DocumentFilter {
 
@@ -7,11 +6,13 @@ public class AutoBraceFilter extends DocumentFilter {
     public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
             throws BadLocationException {
 
+        // ENTER kezelés
         if ("\n".equals(text)) {
             handleEnter(fb, offset, length, attrs);
             return;
         }
 
+        // normál csere
         super.replace(fb, offset, length, text, attrs);
     }
 
@@ -21,13 +22,15 @@ public class AutoBraceFilter extends DocumentFilter {
         Document doc = fb.getDocument();
         String content = doc.getText(0, doc.getLength());
 
+        // Ha { után vagyunk
         if (offset > 0 && content.charAt(offset - 1) == '{') {
 
-            String insert = "\n    \n}";
-            fb.replace(offset, length, insert, attrs);
+            // EGYETLEN replace → UndoManager boldog
+            fb.replace(offset, length, "\n    \n}", attrs);
 
         } else {
 
+            // sima enter → EGYETLEN replace
             fb.replace(offset, length, "\n", attrs);
         }
     }

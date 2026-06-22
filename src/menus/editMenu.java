@@ -36,7 +36,7 @@ public class editMenu {
                 editMenu.setOpaque(true);
                 editMenu.setBackground(new Color(30, 30, 30));
                 editMenu.setForeground(new Color(30, 30, 30));
-                editMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
+                editMenu.setBorder(new RoundedBorder(60, new Color(20, 20, 20)));
                 editMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 

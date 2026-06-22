@@ -488,7 +488,7 @@ public class Main {
             item1.setOpaque(true);
             
             item1.addActionListener(e -> {
-                newFilePanel.setVisible(true);
+                newProjectPanel.setVisible(true);
                 window.getLayeredPane().revalidate();
                 window.getLayeredPane().repaint();
             });

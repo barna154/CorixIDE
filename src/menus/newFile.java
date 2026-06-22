@@ -23,7 +23,7 @@ public class newFile {
         String newp = LanguageManager.get("New File");
         String ppath = LanguageManager.get("Project Path");
         String npan = LanguageManager.get("File Name");
-        String fnsbtn = LanguageManager.get("Rename Button");
+        String fnsbtn = LanguageManager.get("Finish Button");
 
 
         newFile.setLayout(new BorderLayout());

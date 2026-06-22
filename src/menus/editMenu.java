@@ -69,9 +69,9 @@ public class editMenu {
 
                 editMenu.add(item1);
                 editMenu.add(item2);
-                dataexplorer.add(sep);
-                dataexplorer.add(item3);
-                dataexplorer.add(item4);
+                editMenu.add(sep);
+                editMenu.add(item3);
+                editMenu.add(item4);
 
 
             }

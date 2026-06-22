@@ -19,7 +19,8 @@ import util.RoundedBorder;
 
 public class editMenu {
 
-            public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager) throws Exception {
+            public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager) {
+
 
                 String undo = LanguageManager.get("Undo");
                 String redo = LanguageManager.get("Redo");

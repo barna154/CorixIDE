@@ -8,6 +8,7 @@
    "Boards": "Próbapanel",
    "New Project": "Új projekt",
    "New file": "Új fájl",
+   "File Name": "Fájl neve:",
    "Rename": "Átnevezés",
    "Delete": "Törlés",
    "Open": "Megnyitás",
@@ -21,7 +22,7 @@
    "Deleting folders": "Biztosan törlöd ezt a mappát:",
    "Sure": "Igen",
    "No": "Mégse",
-   "Saving falied": "Saving failed! The file no longer exists.",
+   "Saving falied": "A mentés sikertelen! A fájl már nem létezik.",
    "Rename File": "Átnevezés",
    "New name": "Új név:",
    "Rename Button": "Átnevezés"

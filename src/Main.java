@@ -9,6 +9,7 @@ import java.awt.*;
 import javax.swing.border.Border;
 import javax.swing.tree.*;
 import menus.newProject;
+import menus.newFile;
 import menus.renameFile;
 import util.LanguageManager;
 
@@ -38,7 +39,7 @@ public class Main {
         String notext = LanguageManager.get("No");
 //WINDOW
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle maxBounds = ge.getMaximumWindowBounds(); // monitor + tálca
+        Rectangle maxBounds = ge.getMaximumWindowBounds(); 
 
         int screenWidth = maxBounds.width;
         int screenHeight = maxBounds.height;

@@ -16,16 +16,17 @@ import util.AppPath;
 
 
 
-public class renameFile {
+public class newFile {
 
-    public void init(JPanel renameFile, File targetFile, Runnable onSuccess) throws Exception {       
+    public void init(JPanel newFile, File targetFile, Runnable onSuccess) throws Exception {       
 
-        String newp = LanguageManager.get("Rename File");
-        String npan = LanguageManager.get("New name");
+        String newp = LanguageManager.get("New File");
+        String ppath = LanguageManager.get("Project Path");
+        String npan = LanguageManager.get("File Name");
         String fnsbtn = LanguageManager.get("Rename Button");
 
 
-        renameFile.setLayout(new BorderLayout());
+        newFile.setLayout(new BorderLayout());
 
 
         final int[] mouseOffset = new int[2];
@@ -57,7 +58,7 @@ public class renameFile {
         closeBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                 renameFile.setVisible(false);
+                 newFile.setVisible(false);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -78,7 +79,7 @@ public class renameFile {
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
-        renameFile.add(Menu, BorderLayout.NORTH);
+        newFile.add(Menu, BorderLayout.NORTH);
 
 
         JPanel centerPanel = new JPanel();
@@ -87,7 +88,7 @@ public class renameFile {
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row1.setPreferredSize(new Dimension(renameFile.getWidth(), 50));
+        row1.setPreferredSize(new Dimension(newFile.getWidth(), 50));
         row1.setMaximumSize(row1.getPreferredSize());
         row1.setBackground(centerPanel.getBackground());
 
@@ -109,7 +110,7 @@ public class renameFile {
         row1.add(namePanel);
         row1.add(pathField);
         centerPanel.add(row1);
-        renameFile.add(centerPanel);
+        newFile.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
         rightPanel2.setOpaque(false);
@@ -125,7 +126,7 @@ public class renameFile {
         finishBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                renameFile.setVisible(false);
+                newFile.setVisible(false);
                 String newName = pathField.getText().trim();
                 
                     if (newName.isEmpty()) return;
@@ -134,7 +135,7 @@ public class renameFile {
                         boolean success = targetFile.renameTo(renamed);
 
                         if (success) {
-                            renameFile.setVisible(false); 
+                            newFile.setVisible(false); 
                             if (onSuccess != null) onSuccess.run();
                         } else {
                                 System.out.println("Error renameing File!");
@@ -151,8 +152,8 @@ public class renameFile {
             }
         });
         rightPanel2.add(finishBtn);
-        renameFile.setCursor(Cursor.getDefaultCursor());
-        renameFile.add(rightPanel2, BorderLayout.SOUTH);
+        newFile.setCursor(Cursor.getDefaultCursor());
+        newFile.add(rightPanel2, BorderLayout.SOUTH);
 
 
 

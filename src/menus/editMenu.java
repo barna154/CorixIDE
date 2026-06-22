@@ -8,10 +8,12 @@ import java.nio.file.Files;
 import java.awt.event.*;
 import java.nio.file.Paths;
 import java.io.File; 
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import util.LanguageManager;
-import java.io.IOException;
+import util.RoundedBorder;
+
 
 
 public class editMenu {
@@ -34,6 +36,7 @@ public class editMenu {
                 editMenu.setOpaque(true);
                 editMenu.setBackground(new Color(30, 30, 30));
                 editMenu.setForeground(new Color(30, 30, 30));
+                editMenu.setBorder(new RoundedBorder(10, new Color(20, 20, 20)));
                 editMenu.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 

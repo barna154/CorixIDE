@@ -89,6 +89,8 @@ public class Main {
         labelFile.addMouseListener(new MouseAdapter() {
          @Override
             public void mouseClicked(MouseEvent e) { 
+                 dataexplorer.show(labelFile, 0, labelFile.getHeight());
+
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -950,13 +952,6 @@ public class Main {
 
         back.add(center, BorderLayout.CENTER);
         resizeBorder.add(back, BorderLayout.CENTER);
-
-
-//Menüpontok actionlistenere
-
-        labelFile.addActionListener(e -> {
-            dataexplorer.show(labelFile, 0, labelFile.getHeight());
-        });                        
 
 //RESIZE
 

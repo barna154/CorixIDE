@@ -36,6 +36,7 @@ public class boardSelector {
 
 
                 JMenuItem item1 = new JMenuItem("PIC16F15256");
+                    item1.setName("PIC16F15256");
                     if (item1.getName().equals(selectedBoard.BoardName)) {
                         item1.setForeground(new Color(13, 255, 122));
                     } else {
@@ -46,6 +47,7 @@ public class boardSelector {
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setOpaque(true);
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
+                    item1.setName("PIC16F15274");
                     if (item1.getName().equals(selectedBoard.BoardName)) {
                         item1.setForeground(new Color(13, 255, 122));
                     } else {
@@ -57,6 +59,7 @@ public class boardSelector {
                     item2.setForeground(new Color(230, 230, 230));
                     item2.setOpaque(true);
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
+                    item1.setName("PIC16F15275");
                     if (item1.getName().equals(selectedBoard.BoardName)) {
                         item1.setForeground(new Color(13, 255, 122));
                     } else {
@@ -68,6 +71,7 @@ public class boardSelector {
                     item3.setForeground(new Color(230, 230, 230));
                     item3.setOpaque(true);
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
+                    item1.setName("PIC16F15276");
                     if (item1.getName().equals(selectedBoard.BoardName)) {
                         item1.setForeground(new Color(13, 255, 122));
                     } else {
@@ -79,6 +83,7 @@ public class boardSelector {
                     item4.setForeground(new Color(230, 230, 230));
                     item4.setOpaque(true);
                 JMenuItem item5 = new JMenuItem("Atmega328P");
+                    item1.setName("Atmega328P");
                     if (item1.getName().equals(selectedBoard.BoardName)) {
                         item1.setForeground(new Color(13, 255, 122));
                     } else {

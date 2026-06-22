@@ -85,9 +85,22 @@ public class Main {
         Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
 
-// Menüpontok
+//Editor
+
+        JPanel editor = new JPanel();
+        editor.setBackground(new Color(40, 43, 40));
+        editor.setLayout(new BorderLayout());
+
         TextEditor te = new TextEditor();
         te.init(editor);
+
+        JPanel line3 = new JPanel();
+        line3.setBackground(new Color(100, 100, 100));
+        line3.setPreferredSize(new Dimension(1, 0)); 
+
+
+
+// Menüpontok
 
 
         JLabel labelFile = new JLabel(mfile);
@@ -385,18 +398,6 @@ public class Main {
         JPanel back = new JPanel();
         back.setBackground(new Color(90, 90, 90));
         back.setLayout(new BorderLayout());
-
-   
-//Editor
-
-        JPanel editor = new JPanel();
-        editor.setBackground(new Color(40, 43, 40));
-        editor.setLayout(new BorderLayout());
-
-        JPanel line3 = new JPanel();
-        line3.setBackground(new Color(100, 100, 100));
-        line3.setPreferredSize(new Dimension(1, 0)); 
-
 
 
 //fájlkezelő

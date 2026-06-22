@@ -122,11 +122,11 @@ public class boardSelector {
                     @Override
                     public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                         for (Component c : boardSelector.getComponents()) {
-                            if (c instanceof JMenuItem item) {
-                                if (item.getName().equals(selectedBoard.BoardName)) {
-                                    item.setForeground(new Color(13, 255, 122));
+                            if (c instanceof JMenuItem item1) {
+                                if (item1.getName().equals(selectedBoard.BoardName)) {
+                                    item1.setForeground(new Color(13, 255, 122));
                                 } else {
-                                    item.setForeground(new Color(230, 230, 230));
+                                    item1.setForeground(new Color(230, 230, 230));
                                 }
                             }
                         }

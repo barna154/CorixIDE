@@ -1,4 +1,5 @@
 import javax.swing.text.*;
+import javax.swing.undo.CompoundEdit;
 
 public class AutoBraceFilter extends DocumentFilter {
 
@@ -11,7 +12,6 @@ public class AutoBraceFilter extends DocumentFilter {
             return;
         }
 
-    
         super.replace(fb, offset, length, text, attrs);
     }
 
@@ -21,13 +21,16 @@ public class AutoBraceFilter extends DocumentFilter {
         Document doc = fb.getDocument();
         String content = doc.getText(0, doc.getLength());
 
+        CompoundEdit edit = new CompoundEdit();
+
         if (offset > 0 && content.charAt(offset - 1) == '{') {
 
             fb.replace(offset, length, "\n    \n}", attrs);
 
         } else {
-
             fb.replace(offset, length, "\n", attrs);
         }
+
+        edit.end(); 
     }
 }

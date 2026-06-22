@@ -110,6 +110,7 @@ public class boardSelector {
                                 selectedBoard.BoardName = "Atmega328P";
                                 boardSelector.setVisible(false); 
                                 boardSelector.repaint();
+                                System.out.println(selectedBoard.BoardName);
                         }
                     });
 

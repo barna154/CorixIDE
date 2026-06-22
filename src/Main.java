@@ -150,7 +150,7 @@ public class Main {
         labelBoards.addMouseListener(new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) { 
-                     boardSelectorPanel.show(labelEdit, 0, labelEdit.getHeight());
+                     boardSelectorPanel.show(labelBoards, 0, labelBoards.getHeight());
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {

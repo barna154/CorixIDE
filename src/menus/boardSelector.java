@@ -45,7 +45,6 @@ public class boardSelector {
                     item1.setOpaque(true);
                     item1.addActionListener(e -> {
                         selectedBoard.BoardName = "PIC16F15256";
-                        boardSelector.setVisible(false);
                         boardSelector.repaint();
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
@@ -56,7 +55,6 @@ public class boardSelector {
                     item2.setOpaque(true);
                     item2.addActionListener(e -> {
                         selectedBoard.BoardName = "PIC16F15274";
-                        boardSelector.setVisible(false);
                         boardSelector.repaint();
                     });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
@@ -67,7 +65,6 @@ public class boardSelector {
                     item3.setOpaque(true);
                     item3.addActionListener(e -> {
                         selectedBoard.BoardName = "PIC16F15275";
-                        boardSelector.setVisible(false);
                         boardSelector.repaint();
                     });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
@@ -78,7 +75,6 @@ public class boardSelector {
                     item4.setOpaque(true);
                     item4.addActionListener(e -> {
                         selectedBoard.BoardName = "PIC16F15276";
-                        boardSelector.setVisible(false);
                         boardSelector.repaint();
                     });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
@@ -94,7 +90,6 @@ public class boardSelector {
                     item5.setOpaque(true);
                     item5.addActionListener(e -> {
                         selectedBoard.BoardName = "Atmega328P";
-                        boardSelector.setVisible(false);
                         boardSelector.repaint();
                     });
 

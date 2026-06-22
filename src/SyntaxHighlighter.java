@@ -7,41 +7,53 @@ public class SyntaxHighlighter {
 
     private final JTextPane textPane;
     private final StyledDocument doc;
+
     private boolean updating = false;
+    private Timer timer;
+
+    private Style normalStyle;
+    private Style numberStyle;
+    private Style braceStyle;
+    private Style keywordStyle;
+    private Style paramStyle;
+    private Style boolStyle;
+    private Style commentStyle;
 
     public SyntaxHighlighter(JTextPane textPane) {
         this.textPane = textPane;
         this.doc = textPane.getStyledDocument();
 
-        textPane.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { highlightSafe(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { highlightSafe(); }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { highlightSafe(); }
-        });
-
         createStyles();
+
+        // 🔥 debounce timer (nem minden keypress-re fut)
+        timer = new Timer(150, e -> highlight());
+        timer.setRepeats(false);
+
+        doc.addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { schedule(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { schedule(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { schedule(); }
+        });
     }
 
-    private Style numberStyle;
-    private Style normalStyle;
-    private Style tesztStyle;
-    private Style typeStyle;
-    private Style paramStyle;
-    private Style boolStyle;
-    private Style fullLineStyle;
+    private void schedule() {
+        if (updating) return;
+        timer.restart();
+    }
 
     private void createStyles() {
+
         normalStyle = doc.addStyle("normal", null);
         StyleConstants.setForeground(normalStyle, new Color(218, 218, 218));
 
-        tesztStyle = doc.addStyle("brace", null);
-        StyleConstants.setForeground(tesztStyle, new Color(120, 120, 200));
-
-        typeStyle = doc.addStyle("types", null);
-        StyleConstants.setForeground(typeStyle, new Color(150, 220, 150));
-
         numberStyle = doc.addStyle("number", null);
         StyleConstants.setForeground(numberStyle, new Color(75, 220, 165));
+
+        braceStyle = doc.addStyle("brace", null);
+        StyleConstants.setForeground(braceStyle, new Color(120, 120, 200));
+
+        keywordStyle = doc.addStyle("keyword", null);
+        StyleConstants.setForeground(keywordStyle, new Color(150, 220, 150));
 
         paramStyle = doc.addStyle("param", null);
         StyleConstants.setForeground(paramStyle, new Color(170, 60, 150));
@@ -49,103 +61,49 @@ public class SyntaxHighlighter {
         boolStyle = doc.addStyle("bool", null);
         StyleConstants.setForeground(boolStyle, new Color(50, 50, 200));
 
-        fullLineStyle = doc.addStyle("fullLine", null);
-        StyleConstants.setForeground(fullLineStyle, new Color(150, 150, 150));  
-
-    }
-
-    private void highlightSafe() {
-        if (updating) return; 
-
-        updating = true;
-        SwingUtilities.invokeLater(() -> {
-            try {
-                highlight();
-            } finally {
-                updating = false;
-            }
-        });
+        commentStyle = doc.addStyle("comment", null);
+        StyleConstants.setForeground(commentStyle, new Color(150, 150, 150));
     }
 
     private void highlight() {
+        if (updating) return;
+
+        updating = true;
+
         try {
             String text = doc.getText(0, doc.getLength());
 
-    
+            // 🔥 reset
             doc.setCharacterAttributes(0, text.length(), normalStyle, false);
 
+            apply("\\b\\d+\\b", text, numberStyle);
+            apply("\\{|\\}", text, braceStyle);
+            apply("\\b(setup|loop|config)\\b", text, keywordStyle);
+            apply("\\b(IN|OUT)\\b", text, paramStyle);
+            apply("\\b(TRUE|FALSE)\\b", text, boolStyle);
 
-            Matcher m = Pattern.compile("\\b\\d+\\b").matcher(text);
-            while (m.find()) {
-                doc.setCharacterAttributes(m.start(), m.end() - m.start(), numberStyle, false);
-            }
-
-
-            Matcher zarojel = Pattern.compile("\\{").matcher(text);
-            while (zarojel.find()) {
-                doc.setCharacterAttributes(zarojel.start(), zarojel.end() - zarojel.start(), tesztStyle, false);
-            }
-
-            Matcher zarojel2 = Pattern.compile("\\}").matcher(text);
-            while (zarojel2.find()) {
-                doc.setCharacterAttributes(zarojel2.start(), zarojel2.end() - zarojel2.start(), tesztStyle, false);
-            }
-
-            Matcher vesszo = Pattern.compile("\\;").matcher(text);
-            while (vesszo.find()) {
-                doc.setCharacterAttributes(vesszo.start(), vesszo.end() - vesszo.start(), tesztStyle, false);
-            }
-            
-            Matcher v = Pattern.compile("\\bsetup\\b").matcher(text);
-            while (v.find()) {
-                doc.setCharacterAttributes(v.start(), v.end() - v.start(), typeStyle, false);
-            }
-
-            Matcher l = Pattern.compile("\\bloop\\b").matcher(text);
-            while (l.find()) {
-                doc.setCharacterAttributes(l.start(), l.end() - l.start(), typeStyle, false);
-            }
-
-            Matcher cf = Pattern.compile("\\bconfig\\b").matcher(text);
-            while (cf.find()) {
-                doc.setCharacterAttributes(cf.start(), cf.end() - cf.start(), typeStyle, false);
-            }
-
-            Matcher input = Pattern.compile("\\bIN\\b").matcher(text);
-            while (input.find()) {
-                doc.setCharacterAttributes(input.start(), input.end() - input.start(), paramStyle, false);
-            }
-
-            Matcher output = Pattern.compile("\\bOUT\\b").matcher(text);
-            while (output.find()) {
-                doc.setCharacterAttributes(output.start(), output.end() - output.start(), paramStyle, false);
-            }
-
-            Matcher trueb = Pattern.compile("\\bTRUE\\b").matcher(text);
-            while (trueb.find()) {
-                doc.setCharacterAttributes(trueb.start(), trueb.end() - trueb.start(), boolStyle, false);
-            }
-
-            Matcher falseb = Pattern.compile("\\bFALSE\\b").matcher(text);
-            while (falseb.find()) {
-                doc.setCharacterAttributes(falseb.start(), falseb.end() - falseb.start(), boolStyle, false);
-            }
-
-
+            // comments
             String[] lines = text.split("\n");
             int pos = 0;
 
             for (String line : lines) {
-
-                if (line.startsWith("//")) { 
-                    doc.setCharacterAttributes(pos, line.length(), fullLineStyle, false);
+                if (line.startsWith("//")) {
+                    doc.setCharacterAttributes(pos, line.length(), commentStyle, false);
                 }
-
                 pos += line.length() + 1;
             }
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            updating = false;
+        }
+    }
+
+    private void apply(String regex, String text, Style style) {
+        Matcher m = Pattern.compile(regex).matcher(text);
+        while (m.find()) {
+            doc.setCharacterAttributes(m.start(), m.end() - m.start(), style, false);
         }
     }
 }

@@ -11,6 +11,7 @@ import javax.swing.tree.*;
 import menus.newProject;
 import menus.newFile;
 import menus.renameFile;
+import menus.editMenu;
 import util.LanguageManager;
 
 
@@ -92,9 +93,13 @@ public class Main {
         JLabel labelEdit = new JLabel(medit);
         labelEdit.setFont(new Font("Arial", Font.PLAIN, 15));
         labelEdit.setForeground(new Color(118, 118, 118));
+        editMenu emp = new EditMenu();
+        emp.init(labelEdit);
+
         labelEdit.addMouseListener(new MouseAdapter() {
         @Override
             public void mouseClicked(MouseEvent e) { 
+                emp.show(labelEdit, 0, labelEdit.getHeight());
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -955,11 +960,6 @@ public class Main {
             }
         });
         
-
-
-
-
-
 
 
 

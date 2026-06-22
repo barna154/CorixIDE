@@ -47,11 +47,11 @@ public class boardSelector {
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setOpaque(true);
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
-                    item1.setName("PIC16F15274");
-                    if (item1.getName().equals(selectedBoard.BoardName)) {
-                        item1.setForeground(new Color(13, 255, 122));
+                    item2.setName("PIC16F15274");
+                    if (item2.getName().equals(selectedBoard.BoardName)) {
+                        item2.setForeground(new Color(13, 255, 122));
                     } else {
-                        item1.setForeground(new Color(230, 230, 230));
+                        item2.setForeground(new Color(230, 230, 230));
                     }
                     item2.setMargin(new Insets(6, 0, 6, 0));
                     item2.setBackground(new Color(30, 30, 30));
@@ -59,11 +59,11 @@ public class boardSelector {
                     item2.setForeground(new Color(230, 230, 230));
                     item2.setOpaque(true);
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
-                    item1.setName("PIC16F15275");
-                    if (item1.getName().equals(selectedBoard.BoardName)) {
-                        item1.setForeground(new Color(13, 255, 122));
+                    item3.setName("PIC16F15275");
+                    if (item3.getName().equals(selectedBoard.BoardName)) {
+                        item3.setForeground(new Color(13, 255, 122));
                     } else {
-                        item1.setForeground(new Color(230, 230, 230));
+                        item3.setForeground(new Color(230, 230, 230));
                     }
                     item3.setMargin(new Insets(6, 0, 6, 0));
                     item3.setBackground(new Color(30, 30, 30));
@@ -71,11 +71,11 @@ public class boardSelector {
                     item3.setForeground(new Color(230, 230, 230));
                     item3.setOpaque(true);
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
-                    item1.setName("PIC16F15276");
-                    if (item1.getName().equals(selectedBoard.BoardName)) {
-                        item1.setForeground(new Color(13, 255, 122));
+                    item4.setName("PIC16F15276");
+                    if (item4.getName().equals(selectedBoard.BoardName)) {
+                        item4.setForeground(new Color(13, 255, 122));
                     } else {
-                        item1.setForeground(new Color(230, 230, 230));
+                        item4.setForeground(new Color(230, 230, 230));
                     }
                     item4.setMargin(new Insets(6, 0, 6, 0));
                     item4.setBackground(new Color(30, 30, 30));
@@ -83,11 +83,11 @@ public class boardSelector {
                     item4.setForeground(new Color(230, 230, 230));
                     item4.setOpaque(true);
                 JMenuItem item5 = new JMenuItem("Atmega328P");
-                    item1.setName("Atmega328P");
-                    if (item1.getName().equals(selectedBoard.BoardName)) {
-                        item1.setForeground(new Color(13, 255, 122));
+                    item5.setName("Atmega328P");
+                    if (item5.getName().equals(selectedBoard.BoardName)) {
+                        item5.setForeground(new Color(13, 255, 122));
                     } else {
-                        item1.setForeground(new Color(230, 230, 230));
+                        item5.setForeground(new Color(230, 230, 230));
                     }
                     item5.setMargin(new Insets(6, 0, 6, 0));
                     item5.setBackground(new Color(30, 30, 30));

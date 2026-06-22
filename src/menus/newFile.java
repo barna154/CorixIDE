@@ -104,18 +104,6 @@ public class newFile {
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
         String projectPath = pathField.getText();
 
-        pathField.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        finishBtn.dispatchEvent(new java.awt.event.MouseEvent(
-                            finishBtn, java.awt.event.MouseEvent.MOUSE_CLICKED,
-                            System.currentTimeMillis(), 0, 0, 0, 1, false));
-                    }
-                }
-            });
-
-
 
         row1.add(namePanel);
         row1.add(pathField);
@@ -177,6 +165,21 @@ public class newFile {
                 finishBtn.setBackground(new Color(43, 43, 43));
             }
         });
+
+
+        
+        pathField.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        finishBtn.dispatchEvent(new java.awt.event.MouseEvent(
+                            finishBtn, java.awt.event.MouseEvent.MOUSE_CLICKED,
+                            System.currentTimeMillis(), 0, 0, 0, 1, false));
+                    }
+                }
+            });
+
+
         rightPanel2.add(finishBtn);
         newFile.setCursor(Cursor.getDefaultCursor());
         newFile.add(rightPanel2, BorderLayout.SOUTH);

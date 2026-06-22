@@ -49,7 +49,7 @@ public class editMenu {
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setForeground(new Color(230, 230, 230));
                     item1.setOpaque(true);
-                JMenuItem item2 = new JMenuItem(redo + "                  Ctrl+Y");
+                JMenuItem item2 = new JMenuItem(redo + "                           Ctrl+Y");
                     item2.setMargin(new Insets(0, 0, 0, 0));
                     item2.setBackground(new Color(30, 30, 30));
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));

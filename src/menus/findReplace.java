@@ -16,16 +16,16 @@ import util.AppPath;
 
 
 
-public class renameFile {
+public class findReplace {
 
-    public void init(JPanel renameFile) throws Exception {       
+    public void init(JPanel findReplace) throws Exception {       
 
         String newp = LanguageManager.get("Rename File");
         String npan = LanguageManager.get("New name");
         String fnsbtn = LanguageManager.get("Rename Button");
 
 
-        renameFile.setLayout(new BorderLayout());
+        findReplace.setLayout(new BorderLayout());
 
 
         final int[] mouseOffset = new int[2];
@@ -57,7 +57,7 @@ public class renameFile {
         closeBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                 renameFile.setVisible(false);
+                 findReplace.setVisible(false);
             }
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -78,7 +78,7 @@ public class renameFile {
         rightPanel.setOpaque(false);
         rightPanel.add(closeBtn);
         Menu.add(rightPanel, BorderLayout.EAST);
-        renameFile.add(Menu, BorderLayout.NORTH);
+        findReplace.add(Menu, BorderLayout.NORTH);
 
 
         JPanel centerPanel = new JPanel();
@@ -87,7 +87,7 @@ public class renameFile {
 
 
         JPanel row1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        row1.setPreferredSize(new Dimension(renameFile.getWidth(), 50));
+        row1.setPreferredSize(new Dimension(findReplace.getWidth(), 50));
         row1.setMaximumSize(row1.getPreferredSize());
         row1.setBackground(centerPanel.getBackground());
 
@@ -106,7 +106,7 @@ public class renameFile {
         row1.add(namePanel);
         row1.add(pathField);
         centerPanel.add(row1);
-        renameFile.add(centerPanel);
+        findReplace.add(centerPanel);
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
         rightPanel2.setOpaque(false);
@@ -122,7 +122,7 @@ public class renameFile {
         finishBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                renameFile.setVisible(false);
+                findReplace.setVisible(false);
           
                 
     
@@ -152,11 +152,33 @@ public class renameFile {
 
 
         rightPanel2.add(finishBtn);
-        renameFile.setCursor(Cursor.getDefaultCursor());
-        renameFile.add(rightPanel2, BorderLayout.SOUTH);
+        findReplace.setCursor(Cursor.getDefaultCursor());
+        findReplace.add(rightPanel2, BorderLayout.SOUTH);
 
 
 
     }
 
 }
+
+
+
+/* 
+
+
+           //find & replace Panel
+
+                    JPanel findReplacePanel = new JPanel();
+                    findReplacePanel.setBackground(new Color(50, 50, 50));
+                    findReplacePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
+                    int panelWidth4 = (int) (screenWidth / 3.8);
+                    int panelHeight4 = (int) (screenHeight / 6);
+                    int x4 = (screenWidth - panelWidth3) / 2;
+                    int y4 = (screenHeight - panelHeight3) / 2;
+
+                    findReplacePanel.setBounds(x4, y4, panelWidth4, panelHeight4);
+                    findReplacePanel.setLayout(new BorderLayout());
+                    findReplacePanel.setVisible(false); 
+
+
+                    window.getLayeredPane().add(findReplacePanel, JLayeredPane.POPUP_LAYER); */

@@ -11,6 +11,7 @@ import javax.swing.tree.*;
 import menus.newProject;
 import menus.newFile;
 import menus.renameFile;
+import menus.findReplace;
 import menus.editMenu;
 import menus.boardSelector;
 import util.LanguageManager;
@@ -472,6 +473,7 @@ public class Main {
 
 
                     window.getLayeredPane().add(newFilePanel, JLayeredPane.POPUP_LAYER);
+
                 
 
 

@@ -835,15 +835,12 @@ public class Main {
                 item2.addActionListener(e -> {
                         newFilePanel.removeAll();
 
-                        menus.newFile nfp = new menus.newFile();
-                        try {
-                            File targetDir = (contextTarget[0] != null && contextTarget[0].isDirectory())
-                                    ? contextTarget[0]
-                                    : util.AppPath.MainProject;
-                            nfp.init(newFilePanel, targetDir, () -> fe.refresh());
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
+                            menus.newFile nfp = new menus.newFile();
+                            try {
+                                nfp.init(newFilePanel, contextTarget[0], () -> fe.refresh());
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
 
                         newFilePanel.revalidate();
                         newFilePanel.repaint();

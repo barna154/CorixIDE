@@ -1,4 +1,5 @@
 import javax.swing.text.*;
+import javax.swing.undo.*;
 
 public class AutoBraceFilter extends DocumentFilter {
 
@@ -21,9 +22,11 @@ public class AutoBraceFilter extends DocumentFilter {
         String content = doc.getText(0, doc.getLength());
 
         if (offset > 0 && content.charAt(offset - 1) == '{') {
-            fb.replace(offset, length, "\n    \n}", attrs);
+            fb.remove(offset, length);
+            fb.insertString(offset, "\n    \n}", attrs);
         } else {
-            fb.replace(offset, length, "\n", attrs);
+            fb.remove(offset, length);
+            fb.insertString(offset, "\n", attrs);
         }
     }
 }

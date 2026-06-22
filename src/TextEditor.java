@@ -3,8 +3,6 @@ import java.awt.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.JTextComponent;
 import javax.swing.undo.UndoManager;
-import javax.swing.undo.CannotUndoException;
-import javax.swing.undo.CannotRedoException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,10 +16,10 @@ public class TextEditor {
     private UndoManager undoManager = new UndoManager();
     private File currentFile;
 
-
     public void init(JPanel editorPanel) {
 
         textComponent = new JTextPane();
+
 
         ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
 
@@ -29,11 +27,14 @@ public class TextEditor {
         textComponent.setForeground(new Color(218, 218, 218));
         textComponent.setCaretColor(Color.GRAY);
         textComponent.setFont(new Font("Consolas", Font.PLAIN, 17));
-        textComponent.setSelectionColor(new Color(40, 60, 40));     
+        textComponent.setSelectionColor(new Color(40, 60, 40));
         textComponent.setSelectedTextColor(new Color(218, 218, 218));
+
+
         textComponent.getDocument().addUndoableEditListener(undoManager);
 
-         new SyntaxHighlighter(textComponent);
+
+        new SyntaxHighlighter(textComponent);
 
         JScrollPane scroll = new JScrollPane(textComponent);
         scroll.setBorder(null);
@@ -48,23 +49,22 @@ public class TextEditor {
         scroll.setCorner(JScrollPane.LOWER_LEFT_CORNER, createDarkPanel());
         scroll.setCorner(JScrollPane.UPPER_RIGHT_CORNER, createDarkPanel());
 
-
-
         editorPanel.setLayout(new BorderLayout());
         editorPanel.add(scroll, BorderLayout.CENTER);
+
         textComponent.addKeyListener(
-                    new KeyStrokes(
-                        () -> saveFile(),
-                        () -> {
-                            try { undoManager.undo(); }
-                            catch (Exception ex) { }
-                        },
-                        () -> {
-                            try { undoManager.redo(); }
-                            catch (Exception ex) { }
-                        }
-                    )
-                );
+            new KeyStrokes(
+                () -> saveFile(),
+                () -> {
+                    try { undoManager.undo(); }
+                    catch (Exception ex) {}
+                },
+                () -> {
+                    try { undoManager.redo(); }
+                    catch (Exception ex) {}
+                }
+            )
+        );
     }
 
     public void openFile(File file) {
@@ -79,34 +79,34 @@ public class TextEditor {
             ex.printStackTrace();
         }
     }
+
     public void saveFile() {
-            String saveerror = LanguageManager.get("Saving falied");
-            if (currentFile == null) return;
+        String saveerror = LanguageManager.get("Saving falied");
+        if (currentFile == null) return;
 
-            try {
-                if (!Files.exists(currentFile.toPath())) {
-                    if (messageHandler != null) {
-                        messageHandler.show(saveerror, saveerror);
-
-                    }
-                    return;
+        try {
+            if (!Files.exists(currentFile.toPath())) {
+                if (messageHandler != null) {
+                    messageHandler.show(saveerror, saveerror);
                 }
-                Files.write(
-                    currentFile.toPath(),
-                    textComponent.getText().getBytes(StandardCharsets.UTF_8)
-                );
-
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                return;
             }
+            Files.write(
+                currentFile.toPath(),
+                textComponent.getText().getBytes(StandardCharsets.UTF_8)
+            );
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+    }
 
     public File getCurrentFile() {
         return currentFile;
     }
 
     public interface MessageHandler {
-             void show(String title, String message);
+        void show(String title, String message);
     }
 
     private MessageHandler messageHandler;
@@ -116,11 +116,16 @@ public class TextEditor {
     }
 
     private JPanel createDarkPanel() {
-    JPanel p = new JPanel();
-    p.setBackground(new Color(30, 30, 30));
-    return p;
+        JPanel p = new JPanel();
+        p.setBackground(new Color(30, 30, 30));
+        return p;
     }
 
+    public JTextPane getTextComponent() {
+        return textComponent;
+    }
 
+    public UndoManager getUndoManager() {
+        return undoManager;
+    }
 }
-

@@ -475,8 +475,6 @@ public class Main {
                     newFilePanel.setLayout(new BorderLayout());
                     newFilePanel.setVisible(false); 
 
-                    newFile nfp = new newFile();
-                    nfp.init(newFilePanel);
 
                     window.getLayeredPane().add(newFilePanel, JLayeredPane.POPUP_LAYER);
                 
@@ -501,13 +499,6 @@ public class Main {
             item2.setFont(new Font("Arial", Font.PLAIN, 15));
             item2.setForeground(new Color(230, 230, 230));
             item2.setOpaque(true);
-
-            item2.addActionListener(e -> {
-                newProjectPanel.setVisible(true);
-                window.getLayeredPane().revalidate();
-                window.getLayeredPane().repaint();
-            });
-
         JMenuItem item3 = new JMenuItem(openp);
             item3.setMargin(new Insets(0, 0, 0, 0));
             item3.setBackground(new Color(30, 30, 30));
@@ -840,6 +831,25 @@ public class Main {
                 });
 
 
+
+                addFile.addActionListener(e -> {
+                    if (contextTarget[0] == null) return;
+
+                    item2.removeAll();
+
+                    menus.newFile rf = new menus.newFile();
+                    try {
+                        rf.init(renamePanel, contextTarget[0], () -> fe.refresh());
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    item2.revalidate();
+                    item2.repaint();
+                    item2.setVisible(true);
+                    window.getLayeredPane().revalidate();
+                    window.getLayeredPane().repaint();
+                });
         
 //Konzol
 

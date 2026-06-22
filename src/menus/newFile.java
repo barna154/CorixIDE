@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class newFile {
 
-    public void init(JPanel newFile) throws Exception {       
+    public void init(JPanel newFile, File targetFile) throws Exception {       
 
         String newp = LanguageManager.get("New File");
         String ppath = LanguageManager.get("Project Path");

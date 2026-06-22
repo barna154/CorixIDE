@@ -851,6 +851,24 @@ public class Main {
                         window.getLayeredPane().revalidate();
                         window.getLayeredPane().repaint();
                     });
+
+
+                newFileInFolder.addActionListener(e -> {
+                        newFilePanel.removeAll();
+
+                        menus.newFile nfp = new menus.newFile();
+                        try {
+                            nfp.init(newFilePanel, contextTarget[0]);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+
+                        newFilePanel.revalidate();
+                        newFilePanel.repaint();
+                        newFilePanel.setVisible(true);
+                        window.getLayeredPane().revalidate();
+                        window.getLayeredPane().repaint();
+                    });
         
 //Konzol
 

@@ -12,6 +12,7 @@ import menus.newProject;
 import menus.newFile;
 import menus.renameFile;
 import menus.editMenu;
+import menus.boardSelector;
 import util.LanguageManager;
 import util.RoundedBorder;
 
@@ -143,9 +144,13 @@ public class Main {
         JLabel labelBoards = new JLabel(mboards);
         labelBoards.setFont(new Font("Arial", Font.PLAIN, 15));
         labelBoards.setForeground(new Color(118, 118, 118));
+        JPopupMenu boardSelector = new boardSelector();
+        menus.boardSelector bsp = new menus.boardSelector();
+        bsp.init(boardSelector);
         labelBoards.addMouseListener(new MouseAdapter() {
             @Override
                 public void mouseClicked(MouseEvent e) { 
+                     boardSelector.show(labelEdit, 0, labelEdit.getHeight());
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {

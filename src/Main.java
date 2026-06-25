@@ -115,11 +115,7 @@ public class Main {
         labelEdit.setForeground(new Color(118, 118, 118));
         JPopupMenu editMenuPopup = new JPopupMenu();
         menus.editMenu emp = new editMenu();
-        emp.init(editMenuPopup, te.getTextComponent(), te.getUndoManager(), () -> {
-            findReplacePanel.setVisible(true);
-            window.getLayeredPane().revalidate();
-            window.getLayeredPane().repaint();
-        });
+
 
         labelEdit.addMouseListener(new MouseAdapter() {
         @Override
@@ -503,6 +499,12 @@ public class Main {
 
                     menus.findReplace frp = new menus.findReplace();
                     frp.init(findReplacePanel);
+
+                    emp.init(editMenuPopup, te.getTextComponent(), te.getUndoManager(), () -> {
+                        findReplacePanel.setVisible(true);
+                        window.getLayeredPane().revalidate();
+                        window.getLayeredPane().repaint();
+                    });
 
                 
 

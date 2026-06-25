@@ -18,7 +18,7 @@ import util.AppPath;
 
 public class findReplace {
 
-    public void init(JPanel findReplace) throws Exception {       
+    public void init(JPanel findReplace, JTextPane textComponent) throws Exception {       
 
         String newp = LanguageManager.get("Find");
         String newp2 = LanguageManager.get("Replace");
@@ -121,10 +121,26 @@ public class findReplace {
         finishBtn.setBackground(new Color(43, 43, 43));
         finishBtn.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                findReplace.setVisible(false);
-          
-                
+            public void mouseClicked(MouseEvent e) {     
+                String searchText = pathField.getText();
+                    if (searchText.isEmpty()) return;
+
+                    try {
+                        String content = textComponent.getDocument().getText(0, textComponent.getDocument().getLength());
+                        int index = content.indexOf(searchText, textComponent.getCaretPosition());
+
+                        if (index == -1) {
+                            index = content.indexOf(searchText);
+                        }
+
+                        if (index != -1) {
+                            textComponent.setCaretPosition(index);
+                            textComponent.select(index, index + searchText.length());
+                            textComponent.requestFocus();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
     
 
             }

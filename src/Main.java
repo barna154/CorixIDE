@@ -487,7 +487,7 @@ public class Main {
                     findReplacePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
                     int panelWidth4 = (int) (screenWidth / 3.8);
                     int panelHeight4 = (int) (screenHeight / 6);
-                    int x4 = (int) ((screenWidth - panelWidth3) / 0.5);
+                    int x4 = (screenWidth - panelWidth3) / 2;
                     int y4 = (screenHeight - panelHeight3) / 2;
 
                     findReplacePanel.setBounds(x4, y4, panelWidth4, panelHeight4);

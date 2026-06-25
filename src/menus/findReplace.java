@@ -182,6 +182,32 @@ public class findReplace {
         replaceBtn.setBackground(new Color(43, 43, 43));
         replaceBtn.addMouseListener(new MouseAdapter() {
 
+            @Override
+            public void mouseClicked(MouseEvent e) {     
+                String searchText = pathField.getText();
+                String replaceText = pathField2.getText();
+                    if (searchText.isEmpty()) return;
+
+
+                    try {
+                        String content = textComponent.getDocument().getText(0, textComponent.getDocument().getLength());
+                        int index = content.indexOf(searchText, textComponent.getCaretPosition());
+
+                        if (index == -1) {
+                            index = content.indexOf(searchText);
+                        }
+
+                        if (index != -1) {
+                            textComponent.setCaretPosition(index);
+                            textComponent.select(index, index + searchText.length());
+                            textComponent.requestFocus();
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+            }
+
 
             @Override
             public void mouseEntered(MouseEvent e) {

@@ -115,7 +115,11 @@ public class Main {
         labelEdit.setForeground(new Color(118, 118, 118));
         JPopupMenu editMenuPopup = new JPopupMenu();
         menus.editMenu emp = new editMenu();
-        emp.init(editMenuPopup, te.getTextComponent(), te.getUndoManager());
+        emp.init(editMenuPopup, te.getTextComponent(), te.getUndoManager(), () -> {
+            findReplacePanel.setVisible(true);
+            window.getLayeredPane().revalidate();
+            window.getLayeredPane().repaint();
+        });
 
         labelEdit.addMouseListener(new MouseAdapter() {
         @Override
@@ -473,6 +477,32 @@ public class Main {
 
 
                     window.getLayeredPane().add(newFilePanel, JLayeredPane.POPUP_LAYER);
+                    
+
+
+                    
+
+
+
+                     //find & replace Panel
+
+                    JPanel findReplacePanel = new JPanel();
+                    findReplacePanel.setBackground(new Color(50, 50, 50));
+                    findReplacePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
+                    int panelWidth4 = (int) (screenWidth / 3.8);
+                    int panelHeight4 = (int) (screenHeight / 6);
+                    int x4 = (screenWidth - panelWidth3) / 2;
+                    int y4 = (screenHeight - panelHeight3) / 2;
+
+                    findReplacePanel.setBounds(x4, y4, panelWidth4, panelHeight4);
+                    findReplacePanel.setLayout(new BorderLayout());
+                    findReplacePanel.setVisible(false); 
+
+
+                    window.getLayeredPane().add(findReplacePanel, JLayeredPane.POPUP_LAYER); 
+
+                    menus.findReplace frp = new menus.findReplace();
+                    frp.init(findReplacePanel)
 
                 
 

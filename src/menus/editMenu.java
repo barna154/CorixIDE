@@ -19,7 +19,7 @@ import util.RoundedBorder;
 
 public class editMenu {
 
-            public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager) {
+            public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager, Runnable onFindReplace) {
 
 
 
@@ -90,12 +90,14 @@ public class editMenu {
                     item6.setFont(new Font("Arial", Font.PLAIN, 15));
                     item6.setForeground(new Color(230, 230, 230));
                     item6.setOpaque(true);
+                    item6.addActionListener(e -> onFindReplace.run());
                 JMenuItem item7 = new JMenuItem(replace + "                                      Ctrl+H");
                     item7.setMargin(new Insets(2, 0, 0, 0));
                     item7.setBackground(new Color(30, 30, 30));
                     item7.setFont(new Font("Arial", Font.PLAIN, 15));
                     item7.setForeground(new Color(230, 230, 230));
                     item7.setOpaque(true);
+                    item7.addActionListener(e -> onFindReplace.run());
 
                 JSeparator sep = new JSeparator();
                     sep.setOpaque(true);

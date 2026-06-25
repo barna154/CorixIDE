@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.util.regex.*;
+import util.LanguageManager;
 
 public class SyntaxHighlighter {
 
@@ -69,6 +70,10 @@ public class SyntaxHighlighter {
 
     private void highlight() {
         try {
+
+            doc.removeUndoableEditListener(undoManager);
+
+
             String text = doc.getText(0, doc.getLength());
 
     
@@ -146,6 +151,8 @@ public class SyntaxHighlighter {
 
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            doc.addUndoableEditListener(undoManager);
         }
     }
 }

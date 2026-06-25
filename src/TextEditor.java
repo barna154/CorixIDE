@@ -23,10 +23,6 @@ public class TextEditor {
 
         ((AbstractDocument) textComponent.getDocument()).setDocumentFilter(new AutoBraceFilter());
 
-        textComponent.getDocument().addUndoableEditListener(e -> {
-                undoManager.addEdit(e.getEdit());
-            });
-
         textComponent.setBackground(new Color(30, 30, 30));
         textComponent.setForeground(new Color(218, 218, 218));
         textComponent.setCaretColor(Color.GRAY);
@@ -38,7 +34,7 @@ public class TextEditor {
         textComponent.getDocument().addUndoableEditListener(undoManager);
 
 
-        new SyntaxHighlighter(textComponent);
+        new SyntaxHighlighter(textComponent, undoManager);
 
         JScrollPane scroll = new JScrollPane(textComponent);
         scroll.setBorder(null);

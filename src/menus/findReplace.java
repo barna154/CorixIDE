@@ -156,7 +156,7 @@ public class findReplace {
 
 
 
-        JLabel replaceBtn = new JLabel(newp);
+        JLabel replaceBtn = new JLabel(newp2);
         replaceBtn.setPreferredSize(new Dimension(100, 30));
         replaceBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
         replaceBtn.setForeground(new Color(230, 230, 230));
@@ -167,6 +167,15 @@ public class findReplace {
         replaceBtn.setBackground(new Color(43, 43, 43));
         replaceBtn.addMouseListener(new MouseAdapter() {
 
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                finishBtn.setBackground(new Color(4, 71, 6));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                finishBtn.setBackground(new Color(43, 43, 43));
+            }
 
         });
 

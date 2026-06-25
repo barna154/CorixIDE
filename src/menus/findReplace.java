@@ -22,7 +22,7 @@ public class findReplace {
 
         String newp = LanguageManager.get("Find");
         String newp2 = LanguageManager.get("Replace");
-        String fnsbtn = LanguageManager.get("Rename Button");
+        String fnsbtn = LanguageManager.get("Find");
 
 
         findReplace.setLayout(new BorderLayout());

@@ -92,21 +92,36 @@ public class findReplace {
         row1.setBackground(centerPanel.getBackground());
 
 
-        JLabel namePanel = new JLabel(newp);
-        namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
-        namePanel.setPreferredSize(new Dimension(75, 25));
-        namePanel.setForeground(new Color(225, 225, 225));
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(30, 30, 30));
+        pathField.setText(newp)
         pathField.setForeground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
 
-
-        row1.add(namePanel);
         row1.add(pathField);
         centerPanel.add(row1);
+
+
+        JPanel row2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        row2.setPreferredSize(new Dimension(findReplace.getWidth(), 50));
+        row2.setMaximumSize(row2.getPreferredSize());
+        row2.setBackground(centerPanel.getBackground());
+
+
+        JTextField pathField2 = new JTextField(20);
+        pathField2.setBackground(new Color(30, 30, 30));
+        pathField2.setText(newp2)
+        pathField2.setForeground(new Color(200, 200, 200));
+        pathField2.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
+        pathField2.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
+
+        row2.add(pathField2);
+        centerPanel.add(row2);
         findReplace.add(centerPanel);
+
+
+
 
         JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
         rightPanel2.setOpaque(false);

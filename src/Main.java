@@ -485,7 +485,7 @@ public class Main {
                     JPanel findReplacePanel = new JPanel();
                     findReplacePanel.setBackground(new Color(50, 50, 50));
                     findReplacePanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
-                    int panelWidth4 = (int) (screenWidth / 3.8);
+                    int panelWidth4 = (int) (screenWidth / 4.5);
                     int panelHeight4 = (int) (screenHeight / 5);
                     int x4 = (int) (screenWidth - panelWidth3);
                     int y4 = (screenHeight - panelHeight3) / 8;

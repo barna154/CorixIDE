@@ -154,6 +154,22 @@ public class findReplace {
             }
         });
 
+
+
+        JLabel replaceBtn = new JLabel(newp);
+        replaceBtn.setPreferredSize(new Dimension(100, 30));
+        replaceBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
+        replaceBtn.setForeground(new Color(230, 230, 230));
+        replaceBtn.setOpaque(true);
+        replaceBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+        replaceBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        replaceBtn.setVerticalAlignment(SwingConstants.CENTER);
+        replaceBtn.setBackground(new Color(43, 43, 43));
+        replaceBtn.addMouseListener(new MouseAdapter() {
+
+
+        }
+
                 
         pathField.addKeyListener(new KeyAdapter() {
                 @Override
@@ -168,6 +184,7 @@ public class findReplace {
 
 
         rightPanel2.add(finishBtn);
+        rightPanel2.add(replaceBtn);
         findReplace.setCursor(Cursor.getDefaultCursor());
         findReplace.add(rightPanel2, BorderLayout.SOUTH);
 

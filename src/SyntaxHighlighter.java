@@ -2,7 +2,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.util.regex.*;
-import util.LanguageManager;
+import javax.swing.undo.UndoManager;
 
 public class SyntaxHighlighter {
 

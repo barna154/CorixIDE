@@ -168,7 +168,7 @@ public class findReplace {
         replaceBtn.addMouseListener(new MouseAdapter() {
 
 
-        }
+        });
 
                 
         pathField.addKeyListener(new KeyAdapter() {

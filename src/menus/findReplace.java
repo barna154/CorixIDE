@@ -94,7 +94,7 @@ public class findReplace {
 
         JTextField pathField = new JTextField(20);
         pathField.setBackground(new Color(30, 30, 30));
-        pathField.setText(newp)
+        pathField.setText(newp);
         pathField.setForeground(new Color(200, 200, 200));
         pathField.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));
@@ -111,7 +111,7 @@ public class findReplace {
 
         JTextField pathField2 = new JTextField(20);
         pathField2.setBackground(new Color(30, 30, 30));
-        pathField2.setText(newp2)
+        pathField2.setText(newp2);
         pathField2.setForeground(new Color(200, 200, 200));
         pathField2.setBorder(BorderFactory.createLineBorder(new Color(20, 20, 20), 3));
         pathField2.setFont(new Font("Segoe UI Emoji", Font.BOLD, 18));

@@ -20,8 +20,8 @@ public class findReplace {
 
     public void init(JPanel findReplace) throws Exception {       
 
-        String newp = LanguageManager.get("Rename File");
-        String npan = LanguageManager.get("New name");
+        String newp = LanguageManager.get("Find");
+        String newp2 = LanguageManager.get("Replace");
         String fnsbtn = LanguageManager.get("Rename Button");
 
 
@@ -92,7 +92,7 @@ public class findReplace {
         row1.setBackground(centerPanel.getBackground());
 
 
-        JLabel namePanel = new JLabel(npan);
+        JLabel namePanel = new JLabel(newp);
         namePanel.setFont(new Font("Segoe UI Emoji", Font.BOLD, 16));
         namePanel.setPreferredSize(new Dimension(75, 25));
         namePanel.setForeground(new Color(225, 225, 225));

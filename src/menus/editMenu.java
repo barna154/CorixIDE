@@ -22,6 +22,7 @@ public class editMenu {
             public void init(JPopupMenu editMenu, JTextPane textComponent, UndoManager undoManager) {
 
 
+
                 String undo = LanguageManager.get("Undo");
                 String redo = LanguageManager.get("Redo");
                 String cut = LanguageManager.get("Cut");

@@ -170,11 +170,11 @@ public class findReplace {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                finishBtn.setBackground(new Color(4, 71, 6));
+                replaceBtn.setBackground(new Color(4, 71, 6));
             }
             @Override
             public void mouseExited(MouseEvent e) {
-                finishBtn.setBackground(new Color(43, 43, 43));
+                replaceBtn.setBackground(new Color(43, 43, 43));
             }
 
         });

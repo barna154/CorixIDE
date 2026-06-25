@@ -8,9 +8,11 @@ public class SyntaxHighlighter {
 
     private final JTextPane textPane;
     private final StyledDocument doc;
+    private final UndoManager undoManager;
     private boolean updating = false;
 
-    public SyntaxHighlighter(JTextPane textPane) {
+    public SyntaxHighlighter(JTextPane textPane, UndoManager undoManager) {
+        this.undoManager = undoManager;
         this.textPane = textPane;
         this.doc = textPane.getStyledDocument();
 

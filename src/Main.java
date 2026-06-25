@@ -502,7 +502,7 @@ public class Main {
                     window.getLayeredPane().add(findReplacePanel, JLayeredPane.POPUP_LAYER); 
 
                     menus.findReplace frp = new menus.findReplace();
-                    frp.init(findReplacePanel)
+                    frp.init(findReplacePanel);
 
                 
 

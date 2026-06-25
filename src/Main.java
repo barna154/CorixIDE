@@ -488,7 +488,7 @@ public class Main {
                     int panelWidth4 = (int) (screenWidth / 3.8);
                     int panelHeight4 = (int) (screenHeight / 6);
                     int x4 = (int) (screenWidth - panelWidth3);
-                    int y4 = (screenHeight - panelHeight3) / 2;
+                    int y4 = (screenHeight - panelHeight3) / 5;
 
                     findReplacePanel.setBounds(x4, y4, panelWidth4, panelHeight4);
                     findReplacePanel.setLayout(new BorderLayout());

@@ -149,13 +149,8 @@ public class findReplace {
                         }
 
                         if (index != -1) {
-
-                            if (replaceText.isEmpty()) return;
-
+                            textComponent.setCaretPosition(index);
                             textComponent.select(index, index + searchText.length());
-                            textComponent.replaceSelection(replaceText);
-
-                            textComponent.setCaretPosition(index + replaceText.length());
                             textComponent.requestFocus();
                         }
                     } catch (Exception ex) {
@@ -202,17 +197,18 @@ public class findReplace {
                             index = content.indexOf(searchText);
                         }
 
+
                         if (index != -1) {
 
-                                if (replaceText.isEmpty()) return;
+                            if (replaceText.isEmpty()) return;
 
-                                    try {
-                                            content.replace(content, replaceText);
+                            textComponent.select(index, index + searchText.length());
+                            textComponent.replaceSelection(replaceText);
 
-                                        } catch (Exception ex) {
-                                        ex.printStackTrace();
-                                    }
+                            textComponent.setCaretPosition(index + replaceText.length());
+                            textComponent.requestFocus();
                         }
+                       
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

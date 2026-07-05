@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import util.LanguageManager;
 import util.RoundedBorder;
-import util.selectedBoard;
+import util.AppPath;
 
 
 
@@ -44,7 +44,7 @@ public class boardSelector {
                     item1.setFont(new Font("Arial", Font.PLAIN, 15));
                     item1.setOpaque(true);
                     item1.addActionListener(e -> {
-                        selectedBoard.BoardName = "PIC16F15256";
+                        AppPath.BoardName = "PIC16F15256";
                         boardSelector.repaint();
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
@@ -54,7 +54,7 @@ public class boardSelector {
                     item2.setFont(new Font("Arial", Font.PLAIN, 15));
                     item2.setOpaque(true);
                     item2.addActionListener(e -> {
-                        selectedBoard.BoardName = "PIC16F15274";
+                        AppPath.BoardName = "PIC16F15274";
                         boardSelector.repaint();
                     });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
@@ -64,7 +64,7 @@ public class boardSelector {
                     item3.setFont(new Font("Arial", Font.PLAIN, 15));
                     item3.setOpaque(true);
                     item3.addActionListener(e -> {
-                        selectedBoard.BoardName = "PIC16F15275";
+                        AppPath.BoardName = "PIC16F15275";
                         boardSelector.repaint();
                     });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
@@ -74,7 +74,7 @@ public class boardSelector {
                     item4.setFont(new Font("Arial", Font.PLAIN, 15));
                     item4.setOpaque(true);
                     item4.addActionListener(e -> {
-                        selectedBoard.BoardName = "PIC16F15276";
+                        AppPath.BoardName = "PIC16F15276";
                         boardSelector.repaint();
                     });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
@@ -89,7 +89,7 @@ public class boardSelector {
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
                     item5.setOpaque(true);
                     item5.addActionListener(e -> {
-                        selectedBoard.BoardName = "Atmega328P";
+                        AppPath.BoardName = "Atmega328P";
                         boardSelector.repaint();
                     });
 
@@ -105,7 +105,7 @@ public class boardSelector {
                     public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
                         for (Component c : boardSelector.getComponents()) {
                             if (c instanceof JMenuItem item) {
-                                if (item.getName().equals(selectedBoard.BoardName)) {
+                                if (item.getName().equals(AppPath.BoardName)) {
                                     item.setForeground(new Color(13, 255, 122));
                                 } else {
                                     item.setForeground(new Color(230, 230, 230));

@@ -79,7 +79,7 @@ public class boardSelector {
                     });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
                     item5.setName("Atmega328P");
-                    if (item5.getName().equals(selectedBoard.BoardName)) {
+                    if (item5.getName().equals(AppPath.BoardName)) {
                         item5.setForeground(new Color(13, 255, 122));
                     } else {
                         item5.setForeground(new Color(230, 230, 230));

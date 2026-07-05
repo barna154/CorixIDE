@@ -8,10 +8,11 @@ public class AppPath {
 
     public static String basePath;
     public static File MainProject;
+    private static final String configPath = "../cache/settings.json";
 
     static {
         try {
-            LanguageManager.load("../cache/settings.json");
+            LanguageManager.load(configPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -25,7 +26,7 @@ public class AppPath {
         basePath = projectsFolder;
         MainProject = new File(basePath + File.separator + selectedProject);
     }
-    
+
     public static void save() {
         String home = System.getProperty("user.home");
         String storedFolder = basePath.startsWith(home)
@@ -41,7 +42,7 @@ public class AppPath {
         sb.append("}\n");
 
         try {
-            File configFile = new File(CONFIG_PATH);
+            File configFile = new File(configPath);
             File parent = configFile.getParentFile();
             if (parent != null) parent.mkdirs();
             Files.write(configFile.toPath(), sb.toString().getBytes());

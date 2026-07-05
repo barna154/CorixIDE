@@ -1009,7 +1009,7 @@ public class Main {
         labelOptions.addMouseListener(new MouseAdapter() {
          @Override
             public void mouseClicked(MouseEvent e) { 
-                 optionsPanel.show(labelOptions, 0, labelOptions.getHeight());
+                 optionsPanel.show(labelOptions);
 
             }
             @Override

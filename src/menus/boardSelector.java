@@ -46,6 +46,7 @@ public class boardSelector {
                     item1.addActionListener(e -> {
                         AppPath.BoardName = "PIC16F15256";
                         boardSelector.repaint();
+                        AppPath.save();
                     });
                 JMenuItem item2 = new JMenuItem("PIC16F15274");
                     item2.setName("PIC16F15274");
@@ -56,6 +57,7 @@ public class boardSelector {
                     item2.addActionListener(e -> {
                         AppPath.BoardName = "PIC16F15274";
                         boardSelector.repaint();
+                        AppPath.save();
                     });
                 JMenuItem item3 = new JMenuItem("PIC16F15275");
                     item3.setName("PIC16F15275");
@@ -66,6 +68,7 @@ public class boardSelector {
                     item3.addActionListener(e -> {
                         AppPath.BoardName = "PIC16F15275";
                         boardSelector.repaint();
+                        AppPath.save();
                     });
                 JMenuItem item4 = new JMenuItem("PIC16F15276");
                     item4.setName("PIC16F15276");
@@ -76,14 +79,10 @@ public class boardSelector {
                     item4.addActionListener(e -> {
                         AppPath.BoardName = "PIC16F15276";
                         boardSelector.repaint();
+                        AppPath.save();
                     });
                 JMenuItem item5 = new JMenuItem("Atmega328P");
                     item5.setName("Atmega328P");
-                    if (item5.getName().equals(AppPath.BoardName)) {
-                        item5.setForeground(new Color(13, 255, 122));
-                    } else {
-                        item5.setForeground(new Color(230, 230, 230));
-                    }
                     item5.setMargin(new Insets(6, 0, 6, 0));
                     item5.setBackground(new Color(30, 30, 30));
                     item5.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -91,6 +90,7 @@ public class boardSelector {
                     item5.addActionListener(e -> {
                         AppPath.BoardName = "Atmega328P";
                         boardSelector.repaint();
+                        AppPath.save();
                     });
 
                 boardSelector.add(item1);

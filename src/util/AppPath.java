@@ -3,7 +3,6 @@ package util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import util.LanguageManager;
 
 public class AppPath {
     
@@ -13,17 +12,20 @@ public class AppPath {
     public static File MainProject;
 
     static {
+        Map<String, String> values;
         try {
-            LanguageManager.load(configPath);
+            values = SimpleJsonReader.read(configPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            values = new java.util.HashMap<>();
         }
 
-        String projectsFolder = LanguageManager.get("projectsFolder")
-                .replace("%USERPATH%", System.getProperty("user.home"))
-                .replace("/", File.separator);
+        String projectsFolder = values.getOrDefault(
+                "projectsFolder",
+                "%USERPATH%" + File.separator + "Documents" + File.separator + "CRXProjects"
+        ).replace("%USERPATH%", System.getProperty("user.home"))
+         .replace("/", File.separator);
 
-        String selectedProject = LanguageManager.get("selectedProject");
+        String selectedProject = values.getOrDefault("selectedProject", "Test");
 
         basePath = projectsFolder;
         MainProject = new File(basePath + File.separator + selectedProject);

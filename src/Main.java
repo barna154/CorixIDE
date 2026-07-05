@@ -501,8 +501,8 @@ public class Main {
                     optionsPanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
                     int panelWidth5 = (int) (screenWidth / 2);
                     int panelHeight5 = (int) (screenHeight / 2);
-                    int x5 = (screenWidth - panelWidth4) / 2;
-                    int y5 = (screenHeight - panelHeight4) / 2;
+                    int x5 = (screenWidth - panelWidth5) / 2;
+                    int y5 = (screenHeight - panelHeight5) / 2;
 
                     optionsPanel.setBounds(x5, y5, panelWidth5, panelHeight5);
                     optionsPanel.setLayout(new BorderLayout());

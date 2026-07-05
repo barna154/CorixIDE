@@ -21,7 +21,7 @@ public class settings {
 
 
                 String settingstext = LanguageManager.get("Options");
-                String fnsbtn = LanguageManager.get("Finish Button");
+                String fnsbtn = LanguageManager.get("Apply");
    
 
                 settings.setLayout(new BorderLayout());

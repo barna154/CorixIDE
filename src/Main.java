@@ -14,6 +14,7 @@ import menus.renameFile;
 import menus.findReplace;
 import menus.editMenu;
 import menus.boardSelector;
+import menus.settings;
 import util.LanguageManager;
 import util.RoundedBorder;
 
@@ -141,21 +142,6 @@ public class Main {
         JLabel labelOptions = new JLabel(moptions);
         labelOptions.setFont(new Font("Arial", Font.PLAIN, 15));
         labelOptions.setForeground(new Color(118, 118, 118));
-        labelOptions.addMouseListener(new MouseAdapter() {
-            @Override
-                public void mouseClicked(MouseEvent e) { 
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    labelOptions.setForeground(new Color(60, 60, 60));
-                    labelOptions.setBackground(new Color(60, 60, 60));
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    labelOptions.setForeground(new Color(118, 118, 118));
-                    labelOptions.setBackground(new Color(43, 43, 43));
-                }
-            });
         leftPanel.add(labelOptions);
 
 
@@ -506,6 +492,24 @@ public class Main {
                         window.getLayeredPane().repaint();
                     });
 
+
+
+                    //Options panel
+
+                    JPanel optionsPanel = new JPanel();
+                    optionsPanel.setBackground(new Color(50, 50, 50));
+                    optionsPanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
+                    int panelWidth3 = (int) (screenWidth / 3.8);
+                    int panelHeight3 = (int) (screenHeight / 6);
+                    int x3 = (screenWidth - panelWidth3) / 2;
+                    int y3 = (screenHeight - panelHeight3) / 2;
+
+                    optionsPanel.setBounds(x3, y3, panelWidth3, panelHeight3);
+                    optionsPanel.setLayout(new BorderLayout());
+                    optionsPanel.setVisible(false); 
+
+
+                    window.getLayeredPane().add(optionsPanel, JLayeredPane.POPUP_LAYER);
                 
 
 
@@ -528,7 +532,7 @@ public class Main {
             item2.setFont(new Font("Arial", Font.PLAIN, 15));
             item2.setForeground(new Color(230, 230, 230));
             item2.setOpaque(true);
-        JMenuItem item3 = new JMenuItem(openp);
+/*         JMenuItem item3 = new JMenuItem(openp);
             item3.setMargin(new Insets(1, 0, 0, 0));
             item3.setBackground(new Color(30, 30, 30));
             item3.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -544,7 +548,7 @@ public class Main {
         JSeparator sep = new JSeparator();
             sep.setOpaque(true);
             sep.setForeground(new Color(80, 80, 80));
-            sep.setBackground(new Color(30, 30, 30));
+            sep.setBackground(new Color(30, 30, 30)); */
 
         dataexplorer.add(item1);
         dataexplorer.add(item2);
@@ -996,6 +1000,27 @@ public class Main {
             public void mouseExited(MouseEvent e) {
                 labelFile.setForeground(new Color(118, 118, 118));
                 labelFile.setBackground(new Color(43, 43, 43));
+            }
+        });
+
+
+
+
+        labelOptions.addMouseListener(new MouseAdapter() {
+         @Override
+            public void mouseClicked(MouseEvent e) { 
+                 optionsPanel.show(labelOptions, 0, labelOptions.getHeight());
+
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                labelOptions.setForeground(new Color(60, 60, 60));
+                labelOptions.setBackground(new Color(60, 60, 60));
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                labelOptions.setForeground(new Color(118, 118, 118));
+                labelOptions.setBackground(new Color(43, 43, 43));
             }
         });
         

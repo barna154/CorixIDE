@@ -20,7 +20,7 @@ public class newFile {
 
     public void init(JPanel newFile, File targetFile, Runnable onFinish) throws Exception {       
 
-        String newp = LanguageManager.get("New File");
+        String newp = LanguageManager.get("New file");
         String ppath = LanguageManager.get("Project Path");
         String npan = LanguageManager.get("File Name");
         String fnsbtn = LanguageManager.get("Finish Button");

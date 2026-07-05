@@ -510,6 +510,9 @@ public class Main {
 
 
                     window.getLayeredPane().add(optionsPanel, JLayeredPane.POPUP_LAYER);
+
+                    menus.settings stp = new menus.settings();
+                    stp.init(optionsPanel);
                 
 
 
@@ -1009,7 +1012,9 @@ public class Main {
         labelOptions.addMouseListener(new MouseAdapter() {
          @Override
             public void mouseClicked(MouseEvent e) { 
-                 optionsPanel.show(labelOptions);
+                optionsPanel.setVisible(true);
+                window.getLayeredPane().revalidate();
+                window.getLayeredPane().repaint();
 
             }
             @Override

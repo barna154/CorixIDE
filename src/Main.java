@@ -712,6 +712,7 @@ public class Main {
 
                
                 util.AppPath.MainProject = contextTarget[0];
+                util.AppPath.save();
                 fe.refresh();
 
         });

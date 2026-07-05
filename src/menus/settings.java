@@ -21,6 +21,7 @@ public class settings {
 
 
                 String settingstext = LanguageManager.get("Options");
+   
 
                 settings.setLayout(new BorderLayout());
 
@@ -34,7 +35,7 @@ public class settings {
 
 
 
-                JLabel labelFile = new JLabel(newp);
+                JLabel labelFile = new JLabel(settingstext);
                 labelFile.setFont(new Font("Arial", Font.BOLD, 18));
                 labelFile.setForeground(new Color(250, 250, 250));
                 leftPanel.add(labelFile);

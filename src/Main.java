@@ -500,7 +500,7 @@ public class Main {
                     optionsPanel.setBackground(new Color(50, 50, 50));
                     optionsPanel.setBorder(BorderFactory.createLineBorder(new Color(100, 100, 100), 1));
                     int panelWidth5 = (int) (screenWidth / 2);
-                    int panelHeight5 = (int) (screenHeight / 2);
+                    int panelHeight5 = (int) (screenHeight / 1.5);
                     int x5 = (screenWidth - panelWidth5) / 2;
                     int y5 = (screenHeight - panelHeight5) / 2;
 

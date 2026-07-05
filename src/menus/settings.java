@@ -77,7 +77,7 @@ public class settings {
                 rightPanel.setOpaque(false);
                 rightPanel.add(closeBtn);
                 Menu.add(rightPanel, BorderLayout.EAST);
-                findReplace.add(Menu, BorderLayout.NORTH);
+                settings.add(Menu, BorderLayout.NORTH);
 
 
         }

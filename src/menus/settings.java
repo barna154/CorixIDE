@@ -55,7 +55,7 @@ public class settings {
                 closeBtn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        findReplace.setVisible(false);
+                        settings.setVisible(false);
                     }
                     @Override
                     public void mouseEntered(MouseEvent e) {

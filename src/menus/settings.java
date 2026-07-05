@@ -80,5 +80,9 @@ public class settings {
                 settings.add(Menu, BorderLayout.NORTH);
 
 
+
+                
+
+
         }
 }

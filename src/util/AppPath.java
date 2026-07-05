@@ -5,10 +5,11 @@ import java.nio.file.Files;
 import util.LanguageManager;
 
 public class AppPath {
+    
+    private static final String configPath = "../cache/settings.json";
 
     public static String basePath;
     public static File MainProject;
-    private static final String configPath = "../cache/settings.json";
 
     static {
         try {

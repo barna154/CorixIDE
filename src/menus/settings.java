@@ -122,7 +122,9 @@ public class settings {
                     }
                 });
 
-
+                rightPanel2.add(finishBtn);
+                settings.setCursor(Cursor.getDefaultCursor());
+                settings.add(rightPanel2, BorderLayout.SOUTH);
 
         }
 }

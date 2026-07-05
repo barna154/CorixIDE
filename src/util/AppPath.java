@@ -34,6 +34,7 @@ public class AppPath {
 
         basePath = projectsFolder;
         MainProject = new File(basePath + File.separator + selectedProject);
+        BoardName = selectedBoard;
     }
 
     public static void save() {

@@ -103,8 +103,6 @@ public class Main {
 
 
 // Menüpontok
-
-
         JLabel labelFile = new JLabel(mfile);
         labelFile.setFont(new Font("Arial", Font.PLAIN, 15));
         labelFile.setForeground(new Color(118, 118, 118));

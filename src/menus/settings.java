@@ -80,8 +80,59 @@ public class settings {
                 settings.add(Menu, BorderLayout.NORTH);
 
 
+                JPanel centerPanel = new JPanel();
+                centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS)); 
+                centerPanel.setBackground(new Color(50, 55, 50));
+                
+
+
+
+
+
+
+
+
+
+
+                JPanel rightPanel2 = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 20));
+                rightPanel2.setOpaque(false);
+                JLabel finishBtn = new JLabel(fnsbtn);
+                finishBtn.setPreferredSize(new Dimension(100, 30));
+                finishBtn.setFont(new Font("Segoe UI Emoji", Font.BOLD, 17));
+                finishBtn.setForeground(new Color(230, 230, 230));
+                finishBtn.setOpaque(true);
+                finishBtn.setHorizontalTextPosition(SwingConstants.CENTER);
+                finishBtn.setHorizontalAlignment(SwingConstants.CENTER);
+                finishBtn.setVerticalAlignment(SwingConstants.CENTER);
+                finishBtn.setBackground(new Color(43, 43, 43));
+                finishBtn.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        newProject.setVisible(false);
+
+                    }
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        finishBtn.setBackground(new Color(4, 71, 6));
+                    }
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        finishBtn.setBackground(new Color(43, 43, 43));
+                    }
+                });
 
                 
+                
+                pathField.addKeyListener(new KeyAdapter() {
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                                finishBtn.dispatchEvent(new java.awt.event.MouseEvent(
+                                    finishBtn, java.awt.event.MouseEvent.MOUSE_CLICKED,
+                                    System.currentTimeMillis(), 0, 0, 0, 1, false));
+                            }
+                        }
+                    });
 
 
         }

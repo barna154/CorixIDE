@@ -108,7 +108,7 @@ public class settings {
                 finishBtn.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        newProject.setVisible(false);
+                        settings.setVisible(false);
 
                     }
                     @Override
@@ -121,18 +121,6 @@ public class settings {
                     }
                 });
 
-                
-                
-                pathField.addKeyListener(new KeyAdapter() {
-                        @Override
-                        public void keyPressed(KeyEvent e) {
-                            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                                finishBtn.dispatchEvent(new java.awt.event.MouseEvent(
-                                    finishBtn, java.awt.event.MouseEvent.MOUSE_CLICKED,
-                                    System.currentTimeMillis(), 0, 0, 0, 1, false));
-                            }
-                        }
-                    });
 
 
         }

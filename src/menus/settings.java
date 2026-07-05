@@ -72,5 +72,13 @@ public class settings {
                 });
 
 
+
+                JPanel rightPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                rightPanel.setOpaque(false);
+                rightPanel.add(closeBtn);
+                Menu.add(rightPanel, BorderLayout.EAST);
+                findReplace.add(Menu, BorderLayout.NORTH);
+
+
         }
 }

@@ -1,11 +1,87 @@
 package compliners;
 
+import editor.TextEditor; 
 
 public class pic16F1527x {
 
-    String content = textEditorInstance.getTextComponent().getText();
+    private final TextEditor editor;
+
+    private String cpu;
+    private String config;
+    private String setup;
+    private String loop;
+
+    public pic16F1527x(TextEditor editor) {
+        this.editor = editor;
+    }
+
+    public void compile() {
+
+        String content = editor.getTextComponent().getText();
+
+        cpu = getCpu(content);
+        config = getSection(content, "config");
+        setup = getSection(content, "setup");
+        loop = getSection(content, "loop");
+
+        System.out.println("CPU: " + cpu);
+        System.out.println("CONFIG:\n" + config);
+        System.out.println("SETUP:\n" + setup);
+        System.out.println("LOOP:\n" + loop);
 
 
-    
 
+        
+        // Itt kezdődhet majd a valódi fordítás
+    }
+
+    private String getCpu(String content) {
+
+        for (String line : content.split("\\R")) {
+
+            line = line.trim();
+
+            if (line.startsWith("CPU=")) {
+                return line.substring(4).replace(";", "").trim();
+            }
+        }
+
+        return null;
+    }
+
+    private String getSection(String content, String section) {
+
+        int pos = content.indexOf(section);
+
+        if (pos == -1)
+            return "";
+
+        int open = content.indexOf('{', pos);
+
+        if (open == -1)
+            return "";
+
+        int close = content.indexOf('}', open);
+
+        if (close == -1)
+            return "";
+
+        return content.substring(open + 1, close).trim();
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public String getConfig() {
+        return config;
+    }
+
+    public String getSetup() {
+        return setup;
+    }
+
+    public String getLoop() {
+        return loop;
+    }
 }

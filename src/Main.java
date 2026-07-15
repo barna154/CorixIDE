@@ -100,6 +100,8 @@ public class Main {
         line3.setBackground(new Color(100, 100, 100));
         line3.setPreferredSize(new Dimension(1, 0)); 
 
+        pic16F1527x compilerPic = new pic16F1527x(te);
+        compilerPic.compile();
 
 
 // Menüpontok

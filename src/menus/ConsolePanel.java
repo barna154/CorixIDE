@@ -26,6 +26,7 @@ public class ConsolePanel  {
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 18));
 
         settings.setLayout(new BorderLayout());
+        settings.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         settings.add(scroll, BorderLayout.CENTER);
     }
      public JTextArea getTerminal() {

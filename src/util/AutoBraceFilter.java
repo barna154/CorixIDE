@@ -1,3 +1,5 @@
+package util;
+
 import javax.swing.text.*;
 import javax.swing.undo.*;
 import editor.TextEditor;

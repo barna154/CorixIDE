@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import util.LanguageManager;
 import util.KeyStrokes;
+import util.AutoBraceFilter;
 
 public class TextEditor {
 

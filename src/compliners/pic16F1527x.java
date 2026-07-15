@@ -1,7 +1,5 @@
 package compliners;
 
-import editor.TextEditor; 
-
 public class pic16F1527x {
 
     private final TextEditor editor;
@@ -31,7 +29,7 @@ public class pic16F1527x {
 
 
 
-        
+
         // Itt kezdődhet majd a valódi fordítás
     }
 

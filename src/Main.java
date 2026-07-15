@@ -17,6 +17,7 @@ import menus.boardSelector;
 import menus.settings;
 import util.LanguageManager;
 import util.RoundedBorder;
+import editor.TextEditor;
 import compliners.pic16F1527x;
 
 

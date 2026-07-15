@@ -897,7 +897,7 @@ public class Main {
         
 
         JLabel consolep = new JLabel("Test");
-        console.add(consolep)
+        console.add(consolep);
         
         menus.ConsolePanel consolePanel = new menus.ConsolePanel();
         consolePanel.init(console);

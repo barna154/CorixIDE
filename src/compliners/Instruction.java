@@ -2,7 +2,7 @@ package compliners;
 
 import java.util.List;
 
-public class instruction {
+public class Instruction {
     public final String name;
     public final List<String> args;
 

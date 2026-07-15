@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import util.CustomScrollBarUI;
 
-public class console {
+public class ConsolePanel  {
 
     public void init(JPanel settings) throws Exception {
 

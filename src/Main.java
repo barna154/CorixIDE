@@ -15,6 +15,7 @@ import menus.findReplace;
 import menus.editMenu;
 import menus.boardSelector;
 import menus.settings;
+import menus.ConsolePanel;
 import util.LanguageManager;
 import util.RoundedBorder;
 import editor.TextEditor;
@@ -101,7 +102,7 @@ public class Main {
         JPanel line3 = new JPanel();
         line3.setBackground(new Color(100, 100, 100));
         line3.setPreferredSize(new Dimension(1, 0)); 
-        
+
 //complinerek
          pic16F1527x compilerPic = new pic16F1527x(te);
 
@@ -896,10 +897,8 @@ public class Main {
         console.setBackground(new Color(23, 24, 23));
         console.setPreferredSize(new Dimension(0, 250));
 
-                JLabel terminalp = new JLabel(terminalname);
-                terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-                terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
-                terminalp.setForeground(new Color(255, 255, 255));
+        menus.ConsolePanel consolePanel = new menus.ConsolePanel();
+        consolePanel.init(console);
 
 
                             final int CONSOLE_RESIZE_MARGIN = 5;

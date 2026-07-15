@@ -894,7 +894,11 @@ public class Main {
         JPanel console = new JPanel(new BorderLayout());
         console.setBackground(new Color(23, 24, 23));
         console.setPreferredSize(new Dimension(0, 250));
+        
 
+        JLabel consolep = new JLabel("Test");
+        console.add(consolep)
+        
         menus.ConsolePanel consolePanel = new menus.ConsolePanel();
         consolePanel.init(console);
 

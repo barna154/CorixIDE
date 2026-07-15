@@ -3,17 +3,20 @@ package menus;
 import javax.swing.*;
 import java.awt.*;
 import util.CustomScrollBarUI;
+import util.LanguageManager;
 
 public class ConsolePanel  {
 
     private JTextArea terminal;
+
+    String terminaln = LanguageManager.get("terminalname");
 
     public void init(JPanel settings) throws Exception {
 
         settings.setLayout(new BorderLayout());
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        JLabel terminalp = new JLabel("alma");
+        JLabel terminalp = new JLabel(terminaln);
         terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(255, 255, 255));

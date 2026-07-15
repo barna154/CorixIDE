@@ -34,6 +34,7 @@ public class pic16F1527x {
 
 
         // Itt kezdődhet majd a valódi fordítás
+        
     }
 
     private String getCpu(String content) {

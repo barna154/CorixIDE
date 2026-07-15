@@ -23,16 +23,16 @@ public class ConsolePanel  {
                 super.paintComponent(g);
                 FontMetrics fm = g.getFontMetrics();
                 int textWidth = fm.stringWidth(getText());
-                int underlineY = fm.getAscent() + 2; // szöveg alja + kis rés
+                int underlineY = fm.getAscent() + 3; 
                 int startX = getInsets().left;
 
-                g.setColor(new Color(0, 148, 0)); // ITT add meg a vonal színét
+                g.setColor(new Color(0, 148, 0)); 
                 g.drawLine(startX, underlineY, startX + textWidth, underlineY);
             }
         };
         terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
-        terminalp.setForeground(new Color(218, 218, 218));
+        terminalp.setForeground(new Color(118, 118, 118));
         settings.add(terminalp, BorderLayout.NORTH);
 
 

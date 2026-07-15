@@ -1,3 +1,5 @@
+package editor;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.text.AbstractDocument;

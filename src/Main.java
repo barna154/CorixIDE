@@ -91,9 +91,6 @@ public class Main {
         leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
 
 //Editor
-        
-        menus.ConsolePanel consolePanel = new menus.ConsolePanel();
-        consolePanel.init(console);
 
         JPanel editor = new JPanel();
         editor.setBackground(new Color(40, 43, 40));
@@ -106,8 +103,6 @@ public class Main {
         line3.setBackground(new Color(100, 100, 100));
         line3.setPreferredSize(new Dimension(1, 0)); 
 
-//complinerek
-         pic16F1527x compilerPic = new pic16F1527x(te);
 
 // Menüpontok
         JLabel labelFile = new JLabel(mfile);
@@ -900,6 +895,8 @@ public class Main {
         console.setBackground(new Color(23, 24, 23));
         console.setPreferredSize(new Dimension(0, 250));
 
+        menus.ConsolePanel consolePanel = new menus.ConsolePanel();
+        consolePanel.init(console);
 
 
                             final int CONSOLE_RESIZE_MARGIN = 5;
@@ -973,6 +970,9 @@ public class Main {
 
         back.add(center, BorderLayout.CENTER);
         resizeBorder.add(back, BorderLayout.CENTER);
+
+//complinerek
+         pic16F1527x compilerPic = new pic16F1527x(te);
 
 //Menüpont listenerek
       labelFile.addMouseListener(new MouseAdapter() {

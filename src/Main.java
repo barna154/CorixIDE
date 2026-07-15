@@ -972,7 +972,7 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 //complinerek
-         pic16F1527x compilerPic = new pic16F1527x(te);
+         pic16F1527x compilerPic = new pic16F1527x(te, ConsolePanel);
 
 //Menüpont listenerek
       labelFile.addMouseListener(new MouseAdapter() {

@@ -12,6 +12,8 @@ import java.nio.charset.StandardCharsets;
 import util.LanguageManager;
 import util.KeyStrokes;
 import util.AutoBraceFilter;
+import util.SyntaxHighlighter;
+import util.LineNumberComponent;
 
 public class TextEditor {
 

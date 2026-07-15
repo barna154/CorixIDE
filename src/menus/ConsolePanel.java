@@ -30,7 +30,7 @@ public class ConsolePanel  {
                 g.drawLine(startX, underlineY, startX + textWidth, underlineY);
             }
         };
-        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(118, 118, 118));
         settings.add(terminalp, BorderLayout.NORTH);

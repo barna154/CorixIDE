@@ -17,11 +17,11 @@ public class ConsolePanel  {
         settings.setLayout(new BorderLayout());
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        JLabel terminalp = new JLabel("<html><u>" + terminalname + "</u></html>");
-        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
-        terminalp.setForeground(new Color(218, 218, 218));
-        settings.add(terminalp, BorderLayout.NORTH);
+        JLabel terminalp = new JLabel("<html><u style='text-decoration-color: rgb(0, 78, 0);'>" + terminalname + "</u></html>");
+            terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+            terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
+            terminalp.setForeground(new Color(218, 218, 218));
+            settings.add(terminalp, BorderLayout.NORTH);
 
 
         terminal = new JTextArea();

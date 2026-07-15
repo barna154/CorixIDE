@@ -29,9 +29,9 @@ public class pic16F1527x {
 
         console.println("----------------");
         console.println("CPU: " + cpu);
-        console.println("CONFIG:\n" + config);
-        console.println("SETUP:\n" + setup);
-        console.println("LOOP:\n" + loop);
+        console.println("CONFIG:\n  " + config);
+        console.println("SETUP:\n  " + setup);
+        console.println("LOOP:\n  " + loop);
         console.println("----------------");
 
 

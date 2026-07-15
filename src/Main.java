@@ -896,8 +896,12 @@ public class Main {
         console.setPreferredSize(new Dimension(0, 250));
         
 
-        JLabel consolep = new JLabel("Test");
-        console.add(consolep);
+        JLabel terminalp = new JLabel(terminalname);
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
+        terminalp.setForeground(new Color(255, 255, 255));
+        console.add(terminalp)
+
         
         menus.ConsolePanel consolePanel = new menus.ConsolePanel();
         consolePanel.init(console);

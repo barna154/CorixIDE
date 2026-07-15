@@ -34,7 +34,6 @@ public class Main {
         String mfile = LanguageManager.get("File");
         String medit = LanguageManager.get("Edit");
         String moptions = LanguageManager.get("Options");
-        String terminalname = LanguageManager.get("Terminal");
         String mboards = LanguageManager.get("Boards");
         String newp = LanguageManager.get("New Project");
         String newf = LanguageManager.get("New file");

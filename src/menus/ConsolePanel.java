@@ -9,15 +9,15 @@ public class ConsolePanel  {
 
     private JTextArea terminal;
 
-    String terminaln = LanguageManager.get("terminalname");
+     String terminalname = LanguageManager.get("Terminal");
 
     public void init(JPanel settings) throws Exception {
 
         settings.setLayout(new BorderLayout());
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        JLabel terminalp = new JLabel(terminaln);
-        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        JLabel terminalp = new JLabel(terminalname);
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, -2, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(255, 255, 255));
         settings.add(terminalp, BorderLayout.NORTH);

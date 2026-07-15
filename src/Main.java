@@ -101,10 +101,9 @@ public class Main {
         JPanel line3 = new JPanel();
         line3.setBackground(new Color(100, 100, 100));
         line3.setPreferredSize(new Dimension(1, 0)); 
-
-        pic16F1527x compilerPic = new pic16F1527x(te);
-        compilerPic.compile();
-
+        
+//complinerek
+         pic16F1527x compilerPic = new pic16F1527x(te);
 
 // Menüpontok
         JLabel labelFile = new JLabel(mfile);
@@ -180,20 +179,6 @@ public class Main {
         complinelb.setCursor(new Cursor(Cursor.HAND_CURSOR));
         complinelb.setOpaque(true);
         complinelb.setBackground(new Color(43, 43, 43));
-
-        complinelb.addMouseListener(new MouseAdapter() {
-           @Override
-                public void mouseClicked(MouseEvent e) { 
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    complinelb.setForeground(new Color(0, 28, 150));
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    complinelb.setForeground(new Color(118, 118, 118));
-                }
-            });
 
         leftPanel.add(complinelb);
 
@@ -1032,6 +1017,24 @@ public class Main {
             }
         });
         
+
+
+        complinelb.addMouseListener(new MouseAdapter() {
+           @Override
+                public void mouseClicked(MouseEvent e) { 
+
+                    compilerPic.compile();
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    complinelb.setForeground(new Color(0, 28, 150));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    complinelb.setForeground(new Color(118, 118, 118));
+                }
+            });
+
 
 
 

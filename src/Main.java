@@ -900,11 +900,10 @@ public class Main {
         terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(255, 255, 255));
-        console.add(terminalp, BorderLayout.WEST);
+        console.add(terminalp, BorderLayout.NORTH);   // <-- NORTH
 
-        
         menus.ConsolePanel consolePanel = new menus.ConsolePanel();
-        consolePanel.init(console);
+        consolePanel.init(console); 
 
 
                             final int CONSOLE_RESIZE_MARGIN = 5;

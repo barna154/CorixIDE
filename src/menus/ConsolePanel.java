@@ -10,7 +10,10 @@ public class ConsolePanel  {
 
     public void init(JPanel settings) throws Exception {
 
-        JLabel terminalp = new JLabel("terminalname");
+        settings.setLayout(new BorderLayout());
+        settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
+
+        JLabel terminalp = new JLabel("alma");
         terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(255, 255, 255));
@@ -32,8 +35,6 @@ public class ConsolePanel  {
         scroll.getVerticalScrollBar().setPreferredSize(new Dimension(18, 0));
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 18));
 
-        settings.setLayout(new BorderLayout());
-        settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
         settings.add(scroll, BorderLayout.CENTER);
     }
      public JTextArea getTerminal() {

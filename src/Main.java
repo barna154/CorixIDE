@@ -895,15 +895,9 @@ public class Main {
         console.setBackground(new Color(23, 24, 23));
         console.setPreferredSize(new Dimension(0, 250));
         
-
-        JLabel terminalp = new JLabel(terminalname);
-        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
-        terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
-        terminalp.setForeground(new Color(255, 255, 255));
-        console.add(terminalp, BorderLayout.NORTH);   // <-- NORTH
-
+        
         menus.ConsolePanel consolePanel = new menus.ConsolePanel();
-        consolePanel.init(console); 
+        consolePanel.init(console);
 
 
                             final int CONSOLE_RESIZE_MARGIN = 5;

@@ -6,9 +6,16 @@ import util.CustomScrollBarUI;
 
 public class ConsolePanel  {
 
+    private JLabel terminalp;
     private JTextArea terminal;
 
     public void init(JPanel settings) throws Exception {
+
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
+        terminalp.setForeground(new Color(255, 255, 255));
+        settings.add(terminalp, BorderLayout.NORTH);
+
 
         terminal = new JTextArea();
         terminal.setEditable(false);

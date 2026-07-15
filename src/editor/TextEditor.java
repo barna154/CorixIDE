@@ -14,6 +14,7 @@ import util.KeyStrokes;
 import util.AutoBraceFilter;
 import util.SyntaxHighlighter;
 import util.LineNumberComponent;
+import util.CustomScrollBarUI;
 
 public class TextEditor {
 

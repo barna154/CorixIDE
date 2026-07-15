@@ -2,6 +2,8 @@ package compliners;
 
 import editor.TextEditor;
 import menus.ConsolePanel;
+import java.util.List;
+import java.util.ArrayList;
 
 public class pic16F1527x {
 
@@ -13,6 +15,39 @@ public class pic16F1527x {
     private String setup;
     private String loop;
 
+    private List<Instruction> parseInstructions(String block) {
+    List<Instruction> instructions = new ArrayList<>();
+
+            // minden ; -ig tartó rész egy utasítás
+            for (String rawLine : block.split(";")) {
+                String line = rawLine.trim();
+                if (line.isEmpty()) continue;
+
+                // pl: "setPin(1, IN)"
+                int open = line.indexOf('(');
+                int close = line.lastIndexOf(')');
+
+                if (open == -1 || close == -1 || close < open) {
+                    console.println("Figyelmeztetés: nem sikerült értelmezni: " + line);
+                    continue;
+                }
+
+                String funcName = line.substring(0, open).trim();
+                String argsPart = line.substring(open + 1, close).trim();
+
+                List<String> args = new ArrayList<>();
+                if (!argsPart.isEmpty()) {
+                    for (String arg : argsPart.split(",")) {
+                        args.add(arg.trim());
+                    }
+                }
+
+                instructions.add(new Instruction(funcName, args));
+            }
+
+            return instructions;
+        }
+
     public pic16F1527x(TextEditor editor, ConsolePanel console) {       
         this.editor = editor;
         this.console = console;
@@ -20,25 +55,31 @@ public class pic16F1527x {
 
     public void compile() {
 
-        String content = editor.getTextComponent().getText();
+            String content = editor.getTextComponent().getText();
 
-        cpu = getCpu(content);
-        config = getSection(content, "config");
-        setup = getSection(content, "setup");
-        loop = getSection(content, "loop");
+            cpu = getCpu(content);
+            config = getSection(content, "config");
+            setup = getSection(content, "setup");
+            loop = getSection(content, "loop");
 
-        console.println("----------------");
-        console.println("CPU: " + cpu);
-        console.println("CONFIG:\n" + config);
-        console.println("SETUP:\n" + setup);
-        console.println("LOOP:\n" + loop);
-        console.println("----------------");
+            console.println("----------------");
+            console.println("CPU: " + cpu);
 
+            List<Instruction> setupInstructions = parseInstructions(setup);
+            List<Instruction> loopInstructions = parseInstructions(loop);
 
+            console.println("SETUP utasítások:");
+            for (Instruction instr : setupInstructions) {
+                console.println("  -> " + instr);
+            }
 
-        // Itt kezdődhet majd a valódi fordítás
+            console.println("LOOP utasítások:");
+            for (Instruction instr : loopInstructions) {
+                console.println("  -> " + instr);
+            }
 
-    }
+            console.println("----------------");
+        }
 
     private String getCpu(String content) {
 

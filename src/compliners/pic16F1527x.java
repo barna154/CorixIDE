@@ -19,12 +19,12 @@ public class pic16F1527x {
     private List<Instruction> parseInstructions(String block) {
     List<Instruction> instructions = new ArrayList<>();
 
-            // minden ; -ig tartó rész egy utasítás
+
             for (String rawLine : block.split(";")) {
                 String line = rawLine.trim();
                 if (line.isEmpty()) continue;
 
-                // pl: "setPin(1, IN)"
+            
                 int open = line.indexOf('(');
                 int close = line.lastIndexOf(')');
 

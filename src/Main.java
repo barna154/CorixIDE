@@ -967,7 +967,6 @@ public class Main {
 
         back.add(leftWrapper, BorderLayout.WEST);
 
-        console.add(terminalp, BorderLayout.WEST);
         center.add(editor, BorderLayout.CENTER);
         center.add(consoleWrapper, BorderLayout.SOUTH);
 

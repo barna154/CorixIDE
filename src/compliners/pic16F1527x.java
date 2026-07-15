@@ -13,7 +13,7 @@ public class pic16F1527x {
     private String setup;
     private String loop;
 
-    public pic16F1527x(TextEditor editor) {
+    public pic16F1527x(TextEditor editor, ConsolePanel console) {       
         this.editor = editor;
         this.console = console;
     }

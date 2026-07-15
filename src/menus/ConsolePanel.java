@@ -17,7 +17,7 @@ public class ConsolePanel  {
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
         JLabel terminalp = new JLabel(terminalname);
-        terminalp.setBorder(BorderFactory.createEmptyBorder(0, -5, 0, 0));
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, -4, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(218, 218, 218));
         settings.add(terminalp, BorderLayout.NORTH);

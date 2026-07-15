@@ -131,4 +131,44 @@ public class pic16F1527x {
     public String getLoop() {
         return loop;
     }
+
+
+
+    private String generateAsmForInstruction(Instruction instr) {
+        switch (instr.name) {
+            case "setPin":
+                return generateSetPin(instr.args);
+            case "outPin":
+                return generateOutPin(instr.args);
+            default:
+                console.println("Ismeretlen utasítás: " + instr.name);
+                return "";
+        }
+    }
+
+    private String generateSetPin(List<String> args) {
+        if (args.size() != 2) {
+            console.println("setPin hibás paraméterszám: " + args);
+            return "";
+        }
+
+        String pin = args.get(0);
+        String direction = args.get(1); // "IN" vagy "OUT"
+
+        // Itt jönne a valódi PIC16 TRISx regiszter beállítás
+        // egyelőre csak placeholder:
+        return "; setPin(" + pin + ", " + direction + ") -> TRIS beállítás ide";
+    }
+
+    private String generateOutPin(List<String> args) {
+        if (args.size() != 2) {
+            console.println("outPin hibás paraméterszám: " + args);
+            return "";
+        }
+
+        String pin = args.get(0);
+        String value = args.get(1); // "TRUE"/"FALSE"
+
+        return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
+    }
 }

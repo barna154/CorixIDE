@@ -38,7 +38,7 @@ public class ConsolePanel  {
     }
 
     public void println(String text) {
-        print(text + "\n");
+        print("  " +text + "\n");
     }
 
     public void clear() {

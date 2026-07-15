@@ -17,7 +17,19 @@ public class ConsolePanel  {
         settings.setLayout(new BorderLayout());
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        JLabel terminalp = new JLabel("<html><u style='text-decoration-color: rgb(0, 48, 0);'>" + terminalname + "</u></html>");
+        JLabel terminalp = new JLabel(terminalname) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                FontMetrics fm = g.getFontMetrics();
+                int textWidth = fm.stringWidth(getText());
+                int underlineY = fm.getAscent() + 2; // szöveg alja + kis rés
+                int startX = getInsets().left;
+
+                g.setColor(new Color(0, 148, 0)); // ITT add meg a vonal színét
+                g.drawLine(startX, underlineY, startX + textWidth, underlineY);
+            }
+        };
         terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(218, 218, 218));

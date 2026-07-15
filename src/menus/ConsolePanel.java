@@ -17,11 +17,8 @@ public class ConsolePanel  {
         settings.setLayout(new BorderLayout());
         settings.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 5));
 
-        JLabel terminalp = new JLabel(terminalname);
-        terminalp.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 2, 0, new Color(90, 90, 90)), // alsó vonal, 2px, szürke
-            BorderFactory.createEmptyBorder(0, 20, 4, 0) // belső margó (bal 20px, alul 4px hely a vonalig)
-        ));
+        JLabel terminalp = new JLabel("<html><u>" + terminalname + "</u></html>");
+        terminalp.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 0));
         terminalp.setFont(new Font("Arial", Font.PLAIN, 18));
         terminalp.setForeground(new Color(218, 218, 218));
         settings.add(terminalp, BorderLayout.NORTH);

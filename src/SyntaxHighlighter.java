@@ -3,6 +3,7 @@ import javax.swing.text.*;
 import java.awt.*;
 import java.util.regex.*;
 import javax.swing.undo.UndoManager;
+import editor.TextEditor;
 
 public class SyntaxHighlighter {
 

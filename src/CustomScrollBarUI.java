@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import javax.swing.text.JTextComponent;
+import editor.TextEditor;
 
 public class CustomScrollBarUI extends BasicScrollBarUI {
 

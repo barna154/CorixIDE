@@ -1,5 +1,6 @@
 import javax.swing.text.*;
 import javax.swing.undo.*;
+import editor.TextEditor;
 
 public class AutoBraceFilter extends DocumentFilter {
 

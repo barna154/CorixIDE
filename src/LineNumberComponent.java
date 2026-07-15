@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import javax.swing.text.JTextComponent;
+import editor.TextEditor;
 
 public class LineNumberComponent extends JComponent {
 

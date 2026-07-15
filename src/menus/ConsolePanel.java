@@ -26,7 +26,7 @@ public class ConsolePanel  {
                 int underlineY = fm.getAscent() + 3; 
                 int startX = getInsets().left;
 
-                g.setColor(new Color(30, 33, 30)); 
+                g.setColor(new Color(0, 255, 74)); 
                 g.drawLine(startX, underlineY, startX + textWidth, underlineY);
             }
         };

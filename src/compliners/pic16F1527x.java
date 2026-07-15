@@ -6,6 +6,7 @@ import menus.ConsolePanel;
 public class pic16F1527x {
 
     private final TextEditor editor;
+    private final ConsolePanel console;
 
     private String cpu;
     private String config;
@@ -14,6 +15,7 @@ public class pic16F1527x {
 
     public pic16F1527x(TextEditor editor) {
         this.editor = editor;
+        this.console = console;
     }
 
     public void compile() {
@@ -25,13 +27,12 @@ public class pic16F1527x {
         setup = getSection(content, "setup");
         loop = getSection(content, "loop");
 
-        ConsolePanel.println("CPU: " + cpu);
-        System.out.println("----------------");
-        System.out.println("CPU: " + cpu);
-        System.out.println("CONFIG:\n" + config);
-        System.out.println("SETUP:\n" + setup);
-        System.out.println("LOOP:\n" + loop);
-        System.out.println("----------------");
+        console.println("----------------");
+        console.println("CPU: " + cpu);
+        console.println("CONFIG:\n" + config);
+        console.println("SETUP:\n" + setup);
+        console.println("LOOP:\n" + loop);
+        console.println("----------------");
 
 
 

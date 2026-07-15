@@ -24,11 +24,12 @@ public class pic16F1527x {
         setup = getSection(content, "setup");
         loop = getSection(content, "loop");
 
+        System.out.println("----------------");
         System.out.println("CPU: " + cpu);
         System.out.println("CONFIG:\n" + config);
         System.out.println("SETUP:\n" + setup);
         System.out.println("LOOP:\n" + loop);
-
+        System.out.println("----------------");
 
 
 

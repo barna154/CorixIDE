@@ -1,6 +1,7 @@
 package compliners;
 
 import editor.TextEditor;
+import menus.ConsolePanel;
 
 public class pic16F1527x {
 
@@ -24,6 +25,7 @@ public class pic16F1527x {
         setup = getSection(content, "setup");
         loop = getSection(content, "loop");
 
+        ConsolePanel.println("CPU: " + cpu)
         System.out.println("----------------");
         System.out.println("CPU: " + cpu);
         System.out.println("CONFIG:\n" + config);
@@ -34,7 +36,7 @@ public class pic16F1527x {
 
 
         // Itt kezdődhet majd a valódi fordítás
-        
+
     }
 
     private String getCpu(String content) {

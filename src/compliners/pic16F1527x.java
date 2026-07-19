@@ -171,11 +171,11 @@ public class pic16F1527x {
         }
 
         String pin = args.get(0);
-        String direction = args.get(1); // "IN" vagy "OUT"
+        String direction = args.get(1); 
 
         // Itt jönne a valódi PIC16 TRISx regiszter beállítás
         // egyelőre csak placeholder:
-        return "; setPin(" + pin + ", " + direction + ") -> TRIS beállítás ide";
+        return "F4E0";
     }
 
     private String generateOutPin(List<String> args) {

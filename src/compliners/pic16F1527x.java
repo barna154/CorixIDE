@@ -68,7 +68,7 @@ public class pic16F1527x {
 
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
-            List<Instruction> configInstructions = parseInstructions(config)
+            List<Instruction> configInstructions = parseInstructions(config);
 
 
                 console.println("Config utasítások:");

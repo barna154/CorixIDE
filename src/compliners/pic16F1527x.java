@@ -68,6 +68,17 @@ public class pic16F1527x {
 
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
+            List<Instruction> configInstructions = parseInstructions(config)
+
+
+                console.println("Config utasítások:");
+                for (Instruction instr : configInstructions) {
+                    console.println("  -> " + instr);
+                    String asm = generateAsmForInstruction(instr);
+                    if (!asm.isEmpty()) {
+                        console.println("     " + asm);
+                    }
+                }
 
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {

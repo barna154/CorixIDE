@@ -70,6 +70,7 @@ public class pic16F1527x {
             loop = getSection(content, "loop");
 
             config1 = "CD3F";
+            config2 = "E53F";
 
             console.println("----------------");
             console.println("CPU: " + cpu);
@@ -168,6 +169,12 @@ public class pic16F1527x {
                 return generatesetAnalogRange(instr.args);
             case "setClockOut":
                 return generatesetClockOut(instr.args);    
+            case "setOverflowReset":
+                 return generateSetOverflowReset(instr.args);  
+            case "setPeripheralLock":
+                 return generateSetPeripheralLock(instr.args);
+            case "setBrownOutVoltage":
+                 return generateSetBrownOutVoltage(instr.args);   
             case "setPin":
                 return generateSetPin(instr.args);
             case "outPin":
@@ -264,10 +271,135 @@ public class pic16F1527x {
             config1 = sb.toString();
             return config1;
         }
+    
 
+    private String generateSetOverflowReset(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
 
+            StringBuilder sb = new StringBuilder(config2);
 
+            if (arg.equals("TRUE")) {
+                sb.setCharAt(2, '3');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(2, '2');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
 
+            config1 = sb.toString();
+            return config2;
+        }
+    
+    private String generateSetPeripheralLock(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config1.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config1.charAt(3) == '7') {
+                            sb.setCharAt(3, 'F');
+                        }
+                    
+                    else if (config1.charAt(3) == '5') {
+                            sb.setCharAt(3, 'D');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, '7');
+                        }
+
+                    else if (config1.charAt(3) == 'D') {
+                            sb.setCharAt(3, '5');
+                        }
+
+                    else if (config1.charAt(3) == '7') {
+                            sb.setCharAt(3, '7');
+                        }
+                    
+                    else if (config1.charAt(3) == '5') {
+                            sb.setCharAt(3, '5');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config2;
+        }
+
+    private String generateSetBrownOutVoltage(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("LOW")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config1.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config1.charAt(3) == '7') {
+                            sb.setCharAt(3, '7');
+                        }
+                    
+                    else if (config1.charAt(3) == '5') {
+                            sb.setCharAt(3, '7');
+                        }
+            }
+            else if (arg.equals("HIGH")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config1.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config1.charAt(3) == '7') {
+                            sb.setCharAt(3, '5');
+                        }
+                    
+                    else if (config1.charAt(3) == '5') {
+                            sb.setCharAt(3, '5');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config2;
+        }
 
 
 

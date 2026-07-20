@@ -397,7 +397,7 @@ public class pic16F1527x {
                 return "Not recognizable argument: " + args;
             }
 
-            config1 = sb.toString();
+            config2 = sb.toString();
             return config2;
         }
 

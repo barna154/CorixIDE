@@ -164,6 +164,10 @@ public class pic16F1527x {
         switch (instr.name) {
             case "setOsc":
                 return generateSetOsc(instr.args);
+            case "setAnalogRange":
+                return generatesetAnalogRange(instr.args);
+            case "setClockOut":
+                return generatesetClockOut(instr.args);    
             case "setPin":
                 return generateSetPin(instr.args);
             case "outPin":
@@ -177,7 +181,7 @@ public class pic16F1527x {
 
     private String generateSetOsc(List<String> args) {
         if (args.size() != 1) {
-            console.println("Config hibás paraméterszám: " + args);
+            console.println("Wrong parmeter count " + args);
             return "";
         }
             
@@ -187,18 +191,23 @@ public class pic16F1527x {
 
             if (arg.equals("IN1MHZ")) {
                 sb.setCharAt(1, 'F');
+                sb.setCharAt(2, 'D');
             }
             else if (arg.equals("IN32MHZ")) {
                 sb.setCharAt(1, 'C');
+                sb.setCharAt(2, 'D');
             }
             else if (arg.equals("EXTL")) {
                 sb.setCharAt(1, 'F');
+                sb.setCharAt(1, 'E');
             }
             else if (arg.equals("EXTH")) {
+                sb.setCharAt(1, 'F');
                 sb.setCharAt(1, 'F');
             }
             else if (arg.equals("LPIN")) {
                 sb.setCharAt(1, 'D');
+                sb.setCharAt(2, 'D');
             }
             else {
                 return "Not recognizable argument: " + args;
@@ -207,6 +216,65 @@ public class pic16F1527x {
             config1 = sb.toString();
             return config1;
         }
+
+    private String generatesetAnalogRange(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("HIGH")) {
+                sb.setCharAt(3, '3');
+            }
+            else if (arg.equals("LOW")) {
+                sb.setCharAt(3, '2');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config1;
+        }
+
+    private String generatesetClockOut(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("TRUE")) {
+                sb.setCharAt(4, 'E');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(4, 'F');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config1;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
     private String generateSetPin(List<String> args) {
         if (args.size() != 2) {

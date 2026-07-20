@@ -190,24 +190,24 @@ public class pic16F1527x {
             StringBuilder sb = new StringBuilder(config1);
 
             if (arg.equals("IN1MHZ")) {
-                sb.setCharAt(1, 'F');
-                sb.setCharAt(2, 'D');
+                sb.setCharAt(0, 'F');
+                sb.setCharAt(1, 'D');
             }
             else if (arg.equals("IN32MHZ")) {
-                sb.setCharAt(1, 'C');
-                sb.setCharAt(2, 'D');
+                sb.setCharAt(0, 'C');
+                sb.setCharAt(1, 'D');
             }
             else if (arg.equals("EXTL")) {
-                sb.setCharAt(1, 'F');
-                sb.setCharAt(1, 'E');
+                sb.setCharAt(0, 'F');
+                sb.setCharAt(0, 'E');
             }
             else if (arg.equals("EXTH")) {
-                sb.setCharAt(1, 'F');
-                sb.setCharAt(1, 'F');
+                sb.setCharAt(0, 'F');
+                sb.setCharAt(0, 'F');
             }
             else if (arg.equals("LPIN")) {
+                sb.setCharAt(0, 'D');
                 sb.setCharAt(1, 'D');
-                sb.setCharAt(2, 'D');
             }
             else {
                 return "Not recognizable argument: " + args;
@@ -228,10 +228,10 @@ public class pic16F1527x {
             StringBuilder sb = new StringBuilder(config1);
 
             if (arg.equals("HIGH")) {
-                sb.setCharAt(3, '3');
+                sb.setCharAt(2, '3');
             }
             else if (arg.equals("LOW")) {
-                sb.setCharAt(3, '2');
+                sb.setCharAt(2, '2');
             }
             else {
                 return "Not recognizable argument: " + args;
@@ -252,10 +252,10 @@ public class pic16F1527x {
             StringBuilder sb = new StringBuilder(config1);
 
             if (arg.equals("TRUE")) {
-                sb.setCharAt(4, 'E');
+                sb.setCharAt(3, 'E');
             }
             else if (arg.equals("FALSE")) {
-                sb.setCharAt(4, 'F');
+                sb.setCharAt(3, 'F');
             }
             else {
                 return "Not recognizable argument: " + args;

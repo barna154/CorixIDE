@@ -175,6 +175,14 @@ public class pic16F1527x {
                  return generateSetPeripheralLock(instr.args);
             case "setBrownOutVoltage":
                  return generateSetBrownOutVoltage(instr.args);   
+            case "setBrownOut":
+                 return generateSetBrownOut(instr.args); 
+            case "setWDTE":
+                 return generateSetWDTE(instr.args); 
+            case "setMCLR":
+                 return generateSetMCLR(instr.args); 
+
+
             case "setPin":
                 return generateSetPin(instr.args);
             case "outPin":
@@ -364,15 +372,15 @@ public class pic16F1527x {
                             sb.setCharAt(3, 'F');
                         }
 
-                    else if (config1.charAt(3) == 'D') {
+                    else if (config2.charAt(3) == 'D') {
                             sb.setCharAt(3, 'F');
                         }
 
-                    else if (config1.charAt(3) == '7') {
+                    else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '7');
                         }
                     
-                    else if (config1.charAt(3) == '5') {
+                    else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '7');
                         }
             }
@@ -381,15 +389,15 @@ public class pic16F1527x {
                             sb.setCharAt(3, 'D');
                         }
 
-                    else if (config1.charAt(3) == 'D') {
+                    else if (config2.charAt(3) == 'D') {
                             sb.setCharAt(3, 'D');
                         }
 
-                    else if (config1.charAt(3) == '7') {
+                    else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '5');
                         }
                     
-                    else if (config1.charAt(3) == '5') {
+                    else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '5');
                         }
             }
@@ -400,7 +408,292 @@ public class pic16F1527x {
             config2 = sb.toString();
             return config2;
         }
+    
+    private String generateSetBrownOut(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
 
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'F');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, 'E');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, '3');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '2');
+                        }
+            }
+            else if (arg.equals("SLPMODE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, 'A');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    private String generateSetWDTE(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'D');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, 'D');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'C');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, 'C');
+
+                    }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'A');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, '5');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, '4');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
+
+                    }
+            }
+            else if (arg.equals("SLPMODE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '3');
+                        }
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, '5');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, '4');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
+
+                    }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    private String generateSetMCLR(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'D');
+                        }
+
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                        }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'D');
+                        }
+                    
+                    else if (config2.charAt(0) == '4') {
+                            sb.setCharAt(0, '5');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(0) == 'D') {
+                            sb.setCharAt(0, 'C');
+                        }
+
+                    else if (config2.charAt(0) == '5') {
+                            sb.setCharAt(0, '4');
+                        }
+
+                    else if (config2.charAt(0) == 'C') {
+                            sb.setCharAt(0, 'C');
+                        }
+                    
+                    else if (config2.charAt(0) == '4') {
+                            sb.setCharAt(0, '4');
+                        }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    
 
 
 

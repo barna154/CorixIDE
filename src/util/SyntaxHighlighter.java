@@ -141,6 +141,16 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(falseb.start(), falseb.end() - falseb.start(), boolStyle, false);
             }
 
+            Matcher highb = Pattern.compile("\\bHIGH\\b").matcher(text);
+            while (highb.find()) {
+                doc.setCharacterAttributes(highb.start(), highb.end() - highb.start(), boolStyle, false);
+            }
+
+            Matcher lowb = Pattern.compile("\\bLOW\\b").matcher(text);
+            while (lowb.find()) {
+                doc.setCharacterAttributes(lowb.start(), lowb.end() - lowb.start(), boolStyle, false);
+            }
+
 
             String[] lines = text.split("\n");
             int pos = 0;

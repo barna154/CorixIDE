@@ -205,7 +205,8 @@ public class pic16F1527x {
             }
 
             config1 = sb.toString();
-            }
+            return config1;
+        }
 
     private String generateSetPin(List<String> args) {
         if (args.size() != 2) {

@@ -53,7 +53,7 @@ public class SyntaxHighlighter {
         StyleConstants.setForeground(paramStyle, new Color(170, 60, 150));
 
         boolStyle = doc.addStyle("bool", null);
-        StyleConstants.setForeground(boolStyle, new Color(50, 50, 200));
+        StyleConstants.setForeground(boolStyle, new Color(0, 143, 29));
 
         fullLineStyle = doc.addStyle("fullLine", null);
         StyleConstants.setForeground(fullLineStyle, new Color(150, 150, 150));  

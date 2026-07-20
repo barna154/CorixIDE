@@ -18,7 +18,7 @@ public class pic16F1527x {
 
     private String config1;
     private String config2;
-    private Stirng config3;
+    private String config3;
     private String config4;
     private String config5;
 

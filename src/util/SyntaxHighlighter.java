@@ -151,6 +151,31 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(lowb.start(), lowb.end() - lowb.start(), boolStyle, false);
             }
 
+            Matcher osc1b = Pattern.compile("\\bIN1MHZ\\b").matcher(text);
+            while (osc1b.find()) {
+                doc.setCharacterAttributes(osc1b.start(), osc1b.end() - osc1b.start(), boolStyle, false);
+            }
+
+            Matcher osc32b = Pattern.compile("\\bIN32MHZ\\b").matcher(text);
+            while (osc32b.find()) {
+                doc.setCharacterAttributes(osc32b.start(), osc32b.end() - osc32b.start(), boolStyle, false);
+            }
+
+            Matcher lpinb = Pattern.compile("\\bLPIN\\b").matcher(text);
+            while (lpinb.find()) {
+                doc.setCharacterAttributes(lpinb.start(), lpinb.end() - lpinb.start(), boolStyle, false);
+            }
+
+            Matcher extlb = Pattern.compile("\\bEXTL\\b").matcher(text);
+            while (extlb.find()) {
+                doc.setCharacterAttributes(extlb.start(), extlb.end() - extlb.start(), boolStyle, false);
+            }
+
+            Matcher exthb = Pattern.compile("\\bEXTH\\b").matcher(text);
+            while (exthb.find()) {
+                doc.setCharacterAttributes(exthb.start(), exthb.end() - exthb.start(), boolStyle, false);
+            }
+
 
             String[] lines = text.split("\n");
             int pos = 0;

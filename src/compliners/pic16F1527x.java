@@ -16,6 +16,12 @@ public class pic16F1527x {
     private String setup;
     private String loop;
 
+    private String config1;
+    private String config2;
+    private Stirng config3;
+    private String config4;
+    private String config5;
+
     private List<Instruction> parseInstructions(String block) {
     List<Instruction> instructions = new ArrayList<>();
 
@@ -62,6 +68,8 @@ public class pic16F1527x {
             config = getSection(content, "config");
             setup = getSection(content, "setup");
             loop = getSection(content, "loop");
+
+            config1 = "CD3F";
 
             console.println("----------------");
             console.println("CPU: " + cpu);
@@ -154,6 +162,8 @@ public class pic16F1527x {
 
     private String generateAsmForInstruction(Instruction instr) {
         switch (instr.name) {
+            case "setOsc":
+                return generateSetOsc(instr.args);
             case "setPin":
                 return generateSetPin(instr.args);
             case "outPin":
@@ -163,6 +173,39 @@ public class pic16F1527x {
                 return "";
         }
     }
+
+
+    private String generateSetOsc(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Config hibás paraméterszám: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("IN1MHZ")) {
+                sb.setCharAt(1, 'F');
+            }
+            else if (arg.equals("IN32MHZ")) {
+                sb.setCharAt(1, 'C');
+            }
+            else if (arg.equals("EXTL")) {
+                sb.setCharAt(1, 'F');
+            }
+            else if (arg.equals("EXTH")) {
+                sb.setCharAt(1, 'F');
+            }
+            else if (arg.equals("LPIN")) {
+                sb.setCharAt(1, 'D');
+            }
+            else {
+                return "Not recogniseable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            }
 
     private String generateSetPin(List<String> args) {
         if (args.size() != 2) {

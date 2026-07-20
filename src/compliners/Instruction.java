@@ -13,6 +13,6 @@ public class Instruction {
 
     @Override
     public String toString() {
-        return name + "(" + String.join(", ", args) + ")";
+        return name + "(" + String.join(", ", args) + ");";
     }
 }

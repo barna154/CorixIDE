@@ -293,7 +293,7 @@ public class pic16F1527x {
                 return "Not recognizable argument: " + args;
             }
 
-            config1 = sb.toString();
+            config2 = sb.toString();
             return config2;
         }
     
@@ -312,15 +312,15 @@ public class pic16F1527x {
                             sb.setCharAt(3, 'F');
                         }
 
-                    else if (config1.charAt(3) == 'D') {
+                    else if (config2.charAt(3) == 'D') {
                             sb.setCharAt(3, 'D');
                         }
 
-                    else if (config1.charAt(3) == '7') {
+                    else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, 'F');
                         }
                     
-                    else if (config1.charAt(3) == '5') {
+                    else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, 'D');
                         }
             }
@@ -329,15 +329,15 @@ public class pic16F1527x {
                             sb.setCharAt(3, '7');
                         }
 
-                    else if (config1.charAt(3) == 'D') {
+                    else if (config2.charAt(3) == 'D') {
                             sb.setCharAt(3, '5');
                         }
 
-                    else if (config1.charAt(3) == '7') {
+                    else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '7');
                         }
                     
-                    else if (config1.charAt(3) == '5') {
+                    else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '5');
                         }
             }
@@ -345,7 +345,7 @@ public class pic16F1527x {
                 return "Not recognizable argument: " + args;
             }
 
-            config1 = sb.toString();
+            config2 = sb.toString();
             return config2;
         }
 

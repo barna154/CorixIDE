@@ -199,11 +199,11 @@ public class pic16F1527x {
             }
             else if (arg.equals("EXTL")) {
                 sb.setCharAt(0, 'F');
-                sb.setCharAt(0, 'E');
+                sb.setCharAt(1, 'E');
             }
             else if (arg.equals("EXTH")) {
                 sb.setCharAt(0, 'F');
-                sb.setCharAt(0, 'F');
+                sb.setCharAt(1, 'F');
             }
             else if (arg.equals("LPIN")) {
                 sb.setCharAt(0, 'D');

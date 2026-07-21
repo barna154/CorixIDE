@@ -797,7 +797,7 @@ public class pic16F1527x {
                         sb.setCharAt(0, 'E');
                     }
                 sb.setCharAt(3, "5");
-                sb2.setCharAt(1, "E")
+                sb2.setCharAt(1, "E");
                 
             }
             else if (arg.equals("FALSE")) {
@@ -814,7 +814,7 @@ public class pic16F1527x {
                         sb.setCharAt(0, '6');
                     }
                 sb.setCharAT(3, "F");
-                sb2.setCharAt(1, "F")
+                sb2.setCharAt(1, "F");
             }
 
             else {

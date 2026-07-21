@@ -796,8 +796,8 @@ public class pic16F1527x {
                 if (config4.charAt(0) == '6') {
                         sb.setCharAt(0, 'E');
                     }
-                sb.setCharAt(3, '5');
-                sb2.setCharAt(1, 'E');
+                sb.setCharAt(3, 'F');
+                sb2.setCharAt(1, 'F');
                 
             }
             else if (arg.equals("TRUE")) {
@@ -813,8 +813,9 @@ public class pic16F1527x {
                 if (config4.charAt(0) == '6') {
                         sb.setCharAt(0, '6');
                     }
-                sb.setCharAt(3, 'F');
-                sb2.setCharAt(1, 'F');
+                sb.setCharAt(3, '5');
+                sb2.setCharAt(1, 'E');
+                
             }
 
             else {

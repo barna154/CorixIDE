@@ -71,6 +71,9 @@ public class pic16F1527x {
 
             config1 = "CD3F";
             config2 = "E53F";
+            config3 = "FF3F";
+            config4 = "FF3F";
+            config5 = "FF3F";
 
             console.println("----------------");
             console.println("CPU: " + cpu);
@@ -181,7 +184,12 @@ public class pic16F1527x {
                  return generateSetWDTE(instr.args); 
             case "setMCLR":
                  return generateSetMCLR(instr.args); 
-
+            case "setLVP":
+                 return generateSetLVP(instr.args); 
+            case "setSAFE":
+                 return generateSetSAFE(instr.args); 
+            case "setWriteProtection":
+                 return generateSetWriteProtection(instr.args); 
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -693,7 +701,137 @@ public class pic16F1527x {
             config2 = sb.toString();
             return config2;
         }
+    private String generateSetLVP(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+
+            if (arg.equals("TRUE")) {            
+                sb.setCharAt(2, '3');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(2, '1');
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            return config4;
+        }
     
+    private String generateSetSAFE(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+
+            if (arg.equals("TRUE")) {            
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '7');
+                    }
+            }
+            else if (arg.equals("FALSE")) {
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '6');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '6');
+                    }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            return config4;
+        }
+    private String generateSetWriteProtection(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+            StringBuilder sb2 = new StringBuilder(config5);
+
+            if (arg.equals("TRUE")) {            
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, 'E');
+                    }
+                sb.setCharAt(3, "5");
+                sb2.setCharAt(1, "E")
+                
+            }
+            else if (arg.equals("FALSE")) {
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, '6');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '6');
+                    }
+                sb.setCharAT(3, "F");
+                sb2.setCharAt(1, "F")
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            config5 = sb2.toString();
+            return config4 + config5;
+        }    
+
+
+
+
+
+
+
 
 
 

@@ -176,6 +176,11 @@ public class SyntaxHighlighter {
                 doc.setCharacterAttributes(exthb.start(), exthb.end() - exthb.start(), boolStyle, false);
             }
 
+            Matcher slpmb = Pattern.compile("\\bSLPMODE\\b").matcher(text);
+            while (slpmb.find()) {
+                doc.setCharacterAttributes(slpmb.start(), slpmb.end() - slpmb.start(), boolStyle, false);
+            }
+
 
             String[] lines = text.split("\n");
             int pos = 0;

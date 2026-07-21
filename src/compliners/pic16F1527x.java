@@ -108,8 +108,9 @@ public class pic16F1527x {
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
                     }
-                    console.println(config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
+                    
                 }
+            console.println(config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
             console.println("----------------");
         }
 

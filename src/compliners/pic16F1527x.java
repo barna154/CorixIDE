@@ -110,7 +110,7 @@ public class pic16F1527x {
                     }
                     
                 }
-            console.println(config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
+            console.println("KONFIG: " + config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
             console.println("----------------");
         }
 

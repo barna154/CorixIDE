@@ -736,7 +736,7 @@ public class pic16F1527x {
 
             StringBuilder sb = new StringBuilder(config4);
 
-            if (arg.equals("TRUE")) {            
+            if (arg.equals("FALSE")) {            
                 if (config4.charAt(0) == 'F') {
                         sb.setCharAt(0, 'F');
                     }
@@ -750,7 +750,7 @@ public class pic16F1527x {
                         sb.setCharAt(0, '7');
                     }
             }
-            else if (arg.equals("FALSE")) {
+            else if (arg.equals("TRUE")) {
                 if (config4.charAt(0) == 'F') {
                         sb.setCharAt(0, 'E');
                     }

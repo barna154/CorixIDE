@@ -1029,7 +1029,7 @@ public class Main {
 
                         if (filename.endsWith(".crxprjct")) {
                             consolePanel.println("Translating: " + current.getAbsolutePath());
-                                if (AppPath.BoardName = "PIC16F15276") {
+                                if (AppPath.BoardName.equals("PIC16F15276")) {
                                         complierPIC16F1527x.compile();
                                 }
                                

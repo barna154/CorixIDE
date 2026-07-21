@@ -823,7 +823,7 @@ public class pic16F1527x {
 
             config4 = sb.toString();
             config5 = sb2.toString();
-            return config4 + config5;
+            return config4 + " " + config5;
         }    
 
 

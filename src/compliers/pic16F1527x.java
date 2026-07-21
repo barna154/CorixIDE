@@ -1,7 +1,7 @@
-package compliners;
+package compliers;
 
 import editor.TextEditor;
-import compliners.Instruction;
+import compliers.Instruction;
 import menus.ConsolePanel;
 import java.util.List;
 import java.util.ArrayList;

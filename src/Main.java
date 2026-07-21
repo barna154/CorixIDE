@@ -18,8 +18,9 @@ import menus.settings;
 import menus.ConsolePanel;
 import util.LanguageManager;
 import util.RoundedBorder;
+import util.AppPath;
 import editor.TextEditor;
-import compliners.pic16F1527x;
+import compliers.pic16F1527x;
 
 
 public class Main {

@@ -972,7 +972,7 @@ public class Main {
         resizeBorder.add(back, BorderLayout.CENTER);
 
 //complinerek
-         pic16F1527x compilerPic = new pic16F1527x(te, consolePanel);
+         pic16F1527x complinerPIC16F1527x = new pic16F1527x(te, consolePanel);
 
 //Menüpont listenerek
       labelFile.addMouseListener(new MouseAdapter() {
@@ -1022,7 +1022,16 @@ public class Main {
            @Override
                 public void mouseClicked(MouseEvent e) { 
 
-                    compilerPic.compile();
+
+                    File current = te.getCurrentFile();
+                    if (current != null) {
+                        System.out.println("Fordítás alatt megnyitott fájl: " + current.getAbsolutePath());
+                    } else {
+                        System.out.println("Nincs megnyitva fájl!");
+                    }
+
+                    complinerPIC16F1527x.compile();
+
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {

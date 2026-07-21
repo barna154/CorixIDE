@@ -215,7 +215,7 @@ public class pic16F1527x {
             StringBuilder sb = new StringBuilder(config1);
 
             if (arg.equals("IN1MHZ")) {
-                sb.setCharAt(0, 'F');
+                sb.setCharAt(0, 'E');
                 sb.setCharAt(1, 'D');
             }
             else if (arg.equals("IN32MHZ")) {
@@ -674,25 +674,25 @@ public class pic16F1527x {
                             sb.setCharAt(1, 'D');
                         }
                     
-                    else if (config2.charAt(0) == '4') {
-                            sb.setCharAt(0, '5');
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '5');
                         }
             }
             else if (arg.equals("FALSE")) {
-                    if (config2.charAt(0) == 'D') {
-                            sb.setCharAt(0, 'C');
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'C');
                         }
 
-                    else if (config2.charAt(0) == '5') {
-                            sb.setCharAt(0, '4');
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '4');
                         }
 
-                    else if (config2.charAt(0) == 'C') {
-                            sb.setCharAt(0, 'C');
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'C');
                         }
                     
-                    else if (config2.charAt(0) == '4') {
-                            sb.setCharAt(0, '4');
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
                         }
             }
 

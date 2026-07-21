@@ -971,8 +971,8 @@ public class Main {
         back.add(center, BorderLayout.CENTER);
         resizeBorder.add(back, BorderLayout.CENTER);
 
-//complinerek
-         pic16F1527x complinerPIC16F1527x = new pic16F1527x(te, consolePanel);
+//complierek
+         pic16F1527x complierPIC16F1527x = new pic16F1527x(te, consolePanel);
 
 //Menüpont listenerek
       labelFile.addMouseListener(new MouseAdapter() {
@@ -1022,15 +1022,19 @@ public class Main {
            @Override
                 public void mouseClicked(MouseEvent e) { 
 
-
                     File current = te.getCurrentFile();
                     if (current != null) {
-                        System.out.println("Fordítás alatt megnyitott fájl: " + current.getAbsolutePath());
-                    } else {
-                        System.out.println("Nincs megnyitva fájl!");
-                    }
+                        String filename = current.getName();
 
-                    complinerPIC16F1527x.compile();
+                        if (filename.endsWith(".crxprjct")) {
+                            consolePanel.println("Translateing: " + current.getAbsolutePath());
+                            complierPIC16F1527x.compile();
+                        } else {
+                            consolePanel.println("Not a script File!");
+                        }
+                    } else {
+                        consolePanel.println("No scriptfile opened!");
+                    }
 
                 }
                 @Override

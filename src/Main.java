@@ -1027,8 +1027,11 @@ public class Main {
                         String filename = current.getName();
 
                         if (filename.endsWith(".crxprjct")) {
-                            consolePanel.println("Translateing: " + current.getAbsolutePath());
-                            complierPIC16F1527x.compile();
+                            consolePanel.println("Translating: " + current.getAbsolutePath());
+                                if (AppPath.BoardName = "PIC16F15276") {
+                                        complierPIC16F1527x.compile();
+                                }
+                               
                         } else {
                             consolePanel.println("Not a script File!");
                         }

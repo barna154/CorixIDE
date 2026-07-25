@@ -86,7 +86,6 @@ public class pic16F1527x {
             List<Instruction> configInstructions = parseInstructions(config);
 
 
-                console.println("Config utasítások:");
                 for (Instruction instr : configInstructions) {
                     String asm = generateAsmForInstruction(instr);
                 }
@@ -123,9 +122,8 @@ public class pic16F1527x {
             String eof = ":00000001FF";
 
             String nl = System.lineSeparator();
-            writeOutputFile("hex", j16to32 + nl + fullconfig + nl + eof);
-
             console.println(j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

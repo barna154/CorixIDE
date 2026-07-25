@@ -117,13 +117,13 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-
-            String commandstart: ":0A";
+            String commandColon: ":";
+            String commandStart: "0A";
 
 
             String confighex = commandstart "000E00" + config1 + config2 + config3 + config4 + config5;
             String checksumconfig = calculateChecksum(confighex);
-            String fullconfig = confighex + checksumconfig;
+            String fullconfig = commandColon + confighex + checksumconfig;
             String j16to32 = ":020000040001F9";
             String eof = ":00000001FF";
 

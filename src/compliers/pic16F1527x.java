@@ -118,7 +118,7 @@ public class pic16F1527x {
 
 
             String hexContent = config1 + "" + config2 + "" + config3 + "" + config4 + "" + config5;
-            writeOutputFile((cpu != null ? cpu : "output") + ".hex", hexContent);
+            writeOutputFile("hex", hexContent);
         }
 
     private String getCpu(String content) {

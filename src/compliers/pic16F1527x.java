@@ -117,8 +117,8 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-            String commandColon: ":";
-            String commandStart: "0A";
+            String commandColon = ":";
+            String commandStart = "0A";
 
 
             String confighex = commandstart + "000E00" + config1 + config2 + config3 + config4 + config5;

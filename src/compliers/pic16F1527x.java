@@ -117,7 +117,7 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-            String hexContent = config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5;
+            String hexContent = config1 + "" + config2 + "" + config3 + "" + config4 + "" + config5;
             writeOutputFile((cpu != null ? cpu : "output") + ".hex", hexContent);
         }
 
@@ -868,12 +868,15 @@ public class pic16F1527x {
         }
 
         String pin = args.get(0);
-        String value = args.get(1); // "TRUE"/"FALSE"
+        String value = args.get(1); 
 
         return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
     }
 
-        private void writeOutputFile(String fileName, String content) {
+
+
+
+        private void writeOutputFile(String extension, String content) {
             File currentFile = editor.getCurrentFile();
 
             if (currentFile == null) {
@@ -888,7 +891,13 @@ public class pic16F1527x {
                 return;
             }
 
-            File outFile = new File(projectDir, fileName);
+            String projectName = currentFile.getName();
+            int dotIndex = projectName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                projectName = projectName.substring(0, dotIndex);
+            }
+
+            File outFile = new File(projectDir, projectName + "." + extension);
 
             try (FileWriter writer = new FileWriter(outFile)) {
                 writer.write(content);

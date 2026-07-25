@@ -267,10 +267,10 @@ public class pic16F1527x {
             int address = boolAddresses.get(varName);
             String asm;
 
-            if (value.equals("TRUE") || value.equals("=TRUE")) {
+            if (value.equals("TRUE")) {
                 asm = String.format("BANKSEL 0x%02X%sBSF 0x%02X, 0  ; %s = TRUE",
                         address, System.lineSeparator(), address, varName);
-            } else if (value.equals("FALSE") || value.equals("=FALSE")) {
+            } else if (value.equals("FALSE")) {
                 asm = String.format("BANKSEL 0x%02X%sCLRF 0x%02X  ; %s = FALSE",
                         address, System.lineSeparator(), address, varName);
             } else {

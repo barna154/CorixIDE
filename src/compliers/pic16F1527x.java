@@ -27,6 +27,8 @@ public class pic16F1527x {
     private String config4;
     private String config5;
 
+    private String code;
+
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
     private static final int BOOL_BANK_END = 0x6F;
@@ -131,6 +133,10 @@ public class pic16F1527x {
             config4 = "FF3F";
             config5 = "FF3F";
 
+            code = null;
+            StringBuilder codebuilder = new StringBuilder();
+
+
             console.println("----------------");
             console.println("CPU = " + cpu);
             console.println("----------------");
@@ -148,11 +154,15 @@ public class pic16F1527x {
                     console.println(" -> " + instr);
 
                     String asm = generateAsmForInstruction(instr);
+                    code.add(instr);
 
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
+                        codebuilder.append(asm);
+                       
                     }
                 }
+                code = codeBuilder.toString();
 
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {
@@ -187,6 +197,7 @@ public class pic16F1527x {
             String j16to32 = ":020000040001F9";
             String eof = ":00000001FF";
 
+            console.println(code);
             String nl = System.lineSeparator();
             console.println(j16to32 + nl + fullconfig + nl + eof);
             writeOutputFile("hex", j16to32 + nl + fullconfig + nl + eof);

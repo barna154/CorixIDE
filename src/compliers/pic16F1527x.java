@@ -121,7 +121,7 @@ public class pic16F1527x {
             String commandStart: "0A";
 
 
-            String confighex = commandstart "000E00" + config1 + config2 + config3 + config4 + config5;
+            String confighex = commandstart + "000E00" + config1 + config2 + config3 + config4 + config5;
             String checksumconfig = calculateChecksum(confighex);
             String fullconfig = commandColon + confighex + checksumconfig;
             String j16to32 = ":020000040001F9";

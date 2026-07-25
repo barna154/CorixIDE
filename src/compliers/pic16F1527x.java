@@ -174,6 +174,59 @@ public class pic16F1527x {
             return boolVars;
         }
 
+
+    private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
+
+        private static final int BOOL_BANK_START = 0x20;
+        private static final int BOOL_BANK_END   = 0x6F; 
+
+        private void allocateBoolAddresses(Map<String, Boolean> bools) {
+            int nextAddress = BOOL_BANK_START;
+
+            for (String varName : bools.keySet()) {
+                if (nextAddress > BOOL_BANK_END) {
+                    console.println("Hiba: túl sok bool változó (max 80 támogatott), '" 
+                        + varName + "' nem fér el!");
+                    continue;
+                }
+                boolAddresses.put(varName, nextAddress);
+                nextAddress++;
+            }
+        }
+
+        private String generateBoolInitAsm(Map<String, Boolean> bools) {
+            StringBuilder asm = new StringBuilder();
+
+            if (bools.isEmpty()) {
+                return "";
+            }
+
+            asm.append("BANKSEL 0x20").append(System.lineSeparator());
+
+            for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
+                String varName = entry.getKey();
+                boolean value = entry.getValue();
+                int address = boolAddresses.get(varName);
+
+                if (value) {
+                    // TRUE: állítsuk 1-re (pl. bit 0-t)
+                    asm.append(String.format("BSF 0x%02X, 0", address))
+                    .append("  ; ").append(varName).append(" = TRUE")
+                    .append(System.lineSeparator());
+                } else {
+                    // FALSE: töröljük a teljes regisztert
+                    asm.append(String.format("CLRF 0x%02X", address))
+                    .append("  ; ").append(varName).append(" = FALSE")
+                    .append(System.lineSeparator());
+                }
+            }
+
+            return asm.toString();
+        }
+    
+
+
+
     private String getSection(String content, String section) {
 
         int pos = content.indexOf(section);

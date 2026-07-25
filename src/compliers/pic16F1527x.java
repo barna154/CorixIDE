@@ -154,7 +154,7 @@ public class pic16F1527x {
                     console.println(" -> " + instr);
 
                     String asm = generateAsmForInstruction(instr);
-                    code.add(instr);
+    
 
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
@@ -162,7 +162,7 @@ public class pic16F1527x {
                        
                     }
                 }
-                code = codeBuilder.toString();
+                code = codebuilder.toString();
 
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {

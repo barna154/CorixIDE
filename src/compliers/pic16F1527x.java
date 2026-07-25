@@ -103,33 +103,19 @@ public class pic16F1527x {
             console.println("CPU = " + cpu);
             console.println("----------------");
 
-            List<Instruction> setupInstructions = parseInstructions(setup);
-            List<Instruction> loopInstructions = parseInstructions(loop);
-            List<Instruction> configInstructions = parseInstructions(config);
+            List<Instruction> global = parseInstructions(content);
 
 
             console.println("----------------");
 
                 console.println("SETUP utasítások:");
-                for (Instruction instr : setupInstructions) {
-                    console.println("  -> " + instr);
+                for (Instruction instr : global) {
+                    console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
                     }
                 }
-
-                console.println("LOOP utasítások:");
-                for (Instruction instr : loopInstructions) {
-                    console.println("  -> " + instr);
-                    String asm = generateAsmForInstruction(instr);
-                    if (!asm.isEmpty()) {
-                        console.println("     " + asm);
-                    }
-                    
-                }
-            console.println("----------------");
-
          
             console.println("----------------");
 

@@ -81,13 +81,14 @@ public class pic16F1527x {
             config5 = "FF3F";
 
             console.println("----------------");
-            console.println("CPU: " + cpu);
+            console.println("CPU = " + cpu);
+            console.println("----------------");
 
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
             List<Instruction> configInstructions = parseInstructions(config);
             Map<String, Boolean> bools = generateBool(content);
-
+            console.println("VARS: ");
 
                 for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
                     console.println(entry.getKey() + " = " + entry.getValue());
@@ -96,6 +97,7 @@ public class pic16F1527x {
                 for (Instruction instr : configInstructions) {
                     String asm = generateAsmForInstruction(instr);
                 }
+            console.println("----------------");
 
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {

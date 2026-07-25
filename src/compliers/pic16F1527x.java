@@ -5,6 +5,9 @@ import compliers.Instruction;
 import menus.ConsolePanel;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class pic16F1527x {
 
@@ -112,6 +115,10 @@ public class pic16F1527x {
                 }
             console.println("KONFIG: " + config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
             console.println("----------------");
+
+
+            String hexContent = config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5;
+            writeOutputFile((cpu != null ? cpu : "output") + ".hex", hexContent);
         }
 
     private String getCpu(String content) {
@@ -865,4 +872,31 @@ public class pic16F1527x {
 
         return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
     }
+
+        private void writeOutputFile(String fileName, String content) {
+            File currentFile = editor.getCurrentFile();
+
+            if (currentFile == null) {
+                console.println("Hiba: nincs megnyitva projektfájl, nem tudom hova menteni!");
+                return;
+            }
+
+            File projectDir = currentFile.getParentFile();
+
+            if (projectDir == null) {
+                console.println("Hiba: nem található a projekt mappája!");
+                return;
+            }
+
+            File outFile = new File(projectDir, fileName);
+
+            try (FileWriter writer = new FileWriter(outFile)) {
+                writer.write(content);
+                console.println("Fájl elmentve: " + outFile.getAbsolutePath());
+            } catch (IOException ex) {
+                console.println("Hiba a fájl írásakor: " + ex.getMessage());
+            }
+        }
+
+
 }

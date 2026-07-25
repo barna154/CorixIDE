@@ -27,6 +27,12 @@ public class pic16F1527x {
     private String config4;
     private String config5;
 
+    private Map<String, Boolean> boolValues = new LinkedHashMap<>();
+    private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
+
+    private static final int BOOL_BANK_START = 0x20;
+    private static final int BOOL_BANK_END   = 0x6F;
+
     private List<Instruction> parseInstructions(String block) {
     List<Instruction> instructions = new ArrayList<>();
 
@@ -87,24 +93,17 @@ public class pic16F1527x {
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
             List<Instruction> configInstructions = parseInstructions(config);
-            Map<String, Boolean> bools = generateBool(content);
             console.println("VARS: ");
 
-                for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
-                    console.println(entry.getKey() + " = " + entry.getValue());
-                }
+            generateBool(content);
 
-                for (Instruction instr : configInstructions) {
-                    String asm = generateAsmForInstruction(instr);
-                }
-            allocateBoolAddresses(bools);
-
-            for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
-                console.println(entry.getKey() + " = " + entry.getValue() 
+            console.println("VARS: ");
+            for (Map.Entry<String, Boolean> entry : boolValues.entrySet()) {
+                console.println(entry.getKey() + " = " + entry.getValue()
                     + "  -> cím: 0x" + Integer.toHexString(boolAddresses.get(entry.getKey())));
             }
 
-            String boolInitAsm = generateBoolInitAsm(bools);
+            String boolInitAsm = generateBoolInitAsm();
             console.println("Bool inicializáló ASM:");
             console.println(boolInitAsm);
             
@@ -161,72 +160,68 @@ public class pic16F1527x {
         return null;
     }
 
-    private Map<String, Boolean> generateBool(String content) {
-            Map<String, Boolean> boolVars = new LinkedHashMap<>();
+    private void generateBool(String content) {
+            int nextAddress = BOOL_BANK_START;
 
             for (String line : content.split("\\R")) {
                 line = line.trim();
 
                 if (line.startsWith("bool ")) {
-                    String withoutPrefix = line.substring(5).trim(); // "bool " = 5 karakter
+                    String withoutPrefix = line.substring(5).trim();
+
+                    Boolean value = null;
+                    String varName = null;
 
                     if (withoutPrefix.endsWith("=TRUE;") || withoutPrefix.endsWith("= TRUE;")) {
                         int eqIndex = withoutPrefix.indexOf('=');
-                        String varName = withoutPrefix.substring(0, eqIndex).trim();
-                        boolVars.put(varName, true);
+                        varName = withoutPrefix.substring(0, eqIndex).trim();
+                        value = true;
                     }
                     else if (withoutPrefix.endsWith("=FALSE;") || withoutPrefix.endsWith("= FALSE;")) {
                         int eqIndex = withoutPrefix.indexOf('=');
-                        String varName = withoutPrefix.substring(0, eqIndex).trim();
-                        boolVars.put(varName, false);
+                        varName = withoutPrefix.substring(0, eqIndex).trim();
+                        value = false;
+                    }
+
+                    if (varName != null) {
+                        boolValues.put(varName, value);
+
+                        // Ha ez egy ÚJ változó, adjunk neki címet.
+                        // Ha már létezik (felülírt érték), a régi címét tartsa meg.
+                        if (!boolAddresses.containsKey(varName)) {
+                            if (nextAddress > BOOL_BANK_END) {
+                                console.println("Hiba: túl sok bool változó (max 80 támogatott), '"
+                                    + varName + "' nem fér el!");
+                                continue;
+                            }
+                            boolAddresses.put(varName, nextAddress);
+                            nextAddress++;
+                        }
                     }
                 }
             }
-
-            return boolVars;
         }
 
 
-    private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
-
-        private static final int BOOL_BANK_START = 0x20;
-        private static final int BOOL_BANK_END   = 0x6F; 
-
-        private void allocateBoolAddresses(Map<String, Boolean> bools) {
-            int nextAddress = BOOL_BANK_START;
-
-            for (String varName : bools.keySet()) {
-                if (nextAddress > BOOL_BANK_END) {
-                    console.println("Hiba: túl sok bool változó (max 80 támogatott), '" 
-                        + varName + "' nem fér el!");
-                    continue;
-                }
-                boolAddresses.put(varName, nextAddress);
-                nextAddress++;
-            }
-        }
-
-        private String generateBoolInitAsm(Map<String, Boolean> bools) {
+    private String generateBoolInitAsm() {
             StringBuilder asm = new StringBuilder();
 
-            if (bools.isEmpty()) {
+            if (boolValues.isEmpty()) {
                 return "";
             }
 
             asm.append("BANKSEL 0x20").append(System.lineSeparator());
 
-            for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
+            for (Map.Entry<String, Boolean> entry : boolValues.entrySet()) {
                 String varName = entry.getKey();
                 boolean value = entry.getValue();
                 int address = boolAddresses.get(varName);
 
                 if (value) {
-                    // TRUE: állítsuk 1-re (pl. bit 0-t)
                     asm.append(String.format("BSF 0x%02X, 0", address))
                     .append("  ; ").append(varName).append(" = TRUE")
                     .append(System.lineSeparator());
                 } else {
-                    // FALSE: töröljük a teljes regisztert
                     asm.append(String.format("CLRF 0x%02X", address))
                     .append("  ; ").append(varName).append(" = FALSE")
                     .append(System.lineSeparator());
@@ -235,7 +230,7 @@ public class pic16F1527x {
 
             return asm.toString();
         }
-    
+            
 
 
 

@@ -150,7 +150,7 @@ public class pic16F1527x {
                     String asm = generateAsmForInstruction(instr);
 
                     if (!asm.isEmpty()) {
-                        console.println(asm);
+                        console.println("     " + asm);
                     }
                 }
 

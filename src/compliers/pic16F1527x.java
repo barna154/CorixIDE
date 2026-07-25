@@ -27,44 +27,58 @@ public class pic16F1527x {
     private String config4;
     private String config5;
 
-    private Map<String, Boolean> boolValues = new LinkedHashMap<>();
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
+    private int nextBoolAddress = 0x20;
+    private static final int BOOL_BANK_END = 0x6F;
 
-    private static final int BOOL_BANK_START = 0x20;
-    private static final int BOOL_BANK_END   = 0x6F;
+
 
     private List<Instruction> parseInstructions(String block) {
     List<Instruction> instructions = new ArrayList<>();
 
+    for (String rawLine : block.split(";")) {
+        String line = rawLine.trim();
+        if (line.isEmpty()) continue;
 
-            for (String rawLine : block.split(";")) {
-                String line = rawLine.trim();
-                if (line.isEmpty()) continue;
-
-            
-                int open = line.indexOf('(');
-                int close = line.lastIndexOf(')');
-
-                if (open == -1 || close == -1 || close < open) {
-                    console.println("Figyelmeztetés: nem sikerült értelmezni: " + line);
-                    continue;
-                }
-
-                String funcName = line.substring(0, open).trim();
-                String argsPart = line.substring(open + 1, close).trim();
-
+        // Bool értékadás felismerése
+        if (line.startsWith("bool ")) {
+            String withoutPrefix = line.substring(5).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+            if (eqIndex != -1) {
+                String varName = withoutPrefix.substring(0, eqIndex).trim();
+                String value = withoutPrefix.substring(eqIndex + 1).trim();
                 List<String> args = new ArrayList<>();
-                if (!argsPart.isEmpty()) {
-                    for (String arg : argsPart.split(",")) {
-                        args.add(arg.trim());
-                    }
-                }
-
-                instructions.add(new Instruction(funcName, args));
+                args.add(varName);
+                args.add(value);
+                instructions.add(new Instruction("bool", args));
+                continue;
             }
-
-            return instructions;
         }
+
+        // A meglévő funcName(args); logika változatlanul
+        int open = line.indexOf('(');
+        int close = line.lastIndexOf(')');
+
+        if (open == -1 || close == -1 || close < open) {
+            console.println("Figyelmeztetés: nem sikerült értelmezni: " + line);
+            continue;
+        }
+
+        String funcName = line.substring(0, open).trim();
+        String argsPart = line.substring(open + 1, close).trim();
+
+        List<String> args = new ArrayList<>();
+        if (!argsPart.isEmpty()) {
+            for (String arg : argsPart.split(",")) {
+                args.add(arg.trim());
+            }
+        }
+
+        instructions.add(new Instruction(funcName, args));
+    }
+
+        return instructions;
+    }
 
     public pic16F1527x(TextEditor editor, ConsolePanel console) {       
         this.editor = editor;
@@ -93,11 +107,10 @@ public class pic16F1527x {
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
             List<Instruction> configInstructions = parseInstructions(config);
-            console.println("VARS: ");
 
+
+            console.println("VARS: ");
             generateBool(content);
-
-            console.println("VARS: ");
             for (Map.Entry<String, Boolean> entry : boolValues.entrySet()) {
                 console.println(entry.getKey() + " = " + entry.getValue()
                     + "  -> cím: 0x" + Integer.toHexString(boolAddresses.get(entry.getKey())));
@@ -130,6 +143,12 @@ public class pic16F1527x {
                 }
             console.println("----------------");
 
+            console.println("Bool változók címei:");
+            for (Map.Entry<String, Integer> entry : boolAddresses.entrySet()) {
+                console.println(entry.getKey() + " -> 0x" + Integer.toHexString(entry.getValue()));
+            }
+            console.println("----------------");
+
 
             String commandColon = ":";
             String commandStart = "0A";
@@ -159,79 +178,7 @@ public class pic16F1527x {
 
         return null;
     }
-
-    private void generateBool(String content) {
-            int nextAddress = BOOL_BANK_START;
-
-            for (String line : content.split("\\R")) {
-                line = line.trim();
-
-                if (line.startsWith("bool ")) {
-                    String withoutPrefix = line.substring(5).trim();
-
-                    Boolean value = null;
-                    String varName = null;
-
-                    if (withoutPrefix.endsWith("=TRUE;") || withoutPrefix.endsWith("= TRUE;")) {
-                        int eqIndex = withoutPrefix.indexOf('=');
-                        varName = withoutPrefix.substring(0, eqIndex).trim();
-                        value = true;
-                    }
-                    else if (withoutPrefix.endsWith("=FALSE;") || withoutPrefix.endsWith("= FALSE;")) {
-                        int eqIndex = withoutPrefix.indexOf('=');
-                        varName = withoutPrefix.substring(0, eqIndex).trim();
-                        value = false;
-                    }
-
-                    if (varName != null) {
-                        boolValues.put(varName, value);
-
-                        // Ha ez egy ÚJ változó, adjunk neki címet.
-                        // Ha már létezik (felülírt érték), a régi címét tartsa meg.
-                        if (!boolAddresses.containsKey(varName)) {
-                            if (nextAddress > BOOL_BANK_END) {
-                                console.println("Hiba: túl sok bool változó (max 80 támogatott), '"
-                                    + varName + "' nem fér el!");
-                                continue;
-                            }
-                            boolAddresses.put(varName, nextAddress);
-                            nextAddress++;
-                        }
-                    }
-                }
-            }
-        }
-
-
-    private String generateBoolInitAsm() {
-            StringBuilder asm = new StringBuilder();
-
-            if (boolValues.isEmpty()) {
-                return "";
-            }
-
-            asm.append("BANKSEL 0x20").append(System.lineSeparator());
-
-            for (Map.Entry<String, Boolean> entry : boolValues.entrySet()) {
-                String varName = entry.getKey();
-                boolean value = entry.getValue();
-                int address = boolAddresses.get(varName);
-
-                if (value) {
-                    asm.append(String.format("BSF 0x%02X, 0", address))
-                    .append("  ; ").append(varName).append(" = TRUE")
-                    .append(System.lineSeparator());
-                } else {
-                    asm.append(String.format("CLRF 0x%02X", address))
-                    .append("  ; ").append(varName).append(" = FALSE")
-                    .append(System.lineSeparator());
-                }
-            }
-
-            return asm.toString();
-        }
             
-
 
 
     private String getSection(String content, String section) {
@@ -298,6 +245,8 @@ public class pic16F1527x {
                  return generateSetSAFE(instr.args); 
             case "setWriteProtection":
                  return generateSetWriteProtection(instr.args); 
+            case "bool":
+                 return generateBoolAssignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -308,6 +257,41 @@ public class pic16F1527x {
                 return "";
         }
     }
+
+
+    private String generateBoolAssignment(List<String> args) {
+            if (args.size() != 2) {
+                console.println("Wrong parameter count for bool: " + args);
+                return "";
+            }
+
+            String varName = args.get(0);
+            String value = args.get(1);
+
+            if (!boolAddresses.containsKey(varName)) {
+                if (nextBoolAddress > BOOL_BANK_END) {
+                    console.println("Hiba: túl sok bool változó (max 80), '" + varName + "' nem fér el!");
+                    return "";
+                }
+                boolAddresses.put(varName, nextBoolAddress);
+                nextBoolAddress++;
+            }
+
+            int address = boolAddresses.get(varName);
+            String asm;
+
+            if (value.equals("TRUE")) {
+                asm = String.format("BANKSEL 0x%02X%sBSF 0x%02X, 0  ; %s = TRUE",
+                        address, System.lineSeparator(), address, varName);
+            } else if (value.equals("FALSE")) {
+                asm = String.format("BANKSEL 0x%02X%sCLRF 0x%02X  ; %s = FALSE",
+                        address, System.lineSeparator(), address, varName);
+            } else {
+                return "Not recognizable value: " + value;
+            }
+
+            return asm;
+        }
 
 
     private String generateSetOsc(List<String> args) {

@@ -97,6 +97,18 @@ public class pic16F1527x {
                 for (Instruction instr : configInstructions) {
                     String asm = generateAsmForInstruction(instr);
                 }
+            allocateBoolAddresses(bools);
+
+            for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
+                console.println(entry.getKey() + " = " + entry.getValue() 
+                    + "  -> cím: 0x" + Integer.toHexString(boolAddresses.get(entry.getKey())));
+            }
+
+            String boolInitAsm = generateBoolInitAsm(bools);
+            console.println("Bool inicializáló ASM:");
+            console.println(boolInitAsm);
+            
+
             console.println("----------------");
 
                 console.println("SETUP utasítások:");

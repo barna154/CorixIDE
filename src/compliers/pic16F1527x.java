@@ -119,7 +119,7 @@ public class pic16F1527x {
 
             String confighex = "0A" + config1 + config2 + config3 + config4 + config5;
             String checksumconfig = calculateChecksum(confighex);
-            String fullconfig = ":" + confighex + checksum;
+            String fullconfig = ":" + confighex + checksumconfig;
 
             String nl = System.lineSeparator();
             writeOutputFile("hex", fullconfig);

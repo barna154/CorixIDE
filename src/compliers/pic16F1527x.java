@@ -297,6 +297,7 @@ public class pic16F1527x {
 
             String varName = args.get(0);
             String value = args.get(1);
+            String nl = System.lineSeparator();
 
             if (!boolAddresses.containsKey(varName)) {
                 if (nextBoolAddress > BOOL_BANK_END) {
@@ -307,16 +308,16 @@ public class pic16F1527x {
                 nextBoolAddress++;
             }
 
-            String nl = System.lineSeparator();
+            
             int address = boolAddresses.get(varName);
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format("BANKSEL 0x%02X" + nl + "BSF 0x%02X, 0",
-                        address, System.lineSeparator(), address, varName);
+                asm = String.format("BANKSEL 0x%02X "+nl+" BSF 0x%02X, 0  ; %s = TRUE",
+                        address, address, varName);
             } else if (value.equals("FALSE")) {
-                asm = String.format("BANKSEL 0x%02X" + nl + "CLRF 0x%02X",
-                        address, System.lineSeparator(), address, varName);
+                asm = String.format("BANKSEL 0x%02X"+nl+"CLRF 0x%02X  ; %s = FALSE",
+                        address, address, varName);
             } else {
                 return "Not recognizable value: " + value;
             }

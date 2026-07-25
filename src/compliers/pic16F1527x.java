@@ -140,6 +140,21 @@ public class pic16F1527x {
             List<Instruction> loopInstructions = parseInstructions(loop);
 
 
+
+            console.println("BOOL változók:");
+
+                for (Instruction instr : globalInstructions) {
+
+                    console.println(" -> " + instr);
+
+                    String asm = generateAsmForInstruction(instr);
+
+                    if (!asm.isEmpty()) {
+                        console.println(asm);
+                    }
+                }
+
+
             console.println("----------------");
 
                 console.println("SETUP utasítások:");
@@ -162,21 +177,7 @@ public class pic16F1527x {
                 }
             console.println("----------------");
 
-            console.println("BOOL változók:");
 
-                for (Instruction instr : globalInstructions) {
-
-                    console.println(" -> " + instr);
-
-                    String asm = generateAsmForInstruction(instr);
-
-                    if (!asm.isEmpty()) {
-                        console.println(asm);
-                    }
-                }
-
-         
-            console.println("----------------");
 
 
             String commandColon = ":";

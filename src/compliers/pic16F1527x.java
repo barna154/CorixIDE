@@ -307,14 +307,15 @@ public class pic16F1527x {
                 nextBoolAddress++;
             }
 
+            String nl = System.lineSeparator();
             int address = boolAddresses.get(varName);
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format("BANKSEL 0x%02X%sBSF 0x%02X, 0",
+                asm = String.format("BANKSEL 0x%02X" + nl + "BSF 0x%02X, 0",
                         address, System.lineSeparator(), address, varName);
             } else if (value.equals("FALSE")) {
-                asm = String.format("BANKSEL 0x%02X%sCLRF 0x%02X",
+                asm = String.format("BANKSEL 0x%02X" + nl + "CLRF 0x%02X",
                         address, System.lineSeparator(), address, varName);
             } else {
                 return "Not recognizable value: " + value;

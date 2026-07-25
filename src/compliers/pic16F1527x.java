@@ -55,7 +55,6 @@ public class pic16F1527x {
             }
         }
 
-        // A meglévő funcName(args); logika változatlanul
         int open = line.indexOf('(');
         int close = line.lastIndexOf(')');
 
@@ -108,18 +107,6 @@ public class pic16F1527x {
             List<Instruction> loopInstructions = parseInstructions(loop);
             List<Instruction> configInstructions = parseInstructions(config);
 
-
-            console.println("VARS: ");
-            generateBool(content);
-            for (Map.Entry<String, Boolean> entry : boolValues.entrySet()) {
-                console.println(entry.getKey() + " = " + entry.getValue()
-                    + "  -> cím: 0x" + Integer.toHexString(boolAddresses.get(entry.getKey())));
-            }
-
-            String boolInitAsm = generateBoolInitAsm();
-            console.println("Bool inicializáló ASM:");
-            console.println(boolInitAsm);
-            
 
             console.println("----------------");
 

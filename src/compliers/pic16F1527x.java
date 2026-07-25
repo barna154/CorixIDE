@@ -78,6 +78,38 @@ public class pic16F1527x {
         return instructions;
     }
 
+
+    private List<Instruction> parseGlobalVariables(String content) {
+
+            List<Instruction> instructions = new ArrayList<>();
+
+            for (String rawLine : content.split(";")) {
+
+                String line = rawLine.trim();
+
+                if (line.startsWith("bool ")) {
+
+                    String withoutPrefix = line.substring(5).trim();
+
+                    int eqIndex = withoutPrefix.indexOf('=');
+
+                    if (eqIndex != -1) {
+
+                        String varName = withoutPrefix.substring(0, eqIndex).trim();
+                        String value = withoutPrefix.substring(eqIndex + 1).trim();
+
+                        List<String> args = new ArrayList<>();
+                        args.add(varName);
+                        args.add(value);
+
+                        instructions.add(new Instruction("bool", args));
+                    }
+                }
+            }
+
+            return instructions;
+        }
+
     public pic16F1527x(TextEditor editor, ConsolePanel console) {       
         this.editor = editor;
         this.console = console;
@@ -103,9 +135,9 @@ public class pic16F1527x {
             console.println("CPU = " + cpu);
             console.println("----------------");
 
+            List<Instruction> globalInstructions = parseGlobalVariables(content);
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
-            List<Instruction> configInstructions = parseInstructions(config);
 
 
             console.println("----------------");
@@ -129,6 +161,19 @@ public class pic16F1527x {
                     
                 }
             console.println("----------------");
+
+            console.println("BOOL változók:");
+
+                for (Instruction instr : globalInstructions) {
+
+                    console.println(" -> " + instr);
+
+                    String asm = generateAsmForInstruction(instr);
+
+                    if (!asm.isEmpty()) {
+                        console.println(asm);
+                    }
+                }
 
          
             console.println("----------------");

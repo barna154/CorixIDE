@@ -323,6 +323,8 @@ public class pic16F1527x {
             if (value.equals("TRUE")) {
                 asm = String.format("BANKSEL 0x%02X "+nl+"     BSF 0x%02X, 0",
                         address, address);
+                String binaryAddress = String.format("%8s", Integer.toBinaryString(address)).replace(' ', '0');
+                        console.println("Cím binárisan: " + binaryAddress);        
             } else if (value.equals("FALSE")) {
                 asm = String.format("BANKSEL 0x%02X"+nl+"     CLRF 0x%02X",
                         address, address);

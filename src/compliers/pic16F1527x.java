@@ -88,9 +88,7 @@ public class pic16F1527x {
 
                 console.println("Config utasítások:");
                 for (Instruction instr : configInstructions) {
-                    console.println("  -> " + instr);
                     String asm = generateAsmForInstruction(instr);
-
                 }
 
                 console.println("SETUP utasítások:");

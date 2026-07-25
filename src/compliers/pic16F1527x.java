@@ -158,7 +158,7 @@ public class pic16F1527x {
 
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
-                        codebuilder.append(asm);
+                        codebuilder.append(asm + System.lineSeparator());
                        
                     }
                 }

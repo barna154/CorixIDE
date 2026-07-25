@@ -85,8 +85,7 @@ public class pic16F1527x {
 
     public void compile() {
 
-            boolAddresses.clear();
-            nextBoolAddress = 0x20;
+            resetCompilerState();
             String content = editor.getTextComponent().getText();
 
             cpu = getCpu(content);
@@ -991,6 +990,11 @@ public class pic16F1527x {
             int sum = sumHexBytes(recordWithoutChecksum);
             int checksum = (256 - (sum % 256)) % 256;
             return String.format("%02X", checksum);
+        }
+
+        private void resetCompilerState() {
+            boolAddresses.clear();
+            nextBoolAddress = 0x20;
         }
 
 }

@@ -154,9 +154,6 @@ public class pic16F1527x {
                     }
                 }
 
-
-            console.println("----------------");
-
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {
                     console.println("  - " + instr);

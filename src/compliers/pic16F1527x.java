@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.Map;
+import java.util.LinkedHashMap;
 import java.io.IOException;
 
 public class pic16F1527x {
@@ -84,7 +86,12 @@ public class pic16F1527x {
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
             List<Instruction> configInstructions = parseInstructions(config);
+            Map<String, Boolean> bools = generateBool(content);
 
+
+                for (Map.Entry<String, Boolean> entry : bools.entrySet()) {
+                    console.println(entry.getKey() + " = " + entry.getValue());
+                }
 
                 for (Instruction instr : configInstructions) {
                     String asm = generateAsmForInstruction(instr);
@@ -138,6 +145,27 @@ public class pic16F1527x {
         }
 
         return null;
+    }
+
+    private Map<String, Boolean> generateBool(String content) {
+        Map<String, Boolean> boolVars = new LinkedHashMap<>();
+
+        for (String line : content.split("\\R")) {
+            line = line.trim();
+
+            if (line.endsWith("=TRUE;") || line.endsWith("= TRUE;")) {
+                int eqIndex = line.indexOf('=');
+                String varName = line.substring(0, eqIndex).trim();
+                boolVars.put(varName, true);
+            }
+            else if (line.endsWith("=FALSE;") || line.endsWith("= FALSE;")) {
+                int eqIndex = line.indexOf('=');
+                String varName = line.substring(0, eqIndex).trim();
+                boolVars.put(varName, false);
+            }
+        }
+
+        return boolVars;
     }
 
     private String getSection(String content, String section) {

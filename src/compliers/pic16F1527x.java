@@ -159,7 +159,7 @@ public class pic16F1527x {
 
                 console.println("SETUP utasítások:");
                 for (Instruction instr : setupInstructions) {
-                    console.println("  -> " + instr);
+                    console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
@@ -168,7 +168,7 @@ public class pic16F1527x {
 
                 console.println("LOOP utasítások:");
                 for (Instruction instr : loopInstructions) {
-                    console.println("  -> " + instr);
+                    console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
                     if (!asm.isEmpty()) {
                         console.println("     " + asm);
@@ -313,11 +313,11 @@ public class pic16F1527x {
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format("BANKSEL 0x%02X "+nl+"     BSF 0x%02X, 0  ; %s = TRUE",
-                        address, address, varName);
+                asm = String.format("BANKSEL 0x%02X "+nl+"     BSF 0x%02X, 0",
+                        address, address);
             } else if (value.equals("FALSE")) {
-                asm = String.format("BANKSEL 0x%02X"+nl+"      CLRF 0x%02X  ; %s = FALSE",
-                        address, address, varName);
+                asm = String.format("BANKSEL 0x%02X"+nl+"     CLRF 0x%02X",
+                        address, address);
             } else {
                 return "Not recognizable value: " + value;
             }

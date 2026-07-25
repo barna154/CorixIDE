@@ -130,7 +130,7 @@ public class pic16F1527x {
             console.println("----------------");
 
             console.println("Bool változók címei:");
-            boolAddresses.clear;
+            boolAddresses = null;
             for (Map.Entry<String, Integer> entry : boolAddresses.entrySet()) {
                 console.println(entry.getKey() + " -> 0x" + Integer.toHexString(entry.getValue()));
             }

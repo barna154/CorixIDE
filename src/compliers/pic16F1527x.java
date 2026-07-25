@@ -90,9 +90,7 @@ public class pic16F1527x {
                 for (Instruction instr : configInstructions) {
                     console.println("  -> " + instr);
                     String asm = generateAsmForInstruction(instr);
-                    if (!asm.isEmpty()) {
-                        console.println("     " + asm);
-                    }
+
                 }
 
                 console.println("SETUP utasítások:");
@@ -113,7 +111,6 @@ public class pic16F1527x {
                     }
                     
                 }
-            console.println("KONFIG: " + config1 + " " + config2 + " " + config3 + " " + config4 + " " + config5);
             console.println("----------------");
 
 
@@ -129,6 +126,8 @@ public class pic16F1527x {
 
             String nl = System.lineSeparator();
             writeOutputFile("hex", j16to32 + nl + fullconfig + nl + eof);
+
+            console.println("hex", j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

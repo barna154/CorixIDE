@@ -148,25 +148,29 @@ public class pic16F1527x {
     }
 
     private Map<String, Boolean> generateBool(String content) {
-        Map<String, Boolean> boolVars = new LinkedHashMap<>();
+            Map<String, Boolean> boolVars = new LinkedHashMap<>();
 
-        for (String line : content.split("\\R")) {
-            line = line.trim();
+            for (String line : content.split("\\R")) {
+                line = line.trim();
 
-            if (line.endsWith("=TRUE;") || line.endsWith("= TRUE;")) {
-                int eqIndex = line.indexOf('=');
-                String varName = line.substring(0, eqIndex).trim();
-                boolVars.put(varName, true);
+                if (line.startsWith("bool ")) {
+                    String withoutPrefix = line.substring(5).trim(); // "bool " = 5 karakter
+
+                    if (withoutPrefix.endsWith("=TRUE;") || withoutPrefix.endsWith("= TRUE;")) {
+                        int eqIndex = withoutPrefix.indexOf('=');
+                        String varName = withoutPrefix.substring(0, eqIndex).trim();
+                        boolVars.put(varName, true);
+                    }
+                    else if (withoutPrefix.endsWith("=FALSE;") || withoutPrefix.endsWith("= FALSE;")) {
+                        int eqIndex = withoutPrefix.indexOf('=');
+                        String varName = withoutPrefix.substring(0, eqIndex).trim();
+                        boolVars.put(varName, false);
+                    }
+                }
             }
-            else if (line.endsWith("=FALSE;") || line.endsWith("= FALSE;")) {
-                int eqIndex = line.indexOf('=');
-                String varName = line.substring(0, eqIndex).trim();
-                boolVars.put(varName, false);
-            }
+
+            return boolVars;
         }
-
-        return boolVars;
-    }
 
     private String getSection(String content, String section) {
 

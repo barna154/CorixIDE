@@ -85,6 +85,8 @@ public class pic16F1527x {
 
     public void compile() {
 
+            boolAddresses.clear();
+            nextBoolAddress = 0x20;
             String content = editor.getTextComponent().getText();
 
             cpu = getCpu(content);
@@ -251,7 +253,6 @@ public class pic16F1527x {
                 return "";
             }
 
-            boolAddresses.clear();
             String varName = args.get(0);
             String value = args.get(1);
 

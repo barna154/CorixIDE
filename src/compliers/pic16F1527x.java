@@ -117,8 +117,12 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-            String hexContent = config1 + "" + config2 + "" + config3 + "" + config4 + "" + config5;
-            writeOutputFile("hex", hexContent);
+            String confighex = "0A" + config1 + config2 + config3 + config4 + config5;
+            String checksumconfig = calculateChecksum(recordBody);
+            String fullconfig = ":" + confighex + checksum;
+
+            String nl = System.lineSeparator();
+            writeOutputFile("hex", fullconfig);
         }
 
     private String getCpu(String content) {
@@ -907,5 +911,19 @@ public class pic16F1527x {
             }
         }
 
+        private int sumHexBytes(String hexString) {
+            int sum = 0;
+            for (int i = 0; i < hexString.length(); i += 2) {
+                String byteStr = hexString.substring(i, i + 2);
+                sum += Integer.parseInt(byteStr, 16);
+            }
+            return sum;
+        }
+
+        private String calculateChecksum(String recordWithoutChecksum) {
+            int sum = sumHexBytes(recordWithoutChecksum);
+            int checksum = (256 - (sum % 256)) % 256;
+            return String.format("%02X", checksum);
+        }
 
 }

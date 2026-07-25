@@ -321,7 +321,7 @@ public class pic16F1527x {
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format("BANKSEL 0x%02X "+nl+"     BSF 0x%02X, 0",
+                asm = String.format(":0A0000004001" + "        BSF 0x%02X, 0",
                         address, address);       
             } else if (value.equals("FALSE")) {
                 asm = String.format("BANKSEL 0x%02X"+nl+"     CLRF 0x%02X",

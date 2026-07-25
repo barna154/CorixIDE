@@ -117,12 +117,14 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-            String confighex = "0A" + config1 + config2 + config3 + config4 + config5;
+            String confighex = "0A000E00" + config1 + config2 + config3 + config4 + config5;
             String checksumconfig = calculateChecksum(confighex);
             String fullconfig = ":" + confighex + checksumconfig;
+            String j16to32 = ":020000040001F9";
+            String eof = ":00000001FF";
 
             String nl = System.lineSeparator();
-            writeOutputFile("hex", fullconfig);
+            writeOutputFile("hex", j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

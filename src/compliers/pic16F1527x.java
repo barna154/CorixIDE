@@ -32,6 +32,8 @@ public class pic16F1527x {
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
     private static final int BOOL_BANK_END = 0x6F;
+    private int PROGRAM_MEMORY_START = 0x0000;
+    private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
 
 
 
@@ -135,6 +137,7 @@ public class pic16F1527x {
 
             code = null;
             StringBuilder codebuilder = new StringBuilder();
+            int maxProgramAddress = getMaxProgramAddress(cpu);
 
 
             console.println("----------------");
@@ -1048,6 +1051,24 @@ public class pic16F1527x {
         private void resetCompilerState() {
             boolAddresses.clear();
             nextBoolAddress = 0x20;
+            PROGRAM_MEMORY_START = 0x0000;
+        }
+
+        private int getMaxProgramAddress(String cpu) {
+            if (cpu == null) return 0x0FFF;
+
+            switch (cpu) {
+                case "PIC16F15274":
+                    return 0x0FFF;
+                case "PIC16F15275":
+                    return 0x1FFF;
+                case "PIC16F15256":
+                case "PIC16F15276":
+                    return 0x3FFF;
+                default:
+                    console.println("Figyelmeztetés: ismeretlen CPU, 0x0FFF (legkisebb) limit használva");
+                    return 0x0FFF;
+            }
         }
 
 }

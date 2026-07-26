@@ -324,10 +324,10 @@ public class pic16F1527x {
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format(":0A0000004001" + "        BSF 0x%02X, 0",
+                asm = String.format("4001" + "        BSF 0x%02X, 0",
                          address);       
             } else if (value.equals("FALSE")) {
-                asm = String.format(":0A0000004001"   + "  CLRF 0x%02X",
+                asm = String.format("4001"   + "  CLRF 0x%02X",
                         address);
             } else {
                 return "Not recognizable value: " + value;

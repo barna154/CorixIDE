@@ -160,8 +160,15 @@ public class pic16F1527x {
     
 
                     if (!asm.isEmpty()) {
+
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
                         console.println("     " + asm);
-                        codebuilder.append(asm + System.lineSeparator());
+
+                        codebuilder.append(PROGRAM_MEMORY_START + " " asm + System.lineSeparator());
+                        PROGRAM_MEMORY_START=PROGRAM_MEMORY_START + 0A;
                        
                     }
                 }

@@ -167,14 +167,17 @@ public class pic16F1527x {
                             }
                         console.println("     " + asm);
 
-                        codebuilder.append(
-                                ":0A" 
+                        String line = "0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 
                                 + "00" 
                                 + asm
-                                + "000000000000" 
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codebuilder.append(":"
+                                + linec
                                 + System.lineSeparator()
-                            );
+                        );
                         PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
                        
                     }

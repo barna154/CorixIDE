@@ -219,21 +219,16 @@ public class pic16F1527x {
 
                 console.println("LOOP utasítások:");
                 int LoopAdress = PROGRAM_MEMORY_START;
-                String gotoi = "00101";
-                String Loopbin11 = String.format("%11s", Integer.toBinaryString(LoopAdress)).replace(' ', '0');
-                int valuegoto = Integer.parseInt(gotoi + Loopbin11, 2);
-                String hexgoto = String.format("%04X", valuegoto);
-                String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
-
-                String loopline = "02" 
+                String loopnop = "02" 
                                 + String.format("%04X", LoopAdress) 
                                 + "00" 
-                                + swappedg;
-                String looplinec = loopline +  calculateChecksum(loopline);  
+                                + "0000";
+                String loopnopc = loopnop +  calculateChecksum(loopnop);  
                 codelbuilder.append(":"
-                                + looplinec
+                                + loopnopc
                                 + System.lineSeparator()
                         );
+                
                 for (Instruction instr : loopInstructions) {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
@@ -258,6 +253,21 @@ public class pic16F1527x {
                     }
                     
                 }
+                String gotoi = "00101";
+                String Loopbin11 = String.format("%11s", Integer.toBinaryString(LoopAdress)).replace(' ', '0');
+                int valuegoto = Integer.parseInt(gotoi + Loopbin11, 2);
+                String hexgoto = String.format("%04X", valuegoto);
+                String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
+
+                String loopline = "02" 
+                                + String.format("%04X", LoopAdress) 
+                                + "00" 
+                                + swappedg;
+                String looplinec = loopline +  calculateChecksum(loopline);  
+                codelbuilder.append(":"
+                                + looplinec
+                                + System.lineSeparator()
+                        );
                 codel = codelbuilder.toString();
             console.println("----------------");
 

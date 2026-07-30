@@ -219,7 +219,10 @@ public class pic16F1527x {
 
                 console.println("LOOP utasítások:");
                 int LoopAdress = PROGRAM_MEMORY_START;
-                console.println(" " + LoopAdress);
+                codesbuilder.append(":"
+                                + LoopAdress
+                                + System.lineSeparator()
+                        );
                 for (Instruction instr : loopInstructions) {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);

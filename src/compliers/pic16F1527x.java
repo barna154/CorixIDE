@@ -137,6 +137,9 @@ public class pic16F1527x {
 
             code = null;
             StringBuilder codebuilder = new StringBuilder();
+
+            codes = null;
+            StringBuilder codesbuilder = new StringBuilder();
             int maxProgramAddress = getMaxProgramAddress(cpu);
 
 
@@ -189,9 +192,27 @@ public class pic16F1527x {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
                     if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
                         console.println("     " + asm);
+
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codesbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
                     }
                 }
+                codes = codesbuilder.toString();
 
                 console.println("LOOP utasítások:");
                 for (Instruction instr : loopInstructions) {

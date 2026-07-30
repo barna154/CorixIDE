@@ -167,8 +167,8 @@ public class pic16F1527x {
                             }
                         console.println("     " + asm);
 
-                        codebuilder.append(PROGRAM_MEMORY_START + " 00 " + asm + System.lineSeparator());
-                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x0A;
+                        codebuilder.append("0A" + PROGRAM_MEMORY_START + " 00 " + asm + System.lineSeparator());
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
                        
                     }
                 }

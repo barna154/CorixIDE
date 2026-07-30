@@ -218,8 +218,6 @@ public class pic16F1527x {
                 codes = codesbuilder.toString();
 
                 console.println("LOOP utasítások:");
-                int LoopAdress = PROGRAM_MEMORY_START;
-                console.println(" " + LoopAdress);
                 codelbuilder.append(":"
                                 + linec
                                 + System.lineSeparator()

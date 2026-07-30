@@ -334,13 +334,14 @@ public class pic16F1527x {
 
             
             int address = boolAddresses.get(varName);
+            String bin7 = String.format("%7s", Integer.toBinaryString(address)).replace(' ', '0');
             String asm;
 
             if (value.equals("TRUE")) {
                 asm = String.format("4001" + " BSF 0x%02X, 0",
                          address);       
             } else if (value.equals("FALSE")) {
-                asm = String.format("4001"   + " CLRF 0x%02X",
+                asm = String.format("4001 " +  "00 0001 1"   +  bin7,
                         address);
             } else {
                 return "Not recognizable value: " + value;

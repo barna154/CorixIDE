@@ -341,8 +341,11 @@ public class pic16F1527x {
                 asm = String.format("4001" + " BSF 0x%02X, 0",
                          address);       
             } else if (value.equals("FALSE")) {
-                asm = String.format("4001 " +  "00 0001 1"   +  bin7,
-                        address);
+                String clrfs = "000000011" + bin7;
+                int value = Integer.parseInt(clrfs, 2);
+                String hexclrfs = String.format("%04X", value);
+                String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
+                asm = String.format("4001 " +  swapped);
             } else {
                 return "Not recognizable value: " + value;
             }

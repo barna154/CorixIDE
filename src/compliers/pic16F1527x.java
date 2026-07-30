@@ -168,9 +168,9 @@ public class pic16F1527x {
                         console.println("     " + asm);
 
                         codebuilder.append(
-                                ":0A " 
+                                ":0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 
-                                + " 00 " 
+                                + "00 " 
                                 + asm 
                                 + System.lineSeparator()
                             );

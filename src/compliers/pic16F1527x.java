@@ -29,6 +29,7 @@ public class pic16F1527x {
 
     private String code;
     private String codes;
+    private String codel;
 
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
@@ -141,6 +142,9 @@ public class pic16F1527x {
 
             codes = null;
             StringBuilder codesbuilder = new StringBuilder();
+
+            codel = null;
+            StringBuilder codelbuilder = new StringBuilder();
             int maxProgramAddress = getMaxProgramAddress(cpu);
 
 
@@ -220,10 +224,28 @@ public class pic16F1527x {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
                     if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
                         console.println("     " + asm);
+
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codelbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
                     }
                     
                 }
+                codel = codelbuilder.toString();
             console.println("----------------");
 
 
@@ -242,7 +264,7 @@ public class pic16F1527x {
             console.println(code);
             String nl = System.lineSeparator();
             console.println(j16to32 + nl + fullconfig + nl + eof);
-            writeOutputFile("hex", code + codes + j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", code + codes + codel + j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

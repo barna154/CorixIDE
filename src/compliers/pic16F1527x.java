@@ -210,7 +210,7 @@ public class pic16F1527x {
             console.println(code);
             String nl = System.lineSeparator();
             console.println(j16to32 + nl + fullconfig + nl + eof);
-            writeOutputFile("hex", code + n1 + j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", code + nl + j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

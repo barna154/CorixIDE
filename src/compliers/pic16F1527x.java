@@ -342,8 +342,8 @@ public class pic16F1527x {
                          address);       
             } else if (value.equals("FALSE")) {
                 String clrfs = "000000011" + bin7;
-                int value = Integer.parseInt(clrfs, 2);
-                String hexclrfs = String.format("%04X", value);
+                int valueclrf = Integer.parseInt(clrfs, 2);
+                String hexclrfs = String.format("%04X", valueclrf);
                 String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
                 asm = String.format("4001 " +  swapped);
             } else {

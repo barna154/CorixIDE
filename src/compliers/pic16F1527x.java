@@ -219,8 +219,15 @@ public class pic16F1527x {
 
                 console.println("LOOP utasítások:");
                 int LoopAdress = PROGRAM_MEMORY_START;
+                int gotoi = 00101;
+                String Loopbin11 = String.format("%11s", Integer.toBinaryString(LoopAdress)).replace(' ', '0');
+                String loopline = "02" 
+                                + String.format("%04X", LoopAdress) 
+                                + "00" 
+                                + gotoi + loopbin11
+                String looplinec = loopline +  calculateChecksum(loopline);  
                 codelbuilder.append(":"
-                                + LoopAdress
+                                + looplinec
                                 + System.lineSeparator()
                         );
                 for (Instruction instr : loopInstructions) {

@@ -218,7 +218,7 @@ public class pic16F1527x {
                 codes = codesbuilder.toString();
 
                 console.println("LOOP utasítások:");
-                String LoopAdress = PROGRAM_MEMORY_START;
+                int LoopAdress = PROGRAM_MEMORY_START;
                 console.println(" " + LoopAdress);
                 for (Instruction instr : loopInstructions) {
                     console.println("  - " + instr);

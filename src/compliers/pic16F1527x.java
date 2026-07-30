@@ -192,8 +192,6 @@ public class pic16F1527x {
                 code = codebuilder.toString();
 
                 console.println("SETUP utasítások:");
-                String LoopAdress = PROGRAM_MEMORY_START;
-                console.println(" " + LoopAdress);
                 for (Instruction instr : setupInstructions) {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);
@@ -220,10 +218,8 @@ public class pic16F1527x {
                 codes = codesbuilder.toString();
 
                 console.println("LOOP utasítások:");
-                codelbuilder.append(":"
-                                + linec
-                                + System.lineSeparator()
-                        );
+                String LoopAdress = PROGRAM_MEMORY_START;
+                console.println(" " + LoopAdress);
                 for (Instruction instr : loopInstructions) {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);

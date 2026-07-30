@@ -170,8 +170,9 @@ public class pic16F1527x {
                         codebuilder.append(
                                 ":0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 
-                                + "00 " 
-                                + asm 
+                                + "00" 
+                                + asm
+                                + "000000000000" 
                                 + System.lineSeparator()
                             );
                         PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
@@ -345,7 +346,7 @@ public class pic16F1527x {
                 int valueclrf = Integer.parseInt(clrfs, 2);
                 String hexclrfs = String.format("%04X", valueclrf);
                 String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
-                asm = String.format("4001 " +  swapped);
+                asm = String.format("4001" +  swapped);
             } else {
                 return "Not recognizable value: " + value;
             }

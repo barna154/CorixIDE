@@ -342,8 +342,11 @@ public class pic16F1527x {
             String asm;
 
             if (value.equals("TRUE")) {
-                asm = String.format("4001" + " BSF 0x%02X, 0",
-                         address);       
+                String bcfs = "0101000" + bin7;
+                int valuebcfs = Integer.parseInt(bcfs, 2);
+                String hexbcfs = String.format("%04X", valuebcfs);
+                String swapped = hexbcfs.substring(2, 4) + hexbcfs.substring(0, 2);
+                asm = String.format("4001" + swapped);       
             } else if (value.equals("FALSE")) {
                 String clrfs = "000000011" + bin7;
                 int valueclrf = Integer.parseInt(clrfs, 2);

@@ -260,7 +260,7 @@ public class pic16F1527x {
                 String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
 
                 String loopline = "02" 
-                                + String.format("%04X", LoopAdress) 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
                                 + "00" 
                                 + swappedg;
                 String looplinec = loopline +  calculateChecksum(loopline);  

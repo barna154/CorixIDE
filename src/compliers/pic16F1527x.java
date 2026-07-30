@@ -28,6 +28,7 @@ public class pic16F1527x {
     private String config5;
 
     private String code;
+    private String codes;
 
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
@@ -241,7 +242,7 @@ public class pic16F1527x {
             console.println(code);
             String nl = System.lineSeparator();
             console.println(j16to32 + nl + fullconfig + nl + eof);
-            writeOutputFile("hex", code + j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", code + codes + j16to32 + nl + fullconfig + nl + eof);
         }
 
     private String getCpu(String content) {

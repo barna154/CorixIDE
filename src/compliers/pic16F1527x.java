@@ -173,7 +173,6 @@ public class pic16F1527x {
                                 console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
                                     + cpu + ") flash kapacitását!");
                             }
-                        console.println("     " + asm);
 
                         String line = "0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 
@@ -201,7 +200,6 @@ public class pic16F1527x {
                                 console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
                                     + cpu + ") flash kapacitását!");
                             }
-                        console.println("     " + asm);
 
                         String line = "0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 
@@ -228,7 +226,6 @@ public class pic16F1527x {
                                 console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
                                     + cpu + ") flash kapacitását!");
                             }
-                        console.println("     " + asm);
 
                         String line = "0A" 
                                 + String.format("%04X", PROGRAM_MEMORY_START) 

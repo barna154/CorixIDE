@@ -224,7 +224,7 @@ public class pic16F1527x {
                 String loopline = "02" 
                                 + String.format("%04X", LoopAdress) 
                                 + "00" 
-                                + gotoi + loopbin11
+                                + gotoi + loopbin11;
                 String looplinec = loopline +  calculateChecksum(loopline);  
                 codelbuilder.append(":"
                                 + looplinec

@@ -192,6 +192,8 @@ public class pic16F1527x {
                 code = codebuilder.toString();
 
                 console.println("SETUP utasítások:");
+                String LoopAdress = PROGRAM_MEMORY_START;
+                console.println(" " + LoopAdress);
                 for (Instruction instr : setupInstructions) {
                     console.println("  - " + instr);
                     String asm = generateAsmForInstruction(instr);

@@ -26,7 +26,7 @@ import compliers.pic16F1527x;
 public class Main {
     private static final int PANEL_RESIZE_MARGIN = 3;
     public static void main(String[] args) throws Exception {
-        LanguageManager.load("../lang/lang.json");
+        LanguageManager.load("/lang/lang.json");
 
 // STRINGLIST        
         String mtitle = LanguageManager.get("Title");

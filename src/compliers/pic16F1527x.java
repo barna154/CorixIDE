@@ -1,6 +1,7 @@
 package compliers;
 
 import editor.TextEditor;
+import compliers.Instruction;
 import menus.ConsolePanel;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,912 +31,299 @@ public class pic16F1527x {
     private String codes;
     private String codel;
 
-    // ============================================================
-    // BOOL SYMBOL TABLE
-    // ============================================================
-
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
-
     private int nextBoolAddress = 0x20;
-
     private static final int BOOL_BANK_END = 0x6F;
-
+    private int PROGRAM_MEMORY_START = 0x0000;
+    private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private Map<String, String> boolValues = new LinkedHashMap<>();
 
-    private int PROGRAM_MEMORY_START = 0x0000;
-
-    private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
-
-
-    // ============================================================
-    // PARSE INSTRUCTIONS
-    // ============================================================
 
     private List<Instruction> parseInstructions(String block) {
+    
+    List<Instruction> instructions = new ArrayList<>();
 
-        List<Instruction> instructions = new ArrayList<>();
+    for (String rawLine : block.split(";")) {
+        String line = rawLine.trim();
+        if (line.isEmpty()) continue;
 
-        for (String rawLine : block.split(";")) {
-
-            String line = rawLine.trim();
-
-            if (line.isEmpty()) {
+        if (line.startsWith("bool ")) {
+            String withoutPrefix = line.substring(5).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+            if (eqIndex != -1) {
+                String varName = withoutPrefix.substring(0, eqIndex).trim();
+                String value = withoutPrefix.substring(eqIndex + 1).trim();
+                List<String> args = new ArrayList<>();
+                args.add(varName);
+                args.add(value);
+                instructions.add(new Instruction("bool", args));
                 continue;
             }
-
-            // ----------------------------------------------------
-            // BOOL DECLARATION
-            // ----------------------------------------------------
-
-            if (line.startsWith("bool ")) {
-
-                String withoutPrefix = line.substring(5).trim();
-
-                int eqIndex = withoutPrefix.indexOf('=');
-
-                if (eqIndex != -1) {
-
-                    String varName =
-                            withoutPrefix.substring(0, eqIndex).trim();
-
-                    String value =
-                            withoutPrefix.substring(eqIndex + 1).trim();
-
-                    List<String> args = new ArrayList<>();
-
-                    args.add(varName);
-                    args.add(value);
-
-                    instructions.add(
-                            new Instruction("bool", args)
-                    );
-
-                    continue;
-                }
-            }
-
-            // ----------------------------------------------------
-            // NORMAL INSTRUCTION
-            // ----------------------------------------------------
-
-            int open = line.indexOf('(');
-            int close = line.lastIndexOf(')');
-
-            if (open == -1 || close == -1 || close < open) {
-
-                console.println(
-                        "Figyelmeztetés: nem sikerült értelmezni: "
-                        + line
-                );
-
-                continue;
-            }
-
-            String funcName =
-                    line.substring(0, open).trim();
-
-            String argsPart =
-                    line.substring(open + 1, close).trim();
-
-            List<String> args = new ArrayList<>();
-
-            if (!argsPart.isEmpty()) {
-
-                for (String arg : argsPart.split(",")) {
-
-                    args.add(arg.trim());
-                }
-            }
-
-            instructions.add(
-                    new Instruction(funcName, args)
-            );
         }
+
+        int open = line.indexOf('(');
+        int close = line.lastIndexOf(')');
+
+        if (open == -1 || close == -1 || close < open) {
+            console.println("Figyelmeztetés: nem sikerült értelmezni: " + line);
+            continue;
+        }
+
+        String funcName = line.substring(0, open).trim();
+        String argsPart = line.substring(open + 1, close).trim();
+
+        List<String> args = new ArrayList<>();
+        if (!argsPart.isEmpty()) {
+            for (String arg : argsPart.split(",")) {
+                args.add(arg.trim());
+            }
+        }
+
+        instructions.add(new Instruction(funcName, args));
+    }
 
         return instructions;
     }
 
-
-    // ============================================================
-    // GLOBAL VARIABLES
-    // ============================================================
 
     private List<Instruction> parseGlobalVariables(String content) {
 
-        List<Instruction> instructions = new ArrayList<>();
+            List<Instruction> instructions = new ArrayList<>();
 
-        for (String rawLine : content.split(";")) {
+            for (String rawLine : content.split(";")) {
 
-            String line = rawLine.trim();
+                String line = rawLine.trim();
 
-            if (line.startsWith("bool ")) {
+                if (line.startsWith("bool ")) {
 
-                String withoutPrefix =
-                        line.substring(5).trim();
+                    String withoutPrefix = line.substring(5).trim();
 
-                int eqIndex =
-                        withoutPrefix.indexOf('=');
+                    int eqIndex = withoutPrefix.indexOf('=');
 
-                if (eqIndex != -1) {
+                    if (eqIndex != -1) {
 
-                    String varName =
-                            withoutPrefix.substring(0, eqIndex)
-                                    .trim();
+                        String varName = withoutPrefix.substring(0, eqIndex).trim();
+                        String value = withoutPrefix.substring(eqIndex + 1).trim();
 
-                    String value =
-                            withoutPrefix.substring(eqIndex + 1)
-                                    .trim();
+                        List<String> args = new ArrayList<>();
+                        args.add(varName);
+                        args.add(value);
 
-                    List<String> args = new ArrayList<>();
-
-                    args.add(varName);
-                    args.add(value);
-
-                    instructions.add(
-                            new Instruction("bool", args)
-                    );
+                        instructions.add(new Instruction("bool", args));
+                    }
                 }
             }
+
+            return instructions;
         }
 
-        return instructions;
-    }
-
-
-    // ============================================================
-    // CONSTRUCTOR
-    // ============================================================
-
-    public pic16F1527x(
-            TextEditor editor,
-            ConsolePanel console) {
-
+    public pic16F1527x(TextEditor editor, ConsolePanel console) {       
         this.editor = editor;
         this.console = console;
     }
 
-
-    // ============================================================
-    // COMPILE
-    // ============================================================
-
     public void compile() {
 
-        resetCompilerState();
+            resetCompilerState();
+            String content = editor.getTextComponent().getText();
 
-        String content =
-                editor.getTextComponent().getText();
+            cpu = getCpu(content);
+            config = getSection(content, "config");
+            setup = getSection(content, "setup");
+            loop = getSection(content, "loop");
 
-        cpu = getCpu(content);
+            config1 = "CD3F";
+            config2 = "E53F";
+            config3 = "FF3F";
+            config4 = "FF3F";
+            config5 = "FF3F";
 
-        config =
-                getSection(content, "config");
+            code = null;
+            StringBuilder codebuilder = new StringBuilder();
 
-        setup =
-                getSection(content, "setup");
+            codes = null;
+            StringBuilder codesbuilder = new StringBuilder();
 
-        loop =
-                getSection(content, "loop");
-
-
-        // ========================================================
-        // DEFAULT CONFIG
-        // ========================================================
-
-        config1 = "CD3F";
-        config2 = "E53F";
-        config3 = "FF3F";
-        config4 = "FF3F";
-        config5 = "FF3F";
+            codel = null;
+            StringBuilder codelbuilder = new StringBuilder();
+            int maxProgramAddress = getMaxProgramAddress(cpu);
 
 
-        code = null;
+            console.println("----------------");
+            console.println("CPU = " + cpu);
+            console.println("----------------");
 
-        StringBuilder codebuilder =
-                new StringBuilder();
-
-
-        codes = null;
-
-        StringBuilder codesbuilder =
-                new StringBuilder();
+            List<Instruction> globalInstructions = parseGlobalVariables(content);
+            List<Instruction> configInstructions = parseInstructions(config);
+            List<Instruction> setupInstructions = parseInstructions(setup);
+            List<Instruction> loopInstructions = parseInstructions(loop);
 
 
-        codel = null;
+            console.println("CONFIG utasítások:");
+                for (Instruction instr : configInstructions) {
 
-        StringBuilder codelbuilder =
-                new StringBuilder();
+                    console.println(" -> " + instr);
 
+                    String asm = generateAsmForInstruction(instr);
 
-        int maxProgramAddress =
-                getMaxProgramAddress(cpu);
+                    if (!asm.isEmpty()) {
+                        console.println("     " + asm);
 
+                        // Csak a "bool" generál valódi program-kódot (hex sort),
+                        // a config-bit beállítások (setOsc, stb.) a config1-5 stringeket módosítják.
+                        if (instr.name.equals("bool")) {
+                            if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
 
-        console.println("----------------");
-        console.println("CPU = " + cpu);
-        console.println("----------------");
+                            String line = "0A"
+                                    + String.format("%04X", PROGRAM_MEMORY_START)
+                                    + "00"
+                                    + asm
+                                    + "000000000000";
+                            String linec = line + calculateChecksum(line);
 
-
-        // ========================================================
-        // PARSE BLOCKS
-        // ========================================================
-
-        List<Instruction> globalInstructions =
-                parseGlobalVariables(content);
-
-        List<Instruction> configInstructions =
-                parseInstructions(config);
-
-        List<Instruction> setupInstructions =
-                parseInstructions(setup);
-
-        List<Instruction> loopInstructions =
-                parseInstructions(loop);
-
-
-        // ========================================================
-        // CONFIG
-        // ========================================================
-
-        console.println("CONFIG utasítások:");
-
-        for (Instruction instr : configInstructions) {
-
-            console.println(" -> " + instr);
-
-            // ----------------------------------------------------
-            // BOOL DECLARATION
-            // ----------------------------------------------------
-
-            if (instr.name.equals("bool")) {
-
-                String varName = instr.args.get(0);
-                String value = instr.args.get(1);
-
-                if (!declareBool(varName, value)) {
-                    continue;
-                }
-
-                String asm =
-                        generateBoolAssignment(instr.args);
-
-                if (!asm.isEmpty()) {
-
-                    if (PROGRAM_MEMORY_START >
-                            maxProgramAddress) {
-
-                        console.println(
-                                "Hiba: a program mérete meghaladja "
-                                + "a kiválasztott chip ("
-                                + cpu
-                                + ") flash kapacitását!"
-                        );
+                            codebuilder.append(":"
+                                    + linec
+                                    + System.lineSeparator()
+                            );
+                            PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
+                        }
                     }
-
-                    String line =
-                            "0A"
-                            + String.format(
-                                    "%04X",
-                                    PROGRAM_MEMORY_START
-                            )
-                            + "00"
-                            + asm
-                            + "000000000000";
-
-                    String linec =
-                            line + calculateChecksum(line);
-
-                    codebuilder.append(
-                            ":"
-                            + linec
-                            + System.lineSeparator()
-                    );
-
-                    PROGRAM_MEMORY_START =
-                            PROGRAM_MEMORY_START + 0x000A;
                 }
-
-                continue;
-            }
+                code = codebuilder.toString();
 
 
-            // ----------------------------------------------------
-            // NORMAL INSTRUCTION
-            // ----------------------------------------------------
+            console.println("BOOL változók:");
 
-            String asm =
-                    generateAsmForInstruction(instr);
+                for (Instruction instr : globalInstructions) {
 
-            if (!asm.isEmpty()) {
+                    console.println(" -> " + instr);
 
-                if (PROGRAM_MEMORY_START >
-                        maxProgramAddress) {
+                    String asm = generateAsmForInstruction(instr);
+    
 
-                    console.println(
-                            "Hiba: a program mérete meghaladja "
-                            + "a kiválasztott chip ("
-                            + cpu
-                            + ") flash kapacitását!"
-                    );
-                }
+                    if (!asm.isEmpty()) {
 
-                String line =
-                        "0A"
-                        + String.format(
-                                "%04X",
-                                PROGRAM_MEMORY_START
-                        )
-                        + "00"
-                        + asm
-                        + "000000000000";
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
 
-                String linec =
-                        line + calculateChecksum(line);
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
 
-                codebuilder.append(
-                        ":"
-                        + linec
-                        + System.lineSeparator()
-                );
-
-                PROGRAM_MEMORY_START =
-                        PROGRAM_MEMORY_START + 0x000A;
-            }
-        }
-
-        code = codebuilder.toString();
-
-
-        // ========================================================
-        // GLOBAL BOOL VARIABLES
-        // ========================================================
-
-        console.println("BOOL változók:");
-
-        for (Instruction instr : globalInstructions) {
-
-            console.println(" -> " + instr);
-
-            String varName = instr.args.get(0);
-            String value = instr.args.get(1);
-
-            // ----------------------------------------------------
-            // DECLARATION
-            // ----------------------------------------------------
-
-            if (!declareBool(varName, value)) {
-                continue;
-            }
-
-            String asm =
-                    generateBoolAssignment(instr.args);
-
-            if (!asm.isEmpty()) {
-
-                if (PROGRAM_MEMORY_START >
-                        maxProgramAddress) {
-
-                    console.println(
-                            "Hiba: a program mérete meghaladja "
-                            + "a kiválasztott chip ("
-                            + cpu
-                            + ") flash kapacitását!"
-                    );
-                }
-
-                String line =
-                        "0A"
-                        + String.format(
-                                "%04X",
-                                PROGRAM_MEMORY_START
-                        )
-                        + "00"
-                        + asm
-                        + "000000000000";
-
-                String linec =
-                        line + calculateChecksum(line);
-
-                codebuilder.append(
-                        ":"
-                        + linec
-                        + System.lineSeparator()
-                );
-
-                PROGRAM_MEMORY_START =
-                        PROGRAM_MEMORY_START + 0x000A;
-            }
-        }
-
-        code = codebuilder.toString();
-
-
-        // ========================================================
-        // SETUP
-        // ========================================================
-
-        console.println("SETUP utasítások:");
-
-        for (Instruction instr : setupInstructions) {
-
-            console.println("  - " + instr);
-
-
-            // ----------------------------------------------------
-            // BOOL DECLARATION
-            // ----------------------------------------------------
-
-            if (instr.name.equals("bool")) {
-
-                String varName =
-                        instr.args.get(0);
-
-                String value =
-                        instr.args.get(1);
-
-
-                if (!declareBool(varName, value)) {
-                    continue;
-                }
-
-
-                String asm =
-                        generateBoolAssignment(instr.args);
-
-
-                if (!asm.isEmpty()) {
-
-                    if (PROGRAM_MEMORY_START >
-                            maxProgramAddress) {
-
-                        console.println(
-                                "Hiba: a program mérete meghaladja "
-                                + "a kiválasztott chip ("
-                                + cpu
-                                + ") flash kapacitását!"
+                        codebuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
                         );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
+                       
                     }
-
-
-                    String line =
-                            "0A"
-                            + String.format(
-                                    "%04X",
-                                    PROGRAM_MEMORY_START
-                            )
-                            + "00"
-                            + asm
-                            + "000000000000";
-
-
-                    String linec =
-                            line + calculateChecksum(line);
-
-
-                    codesbuilder.append(
-                            ":"
-                            + linec
-                            + System.lineSeparator()
-                    );
-
-
-                    PROGRAM_MEMORY_START =
-                            PROGRAM_MEMORY_START + 0x000A;
                 }
+                code = codebuilder.toString();
 
-                continue;
-            }
+                console.println("SETUP utasítások:");
+                for (Instruction instr : setupInstructions) {
+                    console.println("  - " + instr);
+                    String asm = generateAsmForInstruction(instr);
+                    if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
 
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
 
-            // ----------------------------------------------------
-            // NORMAL INSTRUCTION
-            // ----------------------------------------------------
-
-            String asm =
-                    generateAsmForInstruction(instr);
-
-
-            if (!asm.isEmpty()) {
-
-                if (PROGRAM_MEMORY_START >
-                        maxProgramAddress) {
-
-                    console.println(
-                            "Hiba: a program mérete meghaladja "
-                            + "a kiválasztott chip ("
-                            + cpu
-                            + ") flash kapacitását!"
-                    );
-                }
-
-
-                String line =
-                        "0A"
-                        + String.format(
-                                "%04X",
-                                PROGRAM_MEMORY_START
-                        )
-                        + "00"
-                        + asm
-                        + "000000000000";
-
-
-                String linec =
-                        line + calculateChecksum(line);
-
-
-                codesbuilder.append(
-                        ":"
-                        + linec
-                        + System.lineSeparator()
-                );
-
-
-                PROGRAM_MEMORY_START =
-                        PROGRAM_MEMORY_START + 0x000A;
-            }
-        }
-
-        codes =
-                codesbuilder.toString();
-
-
-        // ========================================================
-        // LOOP
-        // ========================================================
-
-        console.println("LOOP utasítások:");
-
-        int LoopAdress =
-                PROGRAM_MEMORY_START;
-
-
-        String loopnop =
-                "02"
-                + String.format(
-                        "%04X",
-                        LoopAdress
-                )
-                + "00"
-                + "0000";
-
-
-        String loopnopc =
-                loopnop + calculateChecksum(loopnop);
-
-
-        codelbuilder.append(
-                ":"
-                + loopnopc
-                + System.lineSeparator()
-        );
-
-
-        for (Instruction instr : loopInstructions) {
-
-            console.println("  - " + instr);
-
-
-            // ----------------------------------------------------
-            // BOOL DECLARATION
-            // ----------------------------------------------------
-
-            if (instr.name.equals("bool")) {
-
-                String varName =
-                        instr.args.get(0);
-
-                String value =
-                        instr.args.get(1);
-
-
-                if (!declareBool(varName, value)) {
-                    continue;
-                }
-
-
-                String asm =
-                        generateBoolAssignment(instr.args);
-
-
-                if (!asm.isEmpty()) {
-
-                    if (PROGRAM_MEMORY_START >
-                            maxProgramAddress) {
-
-                        console.println(
-                                "Hiba: a program mérete meghaladja "
-                                + "a kiválasztott chip ("
-                                + cpu
-                                + ") flash kapacitását!"
+                        codesbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
                         );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
                     }
-
-
-                    String line =
-                            "0A"
-                            + String.format(
-                                    "%04X",
-                                    PROGRAM_MEMORY_START
-                            )
-                            + "00"
-                            + asm
-                            + "000000000000";
-
-
-                    String linec =
-                            line + calculateChecksum(line);
-
-
-                    codelbuilder.append(
-                            ":"
-                            + linec
-                            + System.lineSeparator()
-                    );
-
-
-                    PROGRAM_MEMORY_START =
-                            PROGRAM_MEMORY_START + 0x000A;
                 }
+                codes = codesbuilder.toString();
 
-                continue;
-            }
+                console.println("LOOP utasítások:");
+                int LoopAdress = PROGRAM_MEMORY_START;
+                String loopnop = "02" 
+                                + String.format("%04X", LoopAdress) 
+                                + "00" 
+                                + "0000";
+                String loopnopc = loopnop +  calculateChecksum(loopnop);  
+                codelbuilder.append(":"
+                                + loopnopc
+                                + System.lineSeparator()
+                        );
+                
+                for (Instruction instr : loopInstructions) {
+                    console.println("  - " + instr);
+                    String asm = generateAsmForInstruction(instr);
+                    if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
 
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
 
-            // ----------------------------------------------------
-            // NORMAL INSTRUCTION
-            // ----------------------------------------------------
-
-            String asm =
-                    generateAsmForInstruction(instr);
-
-
-            if (!asm.isEmpty()) {
-
-                if (PROGRAM_MEMORY_START >
-                        maxProgramAddress) {
-
-                    console.println(
-                            "Hiba: a program mérete meghaladja "
-                            + "a kiválasztott chip ("
-                            + cpu
-                            + ") flash kapacitását!"
-                    );
+                        codelbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
+                    }
+                    
                 }
+                String gotoi = "00101";
+                String Loopbin11 = String.format("%11s", Integer.toBinaryString(LoopAdress)).replace(' ', '0');
+                int valuegoto = Integer.parseInt(gotoi + Loopbin11, 2);
+                String hexgoto = String.format("%04X", valuegoto);
+                String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
+
+                String loopline = "02" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + swappedg;
+                String looplinec = loopline +  calculateChecksum(loopline);  
+                codelbuilder.append(":"
+                                + looplinec
+                                + System.lineSeparator()
+                        );
+                codel = codelbuilder.toString();
+            console.println("----------------");
 
 
-                String line =
-                        "0A"
-                        + String.format(
-                                "%04X",
-                                PROGRAM_MEMORY_START
-                        )
-                        + "00"
-                        + asm
-                        + "000000000000";
+            String commandColon = ":";
+            String commandStart = "0A";
 
 
-                String linec =
-                        line + calculateChecksum(line);
+            String confighex = commandStart + "000E00" + config1 + config2 + config3 + config4 + config5;
+            String checksumconfig = calculateChecksum(confighex);
+            String fullconfig = commandColon + confighex + checksumconfig;
+            String j16to32 = ":020000040001F9";
+            String eof = ":00000001FF";
 
-
-                codelbuilder.append(
-                        ":"
-                        + linec
-                        + System.lineSeparator()
-                );
-
-
-                PROGRAM_MEMORY_START =
-                        PROGRAM_MEMORY_START + 0x000A;
-            }
+            console.println(code);
+            String nl = System.lineSeparator();
+            console.println(j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", code + codes + codel + j16to32 + nl + fullconfig + nl + eof);
         }
-
-
-        // ========================================================
-        // GOTO LOOP
-        // ========================================================
-
-        String gotoi = "00101";
-
-        String Loopbin11 =
-                String.format(
-                        "%11s",
-                        Integer.toBinaryString(
-                                LoopAdress
-                        )
-                ).replace(' ', '0');
-
-
-        int valuegoto =
-                Integer.parseInt(
-                        gotoi + Loopbin11,
-                        2
-                );
-
-
-        String hexgoto =
-                String.format(
-                        "%04X",
-                        valuegoto
-                );
-
-
-        String swappedg =
-                hexgoto.substring(2, 4)
-                + hexgoto.substring(0, 2);
-
-
-        String loopline =
-                "02"
-                + String.format(
-                        "%04X",
-                        PROGRAM_MEMORY_START
-                )
-                + "00"
-                + swappedg;
-
-
-        String looplinec =
-                loopline + calculateChecksum(loopline);
-
-
-        codelbuilder.append(
-                ":"
-                + looplinec
-                + System.lineSeparator()
-        );
-
-
-        codel =
-                codelbuilder.toString();
-
-
-        console.println("----------------");
-
-
-        // ========================================================
-        // CONFIG HEX
-        // ========================================================
-
-        String commandColon = ":";
-
-        String commandStart = "0A";
-
-
-        String confighex =
-                commandStart
-                + "000E00"
-                + config1
-                + config2
-                + config3
-                + config4
-                + config5;
-
-
-        String checksumconfig =
-                calculateChecksum(confighex);
-
-
-        String fullconfig =
-                commandColon
-                + confighex
-                + checksumconfig;
-
-
-        String j16to32 =
-                ":020000040001F9";
-
-
-        String eof =
-                ":00000001FF";
-
-
-        console.println(code);
-
-
-        String nl =
-                System.lineSeparator();
-
-
-        console.println(
-                j16to32
-                + nl
-                + fullconfig
-                + nl
-                + eof
-        );
-
-
-        writeOutputFile(
-                "hex",
-                code
-                + codes
-                + codel
-                + j16to32
-                + nl
-                + fullconfig
-                + nl
-                + eof
-        );
-    }
-
-
-    // ============================================================
-    // BOOL DECLARATION
-    // ============================================================
-
-    private boolean declareBool(
-            String varName,
-            String value) {
-
-        // --------------------------------------------------------
-        // DUPLICATE DECLARATION
-        // --------------------------------------------------------
-
-        if (boolAddresses.containsKey(varName)) {
-
-            console.println(
-                    "Hiba: a '"
-                    + varName
-                    + "' bool változó már deklarálva van!"
-            );
-
-            return false;
-        }
-
-
-        // --------------------------------------------------------
-        // MEMORY LIMIT
-        // --------------------------------------------------------
-
-        if (nextBoolAddress > BOOL_BANK_END) {
-
-            console.println(
-                    "Hiba: túl sok bool változó "
-                    + "(max 80), '"
-                    + varName
-                    + "' nem fér el!"
-            );
-
-            return false;
-        }
-
-
-        // --------------------------------------------------------
-        // ADD TO SYMBOL TABLE
-        // --------------------------------------------------------
-
-        boolAddresses.put(
-                varName,
-                nextBoolAddress
-        );
-
-
-        boolValues.put(
-                varName,
-                value
-        );
-
-
-        nextBoolAddress++;
-
-
-        console.println(
-                "Bool deklarálva: "
-                + varName
-                + " = "
-                + value
-        );
-
-
-        return true;
-    }
-
-
-    // ============================================================
-    // CPU
-    // ============================================================
 
     private String getCpu(String content) {
 
@@ -944,1532 +332,886 @@ public class pic16F1527x {
             line = line.trim();
 
             if (line.startsWith("CPU=")) {
-
-                return line.substring(4)
-                        .replace(";", "")
-                        .trim();
+                return line.substring(4).replace(";", "").trim();
             }
         }
 
         return null;
     }
+            
 
 
-    // ============================================================
-    // SECTION
-    // ============================================================
+    private String getSection(String content, String section) {
 
-    private String getSection(
-            String content,
-            String section) {
+        int pos = content.indexOf(section);
 
-        int pos =
-                content.indexOf(section);
-
-        if (pos == -1) {
+        if (pos == -1)
             return "";
-        }
 
+        int open = content.indexOf('{', pos);
 
-        int open =
-                content.indexOf('{', pos);
-
-        if (open == -1) {
+        if (open == -1)
             return "";
-        }
 
+        int close = content.indexOf('}', open);
 
-        int close =
-                content.indexOf('}', open);
-
-        if (close == -1) {
+        if (close == -1)
             return "";
-        }
 
-
-        return content.substring(
-                open + 1,
-                close
-        ).trim();
+        return content.substring(open + 1, close).trim();
     }
-
-
-    // ============================================================
-    // GETTERS
-    // ============================================================
 
     public String getCpu() {
         return cpu;
     }
 
-
     public String getConfig() {
         return config;
     }
 
-
     public String getSetup() {
         return setup;
     }
-
 
     public String getLoop() {
         return loop;
     }
 
 
-    // ============================================================
-    // GENERATE ASM
-    // ============================================================
 
-    private String generateAsmForInstruction(
-            Instruction instr) {
-
-        List<String> resolvedArgs =
-                resolveArgs(instr.args);
-
-
+    private String generateAsmForInstruction(Instruction instr) {
+        List<String> resolvedArgs = resolveArgs(instr.args);
         switch (instr.name) {
-
             case "setOsc":
                 return generateSetOsc(resolvedArgs);
-
             case "setAnalogRange":
                 return generatesetAnalogRange(resolvedArgs);
-
             case "setClockOut":
-                return generatesetClockOut(resolvedArgs);
-
+                return generatesetClockOut(resolvedArgs);    
             case "setOverflowReset":
-                return generateSetOverflowReset(resolvedArgs);
-
+                 return generateSetOverflowReset(resolvedArgs);  
             case "setPeripheralLock":
-                return generateSetPeripheralLock(resolvedArgs);
-
+                 return generateSetPeripheralLock(resolvedArgs);
             case "setBrownOutVoltage":
-                return generateSetBrownOutVoltage(resolvedArgs);
-
+                 return generateSetBrownOutVoltage(resolvedArgs);   
             case "setBrownOut":
-                return generateSetBrownOut(resolvedArgs);
-
+                 return generateSetBrownOut(resolvedArgs); 
             case "setWDTE":
-                return generateSetWDTE(resolvedArgs);
-
+                 return generateSetWDTE(resolvedArgs); 
             case "setMCLR":
-                return generateSetMCLR(resolvedArgs);
-
+                 return generateSetMCLR(resolvedArgs); 
             case "setLVP":
-                return generateSetLVP(resolvedArgs);
-
+                 return generateSetLVP(resolvedArgs); 
             case "setSAFE":
-                return generateSetSAFE(resolvedArgs);
-
+                 return generateSetSAFE(resolvedArgs); 
             case "setWriteProtection":
-                return generateSetWriteProtection(resolvedArgs);
-
+                 return generateSetWriteProtection(resolvedArgs); 
             case "bool":
-                return generateBoolAssignment(instr.args);
+                 return generateBoolAssignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
-
             case "outPin":
                 return generateOutPin(instr.args);
-
             default:
-
-                console.println(
-                        "Ismeretlen utasítás: "
-                        + instr.name
-                );
-
+                console.println("Ismeretlen utasítás: " + instr.name);
                 return "";
         }
     }
 
 
-    // ============================================================
-    // BOOL ASSIGNMENT
-    // ============================================================
+    private String generateBoolAssignment(List<String> args) {
+            if (args.size() != 2) {
+                console.println("Wrong parameter count for bool: " + args);
+                return "";
+            }
 
-    private String generateBoolAssignment(
-            List<String> args) {
+            String varName = args.get(0);
+            String value = args.get(1);
+            String nl = System.lineSeparator();
 
+            if (!boolAddresses.containsKey(varName)) {
+                if (nextBoolAddress > BOOL_BANK_END) {
+                    console.println("Hiba: túl sok bool változó (max 80), '" + varName + "' nem fér el!");
+                    return "";
+                }
+                boolAddresses.put(varName, nextBoolAddress);
+                nextBoolAddress++;
+            }
+             boolValues.put(varName, value);
+
+            
+            int address = boolAddresses.get(varName);
+            String bin7 = String.format("%7s", Integer.toBinaryString(address)).replace(' ', '0');
+            String asm;
+
+            if (value.equals("TRUE")) {
+                String bcfs = "0101000" + bin7;
+                int valuebcfs = Integer.parseInt(bcfs, 2);
+                String hexbcfs = String.format("%04X", valuebcfs);
+                String swapped = hexbcfs.substring(2, 4) + hexbcfs.substring(0, 2);
+                asm = String.format("4001" + swapped);       
+            } else if (value.equals("FALSE")) {
+                String clrfs = "000000011" + bin7;
+                int valueclrf = Integer.parseInt(clrfs, 2);
+                String hexclrfs = String.format("%04X", valueclrf);
+                String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
+                asm = String.format("4001" +  swapped);
+            } else {
+                return "Not recognizable value: " + value;
+            }
+
+            return asm;
+        }
+
+
+    private String generateSetOsc(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parmeter count " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("IN1MHZ")) {
+                sb.setCharAt(0, 'E');
+                sb.setCharAt(1, 'D');
+            }
+            else if (arg.equals("IN32MHZ")) {
+                sb.setCharAt(0, 'C');
+                sb.setCharAt(1, 'D');
+            }
+            else if (arg.equals("EXTL")) {
+                sb.setCharAt(0, 'F');
+                sb.setCharAt(1, 'E');
+            }
+            else if (arg.equals("EXTH")) {
+                sb.setCharAt(0, 'F');
+                sb.setCharAt(1, 'F');
+            }
+            else if (arg.equals("LPIN")) {
+                sb.setCharAt(0, 'D');
+                sb.setCharAt(1, 'D');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config1;
+        }
+
+    private String generatesetAnalogRange(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("HIGH")) {
+                sb.setCharAt(2, '3');
+            }
+            else if (arg.equals("LOW")) {
+                sb.setCharAt(2, '2');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config1;
+        }
+
+    private String generatesetClockOut(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config1);
+
+            if (arg.equals("TRUE")) {
+                sb.setCharAt(3, 'E');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(3, 'F');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config1 = sb.toString();
+            return config1;
+        }
+    
+
+    private String generateSetOverflowReset(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                sb.setCharAt(2, '3');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(2, '2');
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    
+    private String generateSetPeripheralLock(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config2.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config2.charAt(3) == '7') {
+                            sb.setCharAt(3, 'F');
+                        }
+                    
+                    else if (config2.charAt(3) == '5') {
+                            sb.setCharAt(3, 'D');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, '7');
+                        }
+
+                    else if (config2.charAt(3) == 'D') {
+                            sb.setCharAt(3, '5');
+                        }
+
+                    else if (config2.charAt(3) == '7') {
+                            sb.setCharAt(3, '7');
+                        }
+                    
+                    else if (config2.charAt(3) == '5') {
+                            sb.setCharAt(3, '5');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+
+    private String generateSetBrownOutVoltage(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("LOW")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config2.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'F');
+                        }
+
+                    else if (config2.charAt(3) == '7') {
+                            sb.setCharAt(3, '7');
+                        }
+                    
+                    else if (config2.charAt(3) == '5') {
+                            sb.setCharAt(3, '7');
+                        }
+            }
+            else if (arg.equals("HIGH")) {
+                    if (config2.charAt(3) == 'F') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config2.charAt(3) == 'D') {
+                            sb.setCharAt(3, 'D');
+                        }
+
+                    else if (config2.charAt(3) == '7') {
+                            sb.setCharAt(3, '5');
+                        }
+                    
+                    else if (config2.charAt(3) == '5') {
+                            sb.setCharAt(3, '5');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    
+    private String generateSetBrownOut(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'F');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, 'E');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, '3');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '2');
+                        }
+            }
+            else if (arg.equals("SLPMODE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, 'A');
+                        }
+            }
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    private String generateSetWDTE(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'D');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, 'D');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'C');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, 'C');
+
+                    }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'E');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'A');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'A');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '2');
+                        }
+
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, '5');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, '4');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
+
+                    }
+            }
+            else if (arg.equals("SLPMODE")) {
+                    if (config2.charAt(0) == 'F') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'E') {
+                            sb.setCharAt(0, 'F');
+                        }
+
+                    else if (config2.charAt(0) == 'B') {
+                            sb.setCharAt(0, 'B');
+                        }
+                    
+                    else if (config2.charAt(0) == 'A') {
+                            sb.setCharAt(0, 'B');
+                        }
+
+                    else if (config2.charAt(0) == '3') {
+                            sb.setCharAt(0, '3');
+                        }
+
+                    else if (config2.charAt(0) == '2') {
+                            sb.setCharAt(0, '3');
+                        }
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, '5');
+                    }
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                    }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, '4');
+
+                    }
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
+
+                    }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    private String generateSetMCLR(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config2);
+
+            if (arg.equals("TRUE")) {
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'D');
+                        }
+
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '5');
+                        }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'D');
+                        }
+                    
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '5');
+                        }
+            }
+            else if (arg.equals("FALSE")) {
+                    if (config2.charAt(1) == 'D') {
+                            sb.setCharAt(1, 'C');
+                        }
+
+                    else if (config2.charAt(1) == '5') {
+                            sb.setCharAt(1, '4');
+                        }
+
+                    else if (config2.charAt(1) == 'C') {
+                            sb.setCharAt(1, 'C');
+                        }
+                    
+                    else if (config2.charAt(1) == '4') {
+                            sb.setCharAt(1, '4');
+                        }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config2 = sb.toString();
+            return config2;
+        }
+    private String generateSetLVP(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+
+            if (arg.equals("TRUE")) {            
+                sb.setCharAt(2, '3');
+            }
+            else if (arg.equals("FALSE")) {
+                sb.setCharAt(2, '1');
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            return config4;
+        }
+    
+    private String generateSetSAFE(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+
+            if (arg.equals("FALSE")) {            
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '7');
+                    }
+            }
+            else if (arg.equals("TRUE")) {
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '6');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '6');
+                    }
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            return config4;
+        }
+    private String generateSetWriteProtection(List<String> args) {
+        if (args.size() != 1) {
+            console.println("Wrong parameter count: " + args);
+            return "";
+        }
+            
+        String arg = args.get(0);
+
+            StringBuilder sb = new StringBuilder(config4);
+            StringBuilder sb2 = new StringBuilder(config5);
+
+            if (arg.equals("FALSE")) {            
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, 'E');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, 'F');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, 'E');
+                    }
+                sb.setCharAt(3, 'F');
+                sb2.setCharAt(1, 'F');
+                
+            }
+            else if (arg.equals("TRUE")) {
+                if (config4.charAt(0) == 'F') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == 'E') {
+                        sb.setCharAt(0, '6');
+                    }
+                if (config4.charAt(0) == '7') {
+                        sb.setCharAt(0, '7');
+                    }
+                if (config4.charAt(0) == '6') {
+                        sb.setCharAt(0, '6');
+                    }
+                sb.setCharAt(3, '5');
+                sb2.setCharAt(1, 'E');
+                
+            }
+
+            else {
+                return "Not recognizable argument: " + args;
+            }
+
+            config4 = sb.toString();
+            config5 = sb2.toString();
+            return config4 + " " + config5;
+        }    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private String generateSetPin(List<String> args) {
         if (args.size() != 2) {
-
-            console.println(
-                    "Wrong parameter count for bool: "
-                    + args
-            );
-
+            console.println("setPin hibás paraméterszám: " + args);
             return "";
         }
 
-
-        String varName =
-                args.get(0);
-
-        String value =
-                args.get(1);
-
-
-        // ========================================================
-        // IMPORTANT:
-        // A változót itt NEM deklaráljuk.
-        // Csak ellenőrizzük, hogy már létezik-e.
-        // ========================================================
-
-        if (!boolAddresses.containsKey(varName)) {
-
-            console.println(
-                    "Hiba: a '"
-                    + varName
-                    + "' bool változó nincs deklarálva!"
-            );
-
-            return "";
-        }
-
-
-        // --------------------------------------------------------
-        // UPDATE VALUE
-        // --------------------------------------------------------
-
-        boolValues.put(
-                varName,
-                value
-        );
-
-
-        int address =
-                boolAddresses.get(varName);
-
-
-        String bin7 =
-                String.format(
-                        "%7s",
-                        Integer.toBinaryString(address)
-                ).replace(' ', '0');
-
-
-        String asm;
-
-
-        // ========================================================
-        // TRUE
-        // ========================================================
-
-        if (value.equals("TRUE")) {
-
-            String bcfs =
-                    "0101000"
-                    + bin7;
-
-
-            int valuebcfs =
-                    Integer.parseInt(
-                            bcfs,
-                            2
-                    );
-
-
-            String hexbcfs =
-                    String.format(
-                            "%04X",
-                            valuebcfs
-                    );
-
-
-            String swapped =
-                    hexbcfs.substring(2, 4)
-                    + hexbcfs.substring(0, 2);
-
-
-            asm =
-                    "4001"
-                    + swapped;
-        }
-
-
-        // ========================================================
-        // FALSE
-        // ========================================================
-
-        else if (value.equals("FALSE")) {
-
-            String clrfs =
-                    "000000011"
-                    + bin7;
-
-
-            int valueclrf =
-                    Integer.parseInt(
-                            clrfs,
-                            2
-                    );
-
-
-            String hexclrfs =
-                    String.format(
-                            "%04X",
-                            valueclrf
-                    );
-
-
-            String swapped =
-                    hexclrfs.substring(2, 4)
-                    + hexclrfs.substring(0, 2);
-
-
-            asm =
-                    "4001"
-                    + swapped;
-        }
-
-
-        // ========================================================
-        // INVALID VALUE
-        // ========================================================
-
-        else {
-
-            console.println(
-                    "Hiba: nem felismerhető bool érték: "
-                    + value
-            );
-
-            return "";
-        }
-
-
-        return asm;
-    }
-
-
-    // ============================================================
-    // CONFIG FUNCTIONS
-    // ============================================================
-
-    private String generateSetOsc(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parmeter count "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config1);
-
-
-        if (arg.equals("IN1MHZ")) {
-
-            sb.setCharAt(0, 'E');
-            sb.setCharAt(1, 'D');
-
-        } else if (arg.equals("IN32MHZ")) {
-
-            sb.setCharAt(0, 'C');
-            sb.setCharAt(1, 'D');
-
-        } else if (arg.equals("EXTL")) {
-
-            sb.setCharAt(0, 'F');
-            sb.setCharAt(1, 'E');
-
-        } else if (arg.equals("EXTH")) {
-
-            sb.setCharAt(0, 'F');
-            sb.setCharAt(1, 'F');
-
-        } else if (arg.equals("LPIN")) {
-
-            sb.setCharAt(0, 'D');
-            sb.setCharAt(1, 'D');
-
-        } else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config1 =
-                sb.toString();
-
-
-        return config1;
-    }
-
-
-    private String generatesetAnalogRange(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config1);
-
-
-        if (arg.equals("HIGH")) {
-
-            sb.setCharAt(2, '3');
-
-        } else if (arg.equals("LOW")) {
-
-            sb.setCharAt(2, '2');
-
-        } else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config1 =
-                sb.toString();
-
-
-        return config1;
-    }
-
-
-    private String generatesetClockOut(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config1);
-
-
-        if (arg.equals("TRUE")) {
-
-            sb.setCharAt(3, 'E');
-
-        } else if (arg.equals("FALSE")) {
-
-            sb.setCharAt(3, 'F');
-
-        } else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config1 =
-                sb.toString();
-
-
-        return config1;
-    }
-
-
-    private String generateSetOverflowReset(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("TRUE")) {
-
-            sb.setCharAt(2, '3');
-
-        } else if (arg.equals("FALSE")) {
-
-            sb.setCharAt(2, '2');
-
-        } else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetPeripheralLock(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("TRUE")) {
-
-            if (config2.charAt(3) == 'F') {
-                sb.setCharAt(3, 'F');
-            }
-
-            else if (config2.charAt(3) == 'D') {
-                sb.setCharAt(3, 'D');
-            }
-
-            else if (config2.charAt(3) == '7') {
-                sb.setCharAt(3, 'F');
-            }
-
-            else if (config2.charAt(3) == '5') {
-                sb.setCharAt(3, 'D');
-            }
-
-        }
-
-        else if (arg.equals("FALSE")) {
-
-            if (config2.charAt(3) == 'F') {
-                sb.setCharAt(3, '7');
-            }
-
-            else if (config2.charAt(3) == 'D') {
-                sb.setCharAt(3, '5');
-            }
-
-            else if (config2.charAt(3) == '7') {
-                sb.setCharAt(3, '7');
-            }
-
-            else if (config2.charAt(3) == '5') {
-                sb.setCharAt(3, '5');
-            }
-
-        }
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetBrownOutVoltage(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("LOW")) {
-
-            if (config2.charAt(3) == 'F') {
-                sb.setCharAt(3, 'F');
-            }
-
-            else if (config2.charAt(3) == 'D') {
-                sb.setCharAt(3, 'F');
-            }
-
-            else if (config2.charAt(3) == '7') {
-                sb.setCharAt(3, '7');
-            }
-
-            else if (config2.charAt(3) == '5') {
-                sb.setCharAt(3, '7');
-            }
-
-        }
-
-        else if (arg.equals("HIGH")) {
-
-            if (config2.charAt(3) == 'F') {
-                sb.setCharAt(3, 'D');
-            }
-
-            else if (config2.charAt(3) == 'D') {
-                sb.setCharAt(3, 'D');
-            }
-
-            else if (config2.charAt(3) == '7') {
-                sb.setCharAt(3, '5');
-            }
-
-            else if (config2.charAt(3) == '5') {
-                sb.setCharAt(3, '5');
-            }
-
-        }
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetBrownOut(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("TRUE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, 'E');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, 'E');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, 'E');
-            }
-        }
-
-
-        else if (arg.equals("FALSE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, '3');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, '2');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, '3');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, '2');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, '3');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, '2');
-            }
-        }
-
-
-        else if (arg.equals("SLPMODE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, 'A');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, 'A');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, 'A');
-            }
-        }
-
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetWDTE(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("TRUE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, '3');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, '3');
-            }
-
-
-            if (config2.charAt(1) == 'D') {
-                sb.setCharAt(1, 'D');
-            }
-
-            else if (config2.charAt(1) == '5') {
-                sb.setCharAt(1, 'D');
-            }
-
-            else if (config2.charAt(1) == 'C') {
-                sb.setCharAt(1, 'C');
-            }
-
-            else if (config2.charAt(1) == '4') {
-                sb.setCharAt(1, 'C');
-            }
-        }
-
-
-        else if (arg.equals("FALSE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, 'E');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, 'E');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, 'A');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, 'A');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, '2');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, '2');
-            }
-
-
-            if (config2.charAt(1) == 'D') {
-                sb.setCharAt(1, '5');
-            }
-
-            else if (config2.charAt(1) == '5') {
-                sb.setCharAt(1, '5');
-            }
-
-            else if (config2.charAt(1) == 'C') {
-                sb.setCharAt(1, '4');
-            }
-
-            else if (config2.charAt(1) == '4') {
-                sb.setCharAt(1, '4');
-            }
-        }
-
-
-        else if (arg.equals("SLPMODE")) {
-
-            if (config2.charAt(0) == 'F') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'E') {
-                sb.setCharAt(0, 'F');
-            }
-
-            else if (config2.charAt(0) == 'B') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == 'A') {
-                sb.setCharAt(0, 'B');
-            }
-
-            else if (config2.charAt(0) == '3') {
-                sb.setCharAt(0, '3');
-            }
-
-            else if (config2.charAt(0) == '2') {
-                sb.setCharAt(0, '3');
-            }
-
-
-            if (config2.charAt(1) == 'D') {
-                sb.setCharAt(1, '5');
-            }
-
-            else if (config2.charAt(1) == '5') {
-                sb.setCharAt(1, '5');
-            }
-
-            else if (config2.charAt(1) == 'C') {
-                sb.setCharAt(1, '4');
-            }
-
-            else if (config2.charAt(1) == '4') {
-                sb.setCharAt(1, '4');
-            }
-        }
-
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetMCLR(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config2);
-
-
-        if (arg.equals("TRUE")) {
-
-            if (config2.charAt(1) == 'D') {
-                sb.setCharAt(1, 'D');
-            }
-
-            else if (config2.charAt(1) == '5') {
-                sb.setCharAt(1, '5');
-            }
-
-            else if (config2.charAt(1) == 'C') {
-                sb.setCharAt(1, 'D');
-            }
-
-            else if (config2.charAt(1) == '4') {
-                sb.setCharAt(1, '5');
-            }
-        }
-
-
-        else if (arg.equals("FALSE")) {
-
-            if (config2.charAt(1) == 'D') {
-                sb.setCharAt(1, 'C');
-            }
-
-            else if (config2.charAt(1) == '5') {
-                sb.setCharAt(1, '4');
-            }
-
-            else if (config2.charAt(1) == 'C') {
-                sb.setCharAt(1, 'C');
-            }
-
-            else if (config2.charAt(1) == '4') {
-                sb.setCharAt(1, '4');
-            }
-        }
-
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config2 =
-                sb.toString();
-
-
-        return config2;
-    }
-
-
-    private String generateSetLVP(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config4);
-
-
-        if (arg.equals("TRUE")) {
-
-            sb.setCharAt(2, '3');
-
-        } else if (arg.equals("FALSE")) {
-
-            sb.setCharAt(2, '1');
-
-        } else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config4 =
-                sb.toString();
-
-
-        return config4;
-    }
-
-
-    private String generateSetSAFE(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config4);
-
-
-        if (arg.equals("FALSE")) {
-
-            if (config4.charAt(0) == 'F') {
-                sb.setCharAt(0, 'F');
-            }
-
-            if (config4.charAt(0) == 'E') {
-                sb.setCharAt(0, 'F');
-            }
-
-            if (config4.charAt(0) == '7') {
-                sb.setCharAt(0, '7');
-            }
-
-            if (config4.charAt(0) == '6') {
-                sb.setCharAt(0, '7');
-            }
-        }
-
-
-        else if (arg.equals("TRUE")) {
-
-            if (config4.charAt(0) == 'F') {
-                sb.setCharAt(0, 'E');
-            }
-
-            if (config4.charAt(0) == 'E') {
-                sb.setCharAt(0, 'E');
-            }
-
-            if (config4.charAt(0) == '7') {
-                sb.setCharAt(0, '6');
-            }
-
-            if (config4.charAt(0) == '6') {
-                sb.setCharAt(0, '6');
-            }
-        }
-
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config4 =
-                sb.toString();
-
-
-        return config4;
-    }
-
-
-    private String generateSetWriteProtection(
-            List<String> args) {
-
-        if (args.size() != 1) {
-
-            console.println(
-                    "Wrong parameter count: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String arg =
-                args.get(0);
-
-
-        StringBuilder sb =
-                new StringBuilder(config4);
-
-        StringBuilder sb2 =
-                new StringBuilder(config5);
-
-
-        if (arg.equals("FALSE")) {
-
-            if (config4.charAt(0) == 'F') {
-                sb.setCharAt(0, 'F');
-            }
-
-            if (config4.charAt(0) == 'E') {
-                sb.setCharAt(0, 'E');
-            }
-
-            if (config4.charAt(0) == '7') {
-                sb.setCharAt(0, 'F');
-            }
-
-            if (config4.charAt(0) == '6') {
-                sb.setCharAt(0, 'E');
-            }
-
-
-            sb.setCharAt(3, 'F');
-            sb2.setCharAt(1, 'F');
-        }
-
-
-        else if (arg.equals("TRUE")) {
-
-            if (config4.charAt(0) == 'F') {
-                sb.setCharAt(0, '7');
-            }
-
-            if (config4.charAt(0) == 'E') {
-                sb.setCharAt(0, '6');
-            }
-
-            if (config4.charAt(0) == '7') {
-                sb.setCharAt(0, '7');
-            }
-
-            if (config4.charAt(0) == '6') {
-                sb.setCharAt(0, '6');
-            }
-
-
-            sb.setCharAt(3, '5');
-            sb2.setCharAt(1, 'E');
-        }
-
-
-        else {
-
-            return "Not recognizable argument: "
-                    + args;
-        }
-
-
-        config4 =
-                sb.toString();
-
-        config5 =
-                sb2.toString();
-
-
-        return config4
-                + " "
-                + config5;
-    }
-
-
-    // ============================================================
-    // SET PIN
-    // ============================================================
-
-    private String generateSetPin(
-            List<String> args) {
-
-        if (args.size() != 2) {
-
-            console.println(
-                    "setPin hibás paraméterszám: "
-                    + args
-            );
-
-            return "";
-        }
-
-
-        String pin =
-                args.get(0);
-
-        String direction =
-                args.get(1);
-
+        String pin = args.get(0);
+        String direction = args.get(1); 
 
         return "F4E0";
     }
 
-
-    // ============================================================
-    // OUT PIN
-    // ============================================================
-
-    private String generateOutPin(
-            List<String> args) {
-
+    private String generateOutPin(List<String> args) {
         if (args.size() != 2) {
-
-            console.println(
-                    "outPin hibás paraméterszám: "
-                    + args
-            );
-
+            console.println("outPin hibás paraméterszám: " + args);
             return "";
         }
 
+        String pin = args.get(0);
+        String value = args.get(1); 
 
-        String pin =
-                args.get(0);
-
-        String value =
-                args.get(1);
-
-
-        return "; outPin("
-                + pin
-                + ", "
-                + value
-                + ") -> LATx/PORTx beállítás ide";
+        return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
     }
 
 
-    // ============================================================
-    // RESOLVE ARGUMENTS
-    // ============================================================
+    private List<String> resolveArgs(List<String> args) {
+    List<String> resolved = new ArrayList<>();
 
-    private List<String> resolveArgs(
-            List<String> args) {
+    for (String arg : args) {
+        if (boolValues.containsKey(arg)) {
+            resolved.add(boolValues.get(arg));
+        } else {
+            resolved.add(arg);
+        }
+    }
 
-        List<String> resolved =
-                new ArrayList<>();
+    return resolved;
+    }
 
 
-        for (String arg : args) {
 
-            if (boolValues.containsKey(arg)) {
 
-                resolved.add(
-                        boolValues.get(arg)
-                );
+        private void writeOutputFile(String extension, String content) {
+            File currentFile = editor.getCurrentFile();
 
-            } else {
+            if (currentFile == null) {
+                console.println("Hiba: nincs megnyitva projektfájl, nem tudom hova menteni!");
+                return;
+            }
 
-                resolved.add(arg);
+            File projectDir = currentFile.getParentFile();
+
+            if (projectDir == null) {
+                console.println("Hiba: nem található a projekt mappája!");
+                return;
+            }
+
+            String projectName = currentFile.getName();
+            int dotIndex = projectName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                projectName = projectName.substring(0, dotIndex);
+            }
+
+            File outFile = new File(projectDir, projectName + "." + extension);
+
+            try (FileWriter writer = new FileWriter(outFile)) {
+                writer.write(content);
+                console.println("Fájl elmentve: " + outFile.getAbsolutePath());
+            } catch (IOException ex) {
+                console.println("Hiba a fájl írásakor: " + ex.getMessage());
             }
         }
 
-
-        return resolved;
-    }
-
-
-    // ============================================================
-    // WRITE OUTPUT
-    // ============================================================
-
-    private void writeOutputFile(
-            String extension,
-            String content) {
-
-        File currentFile =
-                editor.getCurrentFile();
-
-
-        if (currentFile == null) {
-
-            console.println(
-                    "Hiba: nincs megnyitva projektfájl, "
-                    + "nem tudom hova menteni!"
-            );
-
-            return;
+        private int sumHexBytes(String hexString) {
+            int sum = 0;
+            for (int i = 0; i < hexString.length(); i += 2) {
+                String byteStr = hexString.substring(i, i + 2);
+                sum += Integer.parseInt(byteStr, 16);
+            }
+            return sum;
         }
 
-
-        File projectDir =
-                currentFile.getParentFile();
-
-
-        if (projectDir == null) {
-
-            console.println(
-                    "Hiba: nem található a projekt mappája!"
-            );
-
-            return;
+        private String calculateChecksum(String recordWithoutChecksum) {
+            int sum = sumHexBytes(recordWithoutChecksum);
+            int checksum = (256 - (sum % 256)) % 256;
+            return String.format("%02X", checksum);
         }
 
-
-        String projectName =
-                currentFile.getName();
-
-
-        int dotIndex =
-                projectName.lastIndexOf('.');
-
-
-        if (dotIndex > 0) {
-
-            projectName =
-                    projectName.substring(
-                            0,
-                            dotIndex
-                    );
+        private void resetCompilerState() {
+            boolAddresses.clear();
+            nextBoolAddress = 0x20;
+            PROGRAM_MEMORY_START = 0x0000;
         }
 
+        private int getMaxProgramAddress(String cpu) {
+            if (cpu == null) return 0x0FFF;
 
-        File outFile =
-                new File(
-                        projectDir,
-                        projectName
-                                + "."
-                                + extension
-                );
-
-
-        try (FileWriter writer =
-                     new FileWriter(outFile)) {
-
-            writer.write(content);
-
-
-            console.println(
-                    "Fájl elmentve: "
-                    + outFile.getAbsolutePath()
-            );
-
-        } catch (IOException ex) {
-
-            console.println(
-                    "Hiba a fájl írásakor: "
-                    + ex.getMessage()
-            );
-        }
-    }
-
-
-    // ============================================================
-    // HEX SUM
-    // ============================================================
-
-    private int sumHexBytes(
-            String hexString) {
-
-        int sum = 0;
-
-
-        for (int i = 0;
-             i < hexString.length();
-             i += 2) {
-
-            String byteStr =
-                    hexString.substring(
-                            i,
-                            i + 2
-                    );
-
-
-            sum +=
-                    Integer.parseInt(
-                            byteStr,
-                            16
-                    );
+            switch (cpu) {
+                case "PIC16F15274":
+                    return 0x0FFF;
+                case "PIC16F15275":
+                    return 0x1FFF;
+                case "PIC16F15256":
+                case "PIC16F15276":
+                    return 0x3FFF;
+                default:
+                    console.println("Figyelmeztetés: ismeretlen CPU, 0x0FFF (legkisebb) limit használva");
+                    return 0x0FFF;
+            }
         }
 
-
-        return sum;
-    }
-
-
-    // ============================================================
-    // CHECKSUM
-    // ============================================================
-
-    private String calculateChecksum(
-            String recordWithoutChecksum) {
-
-        int sum =
-                sumHexBytes(
-                        recordWithoutChecksum
-                );
-
-
-        int checksum =
-                (256 - (sum % 256)) % 256;
-
-
-        return String.format(
-                "%02X",
-                checksum
-        );
-    }
-
-
-    // ============================================================
-    // RESET COMPILER
-    // ============================================================
-
-    private void resetCompilerState() {
-
-        boolAddresses.clear();
-
-        boolValues.clear();
-
-        nextBoolAddress =
-                0x20;
-
-        PROGRAM_MEMORY_START =
-                0x0000;
-    }
-
-
-    // ============================================================
-    // MAX PROGRAM ADDRESS
-    // ============================================================
-
-    private int getMaxProgramAddress(
-            String cpu) {
-
-        if (cpu == null) {
-            return 0x0FFF;
-        }
-
-
-        switch (cpu) {
-
-            case "PIC16F15274":
-                return 0x0FFF;
-
-            case "PIC16F15275":
-                return 0x1FFF;
-
-            case "PIC16F15256":
-            case "PIC16F15276":
-                return 0x3FFF;
-
-            default:
-
-                console.println(
-                        "Figyelmeztetés: ismeretlen CPU, "
-                        + "0x0FFF (legkisebb) limit használva"
-                );
-
-                return 0x0FFF;
-        }
-    }
 }

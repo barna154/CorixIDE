@@ -28,6 +28,8 @@ public class pic16F1527x {
     private String config5;
 
     private String code;
+    private String codes;
+    private String codel;
 
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
@@ -36,60 +38,17 @@ public class pic16F1527x {
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private Map<String, String> boolValues = new LinkedHashMap<>();
 
-    public pic16F1527x(TextEditor editor, ConsolePanel console) {
-        this.editor = editor;
-        this.console = console;
-    }
 
-    private List<String[]> tokenizeWithZones(String content) {
-        List<String[]> result = new ArrayList<>();
-        String zone = "global";
-        StringBuilder buffer = new StringBuilder();
+    private List<Instruction> parseInstructions(String block) {
+    
+    List<Instruction> instructions = new ArrayList<>();
 
-        for (String rawLine : content.split("\\R")) {
-            String line = rawLine.trim();
-            if (line.isEmpty()) continue;
+    for (String rawLine : block.split(";")) {
+        String line = rawLine.trim();
+        if (line.isEmpty()) continue;
 
-            if (line.startsWith("CPU=")) {
-                continue; 
-            }
-
-            if (line.startsWith("config") && line.endsWith("{")) {
-                zone = "config";
-                continue;
-            }
-            if (line.startsWith("setup") && line.endsWith("{")) {
-                zone = "setup";
-                continue;
-            }
-            if (line.startsWith("loop") && line.endsWith("{")) {
-                zone = "loop";
-                continue;
-            }
-            if (line.equals("}")) {
-                zone = "global";
-                continue;
-            }
-
-            buffer.append(line).append(" ");
-
-            int semi;
-            while ((semi = buffer.indexOf(";")) != -1) {
-                String stmt = buffer.substring(0, semi).trim();
-                buffer.delete(0, semi + 1);
-                if (!stmt.isEmpty()) {
-                    result.add(new String[]{zone, stmt});
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private Instruction parseStatement(String stmt) {
-
-        if (stmt.startsWith("bool ")) {
-            String withoutPrefix = stmt.substring(5).trim();
+        if (line.startsWith("bool ")) {
+            String withoutPrefix = line.substring(5).trim();
             int eqIndex = withoutPrefix.indexOf('=');
             if (eqIndex != -1) {
                 String varName = withoutPrefix.substring(0, eqIndex).trim();
@@ -97,20 +56,21 @@ public class pic16F1527x {
                 List<String> args = new ArrayList<>();
                 args.add(varName);
                 args.add(value);
-                return new Instruction("bool", args);
+                instructions.add(new Instruction("bool", args));
+                continue;
             }
         }
 
-        int open = stmt.indexOf('(');
-        int close = stmt.lastIndexOf(')');
+        int open = line.indexOf('(');
+        int close = line.lastIndexOf(')');
 
         if (open == -1 || close == -1 || close < open) {
-            console.println("Figyelmeztetés: nem sikerült értelmezni: " + stmt);
-            return null;
+            console.println("Figyelmeztetés: nem sikerült értelmezni: " + line);
+            continue;
         }
 
-        String funcName = stmt.substring(0, open).trim();
-        String argsPart = stmt.substring(open + 1, close).trim();
+        String funcName = line.substring(0, open).trim();
+        String argsPart = line.substring(open + 1, close).trim();
 
         List<String> args = new ArrayList<>();
         if (!argsPart.isEmpty()) {
@@ -119,131 +79,251 @@ public class pic16F1527x {
             }
         }
 
-        return new Instruction(funcName, args);
-    }
-    private boolean shouldEmitHex(String zone, String instrName) {
-        if (zone.equals("config")) {
-            return instrName.equals("bool");
-        }
-        return true;
+        instructions.add(new Instruction(funcName, args));
     }
 
-    private boolean isValidHex(String s) {
-        return s.matches("[0-9A-Fa-f]+");
+        return instructions;
+    }
+
+
+    private List<Instruction> parseGlobalVariables(String content) {
+
+            List<Instruction> instructions = new ArrayList<>();
+
+            for (String rawLine : content.split(";")) {
+
+                String line = rawLine.trim();
+
+                if (line.startsWith("bool ")) {
+
+                    String withoutPrefix = line.substring(5).trim();
+
+                    int eqIndex = withoutPrefix.indexOf('=');
+
+                    if (eqIndex != -1) {
+
+                        String varName = withoutPrefix.substring(0, eqIndex).trim();
+                        String value = withoutPrefix.substring(eqIndex + 1).trim();
+
+                        List<String> args = new ArrayList<>();
+                        args.add(varName);
+                        args.add(value);
+
+                        instructions.add(new Instruction("bool", args));
+                    }
+                }
+            }
+
+            return instructions;
+        }
+
+    public pic16F1527x(TextEditor editor, ConsolePanel console) {       
+        this.editor = editor;
+        this.console = console;
     }
 
     public void compile() {
 
-        resetCompilerState();
-        String content = editor.getTextComponent().getText();
+            resetCompilerState();
+            String content = editor.getTextComponent().getText();
 
-        cpu = getCpu(content);
-        config = getSection(content, "config");
-        setup = getSection(content, "setup");
-        loop = getSection(content, "loop");
+            cpu = getCpu(content);
+            config = getSection(content, "config");
+            setup = getSection(content, "setup");
+            loop = getSection(content, "loop");
 
-        config1 = "CD3F";
-        config2 = "E53F";
-        config3 = "FF3F";
-        config4 = "FF3F";
-        config5 = "FF3F";
+            config1 = "CD3F";
+            config2 = "E53F";
+            config3 = "FF3F";
+            config4 = "FF3F";
+            config5 = "FF3F";
 
-        code = null;
-        StringBuilder codebuilder = new StringBuilder();
-        int maxProgramAddress = getMaxProgramAddress(cpu);
+            code = null;
+            StringBuilder codebuilder = new StringBuilder();
 
-        console.println("----------------");
-        console.println("CPU = " + cpu);
-        console.println("----------------");
+            codes = null;
+            StringBuilder codesbuilder = new StringBuilder();
 
-        List<String[]> tokens = tokenizeWithZones(content);
-
-        boolean inLoop = false;
-        boolean sawLoopZone = false;
-        int loopStartAddress = 0;
-
-        for (String[] token : tokens) {
-            String zone = token[0];
-            String stmtText = token[1];
+            codel = null;
+            StringBuilder codelbuilder = new StringBuilder();
+            int maxProgramAddress = getMaxProgramAddress(cpu);
 
 
-            if (zone.equals("loop") && !inLoop) {
-                inLoop = true;
-                sawLoopZone = true;
-                loopStartAddress = PROGRAM_MEMORY_START;
+            console.println("----------------");
+            console.println("CPU = " + cpu);
+            console.println("----------------");
 
-                String loopnop = "02"
-                        + String.format("%04X", loopStartAddress)
-                        + "00"
-                        + "0000";
-                String loopnopc = loopnop + calculateChecksum(loopnop);
-                codebuilder.append(":" + loopnopc + System.lineSeparator());
-            } else if (!zone.equals("loop") && inLoop) {
-                inLoop = false;
-            }
+            List<Instruction> globalInstructions = parseGlobalVariables(content);
+            List<Instruction> configInstructions = parseInstructions(config);
+            List<Instruction> setupInstructions = parseInstructions(setup);
+            List<Instruction> loopInstructions = parseInstructions(loop);
 
-            Instruction instr = parseStatement(stmtText);
-            if (instr == null) continue;
 
-            console.println("[" + zone + "] -> " + instr);
+            console.println("CONFIG utasítások:");
+                for (Instruction instr : configInstructions) {
 
-            String asm = generateAsmForInstruction(instr);
+                    console.println(" -> " + instr);
 
-            if (asm.isEmpty()) continue;
+                    String asm = generateAsmForInstruction(instr);
 
-            console.println("     " + asm);
+                    if (!asm.isEmpty()) {
+                        console.println("     " + asm);
 
-            if (shouldEmitHex(zone, instr.name) && isValidHex(asm)) {
+                        // Csak a "bool" generál valódi program-kódot (hex sort),
+                        // a config-bit beállítások (setOsc, stb.) a config1-5 stringeket módosítják.
+                        if (instr.name.equals("bool")) {
+                            if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
 
-                if (PROGRAM_MEMORY_START > maxProgramAddress) {
-                    console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
-                            + cpu + ") flash kapacitását!");
-                    continue;
+                            String line = "0A"
+                                    + String.format("%04X", PROGRAM_MEMORY_START)
+                                    + "00"
+                                    + asm
+                                    + "000000000000";
+                            String linec = line + calculateChecksum(line);
+
+                            codebuilder.append(":"
+                                    + linec
+                                    + System.lineSeparator()
+                            );
+                            PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
+                        }
+                    }
                 }
+                code = codebuilder.toString();
 
-                String line = "0A"
-                        + String.format("%04X", PROGRAM_MEMORY_START)
-                        + "00"
-                        + asm
-                        + "000000000000";
-                String linec = line + calculateChecksum(line);
 
-                codebuilder.append(":" + linec + System.lineSeparator());
-                PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
-            }
+            console.println("BOOL változók:");
+
+                for (Instruction instr : globalInstructions) {
+
+                    console.println(" -> " + instr);
+
+                    String asm = generateAsmForInstruction(instr);
+    
+
+                    if (!asm.isEmpty()) {
+
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
+
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codebuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
+                       
+                    }
+                }
+                code = codebuilder.toString();
+
+                console.println("SETUP utasítások:");
+                for (Instruction instr : setupInstructions) {
+                    console.println("  - " + instr);
+                    String asm = generateAsmForInstruction(instr);
+                    if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
+
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codesbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
+                    }
+                }
+                codes = codesbuilder.toString();
+
+                console.println("LOOP utasítások:");
+                int LoopAdress = PROGRAM_MEMORY_START;
+                String loopnop = "02" 
+                                + String.format("%04X", LoopAdress) 
+                                + "00" 
+                                + "0000";
+                String loopnopc = loopnop +  calculateChecksum(loopnop);  
+                codelbuilder.append(":"
+                                + loopnopc
+                                + System.lineSeparator()
+                        );
+                
+                for (Instruction instr : loopInstructions) {
+                    console.println("  - " + instr);
+                    String asm = generateAsmForInstruction(instr);
+                    if (!asm.isEmpty()) {
+                        if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
+
+                        String line = "0A" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + asm
+                                + "000000000000";
+                        String linec = line +  calculateChecksum(line);   
+
+                        codelbuilder.append(":"
+                                + linec
+                                + System.lineSeparator()
+                        );
+                        PROGRAM_MEMORY_START= PROGRAM_MEMORY_START + 0x000A;
+                    }
+                    
+                }
+                String gotoi = "00101";
+                String Loopbin11 = String.format("%11s", Integer.toBinaryString(LoopAdress)).replace(' ', '0');
+                int valuegoto = Integer.parseInt(gotoi + Loopbin11, 2);
+                String hexgoto = String.format("%04X", valuegoto);
+                String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
+
+                String loopline = "02" 
+                                + String.format("%04X", PROGRAM_MEMORY_START) 
+                                + "00" 
+                                + swappedg;
+                String looplinec = loopline +  calculateChecksum(loopline);  
+                codelbuilder.append(":"
+                                + looplinec
+                                + System.lineSeparator()
+                        );
+                codel = codelbuilder.toString();
+            console.println("----------------");
+
+
+            String commandColon = ":";
+            String commandStart = "0A";
+
+
+            String confighex = commandStart + "000E00" + config1 + config2 + config3 + config4 + config5;
+            String checksumconfig = calculateChecksum(confighex);
+            String fullconfig = commandColon + confighex + checksumconfig;
+            String j16to32 = ":020000040001F9";
+            String eof = ":00000001FF";
+
+            console.println(code);
+            String nl = System.lineSeparator();
+            console.println(j16to32 + nl + fullconfig + nl + eof);
+            writeOutputFile("hex", code + codes + codel + j16to32 + nl + fullconfig + nl + eof);
         }
-        if (sawLoopZone) {
-            String gotoi = "00101";
-            String loopBin11 = String.format("%11s", Integer.toBinaryString(loopStartAddress)).replace(' ', '0');
-            int valuegoto = Integer.parseInt(gotoi + loopBin11, 2);
-            String hexgoto = String.format("%04X", valuegoto);
-            String swappedg = hexgoto.substring(2, 4) + hexgoto.substring(0, 2);
-
-            String loopline = "02"
-                    + String.format("%04X", PROGRAM_MEMORY_START)
-                    + "00"
-                    + swappedg;
-            String looplinec = loopline + calculateChecksum(loopline);
-            codebuilder.append(":" + looplinec + System.lineSeparator());
-        }
-
-        code = codebuilder.toString();
-        console.println("----------------");
-
-        String commandColon = ":";
-        String commandStart = "0A";
-
-        String confighex = commandStart + "000E00" + config1 + config2 + config3 + config4 + config5;
-        String checksumconfig = calculateChecksum(confighex);
-        String fullconfig = commandColon + confighex + checksumconfig;
-        String j16to32 = ":020000040001F9";
-        String eof = ":00000001FF";
-
-        console.println(code);
-        String nl = System.lineSeparator();
-        console.println(j16to32 + nl + fullconfig + nl + eof);
-        writeOutputFile("hex", code + j16to32 + nl + fullconfig + nl + eof);
-    }
 
     private String getCpu(String content) {
 
@@ -258,6 +338,8 @@ public class pic16F1527x {
 
         return null;
     }
+            
+
 
     private String getSection(String content, String section) {
 
@@ -295,6 +377,8 @@ public class pic16F1527x {
         return loop;
     }
 
+
+
     private String generateAsmForInstruction(Instruction instr) {
         List<String> resolvedArgs = resolveArgs(instr.args);
         switch (instr.name) {
@@ -303,25 +387,25 @@ public class pic16F1527x {
             case "setAnalogRange":
                 return generatesetAnalogRange(resolvedArgs);
             case "setClockOut":
-                return generatesetClockOut(resolvedArgs);
+                return generatesetClockOut(resolvedArgs);    
             case "setOverflowReset":
-                 return generateSetOverflowReset(resolvedArgs);
+                 return generateSetOverflowReset(resolvedArgs);  
             case "setPeripheralLock":
                  return generateSetPeripheralLock(resolvedArgs);
             case "setBrownOutVoltage":
-                 return generateSetBrownOutVoltage(resolvedArgs);
+                 return generateSetBrownOutVoltage(resolvedArgs);   
             case "setBrownOut":
-                 return generateSetBrownOut(resolvedArgs);
+                 return generateSetBrownOut(resolvedArgs); 
             case "setWDTE":
-                 return generateSetWDTE(resolvedArgs);
+                 return generateSetWDTE(resolvedArgs); 
             case "setMCLR":
-                 return generateSetMCLR(resolvedArgs);
+                 return generateSetMCLR(resolvedArgs); 
             case "setLVP":
-                 return generateSetLVP(resolvedArgs);
+                 return generateSetLVP(resolvedArgs); 
             case "setSAFE":
-                 return generateSetSAFE(resolvedArgs);
+                 return generateSetSAFE(resolvedArgs); 
             case "setWriteProtection":
-                 return generateSetWriteProtection(resolvedArgs);
+                 return generateSetWriteProtection(resolvedArgs); 
             case "bool":
                  return generateBoolAssignment(instr.args);
 
@@ -335,6 +419,7 @@ public class pic16F1527x {
         }
     }
 
+
     private String generateBoolAssignment(List<String> args) {
             if (args.size() != 2) {
                 console.println("Wrong parameter count for bool: " + args);
@@ -343,6 +428,7 @@ public class pic16F1527x {
 
             String varName = args.get(0);
             String value = args.get(1);
+            String nl = System.lineSeparator();
 
             if (!boolAddresses.containsKey(varName)) {
                 if (nextBoolAddress > BOOL_BANK_END) {
@@ -352,9 +438,9 @@ public class pic16F1527x {
                 boolAddresses.put(varName, nextBoolAddress);
                 nextBoolAddress++;
             }
-            boolValues.put(varName, value);
+             boolValues.put(varName, value);
 
-
+            
             int address = boolAddresses.get(varName);
             String bin7 = String.format("%7s", Integer.toBinaryString(address)).replace(' ', '0');
             String asm;
@@ -364,7 +450,7 @@ public class pic16F1527x {
                 int valuebcfs = Integer.parseInt(bcfs, 2);
                 String hexbcfs = String.format("%04X", valuebcfs);
                 String swapped = hexbcfs.substring(2, 4) + hexbcfs.substring(0, 2);
-                asm = String.format("4001" + swapped);
+                asm = String.format("4001" + swapped);       
             } else if (value.equals("FALSE")) {
                 String clrfs = "000000011" + bin7;
                 int valueclrf = Integer.parseInt(clrfs, 2);
@@ -384,7 +470,7 @@ public class pic16F1527x {
             console.println("Wrong parmeter count " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config1);
@@ -422,7 +508,7 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config1);
@@ -446,7 +532,7 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config1);
@@ -464,14 +550,14 @@ public class pic16F1527x {
             config1 = sb.toString();
             return config1;
         }
-
+    
 
     private String generateSetOverflowReset(List<String> args) {
         if (args.size() != 1) {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -489,13 +575,13 @@ public class pic16F1527x {
             config2 = sb.toString();
             return config2;
         }
-
+    
     private String generateSetPeripheralLock(List<String> args) {
         if (args.size() != 1) {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -512,7 +598,7 @@ public class pic16F1527x {
                     else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, 'F');
                         }
-
+                    
                     else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, 'D');
                         }
@@ -529,7 +615,7 @@ public class pic16F1527x {
                     else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '7');
                         }
-
+                    
                     else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '5');
                         }
@@ -547,7 +633,7 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -564,7 +650,7 @@ public class pic16F1527x {
                     else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '7');
                         }
-
+                    
                     else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '7');
                         }
@@ -581,7 +667,7 @@ public class pic16F1527x {
                     else if (config2.charAt(3) == '7') {
                             sb.setCharAt(3, '5');
                         }
-
+                    
                     else if (config2.charAt(3) == '5') {
                             sb.setCharAt(3, '5');
                         }
@@ -593,13 +679,13 @@ public class pic16F1527x {
             config2 = sb.toString();
             return config2;
         }
-
+    
     private String generateSetBrownOut(List<String> args) {
         if (args.size() != 1) {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -616,7 +702,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, 'F');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, 'E');
                         }
@@ -641,7 +727,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, '3');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, '2');
                         }
@@ -666,7 +752,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, 'B');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, 'A');
                         }
@@ -691,7 +777,7 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -708,7 +794,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, 'B');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, 'B');
                         }
@@ -749,7 +835,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, 'A');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, 'A');
                         }
@@ -790,7 +876,7 @@ public class pic16F1527x {
                     else if (config2.charAt(0) == 'B') {
                             sb.setCharAt(0, 'B');
                         }
-
+                    
                     else if (config2.charAt(0) == 'A') {
                             sb.setCharAt(0, 'B');
                         }
@@ -831,7 +917,7 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config2);
@@ -848,7 +934,7 @@ public class pic16F1527x {
                     else if (config2.charAt(1) == 'C') {
                             sb.setCharAt(1, 'D');
                         }
-
+                    
                     else if (config2.charAt(1) == '4') {
                             sb.setCharAt(1, '5');
                         }
@@ -865,7 +951,7 @@ public class pic16F1527x {
                     else if (config2.charAt(1) == 'C') {
                             sb.setCharAt(1, 'C');
                         }
-
+                    
                     else if (config2.charAt(1) == '4') {
                             sb.setCharAt(1, '4');
                         }
@@ -883,12 +969,12 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config4);
 
-            if (arg.equals("TRUE")) {
+            if (arg.equals("TRUE")) {            
                 sb.setCharAt(2, '3');
             }
             else if (arg.equals("FALSE")) {
@@ -902,18 +988,18 @@ public class pic16F1527x {
             config4 = sb.toString();
             return config4;
         }
-
+    
     private String generateSetSAFE(List<String> args) {
         if (args.size() != 1) {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config4);
 
-            if (arg.equals("FALSE")) {
+            if (arg.equals("FALSE")) {            
                 if (config4.charAt(0) == 'F') {
                         sb.setCharAt(0, 'F');
                     }
@@ -954,13 +1040,13 @@ public class pic16F1527x {
             console.println("Wrong parameter count: " + args);
             return "";
         }
-
+            
         String arg = args.get(0);
 
             StringBuilder sb = new StringBuilder(config4);
             StringBuilder sb2 = new StringBuilder(config5);
 
-            if (arg.equals("FALSE")) {
+            if (arg.equals("FALSE")) {            
                 if (config4.charAt(0) == 'F') {
                         sb.setCharAt(0, 'F');
                     }
@@ -975,7 +1061,7 @@ public class pic16F1527x {
                     }
                 sb.setCharAt(3, 'F');
                 sb2.setCharAt(1, 'F');
-
+                
             }
             else if (arg.equals("TRUE")) {
                 if (config4.charAt(0) == 'F') {
@@ -992,7 +1078,7 @@ public class pic16F1527x {
                     }
                 sb.setCharAt(3, '5');
                 sb2.setCharAt(1, 'E');
-
+                
             }
 
             else {
@@ -1002,7 +1088,20 @@ public class pic16F1527x {
             config4 = sb.toString();
             config5 = sb2.toString();
             return config4 + " " + config5;
-        }
+        }    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private String generateSetPin(List<String> args) {
         if (args.size() != 2) {
@@ -1011,7 +1110,7 @@ public class pic16F1527x {
         }
 
         String pin = args.get(0);
-        String direction = args.get(1);
+        String direction = args.get(1); 
 
         return "F4E0";
     }
@@ -1023,7 +1122,7 @@ public class pic16F1527x {
         }
 
         String pin = args.get(0);
-        String value = args.get(1);
+        String value = args.get(1); 
 
         return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
     }
@@ -1044,74 +1143,75 @@ public class pic16F1527x {
     }
 
 
-    private void writeOutputFile(String extension, String content) {
-        File currentFile = editor.getCurrentFile();
 
-        if (currentFile == null) {
-            console.println("Hiba: nincs megnyitva projektfájl, nem tudom hova menteni!");
-            return;
+
+        private void writeOutputFile(String extension, String content) {
+            File currentFile = editor.getCurrentFile();
+
+            if (currentFile == null) {
+                console.println("Hiba: nincs megnyitva projektfájl, nem tudom hova menteni!");
+                return;
+            }
+
+            File projectDir = currentFile.getParentFile();
+
+            if (projectDir == null) {
+                console.println("Hiba: nem található a projekt mappája!");
+                return;
+            }
+
+            String projectName = currentFile.getName();
+            int dotIndex = projectName.lastIndexOf('.');
+            if (dotIndex > 0) {
+                projectName = projectName.substring(0, dotIndex);
+            }
+
+            File outFile = new File(projectDir, projectName + "." + extension);
+
+            try (FileWriter writer = new FileWriter(outFile)) {
+                writer.write(content);
+                console.println("Fájl elmentve: " + outFile.getAbsolutePath());
+            } catch (IOException ex) {
+                console.println("Hiba a fájl írásakor: " + ex.getMessage());
+            }
         }
 
-        File projectDir = currentFile.getParentFile();
-
-        if (projectDir == null) {
-            console.println("Hiba: nem található a projekt mappája!");
-            return;
+        private int sumHexBytes(String hexString) {
+            int sum = 0;
+            for (int i = 0; i < hexString.length(); i += 2) {
+                String byteStr = hexString.substring(i, i + 2);
+                sum += Integer.parseInt(byteStr, 16);
+            }
+            return sum;
         }
 
-        String projectName = currentFile.getName();
-        int dotIndex = projectName.lastIndexOf('.');
-        if (dotIndex > 0) {
-            projectName = projectName.substring(0, dotIndex);
+        private String calculateChecksum(String recordWithoutChecksum) {
+            int sum = sumHexBytes(recordWithoutChecksum);
+            int checksum = (256 - (sum % 256)) % 256;
+            return String.format("%02X", checksum);
         }
 
-        File outFile = new File(projectDir, projectName + "." + extension);
-
-        try (FileWriter writer = new FileWriter(outFile)) {
-            writer.write(content);
-            console.println("Fájl elmentve: " + outFile.getAbsolutePath());
-        } catch (IOException ex) {
-            console.println("Hiba a fájl írásakor: " + ex.getMessage());
+        private void resetCompilerState() {
+            boolAddresses.clear();
+            nextBoolAddress = 0x20;
+            PROGRAM_MEMORY_START = 0x0000;
         }
-    }
 
-    private int sumHexBytes(String hexString) {
-        int sum = 0;
-        for (int i = 0; i < hexString.length(); i += 2) {
-            String byteStr = hexString.substring(i, i + 2);
-            sum += Integer.parseInt(byteStr, 16);
+        private int getMaxProgramAddress(String cpu) {
+            if (cpu == null) return 0x0FFF;
+
+            switch (cpu) {
+                case "PIC16F15274":
+                    return 0x0FFF;
+                case "PIC16F15275":
+                    return 0x1FFF;
+                case "PIC16F15256":
+                case "PIC16F15276":
+                    return 0x3FFF;
+                default:
+                    console.println("Figyelmeztetés: ismeretlen CPU, 0x0FFF (legkisebb) limit használva");
+                    return 0x0FFF;
+            }
         }
-        return sum;
-    }
-
-    private String calculateChecksum(String recordWithoutChecksum) {
-        int sum = sumHexBytes(recordWithoutChecksum);
-        int checksum = (256 - (sum % 256)) % 256;
-        return String.format("%02X", checksum);
-    }
-
-    private void resetCompilerState() {
-        boolAddresses.clear();
-        boolValues.clear();
-        nextBoolAddress = 0x20;
-        PROGRAM_MEMORY_START = 0x0000;
-    }
-
-    private int getMaxProgramAddress(String cpu) {
-        if (cpu == null) return 0x0FFF;
-
-        switch (cpu) {
-            case "PIC16F15274":
-                return 0x0FFF;
-            case "PIC16F15275":
-                return 0x1FFF;
-            case "PIC16F15256":
-            case "PIC16F15276":
-                return 0x3FFF;
-            default:
-                console.println("Figyelmeztetés: ismeretlen CPU, 0x0FFF (legkisebb) limit használva");
-                return 0x0FFF;
-        }
-    }
 
 }

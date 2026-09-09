@@ -36,11 +36,11 @@ public class pic16F1527x {
     private static final int BOOL_BANK_END = 0x6F;
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
-
+    private Map<String, String> boolValues = new LinkedHashMap<>();
 
 
     private List<Instruction> parseInstructions(String block) {
-    private Map<String, String> boolValues = new LinkedHashMap<>();
+    
     List<Instruction> instructions = new ArrayList<>();
 
     for (String rawLine : block.split(";")) {

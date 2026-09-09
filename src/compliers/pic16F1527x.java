@@ -40,6 +40,7 @@ public class pic16F1527x {
 
 
     private List<Instruction> parseInstructions(String block) {
+    private Map<String, String> boolValues = new LinkedHashMap<>();
     List<Instruction> instructions = new ArrayList<>();
 
     for (String rawLine : block.split(";")) {
@@ -272,8 +273,6 @@ public class pic16F1527x {
             console.println("----------------");
 
 
-
-
             String commandColon = ":";
             String commandStart = "0A";
 
@@ -345,31 +344,32 @@ public class pic16F1527x {
 
 
     private String generateAsmForInstruction(Instruction instr) {
+        List<String> resolvedArgs = resolveArgs(instr.args);
         switch (instr.name) {
             case "setOsc":
-                return generateSetOsc(instr.args);
+                return generateSetOsc(resolvedArgs);
             case "setAnalogRange":
-                return generatesetAnalogRange(instr.args);
+                return generatesetAnalogRange(resolvedArgs);
             case "setClockOut":
-                return generatesetClockOut(instr.args);    
+                return generatesetClockOut(resolvedArgs);    
             case "setOverflowReset":
-                 return generateSetOverflowReset(instr.args);  
+                 return generateSetOverflowReset(resolvedArgs);  
             case "setPeripheralLock":
-                 return generateSetPeripheralLock(instr.args);
+                 return generateSetPeripheralLock(resolvedArgs);
             case "setBrownOutVoltage":
-                 return generateSetBrownOutVoltage(instr.args);   
+                 return generateSetBrownOutVoltage(resolvedArgs);   
             case "setBrownOut":
-                 return generateSetBrownOut(instr.args); 
+                 return generateSetBrownOut(resolvedArgs); 
             case "setWDTE":
-                 return generateSetWDTE(instr.args); 
+                 return generateSetWDTE(resolvedArgs); 
             case "setMCLR":
-                 return generateSetMCLR(instr.args); 
+                 return generateSetMCLR(resolvedArgs); 
             case "setLVP":
-                 return generateSetLVP(instr.args); 
+                 return generateSetLVP(resolvedArgs); 
             case "setSAFE":
-                 return generateSetSAFE(instr.args); 
+                 return generateSetSAFE(resolvedArgs); 
             case "setWriteProtection":
-                 return generateSetWriteProtection(instr.args); 
+                 return generateSetWriteProtection(resolvedArgs); 
             case "bool":
                  return generateBoolAssignment(instr.args);
 
@@ -402,6 +402,7 @@ public class pic16F1527x {
                 boolAddresses.put(varName, nextBoolAddress);
                 nextBoolAddress++;
             }
+             boolValues.put(varName, value);
 
             
             int address = boolAddresses.get(varName);
@@ -1088,6 +1089,21 @@ public class pic16F1527x {
         String value = args.get(1); 
 
         return "; outPin(" + pin + ", " + value + ") -> LATx/PORTx beállítás ide";
+    }
+
+
+    private List<String> resolveArgs(List<String> args) {
+    List<String> resolved = new ArrayList<>();
+
+    for (String arg : args) {
+        if (boolValues.containsKey(arg)) {
+            resolved.add(boolValues.get(arg));
+        } else {
+            resolved.add(arg);
+        }
+    }
+
+    return resolved;
     }
 
 

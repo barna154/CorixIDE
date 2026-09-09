@@ -154,9 +154,45 @@ public class pic16F1527x {
             console.println("----------------");
 
             List<Instruction> globalInstructions = parseGlobalVariables(content);
+            List<Instruction> configInstructions = parseInstructions(config);
             List<Instruction> setupInstructions = parseInstructions(setup);
             List<Instruction> loopInstructions = parseInstructions(loop);
 
+
+            console.println("CONFIG utasítások:");
+                for (Instruction instr : configInstructions) {
+
+                    console.println(" -> " + instr);
+
+                    String asm = generateAsmForInstruction(instr);
+
+                    if (!asm.isEmpty()) {
+                        console.println("     " + asm);
+
+                        // Csak a "bool" generál valódi program-kódot (hex sort),
+                        // a config-bit beállítások (setOsc, stb.) a config1-5 stringeket módosítják.
+                        if (instr.name.equals("bool")) {
+                            if (PROGRAM_MEMORY_START > maxProgramAddress) {
+                                console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
+                                    + cpu + ") flash kapacitását!");
+                            }
+
+                            String line = "0A"
+                                    + String.format("%04X", PROGRAM_MEMORY_START)
+                                    + "00"
+                                    + asm
+                                    + "000000000000";
+                            String linec = line + calculateChecksum(line);
+
+                            codebuilder.append(":"
+                                    + linec
+                                    + System.lineSeparator()
+                            );
+                            PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
+                        }
+                    }
+                }
+                code = codebuilder.toString();
 
 
             console.println("BOOL változók:");

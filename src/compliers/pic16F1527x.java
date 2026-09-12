@@ -1130,7 +1130,7 @@ public class pic16F1527x {
             case "PIC16F15276":
                 return 0x3FFF;
             default:
-                console.println("Figyelmeztetés: ismeretlen CPU, 0x0FFF (legkisebb) limit használva");
+                console.println("ERROR: not valid CPU, PIC16F15274 will be used");
                 return 0x0FFF;
         }
     }

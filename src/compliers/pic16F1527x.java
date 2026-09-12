@@ -41,18 +41,6 @@ public class pic16F1527x {
         this.console = console;
     }
 
-    // =========================================================================
-    //  EGYSÉGES, ZÓNA-KÖVETŐ TOKENIZÁLÁS
-    //  A teljes fájlt EGYETLEN, LINEÁRIS menetben dolgozza fel, a fájlban
-    //  ténylegesen szereplő sorrendben - így a "config{}", "setup{}", "loop{}"
-    //  blokkok csak "zóna-jelölőként" szolgálnak, nem külön feldolgozott
-    //  darabokként. Ez teszi lehetővé, hogy:
-    //    - a blokkokon KÍVÜLI (globális) utasítások is működjenek,
-    //    - egy adott sor PONTOSAN ott fusson le, ahol a fájlban van (helyes
-    //      sorrend - pl. két egymást követő "bool X = ...;" a fájlbeli
-    //      sorrendben generál két külön utasítást).
-    // =========================================================================
-
     private List<String[]> tokenizeWithZones(String content) {
         List<String[]> result = new ArrayList<>();
         String zone = "global";
@@ -63,7 +51,11 @@ public class pic16F1527x {
             if (line.isEmpty()) continue;
 
             if (line.startsWith("CPU=")) {
-                continue; // ezt külön a getCpu() kezeli
+                continue;
+            }
+
+            if (line.startsWith("//")) { 
+                continue;
             }
 
             if (line.startsWith("config") && line.endsWith("{")) {
@@ -134,13 +126,6 @@ public class pic16F1527x {
         return new Instruction(funcName, args);
     }
 
-    /**
-     * "config" zónában CSAK a "bool" utasítás generál valódi gépi kódot;
-     * a többi (setOsc, setWDTE, stb.) a config1-5 stringeket módosítja,
-     * ami külön, a hex fájl végén kerül kiírásra.
-     * Minden más zónában (global, setup, loop) bármilyen nem üres
-     * eredmény programkódnak számít.
-     */
     private boolean shouldEmitHex(String zone, String instrName) {
         if (zone.equals("config")) {
             return instrName.equals("bool");
@@ -159,10 +144,6 @@ public class pic16F1527x {
 
         cpu = getCpu(content);
 
-        // A config/setup/loop mezőket a kompatibilitás kedvéért továbbra is
-        // feltöltjük (pl. getConfig()/getSetup()/getLoop() külső hívóknak),
-        // de a TÉNYLEGES feldolgozás mostantól a teljes fájlon, egyetlen,
-        // sorrendhelyes menetben történik (lásd tokenizeWithZones).
         config = getSection(content, "config");
         setup = getSection(content, "setup");
         loop = getSection(content, "loop");
@@ -191,9 +172,6 @@ public class pic16F1527x {
             String zone = token[0];
             String stmtText = token[1];
 
-            // Belépés a loop zónába: elhelyezünk egy "jelölő" NOP rekordot
-            // a ciklus kezdőcímén - ha a loop üres maradna, ez biztosítja,
-            // hogy a záró GOTO célcíme akkor is definiált legyen a hex fájlban.
             if (zone.equals("loop") && !inLoop) {
                 inLoop = true;
                 sawLoopZone = true;
@@ -240,9 +218,7 @@ public class pic16F1527x {
             }
         }
 
-        // Ha volt loop{} blokk a fájlban, a végén zárjuk le egy
-        // "GOTO loopStartAddress" utasítással, hogy a program a betöltés
-        // után örökké a ciklusban maradjon (ne "fusson ki" a memóriából).
+
         if (sawLoopZone) {
             String gotoi = "00101";
             String loopBin11 = String.format("%11s", Integer.toBinaryString(loopStartAddress)).replace(' ', '0');

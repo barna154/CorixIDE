@@ -10,6 +10,9 @@ import java.io.FileWriter;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.io.IOException;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Arrays;
 
 public class pic16F1527x {
 
@@ -35,6 +38,11 @@ public class pic16F1527x {
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private Map<String, String> boolValues = new LinkedHashMap<>();
+    private static final Set<String> CONFIG_ONLY_INSTRUCTIONS = new HashSet<>(Arrays.asList(
+            "setOsc", "setAnalogRange", "setClockOut", "setOverflowReset",
+            "setPeripheralLock", "setBrownOutVoltage", "setBrownOut", "setWDTE",
+            "setMCLR", "setLVP", "setSAFE", "setWriteProtection"
+        ));
 
     public pic16F1527x(TextEditor editor, ConsolePanel console) {
         this.editor = editor;
@@ -189,6 +197,13 @@ public class pic16F1527x {
 
             Instruction instr = parseStatement(stmtText);
             if (instr == null) continue;
+
+            if (CONFIG_ONLY_INSTRUCTIONS.contains(instr.name) && !zone.equals("config")) {
+                console.println("Figyelmeztetés: '" + instr.name + "' csak a config{} blokkban használható, itt ("
+                        + zone + ") figyelmen kívül hagyva.");
+                continue;
+            }
+
 
             console.println("[" + zone + "] -> " + instr);
 

@@ -215,8 +215,8 @@ public class pic16F1527x {
             if (shouldEmitHex(zone, instr.name) && isValidHex(asm)) {
 
                 if (PROGRAM_MEMORY_START > maxProgramAddress) {
-                    console.println("Hiba: a program mérete meghaladja a kiválasztott chip ("
-                            + cpu + ") flash kapacitását!");
+                    console.println("ERROR: program size bigger than ("
+                            + cpu + ")'s flash capacity!");
                     continue;
                 }
 
@@ -351,14 +351,14 @@ public class pic16F1527x {
             case "outPin":
                 return generateOutPin(instr.args);
             default:
-                console.println("Ismeretlen utasítás: " + instr.name);
+                console.println("ERROR: unknown instruction: " + instr.name);
                 return "";
         }
     }
 
     private String generateBoolAssignment(List<String> args) {
             if (args.size() != 2) {
-                console.println("Wrong parameter count for bool: " + args);
+                console.println("ERROR: Wrong parameter count for bool: " + args);
                 return "";
             }
 
@@ -367,7 +367,7 @@ public class pic16F1527x {
 
             if (!boolAddresses.containsKey(varName)) {
                 if (nextBoolAddress > BOOL_BANK_END) {
-                    console.println("Hiba: túl sok bool változó (max 80), '" + varName + "' nem fér el!");
+                    console.println("ERROR: you can only use 80 bools. the variable: '" + varName + "' not fit into the memory!");
                     return "";
                 }
                 boolAddresses.put(varName, nextBoolAddress);
@@ -393,7 +393,7 @@ public class pic16F1527x {
                 String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
                 asm = String.format("4001" +  swapped);
             } else {
-                return "Not recognizable value: " + value;
+                return "ERROR: Not recognizable value: " + value;
             }
 
             return asm;
@@ -402,7 +402,7 @@ public class pic16F1527x {
 
     private String generateSetOsc(List<String> args) {
         if (args.size() != 1) {
-            console.println("Wrong parmeter count " + args);
+            console.println("ERROR: Wrong parmeter count " + args);
             return "";
         }
 
@@ -431,7 +431,7 @@ public class pic16F1527x {
                 sb.setCharAt(1, 'D');
             }
             else {
-                return "Not recognizable argument: " + args;
+                return "ERROR: Not recognizable argument: " + args;
             }
 
             config1 = sb.toString();

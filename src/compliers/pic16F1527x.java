@@ -199,8 +199,7 @@ public class pic16F1527x {
             if (instr == null) continue;
 
             if (CONFIG_ONLY_INSTRUCTIONS.contains(instr.name) && !zone.equals("config")) {
-                console.println("Figyelmeztetés: '" + instr.name + "' csak a config{} blokkban használható, itt ("
-                        + zone + ") figyelmen kívül hagyva.");
+                console.println("ERROR: '" + instr.name + "' only usable in the config{} segment!");
                 continue;
             }
 

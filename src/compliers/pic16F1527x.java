@@ -414,7 +414,7 @@ public class pic16F1527x {
                 uint8Addresses.put(varName, nextUint8Address);
                 nextUint8Address++;
             }
-            uint8Values.put(varName, String.valueOf(value));
+            uint8Values.put(varName, value);
 
             int address = uint8Addresses.get(varName);
             int bankNumber = address >> 7;
@@ -1128,7 +1128,7 @@ public class pic16F1527x {
         if (boolValues.containsKey(arg)) {
             resolved.add(boolValues.get(arg));
         } else if (uint8Values.containsKey(arg)) {
-            resolved.add(uint8Values.get(arg));
+            resolved.add(String.valueOf(uint8Values.get(arg)));
         } else {
             resolved.add(arg);
         }

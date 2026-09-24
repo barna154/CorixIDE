@@ -240,11 +240,18 @@ public class pic16F1527x {
                     continue;
                 }
 
+                int totalDataHexChars = 20;
+                StringBuilder paddingBuilder = new StringBuilder();
+                for (int i = 0; i < totalDataHexChars - asm.length(); i++) {
+                    paddingBuilder.append('0');
+                }
+                String padding = paddingBuilder.toString();
+
                 String line = "0A"
                         + String.format("%04X", PROGRAM_MEMORY_START)
                         + "00"
                         + asm
-                        + "000000000000";
+                        + padding;
                 String linec = line + calculateChecksum(line);
 
                 codebuilder.append(":" + linec + System.lineSeparator());
@@ -365,6 +372,8 @@ public class pic16F1527x {
                  return generateSetWriteProtection(resolvedArgs);
             case "bool":
                  return generateBoolAssignment(instr.args);
+            case "uint8":
+                 return generateUint8Assignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -375,6 +384,48 @@ public class pic16F1527x {
                 return "";
         }
     }
+
+    private String generateUint8Assignment(List<String> args) {
+            if (args.size() != 2) {
+                console.println("ERROR: Wrong parameter count for uint8: " + args);
+                return "";
+            }
+
+            String varName = args.get(0);
+            String valueStr = args.get(1);
+
+            int value;
+            try {
+                value = Integer.parseInt(valueStr);
+            } catch (NumberFormatException e) {
+                console.println("ERROR: '" + valueStr + "' is not a valid uint8 value for '" + varName + "'");
+                return "";
+            }
+            if (value < 0 || value > 255) {
+                console.println("ERROR: uint8 value out of range (0-255): " + value + " for '" + varName + "'");
+                return "";
+            }
+
+            if (!uint8Addresses.containsKey(varName)) {
+                if (nextUint8Address > UINT8_BANK_END) {
+                    console.println("ERROR: you can only use 80 uint8 variables. the variable: '" + varName + "' not fit into the memory!");
+                    return "";
+                }
+                uint8Addresses.put(varName, nextUint8Address);
+                nextUint8Address++;
+            }
+            uint8Values.put(varName, String.valueOf(value));
+
+            int address = uint8Addresses.get(varName);
+            int bankNumber = address >> 7;
+            int offset = address & 0x7F;
+
+            String movlb = encodeMovlb(bankNumber);
+            String movlw = encodeMovlw(value);
+            String movwf = encodeMovwf(offset);
+
+            return movlb + movlw + movwf; // 3 szó = 12 hex karakter = 6 bájt
+        }
 
     private String generateBoolAssignment(List<String> args) {
             if (args.size() != 2) {
@@ -1076,6 +1127,8 @@ public class pic16F1527x {
     for (String arg : args) {
         if (boolValues.containsKey(arg)) {
             resolved.add(boolValues.get(arg));
+        } else if (uint8Values.containsKey(arg)) {
+            resolved.add(uint8Values.get(arg));
         } else {
             resolved.add(arg);
         }
@@ -1131,10 +1184,40 @@ public class pic16F1527x {
         return String.format("%02X", checksum);
     }
 
+
+    private String encodeMovlb(int bank) {
+        String bin6 = String.format("%6s", Integer.toBinaryString(bank)).replace(' ', '0');
+        String bits14 = "00000101" + bin6; // empirikusan igazolt MOVLB minta
+        int value = Integer.parseInt(bits14, 2);
+        String hex4 = String.format("%04X", value);
+        return hex4.substring(2, 4) + hex4.substring(0, 2);
+    }
+
+    private String encodeMovlw(int value) {
+        String bin8 = String.format("%8s", Integer.toBinaryString(value & 0xFF)).replace(' ', '0');
+        String bits14 = "110000" + bin8; // MOVLW k: 11 0000 kkkk kkkk
+        int val = Integer.parseInt(bits14, 2);
+        String hex4 = String.format("%04X", val);
+        return hex4.substring(2, 4) + hex4.substring(0, 2);
+    }
+
+    private String encodeMovwf(int fOffset) {
+        String bin7 = String.format("%7s", Integer.toBinaryString(fOffset & 0x7F)).replace(' ', '0');
+        String bits14 = "0000001" + bin7; // MOVWF f: 00 0000 1fff ffff
+        int val = Integer.parseInt(bits14, 2);
+        String hex4 = String.format("%04X", val);
+        return hex4.substring(2, 4) + hex4.substring(0, 2);
+    }
+
     private void resetCompilerState() {
         boolAddresses.clear();
         boolValues.clear();
         nextBoolAddress = 0x20;
+
+        uint8Addresses.clear();
+        uint8Values.clear();
+        nextUint8Address = UINT8_BANK_START;
+
         PROGRAM_MEMORY_START = 0x0000;
     }
 

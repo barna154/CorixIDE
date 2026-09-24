@@ -35,9 +35,16 @@ public class pic16F1527x {
     private Map<String, Integer> boolAddresses = new LinkedHashMap<>();
     private int nextBoolAddress = 0x20;
     private static final int BOOL_BANK_END = 0x6F;
+    private Map<String, String> boolValues = new LinkedHashMap<>();
+
+    private Map<String, Integer> uint8Addresses = new LinkedHashMap<>();
+    private int nextUint8Address = 0xA0;
+    private static final int UINT8_BANK_START = 0xA0;
+    private static final int UINT8_BANK_END = 0xEF;
+    private Map<String, Integer> uint8Values = new LinkedHashMap<>();
+
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
-    private Map<String, String> boolValues = new LinkedHashMap<>();
     private static final Set<String> CONFIG_ONLY_INSTRUCTIONS = new HashSet<>(Arrays.asList(
             "setOsc", "setAnalogRange", "setClockOut", "setOverflowReset",
             "setPeripheralLock", "setBrownOutVoltage", "setBrownOut", "setWDTE",
@@ -113,11 +120,24 @@ public class pic16F1527x {
             }
         }
 
+        if (stmt.startsWith("uint8 ")) {
+            String withoutPrefix = stmt.substring(6).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+            if (eqIndex != -1) {
+                String varName = withoutPrefix.substring(0, eqIndex).trim();
+                String value = withoutPrefix.substring(eqIndex + 1).trim();
+                List<String> args = new ArrayList<>();
+                args.add(varName);
+                args.add(value);
+                return new Instruction("uint8", args);
+            }
+        }
+
         int open = stmt.indexOf('(');
         int close = stmt.lastIndexOf(')');
 
         if (open == -1 || close == -1 || close < open) {
-            console.println("Figyelmeztetés: nem sikerült értelmezni: " + stmt);
+            console.println("ERROR: " + stmt + "cant be translated!");
             return null;
         }
 

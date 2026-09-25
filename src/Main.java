@@ -160,8 +160,7 @@ public class Main {
         complinelb.setCursor(new Cursor(Cursor.HAND_CURSOR));
         complinelb.setOpaque(true);
         complinelb.setBackground(new Color(43, 43, 43));
-
-        leftPanel.add(complinelb);
+      
 
         JLabel uploadb = new JLabel("⬆️");
         uploadb.setPreferredSize(new Dimension(26, 23));
@@ -187,7 +186,7 @@ public class Main {
                 }
             });
 
-        leftPanel.add(uploadb);
+        
             
         Menu.add(leftPanel, BorderLayout.WEST);
 
@@ -964,6 +963,9 @@ public class Main {
                 }
             });
         leftPanel.add(labelBoards);
+        leftPanel.add(complinelb);
+
+        leftPanel.add(uploadb);
 
 //Editor panelhez adása
         JPanel leftWrapper = new JPanel(new BorderLayout());

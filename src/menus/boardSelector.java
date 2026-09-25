@@ -24,6 +24,7 @@ public class boardSelector {
             public void init(JPopupMenu boardSelector) throws Exception {
 
 
+
                 UIManager.put("MenuItem.background", new Color(30, 30, 30));
                 UIManager.put("MenuItem.selectionBackground", new Color(60, 60, 60));
                 UIManager.put("MenuItem.selectionForeground", new Color(230, 230, 230));
@@ -37,67 +38,41 @@ public class boardSelector {
                 boardSelector.putClientProperty("JPopupMenu.consumeEventOnClose", Boolean.TRUE);
 
 
-                JMenuItem item1 = new JMenuItem("PIC16F15256");
-                    item1.setName("PIC16F15256");
-                    item1.setMargin(new Insets(6, 0, 6, 0));
-                    item1.setBackground(new Color(30, 30, 30));
-                    item1.setFont(new Font("Arial", Font.PLAIN, 15));
-                    item1.setOpaque(true);
-                    item1.addActionListener(e -> {
-                        AppPath.BoardName = "PIC16F15256";
-                        boardSelector.repaint();
-                        AppPath.save();
-                    });
-                JMenuItem item2 = new JMenuItem("PIC16F15274");
-                    item2.setName("PIC16F15274");
-                    item2.setMargin(new Insets(6, 0, 6, 0));
-                    item2.setBackground(new Color(30, 30, 30));
-                    item2.setFont(new Font("Arial", Font.PLAIN, 15));
-                    item2.setOpaque(true);
-                    item2.addActionListener(e -> {
-                        AppPath.BoardName = "PIC16F15274";
-                        boardSelector.repaint();
-                        AppPath.save();
-                    });
-                JMenuItem item3 = new JMenuItem("PIC16F15275");
-                    item3.setName("PIC16F15275");
-                    item3.setMargin(new Insets(6, 0, 6, 0));
-                    item3.setBackground(new Color(30, 30, 30));
-                    item3.setFont(new Font("Arial", Font.PLAIN, 15));
-                    item3.setOpaque(true);
-                    item3.addActionListener(e -> {
-                        AppPath.BoardName = "PIC16F15275";
-                        boardSelector.repaint();
-                        AppPath.save();
-                    });
-                JMenuItem item4 = new JMenuItem("PIC16F15276");
-                    item4.setName("PIC16F15276");
-                    item4.setMargin(new Insets(6, 0, 6, 0));
-                    item4.setBackground(new Color(30, 30, 30));
-                    item4.setFont(new Font("Arial", Font.PLAIN, 15));
-                    item4.setOpaque(true);
-                    item4.addActionListener(e -> {
-                        AppPath.BoardName = "PIC16F15276";
-                        boardSelector.repaint();
-                        AppPath.save();
-                    });
-                JMenuItem item5 = new JMenuItem("Atmega328P");
-                    item5.setName("Atmega328P");
-                    item5.setMargin(new Insets(6, 0, 6, 0));
-                    item5.setBackground(new Color(30, 30, 30));
-                    item5.setFont(new Font("Arial", Font.PLAIN, 15));
-                    item5.setOpaque(true);
-                    item5.addActionListener(e -> {
-                        AppPath.BoardName = "Atmega328P";
-                        boardSelector.repaint();
-                        AppPath.save();
-                    });
+                String[] pics = {
+                    "PIC16F15256",
+                    "PIC16F15274",
+                    "PIC16F15275",
+                    "PIC16F15276"
+                };
 
-                boardSelector.add(item1);
-                boardSelector.add(item2);
-                boardSelector.add(item3);
-                boardSelector.add(item4);
-                boardSelector.add(item5);
+                for (String pic : pics) {
+
+                    File board = findCuriosityBoard(pic);
+
+                    if (board != null) {
+
+                        JMenuItem item = new JMenuItem(pic);
+
+                        item.setName(pic);
+                        item.setMargin(new Insets(6, 0, 6, 0));
+                        item.setBackground(new Color(30, 30, 30));
+                        item.setFont(new Font("Arial", Font.PLAIN, 15));
+                        item.setOpaque(true);
+
+                        item.addActionListener(e -> {
+
+                            AppPath.BoardName = pic;
+
+                            // később ezt is fel tudjuk használni:
+                            // AppPath.BoardDrive = board;
+
+                            boardSelector.repaint();
+                            AppPath.save();
+                        });
+
+                        boardSelector.add(item);
+                    }
+                }
 
                 
                 boardSelector.addPopupMenuListener(new PopupMenuListener() {
@@ -119,5 +94,47 @@ public class boardSelector {
                 });
 
 
+            }
+
+
+            private File findCuriosityBoard(String pic) {
+
+                File[] roots = File.listRoots();
+
+                if (roots == null) {
+                    return null;
+                }
+
+                String searchText = "Drag-and-drop programming of " + pic;
+
+                for (File root : roots) {
+
+                    File[] folders = root.listFiles(File::isDirectory);
+
+                    if (folders == null) {
+                        continue;
+                    }
+
+                    for (File folder : folders) {
+
+                        File statusFile = new File(folder, "status.txt");
+
+                        if (!statusFile.isFile()) {
+                            continue;
+                        }
+
+                        try {
+                            String content = Files.readString(statusFile.toPath());
+
+                            if (content.contains(searchText)) {
+                                return root;
+                            }
+
+                        } catch (IOException ignored) {
+                        }
+                    }
+                }
+
+                return null;
             }
         }

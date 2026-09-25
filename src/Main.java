@@ -148,26 +148,8 @@ public class Main {
         JLabel labelBoards = new JLabel(mboards);
         labelBoards.setFont(new Font("Arial", Font.PLAIN, 15));
         labelBoards.setForeground(new Color(118, 118, 118));
-        JPopupMenu boardSelectorPanel = new JPopupMenu();
-        menus.boardSelector bsp = new menus.boardSelector();
-        bsp.init(boardSelectorPanel);
-        labelBoards.addMouseListener(new MouseAdapter() {
-            @Override
-                public void mouseClicked(MouseEvent e) { 
-                     boardSelectorPanel.show(labelBoards, 0, labelBoards.getHeight());
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    labelBoards.setForeground(new Color(60, 60, 60));
-                    labelBoards.setBackground(new Color(60, 60, 60));
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    labelBoards.setForeground(new Color(118, 118, 118));
-                    labelBoards.setBackground(new Color(43, 43, 43));
-                }
-            });
-        leftPanel.add(labelBoards);
+
+        
 
         JLabel complinelb = new JLabel("☑️");
         complinelb.setPreferredSize(new Dimension(26, 23));
@@ -949,6 +931,7 @@ public class Main {
         JPanel consoleWrapper = new JPanel(new BorderLayout());
         consoleWrapper.setBackground(new Color(255, 255, 255));
 
+
         JPanel line2 = new JPanel();
         line2.setBackground(new Color(100, 100, 100));
         line2.setPreferredSize(new Dimension(0, 1));
@@ -958,6 +941,29 @@ public class Main {
 
         JPanel center = new JPanel(new BorderLayout());
         center.setBackground(new Color(255, 255, 255));
+
+
+
+        JPopupMenu boardSelectorPanel = new JPopupMenu();
+        menus.boardSelector bsp = new menus.boardSelector(console);
+        bsp.init(boardSelectorPanel);
+        labelBoards.addMouseListener(new MouseAdapter() {
+            @Override
+                public void mouseClicked(MouseEvent e) { 
+                     boardSelectorPanel.show(labelBoards, 0, labelBoards.getHeight());
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    labelBoards.setForeground(new Color(60, 60, 60));
+                    labelBoards.setBackground(new Color(60, 60, 60));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    labelBoards.setForeground(new Color(118, 118, 118));
+                    labelBoards.setBackground(new Color(43, 43, 43));
+                }
+            });
+        leftPanel.add(labelBoards);
 
 //Editor panelhez adása
         JPanel leftWrapper = new JPanel(new BorderLayout());

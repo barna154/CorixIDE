@@ -168,14 +168,6 @@ public class boardSelector {
                         );
 
 
-                    console.println(
-                        "  status.txt tartalma:"
-                    );
-
-                    console.println(
-                        "  " + content
-                    );
-
 
                     if (content.contains(searchText)) {
 

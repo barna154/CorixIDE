@@ -1,3 +1,4 @@
+```java
 package menus;
 
 import javax.swing.*;
@@ -8,7 +9,6 @@ import javax.swing.event.PopupMenuEvent;
 import java.io.File;
 import java.io.IOException;
 
-import util.LanguageManager;
 import util.RoundedBorder;
 import util.AppPath;
 
@@ -31,13 +31,14 @@ public class boardSelector {
         boardSelector.setOpaque(true);
         boardSelector.setBackground(new Color(30, 30, 30));
         boardSelector.setForeground(new Color(30, 30, 30));
-        boardSelector.setBorder(new RoundedBorder(7, new Color(20, 20, 20)));
+        boardSelector.setBorder(
+            new RoundedBorder(7, new Color(20, 20, 20))
+        );
+
         boardSelector.putClientProperty(
             "JPopupMenu.consumeEventOnClose",
             Boolean.TRUE
         );
-
-
 
         String[] pics = {
             "PIC16F15256",
@@ -45,7 +46,6 @@ public class boardSelector {
             "PIC16F15275",
             "PIC16F15276"
         };
-
 
         for (String pic : pics) {
 
@@ -78,7 +78,6 @@ public class boardSelector {
                 boardSelector.add(item);
             }
         }
-
 
         boardSelector.addPopupMenuListener(new PopupMenuListener() {
 
@@ -128,37 +127,16 @@ public class boardSelector {
             return null;
         }
 
-
         String searchText =
             "Drag-and-drop programming of " + pic;
 
-
-        console.println(
-            "Curiosity keresése: " + pic
-        );
-
-
         for (File root : roots) {
 
-            console.println(
-                "Meghajtó vizsgálata: "
-                + root.getAbsolutePath()
-            );
-
-
-
-
+       
             File rootStatus =
                 new File(root, "status.txt");
 
-
             if (rootStatus.isFile()) {
-
-                console.println(
-                    "  status.txt megtalálva: "
-                    + rootStatus.getAbsolutePath()
-                );
-
 
                 try {
 
@@ -167,63 +145,36 @@ public class boardSelector {
                             rootStatus.toPath()
                         );
 
-
-
                     if (content.contains(searchText)) {
 
                         console.println(
-                            "  >>> TALÁLAT: "
-                            + pic
-                            + " <<<"
-                        );
-
-                        console.println(
-                            "  Meghajtó: "
-                            + root.getAbsolutePath()
+                            "Curiosity board találva: " + pic
                         );
 
                         return root;
                     }
 
                 } catch (IOException ex) {
-
-                    console.println(
-                        "  Hiba a status.txt olvasásakor: "
-                        + ex.getMessage()
-                    );
+           
                 }
             }
 
+         
             File[] folders =
                 root.listFiles(File::isDirectory);
 
-
             if (folders == null) {
-
-                console.println(
-                    "  A meghajtó nem olvasható."
-                );
-
                 continue;
             }
-
 
             for (File folder : folders) {
 
                 File statusFile =
                     new File(folder, "status.txt");
 
-
                 if (!statusFile.isFile()) {
                     continue;
                 }
-
-
-                console.println(
-                    "  status.txt megtalálva: "
-                    + statusFile.getAbsolutePath()
-                );
-
 
                 try {
 
@@ -232,46 +183,23 @@ public class boardSelector {
                             statusFile.toPath()
                         );
 
-
-                    console.println(
-                        "  Tartalom:"
-                    );
-
-                    console.println(
-                        "  " + content
-                    );
-
-
                     if (content.contains(searchText)) {
 
                         console.println(
-                            "  >>> TALÁLAT: "
-                            + pic
-                            + " <<<"
-                        );
-
-                        console.println(
-                            "  Meghajtó: "
-                            + root.getAbsolutePath()
+                            "Curiosity board találva: " + pic
                         );
 
                         return root;
                     }
 
                 } catch (IOException ex) {
-
-                    console.println(
-                        "  Hiba a status.txt olvasásakor: "
-                        + ex.getMessage()
-                    );
+       
                 }
             }
         }
 
-
         console.println(
-            "Nem található Curiosity board: "
-            + pic
+            "Curiosity board nem található: " + pic
         );
 
         return null;

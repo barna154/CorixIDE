@@ -85,10 +85,14 @@ public class Main {
             window.setContentPane(resizeBorder);
 
 // Logo
-        ImageIcon icon = new ImageIcon("/gui/logo.png");
-        Image img = icon.getImage();
-        Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
+        java.net.URL logoURL = Main.class.getResource("/gui/logo.png");
+
+            if (logoURL != null) {
+                ImageIcon icon = new ImageIcon(logoURL);
+                Image img = icon.getImage();
+                Image scaledImg = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+                leftPanel.add(new JLabel(new ImageIcon(scaledImg)));
+            }
 
 //Editor
 

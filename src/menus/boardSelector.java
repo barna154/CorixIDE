@@ -1,4 +1,3 @@
-```java
 package menus;
 
 import javax.swing.*;

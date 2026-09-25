@@ -945,7 +945,7 @@ public class Main {
 
 
         JPopupMenu boardSelectorPanel = new JPopupMenu();
-        menus.boardSelector bsp = new menus.boardSelector(console);
+        menus.boardSelector bsp = new menus.boardSelector(consolePanel);
         bsp.init(boardSelectorPanel);
         labelBoards.addMouseListener(new MouseAdapter() {
             @Override

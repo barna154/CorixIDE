@@ -141,7 +141,7 @@ public class boardSelector {
 
     private void startDriveMonitor(JPopupMenu boardSelector) {
 
-        driveMonitor = new Timer(30000, e -> {
+        driveMonitor = new Timer(5000, e -> {
 
             Set<String> currentDrives = getCurrentDrives();
 

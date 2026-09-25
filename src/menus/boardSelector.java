@@ -3,10 +3,14 @@ package menus;
 import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Files;
-import javax.swing.event.PopupMenuListener;
-import javax.swing.event.PopupMenuEvent;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.event.PopupMenuListener;
+import javax.swing.event.PopupMenuEvent;
 
 import util.RoundedBorder;
 import util.AppPath;
@@ -14,6 +18,18 @@ import util.AppPath;
 public class boardSelector {
 
     private ConsolePanel console;
+
+    private final String[] pics = {
+        "PIC16F15256",
+        "PIC16F15274",
+        "PIC16F15275",
+        "PIC16F15276"
+    };
+
+   
+    private Set<String> previousDrives = new HashSet<>();
+
+    private Timer driveMonitor;
 
     public boardSelector(ConsolePanel console) {
         this.console = console;
@@ -30,6 +46,7 @@ public class boardSelector {
         boardSelector.setOpaque(true);
         boardSelector.setBackground(new Color(30, 30, 30));
         boardSelector.setForeground(new Color(30, 30, 30));
+
         boardSelector.setBorder(
             new RoundedBorder(7, new Color(20, 20, 20))
         );
@@ -39,12 +56,38 @@ public class boardSelector {
             Boolean.TRUE
         );
 
-        String[] pics = {
-            "PIC16F15256",
-            "PIC16F15274",
-            "PIC16F15275",
-            "PIC16F15276"
-        };
+    
+        refreshBoards(boardSelector);
+
+       
+        previousDrives = getCurrentDrives();
+
+        startDriveMonitor(boardSelector);
+
+        boardSelector.addPopupMenuListener(new PopupMenuListener() {
+
+            @Override
+            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+
+                updateSelectionColor(boardSelector);
+            }
+
+            @Override
+            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+            }
+
+            @Override
+            public void popupMenuCanceled(PopupMenuEvent e) {
+            }
+        });
+    }
+
+  
+    private void refreshBoards(JPopupMenu boardSelector) {
+
+        boardSelector.removeAll();
+
+        boolean selectedBoardStillExists = false;
 
         for (String pic : pics) {
 
@@ -64,54 +107,98 @@ public class boardSelector {
 
                     AppPath.BoardName = pic;
 
-                    /*
-                    Ha később szükséges lesz a meghajtó eltárolása:
-
-                    AppPath.BoardDrive = board;
-                    */
-
                     boardSelector.repaint();
+
                     AppPath.save();
                 });
 
                 boardSelector.add(item);
+
+           
+                if (pic.equals(AppPath.BoardName)) {
+                    selectedBoardStillExists = true;
+                }
             }
         }
 
-        boardSelector.addPopupMenuListener(new PopupMenuListener() {
 
-            @Override
-            public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+        if (!selectedBoardStillExists) {
 
-                for (Component c : boardSelector.getComponents()) {
+            if (AppPath.BoardName != null &&
+                !AppPath.BoardName.isEmpty()) {
 
-                    if (c instanceof JMenuItem item) {
-
-                        if (item.getName().equals(AppPath.BoardName)) {
-
-                            item.setForeground(
-                                new Color(13, 255, 122)
-                            );
-
-                        } else {
-
-                            item.setForeground(
-                                new Color(230, 230, 230)
-                            );
-                        }
-                    }
-                }
+                AppPath.BoardName = "";
+                AppPath.save();
             }
+        }
 
-            @Override
-            public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-            }
+        updateSelectionColor(boardSelector);
 
-            @Override
-            public void popupMenuCanceled(PopupMenuEvent e) {
+        boardSelector.revalidate();
+        boardSelector.repaint();
+    }
+
+
+    private void startDriveMonitor(JPopupMenu boardSelector) {
+
+        driveMonitor = new Timer(30000, e -> {
+
+            Set<String> currentDrives = getCurrentDrives();
+
+    
+            if (!currentDrives.equals(previousDrives)) {
+
+                previousDrives = currentDrives;
+
+                refreshBoards(boardSelector);
             }
         });
+
+        driveMonitor.start();
     }
+
+
+    private Set<String> getCurrentDrives() {
+
+        Set<String> drives = new HashSet<>();
+
+        File[] roots = File.listRoots();
+
+        if (roots != null) {
+
+            for (File root : roots) {
+
+                drives.add(
+                    root.getAbsolutePath()
+                );
+            }
+        }
+
+        return drives;
+    }
+
+    private void updateSelectionColor(JPopupMenu boardSelector) {
+
+        for (Component c : boardSelector.getComponents()) {
+
+            if (c instanceof JMenuItem item) {
+
+                if (item.getName().equals(AppPath.BoardName)) {
+
+                    item.setForeground(
+                        new Color(13, 255, 122)
+                    );
+
+                } else {
+
+                    item.setForeground(
+                        new Color(230, 230, 230)
+                    );
+                }
+            }
+        }
+    }
+
 
     private File findCuriosityBoard(String pic) {
 
@@ -131,7 +218,6 @@ public class boardSelector {
 
         for (File root : roots) {
 
-       
             File rootStatus =
                 new File(root, "status.txt");
 
@@ -154,11 +240,10 @@ public class boardSelector {
                     }
 
                 } catch (IOException ex) {
-           
+               
                 }
             }
 
-         
             File[] folders =
                 root.listFiles(File::isDirectory);
 
@@ -192,14 +277,12 @@ public class boardSelector {
                     }
 
                 } catch (IOException ex) {
-       
+                
                 }
             }
         }
 
-        console.println(
-            "Curiosity board nem található: " + pic
-        );
+
 
         return null;
     }

@@ -1041,7 +1041,7 @@ public class Main {
 
                         if (filename.endsWith(".crxprjct")) {
                             consolePanel.println("Translating: " + current.getAbsolutePath());
-                                        complierPIC16F1527x.compile();
+                            complierPIC16F1527x.compile();
 
                                
                         } else {

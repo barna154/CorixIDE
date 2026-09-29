@@ -43,6 +43,14 @@ public class pic16F1527x {
     private static final int UINT8_BANK_END = 0xEF;
     private Map<String, Integer> uint8Values = new LinkedHashMap<>();
 
+    private Map<String, Integer> uint16Addresses = new LinkedHashMap<>(); // az ALSÓ bájt címe; felső = alsó+1
+    private int nextUint16LowAddress = 0x120;
+    private static final int UINT16_BANK2_START = 0x120;
+    private static final int UINT16_BANK2_END   = 0x16F;
+    private static final int UINT16_BANK3_START = 0x1A0;
+    private static final int UINT16_BANK3_END   = 0x1EF;
+    private Map<String, Integer> uint16Values = new LinkedHashMap<>();
+
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private static final Set<String> CONFIG_ONLY_INSTRUCTIONS = new HashSet<>(Arrays.asList(
@@ -69,7 +77,7 @@ public class pic16F1527x {
                 continue;
             }
 
-            if (line.startsWith("//")) { 
+            if (line.startsWith("//")) {
                 continue;
             }
 
@@ -130,6 +138,19 @@ public class pic16F1527x {
                 args.add(varName);
                 args.add(value);
                 return new Instruction("uint8", args);
+            }
+        }
+
+        if (stmt.startsWith("uint16 ")) {
+            String withoutPrefix = stmt.substring(7).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+            if (eqIndex != -1) {
+                String varName = withoutPrefix.substring(0, eqIndex).trim();
+                String value = withoutPrefix.substring(eqIndex + 1).trim();
+                List<String> args = new ArrayList<>();
+                args.add(varName);
+                args.add(value);
+                return new Instruction("uint16", args);
             }
         }
 
@@ -223,7 +244,6 @@ public class pic16F1527x {
                 continue;
             }
 
-
             console.println("[" + zone + "] -> " + instr);
 
             String asm = generateAsmForInstruction(instr);
@@ -258,7 +278,6 @@ public class pic16F1527x {
                 PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
             }
         }
-
 
         if (sawLoopZone) {
             String gotoi = "00101";
@@ -374,6 +393,8 @@ public class pic16F1527x {
                  return generateBoolAssignment(instr.args);
             case "uint8":
                  return generateUint8Assignment(instr.args);
+            case "uint16":
+                 return generateUint16Assignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -383,6 +404,58 @@ public class pic16F1527x {
                 console.println("ERROR: unknown instruction: " + instr.name);
                 return "";
         }
+    }
+
+    private String generateUint16Assignment(List<String> args) {
+        if (args.size() != 2) {
+            console.println("ERROR: Wrong parameter count for uint16: " + args);
+            return "";
+        }
+
+        String varName = args.get(0);
+        String valueStr = args.get(1);
+
+        int value;
+        try {
+            value = Integer.parseInt(valueStr);
+        } catch (NumberFormatException e) {
+            console.println("ERROR: '" + valueStr + "' is not a valid uint16 value for '" + varName + "'");
+            return "";
+        }
+        if (value < 0 || value > 65535) {
+            console.println("ERROR: uint16 value out of range (0-65535): " + value + " for '" + varName + "'");
+            return "";
+        }
+
+        if (!uint16Addresses.containsKey(varName)) {
+            if (nextUint16LowAddress > UINT16_BANK2_END - 1 && nextUint16LowAddress < UINT16_BANK3_START) {
+                nextUint16LowAddress = UINT16_BANK3_START;
+            }
+            if (nextUint16LowAddress > UINT16_BANK3_END - 1) {
+                console.println("ERROR: you can only use 80 uint16 variables. the variable: '" + varName + "' not fit into the memory!");
+                return "";
+            }
+            uint16Addresses.put(varName, nextUint16LowAddress);
+            nextUint16LowAddress += 2;
+        }
+        uint16Values.put(varName, value);
+
+        int lowAddress = uint16Addresses.get(varName);
+        int highAddress = lowAddress + 1;
+        int bankNumber = lowAddress >> 7;
+        int lowOffset = lowAddress & 0x7F;
+        int highOffset = highAddress & 0x7F;
+
+        int lowByte = value & 0xFF;
+        int highByte = (value >> 8) & 0xFF;
+
+        String movlb = encodeMovlb(bankNumber);
+        String movlwLow = encodeMovlw(lowByte);
+        String movwfLow = encodeMovwf(lowOffset);
+        String movlwHigh = encodeMovlw(highByte);
+        String movwfHigh = encodeMovwf(highOffset);
+
+        return movlb + movlwLow + movwfLow + movlwHigh + movwfHigh; // 5 szó = 20 hex karakter
     }
 
     private String generateUint8Assignment(List<String> args) {
@@ -424,7 +497,7 @@ public class pic16F1527x {
             String movlw = encodeMovlw(value);
             String movwf = encodeMovwf(offset);
 
-            return movlb + movlw + movwf; // 3 szó = 12 hex karakter = 6 bájt
+            return movlb + movlw + movwf; // 3 szó = 12 hex karakter
         }
 
     private String generateBoolAssignment(List<String> args) {
@@ -1129,6 +1202,8 @@ public class pic16F1527x {
             resolved.add(boolValues.get(arg));
         } else if (uint8Values.containsKey(arg)) {
             resolved.add(String.valueOf(uint8Values.get(arg)));
+        } else if (uint16Values.containsKey(arg)) {
+            resolved.add(String.valueOf(uint16Values.get(arg)));
         } else {
             resolved.add(arg);
         }
@@ -1187,7 +1262,7 @@ public class pic16F1527x {
 
     private String encodeMovlb(int bank) {
         String bin6 = String.format("%6s", Integer.toBinaryString(bank)).replace(' ', '0');
-        String bits14 = "00000101" + bin6; // empirikusan igazolt MOVLB minta
+        String bits14 = "00000101" + bin6;  //MOVLB BANK
         int value = Integer.parseInt(bits14, 2);
         String hex4 = String.format("%04X", value);
         return hex4.substring(2, 4) + hex4.substring(0, 2);
@@ -1217,6 +1292,10 @@ public class pic16F1527x {
         uint8Addresses.clear();
         uint8Values.clear();
         nextUint8Address = UINT8_BANK_START;
+
+        uint16Addresses.clear();
+        uint16Values.clear();
+        nextUint16LowAddress = UINT16_BANK2_START;
 
         PROGRAM_MEMORY_START = 0x0000;
     }

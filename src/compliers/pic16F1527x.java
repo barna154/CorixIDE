@@ -50,6 +50,7 @@ public class pic16F1527x {
     private static final int UINT16_BANK3_START = 0x1A0;
     private static final int UINT16_BANK3_END   = 0x1EF;
     private Map<String, Integer> uint16Values = new LinkedHashMap<>();
+    private Map<String, Integer> intValues = new LinkedHashMap<>();
 
 
     private Map<String, Integer> ulongAddresses = new LinkedHashMap<>();
@@ -177,6 +178,22 @@ public class pic16F1527x {
                 args.add(value);
              
             return new Instruction("ulong", args);
+            }
+        }
+
+        if (stmt.startsWith("int ")) {
+            String withoutPrefix = stmt.substring(4).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+    
+            if (eqIndex != -1) {
+            String varName = withoutPrefix.substring(0, eqIndex).trim();
+            String value = withoutPrefix.substring(eqIndex + 1).trim();
+
+            List<String> args = new ArrayList<>();
+            args.add(varName);
+            args.add(value);
+       
+            return new Instruction("int", args);
             }
         }
 
@@ -400,6 +417,8 @@ public class pic16F1527x {
                  return generateUint16Assignment(instr.args);
             case "ulong":
                  return generateUlongAssignment(instr.args);
+            case "int":
+                 return generateIntAssignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -409,6 +428,90 @@ public class pic16F1527x {
                 console.println("ERROR: unknown instruction: " + instr.name);
                 return "";
         }
+    }
+
+
+    private String generateIntAssignment(List<String> args) {
+   
+        if (args.size() != 2) {
+        console.println("ERROR: Wrong parameter count for int: " + args);
+        return "";
+        }
+  
+        String varName = args.get(0);
+        String valueStr = args.get(1);
+  
+        int value;
+
+        try {
+        value = Integer.parseInt(valueStr);
+        }
+        catch (NumberFormatException e) {
+        console.println(
+        "ERROR: '" + valueStr
+        + "' is not a valid int value for '"
+        + varName + "'"
+        );
+        return "";
+        }
+  
+        if (value < -32768 || value > 32767) {
+        console.println(
+        "ERROR: int value out of range (-32768..32767): "
+        + value
+        );
+        return "";
+        }
+
+
+        if (!uint16Addresses.containsKey(varName)) {
+  
+        if (nextUint16LowAddress > UINT16_BANK2_END - 1
+        && nextUint16LowAddress < UINT16_BANK3_START) {
+  
+        nextUint16LowAddress = UINT16_BANK3_START;
+        }
+ 
+        if (nextUint16LowAddress > UINT16_BANK3_END - 1) {
+  
+        console.println(
+        "ERROR: no more 16-bit memory available"
+        );
+
+        return "";
+        }
+      
+        uint16Addresses.put(varName, nextUint16LowAddress);
+     
+        nextUint16LowAddress += 2;
+        }
+    
+        intValues.put(varName, value);
+   
+        int lowAddress = uint16Addresses.get(varName);
+        int highAddress = lowAddress + 1;
+   
+        int bankNumber = lowAddress >> 7;
+   
+        int lowOffset = lowAddress & 0x7F;
+        int highOffset = highAddress & 0x7F;
+   
+        int lowByte = value & 0xFF;
+        int highByte = (value >> 8) & 0xFF;
+   
+        String movlb = encodeMovlb(bankNumber);
+ 
+        String movlwLow = encodeMovlw(lowByte);
+        String movwfLow = encodeMovwf(lowOffset);
+
+        String movlwHigh = encodeMovlw(highByte);
+        String movwfHigh = encodeMovwf(highOffset);
+
+        return movlb
+        + movlwLow
+        + movwfLow
+        + movlwHigh
+        + movwfHigh;
     }
 
     private String generateUint16Assignment(List<String> args) {
@@ -1299,10 +1402,10 @@ public class pic16F1527x {
             resolved.add(String.valueOf(uint8Values.get(arg)));
         } else if (uint16Values.containsKey(arg)) {
             resolved.add(String.valueOf(uint16Values.get(arg)));
-        }
-        else if (ulongValues.containsKey(arg)) {
-            resolved.add(String.valueOf(ulongValues.get(arg)));
-        
+        } else if (ulongValues.containsKey(arg)) {
+            resolved.add(String.valueOf(ulongValues.get(arg))); 
+        } else if (intValues.containsKey(arg)) {
+            resolved.add(String.valueOf(intValues.get(arg)));
         } else {
             resolved.add(arg);
         }
@@ -1430,11 +1533,14 @@ public class pic16F1527x {
 
         uint16Addresses.clear();
         uint16Values.clear();
+        intValues.clear();
         nextUint16LowAddress = UINT16_BANK2_START;
 
         ulongAddresses.clear();
         ulongValues.clear();
         nextUlongLowAddress = ULONG_BANK4_START;
+
+        
 
         PROGRAM_MEMORY_START = 0x0000;
     }

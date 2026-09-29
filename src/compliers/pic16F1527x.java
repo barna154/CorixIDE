@@ -51,6 +51,16 @@ public class pic16F1527x {
     private static final int UINT16_BANK3_END   = 0x1EF;
     private Map<String, Integer> uint16Values = new LinkedHashMap<>();
 
+
+    private Map<String, Integer> ulongAddresses = new LinkedHashMap<>();
+    private int nextUlongLowAddress = 0x220;
+    private static final int ULONG_BANK4_START = 0x220;
+    private static final int ULONG_BANK4_END   = 0x26F;
+    private static final int ULONG_BANK5_START = 0x2A0;
+    private static final int ULONG_BANK5_END   = 0x2EF;
+    private Map<String, Long> ulongValues = new LinkedHashMap<>();
+
+
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private static final Set<String> CONFIG_ONLY_INSTRUCTIONS = new HashSet<>(Arrays.asList(
@@ -154,6 +164,22 @@ public class pic16F1527x {
             }
         }
 
+        if (stmt.startsWith("ulong ")) {
+            String withoutPrefix = stmt.substring(6).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+            
+            if (eqIndex != -1) {
+                String varName = withoutPrefix.substring(0, eqIndex).trim();
+                String value = withoutPrefix.substring(eqIndex + 1).trim();
+            
+                List<String> args = new ArrayList<>();
+                args.add(varName);
+                args.add(value);
+             
+            return new Instruction("ulong", args);
+            }
+        }
+
         int open = stmt.indexOf('(');
         int close = stmt.lastIndexOf(')');
 
@@ -205,7 +231,6 @@ public class pic16F1527x {
 
         code = null;
         StringBuilder codebuilder = new StringBuilder();
-        int maxProgramAddress = getMaxProgramAddress(cpu);
 
         console.println("----------------");
         console.println("CPU = " + cpu);
@@ -253,29 +278,7 @@ public class pic16F1527x {
             console.println("     " + asm);
 
             if (shouldEmitHex(zone, instr.name) && isValidHex(asm)) {
-
-                if (PROGRAM_MEMORY_START > maxProgramAddress) {
-                    console.println("ERROR: program size bigger than ("
-                            + cpu + ")'s flash capacity!");
-                    continue;
-                }
-
-                int totalDataHexChars = 20;
-                StringBuilder paddingBuilder = new StringBuilder();
-                for (int i = 0; i < totalDataHexChars - asm.length(); i++) {
-                    paddingBuilder.append('0');
-                }
-                String padding = paddingBuilder.toString();
-
-                String line = "0A"
-                        + String.format("%04X", PROGRAM_MEMORY_START)
-                        + "00"
-                        + asm
-                        + padding;
-                String linec = line + calculateChecksum(line);
-
-                codebuilder.append(":" + linec + System.lineSeparator());
-                PROGRAM_MEMORY_START = PROGRAM_MEMORY_START + 0x000A;
+                 emitAsm(asm, codebuilder);
             }
         }
 
@@ -395,6 +398,8 @@ public class pic16F1527x {
                  return generateUint8Assignment(instr.args);
             case "uint16":
                  return generateUint16Assignment(instr.args);
+            case "ulong":
+                 return generateUlongAssignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -457,6 +462,96 @@ public class pic16F1527x {
 
         return movlb + movlwLow + movwfLow + movlwHigh + movwfHigh; // 5 szó = 20 hex karakter
     }
+
+
+    private String generateUlongAssignment(List<String> args) {
+
+        if (args.size() != 2) {
+        console.println("ERROR: Wrong parameter count for ulong: " + args);
+        return "";
+        }
+
+        String varName = args.get(0);
+        String valueStr = args.get(1);
+
+        long value;
+
+    try {
+        value = Long.parseLong(valueStr);
+        } catch (NumberFormatException e) {
+        console.println(
+        "ERROR: '" + valueStr + "' is not a valid ulong value for '" + varName + "'"
+        );
+        return "";
+    }
+
+    if (value < 0 || value > 4294967295L) {
+        console.println(
+        "ERROR: ulong value out of range (0-4294967295): "
+        + value + " for '" + varName + "'"
+        );
+        return "";
+    }
+
+    if (!ulongAddresses.containsKey(varName)) {
+
+    if (nextUlongLowAddress > ULONG_BANK4_END - 3
+    && nextUlongLowAddress < ULONG_BANK5_START) {
+
+    nextUlongLowAddress = ULONG_BANK5_START;
+    }
+
+        if (nextUlongLowAddress > ULONG_BANK5_END - 3) {
+
+            console.println(
+            "ERROR: you can only use 40 ulong variables. "
+            + "the variable: '" + varName + "' not fit into the memory!"
+            );
+            return "";
+        }
+
+            ulongAddresses.put(varName, nextUlongLowAddress);
+            nextUlongLowAddress += 4;
+        }
+
+        ulongValues.put(varName, value);
+
+        int b0Address = ulongAddresses.get(varName);
+        int b1Address = b0Address + 1;
+        int b2Address = b0Address + 2;
+        int b3Address = b0Address + 3;
+
+        int bankNumber = b0Address >> 7;
+
+        int b0Offset = b0Address & 0x7F;
+        int b1Offset = b1Address & 0x7F;
+        int b2Offset = b2Address & 0x7F;
+        int b3Offset = b3Address & 0x7F;
+
+        int byte0 = (int)(value & 0xFF);
+        int byte1 = (int)((value >> 8) & 0xFF);
+        int byte2 = (int)((value >> 16) & 0xFF);
+        int byte3 = (int)((value >> 24) & 0xFF);
+
+        String movlb = encodeMovlb(bankNumber);
+
+        String movlw0 = encodeMovlw(byte0);
+        String movwf0 = encodeMovwf(b0Offset);
+        String movlw1 = encodeMovlw(byte1);
+        String movwf1 = encodeMovwf(b1Offset);
+
+        String movlw2 = encodeMovlw(byte2);
+        String movwf2 = encodeMovwf(b2Offset);
+
+        String movlw3 = encodeMovlw(byte3);
+        String movwf3 = encodeMovwf(b3Offset);
+
+        return movlb
+            + movlw0 + movwf0
+            + movlw1 + movwf1
+            + movlw2 + movwf2
+            + movlw3 + movwf3;
+        }
 
     private String generateUint8Assignment(List<String> args) {
             if (args.size() != 2) {
@@ -1204,6 +1299,10 @@ public class pic16F1527x {
             resolved.add(String.valueOf(uint8Values.get(arg)));
         } else if (uint16Values.containsKey(arg)) {
             resolved.add(String.valueOf(uint16Values.get(arg)));
+        }
+        else if (ulongValues.containsKey(arg)) {
+            resolved.add(String.valueOf(ulongValues.get(arg)));
+        
         } else {
             resolved.add(arg);
         }
@@ -1211,6 +1310,42 @@ public class pic16F1527x {
 
     return resolved;
     }
+
+
+    private void emitAsm(String asm, StringBuilder codebuilder) {
+
+            for (int pos = 0; pos < asm.length(); pos += 20) {
+
+            if (PROGRAM_MEMORY_START > getMaxProgramAddress(cpu)) {
+            console.println("ERROR: program size bigger than ("
+            + cpu + ")'s flash capacity!");
+            return;
+            }
+
+            String chunk = asm.substring(
+            pos,
+            Math.min(pos + 20, asm.length())
+            );
+
+            while (chunk.length() < 20) {
+            chunk += "0";
+            }
+
+            String line =
+            "0A"
+            + String.format("%04X", PROGRAM_MEMORY_START)
+            + "00"
+            + chunk;
+       
+            String linec = line + calculateChecksum(line);
+        
+            codebuilder.append(":")
+            .append(linec)
+            .append(System.lineSeparator());
+        
+            PROGRAM_MEMORY_START += 0x000A;
+            }
+        }
 
 
     private void writeOutputFile(String extension, String content) {
@@ -1296,6 +1431,10 @@ public class pic16F1527x {
         uint16Addresses.clear();
         uint16Values.clear();
         nextUint16LowAddress = UINT16_BANK2_START;
+
+        ulongAddresses.clear();
+        ulongValues.clear();
+        nextUlongLowAddress = ULONG_BANK4_START;
 
         PROGRAM_MEMORY_START = 0x0000;
     }

@@ -60,6 +60,8 @@ public class pic16F1527x {
     private static final int ULONG_BANK5_START = 0x2A0;
     private static final int ULONG_BANK5_END   = 0x2EF;
     private Map<String, Long> ulongValues = new LinkedHashMap<>();
+    private Map<String, Float> floatValues = new LinkedHashMap<>();
+
 
 
     private int PROGRAM_MEMORY_START = 0x0000;
@@ -194,6 +196,28 @@ public class pic16F1527x {
             args.add(value);
        
             return new Instruction("int", args);
+            }
+        }
+
+
+        if (stmt.startsWith("float ")) {
+            String withoutPrefix = stmt.substring(6).trim();
+            int eqIndex = withoutPrefix.indexOf('=');
+        
+            if (eqIndex != -1) {
+        
+            String varName =
+            withoutPrefix.substring(0, eqIndex).trim();
+        
+            String value =
+            withoutPrefix.substring(eqIndex + 1).trim();
+     
+            List<String> args = new ArrayList<>();
+      
+            args.add(varName);
+            args.add(value);
+      
+            return new Instruction("float", args);
             }
         }
 
@@ -419,6 +443,8 @@ public class pic16F1527x {
                  return generateUlongAssignment(instr.args);
             case "int":
                  return generateIntAssignment(instr.args);
+            case "float":
+                 return generateFloatAssignment(instr.args);
 
             case "setPin":
                 return generateSetPin(instr.args);
@@ -566,7 +592,93 @@ public class pic16F1527x {
         return movlb + movlwLow + movwfLow + movlwHigh + movwfHigh; // 5 szó = 20 hex karakter
     }
 
+    private String generateFloatAssignment(List<String> args) {
 
+            if (args.size() != 2) {
+                console.println(
+                    "ERROR: Wrong parameter count for float: " + args
+                );
+                return "";
+            }
+
+            String varName = args.get(0);
+            String valueStr = args.get(1);
+
+            float value;
+
+            try {
+                value = Float.parseFloat(valueStr);
+            }
+            catch (NumberFormatException e) {
+
+                console.println(
+                    "ERROR: '" + valueStr
+                    + "' is not a valid float value for '"
+                    + varName + "'"
+                );
+
+                return "";
+            }
+
+            if (!ulongAddresses.containsKey(varName)) {
+
+                if (nextUlongLowAddress > ULONG_BANK4_END - 3
+                    && nextUlongLowAddress < ULONG_BANK5_START) {
+
+                    nextUlongLowAddress = ULONG_BANK5_START;
+                }
+
+                if (nextUlongLowAddress > ULONG_BANK5_END - 3) {
+
+                    console.println(
+                        "ERROR: no more 32-bit memory available"
+                    );
+
+                    return "";
+                }
+
+                ulongAddresses.put(
+                    varName,
+                    nextUlongLowAddress
+                );
+
+                nextUlongLowAddress += 4;
+            }
+
+            floatValues.put(varName, value);
+
+            int bits = Float.floatToIntBits(value);
+
+            int b0 = bits & 0xFF;
+            int b1 = (bits >> 8) & 0xFF;
+            int b2 = (bits >> 16) & 0xFF;
+            int b3 = (bits >> 24) & 0xFF;
+
+            int addr0 = ulongAddresses.get(varName);
+            int addr1 = addr0 + 1;
+            int addr2 = addr0 + 2;
+            int addr3 = addr0 + 3;
+
+            int bankNumber = addr0 >> 7;
+
+            String movlb = encodeMovlb(bankNumber);
+
+            return movlb
+
+                + encodeMovlw(b0)
+                + encodeMovwf(addr0 & 0x7F)
+
+                + encodeMovlw(b1)
+                + encodeMovwf(addr1 & 0x7F)
+
+                + encodeMovlw(b2)
+                + encodeMovwf(addr2 & 0x7F)
+
+                + encodeMovlw(b3)
+                + encodeMovwf(addr3 & 0x7F);
+        }
+
+        
     private String generateUlongAssignment(List<String> args) {
 
         if (args.size() != 2) {
@@ -1406,6 +1518,8 @@ public class pic16F1527x {
             resolved.add(String.valueOf(ulongValues.get(arg))); 
         } else if (intValues.containsKey(arg)) {
             resolved.add(String.valueOf(intValues.get(arg)));
+        } else if (floatValues.containsKey(arg)) {
+            resolved.add(String.valueOf(floatValues.get(arg)));
         } else {
             resolved.add(arg);
         }
@@ -1538,6 +1652,7 @@ public class pic16F1527x {
 
         ulongAddresses.clear();
         ulongValues.clear();
+        floatValues.clear();
         nextUlongLowAddress = ULONG_BANK4_START;
 
         

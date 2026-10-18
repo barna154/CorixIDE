@@ -176,42 +176,6 @@ public class Main {
         uploadb.setCursor(new Cursor(Cursor.HAND_CURSOR));
         uploadb.setOpaque(true);
         uploadb.setBackground(new Color(43, 43, 43));
-
-        uploadb.addMouseListener(new MouseAdapter() {
-           @Override
-                public void mouseClicked(MouseEvent e) { 
-    
-
-                    File current = te.getCurrentFile();
-                    if (current != null) {
-                        String filename = current.getName();
-
-                        if (filename.endsWith(".crxprjct")) {
-                            consolePanel.println("Translating: " + current.getAbsolutePath());
-                            complierPIC16F1527x.compile();
-                            uploadPIC.upload(current);
-
-
-                               
-                        } else {
-                            consolePanel.println("Not a script File!");
-                        }
-                    } else {
-                        consolePanel.println("No scriptfile opened!");
-                    }
-
-
-                }
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                    uploadb.setForeground(new Color(0, 168, 0));
-                }
-                @Override
-                public void mouseExited(MouseEvent e) {
-                    uploadb.setForeground(new Color(118, 118, 118));
-                }
-            });
-
         
             
         Menu.add(leftPanel, BorderLayout.WEST);
@@ -1084,6 +1048,43 @@ public class Main {
                 @Override
                 public void mouseExited(MouseEvent e) {
                     complinelb.setForeground(new Color(118, 118, 118));
+                }
+            });
+
+
+
+            uploadb.addMouseListener(new MouseAdapter() {
+            @Override
+                public void mouseClicked(MouseEvent e) { 
+    
+
+                    File current = te.getCurrentFile();
+                    if (current != null) {
+                        String filename = current.getName();
+
+                        if (filename.endsWith(".crxprjct")) {
+                            consolePanel.println("Translating: " + current.getAbsolutePath());
+                            complierPIC16F1527x.compile();
+                            uploadPIC.upload(current);
+
+
+                               
+                        } else {
+                            consolePanel.println("Not a script File!");
+                        }
+                    } else {
+                        consolePanel.println("No scriptfile opened!");
+                    }
+
+
+                }
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    uploadb.setForeground(new Color(0, 168, 0));
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    uploadb.setForeground(new Color(118, 118, 118));
                 }
             });
 

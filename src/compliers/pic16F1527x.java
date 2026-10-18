@@ -448,9 +448,9 @@ public class pic16F1527x {
                  return generateFloatAssignment(instr.args);
 
             case "setPin":
-                return generateSetPin(instr.args);
+                return generateSetPin(resolvedArgs);
             case "outPin":
-                return generateOutPin(instr.args);
+                return generateOutPin(resolvedArgs);
             default:
                 console.println("ERROR: unknown instruction: " + instr.name);
                 return "";

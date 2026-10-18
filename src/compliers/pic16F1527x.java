@@ -1511,7 +1511,7 @@ public class pic16F1527x {
         String direction = args.get(1);
 
 
-        if (getCpu.equals("PIC16F15276")) {
+        if (cpu.equals("PIC16F15276")) {
         if (pin >= 0 && pin <= 35) {
 
             int anselBankNumber = 62;
@@ -1600,7 +1600,7 @@ public class pic16F1527x {
 
 
 
-        if (getCpu.equals("PIC16F15276")) {
+        if (cpu.equals("PIC16F15276")) {
         if (pin >= 0 && pin <= 35) {
 
             int trisBankNumber = 0;

@@ -68,6 +68,7 @@ public class pic16F1527x {
     
 
     private int PROGRAM_MEMORY_START = 0x0000;
+    private int PROGRAM_WORD_ADDRESS = 0;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
     private static final Set<String> CONFIG_ONLY_INSTRUCTIONS = new HashSet<>(Arrays.asList(
             "setOsc", "setAnalogRange", "setClockOut", "setOverflowReset",
@@ -291,7 +292,7 @@ public class pic16F1527x {
             if (zone.equals("loop") && !inLoop) {
                 inLoop = true;
                 sawLoopZone = true;
-                loopStartAddress = PROGRAM_MEMORY_START;
+                loopStartAddress = PROGRAM_WORD_ADDRESS;
 
                 String loopnop = "02"
                         + String.format("%04X", loopStartAddress)
@@ -1761,6 +1762,7 @@ public class pic16F1527x {
             .append(System.lineSeparator());
         
             PROGRAM_MEMORY_START += 0x000A;
+            PROGRAM_WORD_ADDRESS += 5;
             }
         }
 
@@ -1858,6 +1860,7 @@ public class pic16F1527x {
         
 
         PROGRAM_MEMORY_START = 0x0000;
+         PROGRAM_WORD_ADDRESS = 0;
     }
 
     private int getMaxProgramAddress(String cpu) {

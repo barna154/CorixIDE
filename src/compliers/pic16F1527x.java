@@ -295,7 +295,7 @@ public class pic16F1527x {
                 loopStartAddress = PROGRAM_WORD_ADDRESS;
 
                 String loopnop = "02"
-                        + String.format("%04X", loopStartAddress)
+                        + String.format("%04X", PROGRAM_MEMORY_START)
                         + "00"
                         + "0000";
                 String loopnopc = loopnop + calculateChecksum(loopnop);

@@ -298,8 +298,15 @@ public class pic16F1527x {
                         + String.format("%04X", PROGRAM_MEMORY_START)
                         + "00"
                         + "0000";
+
                 String loopnopc = loopnop + calculateChecksum(loopnop);
-                codebuilder.append(":" + loopnopc + System.lineSeparator());
+
+                codebuilder.append(":")
+                        .append(loopnopc)
+                        .append(System.lineSeparator());
+
+                PROGRAM_MEMORY_START += 2;
+                PROGRAM_WORD_ADDRESS += 1;
             } else if (!zone.equals("loop") && inLoop) {
                 inLoop = false;
             }

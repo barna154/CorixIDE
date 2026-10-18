@@ -1,4 +1,3 @@
-
 package uploader;
 
 import menus.ConsolePanel;

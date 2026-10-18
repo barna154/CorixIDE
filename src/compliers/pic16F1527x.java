@@ -1583,15 +1583,13 @@ public class pic16F1527x {
 
             if (direction.equals("IN")) {
 
-                
-
             String bsftrish = null;
 
             if (pin >= 0 && pin <= 7) {
 
                 
                 String pinBin = String.format("%3s",Integer.toBinaryString(pin)).replace(' ', '0');
-                bcftrish = "000101" + pinBin + "0010010";
+                bsftrish = "000101" + pinBin + "0010010";
          
 
             }
@@ -1599,34 +1597,34 @@ public class pic16F1527x {
 
                 int normalizedPin = pin - 8;
                 String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
-                bcftrish = "000101" + pinBin + "0010011";
+                bsftrish = "000101" + pinBin + "0010011";
 
             }
             if (pin >= 16 && pin <= 23) {
 
                 int normalizedPin = pin - 16;
                 String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
-                bcftrish = "000101" + pinBin + "0010100";
+                bsftrish = "000101" + pinBin + "0010100";
     
             }
             if (pin >= 24 && pin <= 31) {
 
                 int normalizedPin = pin - 24;
                 String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
-                bcftrish = "000101" + pinBin + "0010101";
+                bsftrish = "000101" + pinBin + "0010101";
             }
             if (pin >= 32 && pin <= 35) {
 
                 int normalizedPin = pin - 32;
                 String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
-                bcftrish = "000101" + pinBin + "0010110";
+                bsftrish = "000101" + pinBin + "0010110";
             }
 
-                int bcftrishvalue = Integer.parseInt(bcftrish, 2);
+                int bcftrishvalue = Integer.parseInt(bsftrish, 2);
                 int bcftrishswapped = ((bcftrishvalue & 0xFF) << 8) | ((bcftrishvalue >> 8) & 0xFF);
-                String bcftrishhex = String.format("%04X", bcftrishswapped);
+                String bsftrishhex = String.format("%04X", bcftrishswapped);
 
-                return movlb2 + bcftrishhex;
+                return movlb2 + bsftrishhex;
             }
 
         } else {

@@ -21,6 +21,7 @@ import util.RoundedBorder;
 import util.AppPath;
 import editor.TextEditor;
 import compliers.pic16F1527x;
+import uploader.uploader;
 
 
 public class Main {
@@ -179,6 +180,27 @@ public class Main {
         uploadb.addMouseListener(new MouseAdapter() {
            @Override
                 public void mouseClicked(MouseEvent e) { 
+    
+
+                    File current = te.getCurrentFile();
+                    if (current != null) {
+                        String filename = current.getName();
+
+                        if (filename.endsWith(".crxprjct")) {
+                            consolePanel.println("Translating: " + current.getAbsolutePath());
+                            complierPIC16F1527x.compile();
+                            uploadPIC.upload(current);
+
+
+                               
+                        } else {
+                            consolePanel.println("Not a script File!");
+                        }
+                    } else {
+                        consolePanel.println("No scriptfile opened!");
+                    }
+
+
                 }
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -986,6 +1008,9 @@ public class Main {
 
 //complierek
          pic16F1527x complierPIC16F1527x = new pic16F1527x(te, consolePanel);
+
+
+         uploader uploadPIC = new uploader(consolePanel);
 
 //Menüpont listenerek
       labelFile.addMouseListener(new MouseAdapter() {

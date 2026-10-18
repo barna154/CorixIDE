@@ -1607,7 +1607,7 @@ public class pic16F1527x {
 
             String movlb2 = encodeMovlb(trisBankNumber);
 
-            if (value.equals("ON")) {
+            if (value.equals("TRUE")) {
 
             String bsflat = null;
 
@@ -1651,7 +1651,7 @@ public class pic16F1527x {
             }
 
 
-            if (value.equals("OFF")) {
+            if (value.equals("FALSE")) {
 
             String bcflat = null;
 

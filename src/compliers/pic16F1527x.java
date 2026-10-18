@@ -1650,6 +1650,50 @@ public class pic16F1527x {
                 return movlb2 + bsflathex;
             }
 
+
+            if (value.equals("OFF")) {
+
+            String bcflat = null;
+
+            if (pin >= 0 && pin <= 7) {
+
+                
+                String pinBin = String.format("%3s",Integer.toBinaryString(pin)).replace(' ', '0');
+                bcflat = "000100" + pinBin + "0011000";
+
+            }
+            if (pin >= 8 && pin <= 15) {
+
+                int normalizedPin = pin - 8;
+                String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
+                bcflat = "000100" + pinBin + "0011001";
+            }
+            if (pin >= 16 && pin <= 23) {
+
+                int normalizedPin = pin - 16;
+                String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
+                bcflat = "000100" + pinBin + "0011010";
+            }
+            if (pin >= 24 && pin <= 31) {
+
+                int normalizedPin = pin - 24;
+                String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
+                bcflat = "000100" + pinBin + "0011011";
+            }
+            if (pin >= 32 && pin <= 35) {
+
+                int normalizedPin = pin - 32;
+                String pinBin = String.format("%3s",Integer.toBinaryString(normalizedPin)).replace(' ', '0');
+                bcflat = "000100" + pinBin + "0011100";
+            }
+
+                int bcftrishvalue = Integer.parseInt(bcflat, 2);
+                int bcftrishswapped = ((bcftrishvalue & 0xFF) << 8) | ((bcftrishvalue >> 8) & 0xFF);
+                String bcflathex = String.format("%04X", bcftrishswapped);
+
+                return movlb2 + bcflathex;
+            }
+
         } else {
             console.println("Nem létező pin: " + pin);
             return "";

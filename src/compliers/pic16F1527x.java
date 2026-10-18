@@ -62,7 +62,10 @@ public class pic16F1527x {
     private Map<String, Long> ulongValues = new LinkedHashMap<>();
     private Map<String, Float> floatValues = new LinkedHashMap<>();
 
+    private static final Set<String> VARIABLE_INSTRUCTIONS = new HashSet<>(
+    Arrays.asList("bool", "uint8", "uint16", "int", "ulong", "float"));
 
+    
 
     private int PROGRAM_MEMORY_START = 0x0000;
     private static final int MAX_PROGRAM_ADDRESS = 0x0FFF;
@@ -90,9 +93,9 @@ public class pic16F1527x {
                 continue;
             }
 
-            if (line.startsWith("//")) {
-                continue;
-            }
+            int c = line.indexOf("//");
+            if (c >= 0) line = line.substring(0, c).trim();
+            if (line.isEmpty()) continue;
 
             if (line.startsWith("config") && line.endsWith("{")) {
                 zone = "config";
@@ -243,9 +246,7 @@ public class pic16F1527x {
     }
 
     private boolean shouldEmitHex(String zone, String instrName) {
-        if (zone.equals("config")) {
-            return instrName.equals("bool");
-        }
+        if (zone.equals("config")) return VARIABLE_INSTRUCTIONS.contains(instrName);
         return true;
     }
 
@@ -811,48 +812,69 @@ public class pic16F1527x {
         }
 
     private String generateBoolAssignment(List<String> args) {
-            if (args.size() != 2) {
-                console.println("ERROR: Wrong parameter count for bool: " + args);
-                return "";
-            }
-
-            String varName = args.get(0);
-            String value = args.get(1);
-
-            if (!boolAddresses.containsKey(varName)) {
-                if (nextBoolAddress > BOOL_BANK_END) {
-                    console.println("ERROR: you can only use 80 bools. the variable: '" + varName + "' not fit into the memory!");
-                    return "";
-                }
-                boolAddresses.put(varName, nextBoolAddress);
-                nextBoolAddress++;
-            }
-            boolValues.put(varName, value);
-
-
-            int address = boolAddresses.get(varName);
-            String bin7 = String.format("%7s", Integer.toBinaryString(address)).replace(' ', '0');
-            String asm;
-
-            if (value.equals("TRUE")) {
-                String bcfs = "0101000" + bin7;
-                int valuebcfs = Integer.parseInt(bcfs, 2);
-                String hexbcfs = String.format("%04X", valuebcfs);
-                String swapped = hexbcfs.substring(2, 4) + hexbcfs.substring(0, 2);
-                asm = String.format("4001" + swapped);
-            } else if (value.equals("FALSE")) {
-                String clrfs = "000000011" + bin7;
-                int valueclrf = Integer.parseInt(clrfs, 2);
-                String hexclrfs = String.format("%04X", valueclrf);
-                String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
-                asm = String.format("4001" +  swapped);
-            } else {
-                return "ERROR: Not recognizable value: " + value;
-            }
-
-            return asm;
+        if (args.size() != 2) {
+            console.println("ERROR: Wrong parameter count for bool: " + args);
+            return "";
         }
 
+        String varName = args.get(0);
+        String valueExpr = args.get(1);              
+
+        String value = resolveBoolExpression(valueExpr, varName);  
+        if (value == null) {
+            return "ERROR: Not recognizable value: " + valueExpr;
+        }
+
+        if (!boolAddresses.containsKey(varName)) {
+            if (nextBoolAddress > BOOL_BANK_END) {
+                console.println("ERROR: you can only use 80 bools. the variable: '" + varName + "' not fit into the memory!");
+                return "";
+            }
+            boolAddresses.put(varName, nextBoolAddress);
+            nextBoolAddress++;
+        }
+        boolValues.put(varName, value);
+
+
+        int address = boolAddresses.get(varName);
+        String bin7 = String.format("%7s", Integer.toBinaryString(address)).replace(' ', '0');
+        String asm;
+
+        if (value.equals("TRUE")) {
+            String bcfs = "0101000" + bin7;
+            int valuebcfs = Integer.parseInt(bcfs, 2);
+            String hexbcfs = String.format("%04X", valuebcfs);
+            String swapped = hexbcfs.substring(2, 4) + hexbcfs.substring(0, 2);
+            asm = String.format("4001" + swapped);
+        } else if (value.equals("FALSE")) {
+            String clrfs = "000000011" + bin7;
+            int valueclrf = Integer.parseInt(clrfs, 2);
+            String hexclrfs = String.format("%04X", valueclrf);
+            String swapped = hexclrfs.substring(2, 4) + hexclrfs.substring(0, 2);
+            asm = String.format("4001" +  swapped);
+        } else {
+            return "ERROR: Not recognizable value: " + value;
+        }
+
+        return asm;
+    }
+
+    private String resolveBoolExpression(String expr, String targetVarName) {
+        boolean negate = expr.startsWith("!");
+        String token = negate ? expr.substring(1).trim() : expr.trim();
+
+        String base;
+        if (token.equals("TRUE") || token.equals("FALSE")) {
+            base = token;
+        } else if (boolValues.containsKey(token)) {
+            base = boolValues.get(token);
+        } else {
+            return null;
+        }
+
+        if (!negate) return base;
+        return base.equals("TRUE") ? "FALSE" : "TRUE";
+    }
 
     private String generateSetOsc(List<String> args) {
         if (args.size() != 1) {
